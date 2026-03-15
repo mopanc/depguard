@@ -99,26 +99,60 @@ Weights are configurable via the `weights` option in `score()`.
 
 The threshold is configurable via `--threshold` (CLI) or `threshold` option (API).
 
+## Token Savings
+
+Every MCP tool response includes a `tokenSavings` field that shows how many LLM tokens you save compared to manual research (web searches, page fetches, reasoning).
+
+```json
+"tokenSavings": {
+  "responseTokens": 47,
+  "manualEstimate": 11100,
+  "saved": 11053,
+  "percentSaved": 100,
+  "manualSteps": [
+    "WebSearch: \"{package} npm quality maintenance\" (~800 tokens)",
+    "WebFetch: npm registry page (~3000 tokens)",
+    "WebFetch: GitHub repo for activity/stars (~3000 tokens)",
+    "WebSearch: \"{package} vulnerabilities\" (~800 tokens)",
+    "WebFetch: advisories page (~3000 tokens)",
+    "Reasoning: compute weighted score (~500 tokens)"
+  ]
+}
+```
+
+This is automatically included in every response — no configuration needed. It helps teams quantify the cost savings of using depguard in their AI workflows.
+
 ## MCP Server
 
-depguard includes a built-in MCP (Model Context Protocol) server for AI agent integration.
+depguard includes a built-in [MCP](https://modelcontextprotocol.io/) (Model Context Protocol) server for AI agent integration. It works with **any MCP-compatible client**.
 
-### Configure in Claude Code
+### Compatible AI clients
 
-Add to your Claude Code MCP settings (`~/.claude/settings.json` or project `.claude/settings.json`):
+| Client | Configuration |
+|--------|--------------|
+| Claude Code | `.mcp.json` or `~/.claude/settings.json` |
+| Claude Desktop | `claude_desktop_config.json` |
+| Cursor | MCP settings in IDE |
+| Windsurf | MCP settings in IDE |
+| Continue.dev | `config.json` MCP section |
+| Cline / Roo Code | MCP settings |
+
+### Setup
+
+Add to your MCP configuration file:
 
 ```json
 {
   "mcpServers": {
     "depguard": {
-      "command": "node",
-      "args": ["/path/to/depguard/dist/mcp.js"]
+      "command": "depguard-mcp",
+      "args": []
     }
   }
 }
 ```
 
-Or if installed globally:
+Or using npx (no install needed):
 
 ```json
 {
