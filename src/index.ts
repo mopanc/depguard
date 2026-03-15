@@ -4,6 +4,7 @@ export { score } from './scorer.js'
 export { shouldUse } from './advisor.js'
 export { checkLicenseCompatibility, knownLicenses } from './license.js'
 export { clearCache } from './registry.js'
+export { calculateSavings, estimateTokens } from './tokens.js'
 export type {
   AdvisorOptions,
   AuditReport,
@@ -22,3 +23,4 @@ export type {
   SearchOptions,
   VulnerabilitySummary,
 } from './types.js'
+export type { TokenSavings } from './tokens.js'
