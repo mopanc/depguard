@@ -1,4 +1,4 @@
-# depguard
+# depguard.ai
 
 Audit npm packages for security, maintenance, licenses, and dependencies. Recommends whether to install a package or write from scratch.
 
@@ -7,7 +7,7 @@ Built for AI agents and developers who need to make informed decisions about npm
 ## Install
 
 ```bash
-npm install -g depguard
+npm install -g depguard.ai
 ```
 
 Or use directly:
@@ -51,7 +51,7 @@ depguard should-use "http client" --threshold 70
 ## API
 
 ```typescript
-import { audit, search, score, shouldUse } from 'depguard'
+import { audit, search, score, shouldUse } from 'depguard.ai'
 
 // Full audit report
 const report = await audit('express', 'MIT')
@@ -125,7 +125,7 @@ Or if installed globally:
   "mcpServers": {
     "depguard": {
       "command": "npx",
-      "args": ["-y", "depguard", "--mcp"]
+      "args": ["-y", "depguard.ai", "--mcp"]
     }
   }
 }
