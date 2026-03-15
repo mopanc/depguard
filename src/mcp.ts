@@ -13,10 +13,11 @@ import { audit } from './audit.js'
 import { search } from './search.js'
 import { score } from './scorer.js'
 import { shouldUse } from './advisor.js'
+import { calculateSavings } from './tokens.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.0.0',
+  version: '1.1.0',
 }
 
 const TOOLS = [
@@ -94,9 +95,12 @@ function error(id: number | string | null, code: number, message: string): JsonR
   return { jsonrpc: '2.0', id, error: { code, message } }
 }
 
-function toolResult(content: unknown): unknown {
+function toolResult(toolName: string, content: unknown, argCount?: number): unknown {
+  const responseJson = JSON.stringify(content, null, 2)
+  const savings = calculateSavings(toolName, responseJson, argCount)
+  const enriched = { ...(content as Record<string, unknown>), tokenSavings: savings }
   return {
-    content: [{ type: 'text', text: JSON.stringify(content, null, 2) }],
+    content: [{ type: 'text', text: JSON.stringify(enriched, null, 2) }],
   }
 }
 
@@ -131,7 +135,7 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
               args.name as string,
               (args.targetLicense as string) ?? 'MIT',
             )
-            return success(req.id, toolResult(result))
+            return success(req.id, toolResult('depguard_audit', result))
           }
 
           case 'depguard_search': {
@@ -139,22 +143,23 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
               limit: (args.limit as number) ?? 10,
               minScore: (args.minScore as number) ?? 0,
             })
-            return success(req.id, toolResult(result))
+            return success(req.id, toolResult('depguard_search', result))
           }
 
           case 'depguard_score': {
             const result = await score(args.name as string, {
               targetLicense: (args.targetLicense as string) ?? 'MIT',
             })
-            return success(req.id, toolResult(result))
+            return success(req.id, toolResult('depguard_score', result))
           }
 
           case 'depguard_should_use': {
+            const limit = (args.limit as number) ?? 5
             const result = await shouldUse(args.intent as string, {
               threshold: (args.threshold as number) ?? 60,
               targetLicense: (args.targetLicense as string) ?? 'MIT',
             })
-            return success(req.id, toolResult(result))
+            return success(req.id, toolResult('depguard_should_use', result, limit))
           }
 
           default:
