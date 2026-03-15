@@ -1,5 +1,8 @@
 {
-  "name": "depguard",
+  "name": "@mopanc/depguard",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "1.0.0",
   "description": "Audit npm packages for security, maintenance, licenses and dependencies. Recommends install or write-from-scratch.",
   "author": "Jorge Morais",
