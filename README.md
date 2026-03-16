@@ -20,32 +20,32 @@ npx depguard-cli audit express
 
 ```bash
 # Full audit report
-depguard audit <package> [--target-license MIT] [--json]
+depguard-cli audit <package> [--target-license MIT] [--json]
 
 # Search npm for packages
-depguard search <keywords...> [--limit 10] [--json]
+depguard-cli search <keywords...> [--limit 10] [--json]
 
 # Score a package 0-100
-depguard score <package> [--target-license MIT] [--json]
+depguard-cli score <package> [--target-license MIT] [--json]
 
 # Get install/write recommendation
-depguard should-use <intent...> [--threshold 60] [--json]
+depguard-cli should-use <intent...> [--threshold 60] [--json]
 ```
 
 ### Examples
 
 ```bash
 # Audit express for an Apache-2.0 project
-depguard audit express --target-license Apache-2.0
+depguard-cli audit express --target-license Apache-2.0
 
 # Find date formatting libraries
-depguard search date formatting --limit 5
+depguard-cli search date formatting --limit 5
 
 # Score a package
-depguard score lodash --json
+depguard-cli score lodash --json
 
 # Should I install or write my own?
-depguard should-use "http client" --threshold 70
+depguard-cli should-use "http client" --threshold 70
 ```
 
 ## API
@@ -158,7 +158,7 @@ Or if installed globally:
 {
   "mcpServers": {
     "depguard": {
-      "command": "depguard",
+      "command": "depguard-cli",
       "args": ["--mcp"]
     }
   }

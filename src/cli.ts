@@ -27,10 +27,10 @@ const command = positionals[0]
 
 if (values.help || !command) {
   console.log(`
-depguard — Audit npm packages for security, maintenance, and license compatibility
+depguard-cli — Audit npm packages for security, maintenance, and license compatibility
 
 Usage:
-  depguard <command> <args> [options]
+  depguard-cli <command> <args> [options]
 
 Commands:
   audit <package>          Full audit report for a package
@@ -91,7 +91,7 @@ async function main() {
     case 'audit': {
       const name = positionals[1]
       if (!name) {
-        console.error('Usage: depguard audit <package>')
+        console.error('Usage: depguard-cli audit <package>')
         process.exit(1)
       }
       const report = await audit(name, targetLicense)
@@ -102,7 +102,7 @@ async function main() {
     case 'search': {
       const keywords = positionals.slice(1).join(' ')
       if (!keywords) {
-        console.error('Usage: depguard search <keywords...>')
+        console.error('Usage: depguard-cli search <keywords...>')
         process.exit(1)
       }
       const results = await search(keywords, { limit })
@@ -121,7 +121,7 @@ async function main() {
     case 'score': {
       const name = positionals[1]
       if (!name) {
-        console.error('Usage: depguard score <package>')
+        console.error('Usage: depguard-cli score <package>')
         process.exit(1)
       }
       const result = await score(name, { targetLicense })
@@ -132,7 +132,7 @@ async function main() {
     case 'should-use': {
       const intent = positionals.slice(1).join(' ')
       if (!intent) {
-        console.error('Usage: depguard should-use <intent...>')
+        console.error('Usage: depguard-cli should-use <intent...>')
         process.exit(1)
       }
       const rec = await shouldUse(intent, { threshold, targetLicense, limit: 5 })

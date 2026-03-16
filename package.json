@@ -1,6 +1,6 @@
 {
   "name": "depguard-cli",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Audit npm packages for security, maintenance, licenses and dependencies. Recommends install or write-from-scratch.",
   "author": "Jorge Morais",
   "license": "Apache-2.0",
@@ -8,8 +8,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "depguard": "./dist/cli.js",
-    "depguard-mcp": "./dist/mcp.js"
+    "depguard-cli": "./dist/cli.js"
   },
   "exports": {
     ".": {

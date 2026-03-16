@@ -17,7 +17,7 @@ import { calculateSavings } from './tokens.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.1.1',
+  version: '1.1.2',
 }
 
 const TOOLS = [
