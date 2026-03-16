@@ -1,33 +1,44 @@
 import type {
   CacheEntry,
   FetchFn,
+  GitHubAdvisory,
   NpmDownloadsResponse,
   NpmPackageData,
   NpmSearchResult,
   NpmAdvisory,
 } from './types.js'
+import { diskGet, diskSet, disableDiskCache } from './disk-cache.js'
+
+export { disableDiskCache }
 
 const REGISTRY_URL = 'https://registry.npmjs.org'
 const DOWNLOADS_URL = 'https://api.npmjs.org/downloads/point/last-week'
 const SEARCH_URL = 'https://registry.npmjs.org/-/v1/search'
 const ADVISORIES_URL = 'https://registry.npmjs.org/-/npm/v1/security/advisories/bulk'
+const GITHUB_ADVISORIES_URL = 'https://api.github.com/advisories'
 
 const DEFAULT_TTL = 5 * 60 * 1000 // 5 minutes
 
 const cache = new Map<string, CacheEntry<unknown>>()
 
 function getCached<T>(key: string): T | null {
+  // Check in-memory first
   const entry = cache.get(key) as CacheEntry<T> | undefined
-  if (!entry) return null
-  if (Date.now() > entry.expiresAt) {
-    cache.delete(key)
-    return null
+  if (entry) {
+    if (Date.now() > entry.expiresAt) {
+      cache.delete(key)
+    } else {
+      return entry.data
+    }
   }
-  return entry.data
+  // Fall back to disk cache (24h TTL)
+  return diskGet<T>(key)
 }
 
 function setCache<T>(key: string, data: T, ttl = DEFAULT_TTL): void {
   cache.set(key, { data, expiresAt: Date.now() + ttl })
+  // Also persist to disk for cross-session cache
+  diskSet(key, data)
 }
 
 /** Clear the in-memory cache */
@@ -126,6 +137,55 @@ export async function fetchAdvisories(
     const advisories = data[name] ?? []
     setCache(key, advisories)
     return advisories
+  } catch {
+    return []
+  }
+}
+
+/** Track GitHub rate limit state */
+let githubRateLimitRemaining = 60
+let githubRateLimitReset = 0
+
+/** Fetch security advisories from GitHub Advisory Database */
+export async function fetchGitHubAdvisories(
+  name: string,
+  fetcher: FetchFn = globalThis.fetch,
+): Promise<GitHubAdvisory[]> {
+  const key = `ghsa:${name}`
+  const cached = getCached<GitHubAdvisory[]>(key)
+  if (cached) return cached
+
+  // Skip GitHub if rate limited (reserve 5 requests as buffer)
+  if (githubRateLimitRemaining <= 5 && Date.now() / 1000 < githubRateLimitReset) {
+    return []
+  }
+
+  try {
+    const params = new URLSearchParams({
+      ecosystem: 'npm',
+      affects: name,
+      per_page: '30',
+    })
+    const res = await fetcher(`${GITHUB_ADVISORIES_URL}?${params}`, {
+      headers: { 'Accept': 'application/vnd.github+json' },
+    })
+
+    // Track rate limit from response headers
+    const remaining = res.headers?.get?.('x-ratelimit-remaining')
+    const reset = res.headers?.get?.('x-ratelimit-reset')
+    if (remaining) {
+      const parsed = parseInt(remaining, 10)
+      if (!isNaN(parsed)) githubRateLimitRemaining = parsed
+    }
+    if (reset) {
+      const parsed = parseInt(reset, 10)
+      if (!isNaN(parsed)) githubRateLimitReset = parsed
+    }
+
+    if (!res.ok) return []
+    const data = (await res.json()) as GitHubAdvisory[]
+    setCache(key, data)
+    return data
   } catch {
     return []
   }

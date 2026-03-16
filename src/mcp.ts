@@ -9,7 +9,9 @@
  * Zero dependencies — implements the MCP subset needed for tool serving.
  */
 
+import { cleanupDiskCache } from './disk-cache.js'
 import { audit } from './audit.js'
+import { auditBulk } from './bulk.js'
 import { search } from './search.js'
 import { score } from './scorer.js'
 import { shouldUse } from './advisor.js'
@@ -17,7 +19,7 @@ import { calculateSavings } from './tokens.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.1.2',
+  version: '1.2.0',
 }
 
 const TOOLS = [
@@ -56,6 +58,24 @@ const TOOLS = [
         targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
       },
       required: ['name'],
+    },
+  },
+  {
+    name: 'depguard_audit_bulk',
+    description: 'Audit multiple npm packages in a single call. Accepts a list of package names or a full dependencies object from package.json. Returns a consolidated report with vulnerability summary.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        packages: {
+          description: 'Array of package names OR a dependencies object from package.json (e.g. {"react": "^18.0.0", "express": "^4.0.0"})',
+          oneOf: [
+            { type: 'array', items: { type: 'string' } },
+            { type: 'object' },
+          ],
+        },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
+      },
+      required: ['packages'],
     },
   },
   {
@@ -153,6 +173,25 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
             return success(req.id, toolResult('depguard_score', result))
           }
 
+          case 'depguard_audit_bulk': {
+            const raw = args.packages
+            // Accept either an array of names or a dependencies object
+            const packageNames: string[] = Array.isArray(raw)
+              ? raw as string[]
+              : typeof raw === 'object' && raw !== null
+                ? Object.keys(raw as Record<string, unknown>)
+                : []
+
+            if (packageNames.length === 0) {
+              return error(req.id, -32602, 'packages must be a non-empty array or dependencies object')
+            }
+
+            const result = await auditBulk(packageNames, {
+              targetLicense: (args.targetLicense as string) ?? 'MIT',
+            })
+            return success(req.id, toolResult('depguard_audit_bulk', result, packageNames.length))
+          }
+
           case 'depguard_should_use': {
             const limit = (args.limit as number) ?? 5
             const result = await shouldUse(args.intent as string, {
@@ -184,6 +223,9 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
 }
 
 async function main() {
+  // Clean up expired cache files on startup
+  cleanupDiskCache()
+
   const { createInterface } = await import('node:readline')
 
   const rl = createInterface({ input: process.stdin })
