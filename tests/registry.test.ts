@@ -5,7 +5,9 @@ import {
   fetchDownloads,
   searchPackages,
   fetchAdvisories,
+  fetchGitHubAdvisories,
   clearCache,
+  disableDiskCache,
 } from '../src/registry.js'
 import type { FetchFn } from '../src/types.js'
 
@@ -29,7 +31,7 @@ function failingFetch(): FetchFn {
 }
 
 beforeEach(() => {
-  clearCache()
+  clearCache(); disableDiskCache()
 })
 
 describe('fetchPackage', () => {
@@ -125,6 +127,61 @@ describe('fetchAdvisories', () => {
 
   it('returns empty array on network error', async () => {
     const result = await fetchAdvisories('test', '1.0.0', failingFetch())
+    assert.deepStrictEqual(result, [])
+  })
+})
+
+describe('fetchGitHubAdvisories', () => {
+  it('returns advisories on success', async () => {
+    const advisories = [
+      {
+        ghsa_id: 'GHSA-xxxx-yyyy-zzzz',
+        cve_id: 'CVE-2025-12345',
+        summary: 'Test vulnerability',
+        severity: 'high',
+        html_url: 'https://github.com/advisories/GHSA-xxxx-yyyy-zzzz',
+        vulnerabilities: [{
+          package: { ecosystem: 'npm', name: 'express' },
+          vulnerable_version_range: '< 4.0.0',
+          first_patched_version: '4.0.0',
+        }],
+        cwes: [{ cwe_id: 'CWE-79' }],
+        cvss: { score: 7.5, vector_string: 'CVSS:3.1/AV:N' },
+      },
+    ]
+    const fetcher = mockFetch({ 'api.github.com/advisories': advisories })
+
+    // Wrap to add headers.get stub expected by the function
+    const wrappedFetcher = (async (input: string | URL | Request, init?: RequestInit) => {
+      const res = await fetcher(input, init)
+      return {
+        ...res,
+        ok: res.ok,
+        json: res.json,
+        headers: { get: () => null },
+      } as unknown as Response
+    }) as FetchFn
+
+    const result = await fetchGitHubAdvisories('express', wrappedFetcher)
+    assert.strictEqual(result.length, 1)
+    assert.strictEqual(result[0].ghsa_id, 'GHSA-xxxx-yyyy-zzzz')
+    assert.strictEqual(result[0].severity, 'high')
+  })
+
+  it('returns empty array on network error', async () => {
+    const result = await fetchGitHubAdvisories('test', failingFetch())
+    assert.deepStrictEqual(result, [])
+  })
+
+  it('returns empty array on non-ok response', async () => {
+    const fetcher = ((_input: string | URL | Request) => {
+      return Promise.resolve({
+        ok: false,
+        status: 403,
+        headers: { get: () => null },
+      } as unknown as Response)
+    }) as FetchFn
+    const result = await fetchGitHubAdvisories('test', fetcher)
     assert.deepStrictEqual(result, [])
   })
 })

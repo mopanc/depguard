@@ -1,7 +1,7 @@
 import { describe, it, beforeEach } from 'node:test'
 import assert from 'node:assert/strict'
 import { search } from '../src/search.js'
-import { clearCache } from '../src/registry.js'
+import { clearCache, disableDiskCache } from '../src/registry.js'
 import type { FetchFn } from '../src/types.js'
 
 const SEARCH_FIXTURE = {
@@ -33,7 +33,7 @@ function createSearchFetch(): FetchFn {
 }
 
 beforeEach(() => {
-  clearCache()
+  clearCache(); disableDiskCache()
 })
 
 describe('search', () => {

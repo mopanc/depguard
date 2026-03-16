@@ -5,13 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.2] - 2026-03-16
+## [1.2.0] - 2026-03-16
+
+### Added
+
+- **GitHub Advisory Database** — audit now combines npm registry advisories with GitHub Security Advisories (GHSA) for broader vulnerability coverage
+- **Bulk audit** — new `depguard_audit_bulk` MCP tool audits multiple packages in a single call, accepting a list of names or a `dependencies` object from `package.json`
+- **Install script analysis** — static analysis of `preinstall`, `install`, and `postinstall` scripts for supply chain attack patterns (curl pipe sh, reverse shells, credential theft, obfuscated code, env var exfiltration)
+- **Persistent disk cache** — results cached to `~/.depguard/cache/` with 24h TTL, surviving process restarts
+- **Automatic cache cleanup** — expired cache entries removed on MCP server startup
+- **GitHub rate limit protection** — gracefully degrades to npm-only when GitHub API rate limit is low
+- **Advisory source tracking** — each advisory now includes a `source` field (`npm` or `github`)
+- 10 new tests (74 total)
 
 ### Fixed
 
 - **Binary name** — `npx -y depguard-cli --mcp` now works correctly (bin renamed from `depguard` to `depguard-cli`)
 - Removed separate `depguard-mcp` binary — use `depguard-cli --mcp` instead
-- All CLI usage messages updated to `depguard-cli`
 
 ## [1.1.1] - 2026-03-16
 
@@ -53,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In-memory cache with TTL for registry requests
 - Comprehensive test suite (54 tests)
 
-[1.1.2]: https://github.com/mopanc/depguard/compare/v1.1.1...v1.1.2
+[1.2.0]: https://github.com/mopanc/depguard/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/mopanc/depguard/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/mopanc/depguard/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/mopanc/depguard/releases/tag/v1.0.0

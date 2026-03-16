@@ -53,6 +53,25 @@ export interface NpmAdvisory {
   url: string
   vulnerable_versions: string
   patched_versions: string | null
+  cwe?: string[]
+  cvss?: { score: number; vectorString: string }
+  source?: 'npm' | 'github'
+}
+
+/** GitHub Advisory Database response */
+export interface GitHubAdvisory {
+  ghsa_id: string
+  cve_id: string | null
+  summary: string
+  severity: 'low' | 'medium' | 'high' | 'critical'
+  html_url: string
+  vulnerabilities: Array<{
+    package: { ecosystem: string; name: string }
+    vulnerable_version_range: string
+    first_patched_version: string | null
+  }>
+  cwes: Array<{ cwe_id: string }>
+  cvss: { score: number; vector_string: string } | null
 }
 
 /** npm downloads response */
@@ -61,6 +80,20 @@ export interface NpmDownloadsResponse {
   package: string
   start: string
   end: string
+}
+
+/** Script analysis risk */
+export interface ScriptRisk {
+  script: string
+  pattern: string
+  severity: 'critical' | 'high' | 'moderate'
+  description: string
+}
+
+/** Script analysis result */
+export interface ScriptAnalysis {
+  suspicious: boolean
+  risks: ScriptRisk[]
 }
 
 /** Audit report for a package */
@@ -76,6 +109,7 @@ export interface AuditReport {
   hasInstallScripts: boolean
   deprecated: boolean
   vulnerabilities: VulnerabilitySummary
+  scriptAnalysis: ScriptAnalysis
   licenseCompatibility: LicenseCompatibility
   warnings: string[]
 }

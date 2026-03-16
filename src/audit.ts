@@ -1,11 +1,69 @@
-import type { AuditReport, FetchFn, VulnerabilitySummary } from './types.js'
-import { fetchPackage, fetchDownloads, fetchAdvisories } from './registry.js'
+import type { AuditReport, FetchFn, NpmAdvisory, VulnerabilitySummary } from './types.js'
+import { fetchPackage, fetchDownloads, fetchAdvisories, fetchGitHubAdvisories } from './registry.js'
 import { checkLicenseCompatibility } from './license.js'
+import { analyzeScripts } from './script-analysis.js'
 
 const INSTALL_SCRIPT_NAMES = ['preinstall', 'install', 'postinstall']
 
+/** Map GitHub severity to npm severity */
+function mapGitHubSeverity(severity: string): NpmAdvisory['severity'] {
+  switch (severity) {
+    case 'critical': return 'critical'
+    case 'high': return 'high'
+    case 'medium': return 'moderate'
+    case 'low': return 'low'
+    default: return 'low'
+  }
+}
+
+/**
+ * Merge npm and GitHub advisories, deduplicating by URL.
+ * GitHub advisories are converted to NpmAdvisory format.
+ */
+function mergeAdvisories(
+  npmAdvisories: NpmAdvisory[],
+  ghAdvisories: Awaited<ReturnType<typeof fetchGitHubAdvisories>>,
+): NpmAdvisory[] {
+  const seen = new Set<string>()
+  const merged: NpmAdvisory[] = []
+
+  // Add npm advisories first
+  for (const adv of npmAdvisories) {
+    seen.add(adv.url)
+    merged.push({ ...adv, source: 'npm' as const })
+  }
+
+  // Guard against non-array responses
+  if (!Array.isArray(ghAdvisories)) return merged
+
+  // Add GitHub advisories that aren't already covered
+  for (const gh of ghAdvisories) {
+    if (seen.has(gh.html_url)) continue
+
+    // Also check if we already have the same GHSA by matching URL patterns
+    const ghsaInNpm = npmAdvisories.some(a => a.url.includes(gh.ghsa_id))
+    if (ghsaInNpm) continue
+
+    const vuln = gh.vulnerabilities?.[0]
+    merged.push({
+      id: parseInt(gh.ghsa_id.replace(/\D/g, '').slice(0, 8)) || 0,
+      title: gh.summary,
+      severity: mapGitHubSeverity(gh.severity),
+      url: gh.html_url,
+      vulnerable_versions: vuln?.vulnerable_version_range ?? '*',
+      patched_versions: vuln?.first_patched_version ?? null,
+      cwe: gh.cwes?.map(c => c.cwe_id),
+      cvss: gh.cvss ? { score: gh.cvss.score, vectorString: gh.cvss.vector_string } : undefined,
+      source: 'github',
+    })
+  }
+
+  return merged
+}
+
 /**
  * Produce a full audit report for an npm package.
+ * Combines advisories from both npm registry and GitHub Advisory Database.
  * Never throws on network errors — returns a degraded report with warnings.
  */
 export async function audit(
@@ -30,6 +88,7 @@ export async function audit(
       hasInstallScripts: false,
       deprecated: false,
       vulnerabilities: emptyVulnerabilities(),
+      scriptAnalysis: { suspicious: false, risks: [] },
       licenseCompatibility: checkLicenseCompatibility(null, targetLicense),
       warnings: ['Could not fetch package data from npm registry'],
     }
@@ -38,17 +97,23 @@ export async function audit(
   const latestVersion = pkg['dist-tags']?.latest ?? Object.keys(pkg.versions).pop() ?? 'unknown'
   const versionData = pkg.versions[latestVersion]
 
-  // Fetch downloads and advisories concurrently
-  const [downloads, advisories] = await Promise.all([
+  // Fetch downloads, npm advisories, and GitHub advisories concurrently
+  const [downloads, npmAdvisories, ghAdvisories] = await Promise.all([
     fetchDownloads(name, fetcher).catch(() => {
       warnings.push('Could not fetch download counts')
       return 0
     }),
     fetchAdvisories(name, latestVersion, fetcher).catch(() => {
-      warnings.push('Could not fetch security advisories')
+      warnings.push('Could not fetch npm security advisories')
+      return []
+    }),
+    fetchGitHubAdvisories(name, fetcher).catch(() => {
+      warnings.push('Could not fetch GitHub security advisories')
       return []
     }),
   ])
+
+  const advisories = mergeAdvisories(npmAdvisories, ghAdvisories)
 
   const license = versionData?.license ?? pkg.license ?? null
   const deps = versionData?.dependencies ?? {}
@@ -56,6 +121,7 @@ export async function audit(
 
   const hasInstallScripts = INSTALL_SCRIPT_NAMES.some(s => s in scripts)
   const deprecated = !!versionData?.deprecated
+  const scriptResult = analyzeScripts(scripts as Record<string, string>)
 
   if (deprecated) {
     warnings.push(`Package is deprecated: ${versionData?.deprecated}`)
@@ -63,6 +129,17 @@ export async function audit(
 
   if (hasInstallScripts) {
     warnings.push('Package has install scripts — review carefully')
+  }
+
+  if (scriptResult.suspicious) {
+    const criticalCount = scriptResult.risks.filter(r => r.severity === 'critical').length
+    const highCount = scriptResult.risks.filter(r => r.severity === 'high').length
+    if (criticalCount > 0) {
+      warnings.push(`CRITICAL: ${criticalCount} suspicious pattern(s) found in install scripts`)
+    }
+    if (highCount > 0) {
+      warnings.push(`WARNING: ${highCount} potentially dangerous pattern(s) found in install scripts`)
+    }
   }
 
   const vulnerabilities: VulnerabilitySummary = {
@@ -95,6 +172,7 @@ export async function audit(
     hasInstallScripts,
     deprecated,
     vulnerabilities,
+    scriptAnalysis: scriptResult,
     licenseCompatibility: licenseCompat,
     warnings,
   }

@@ -1,7 +1,7 @@
 import { describe, it, beforeEach } from 'node:test'
 import assert from 'node:assert/strict'
 import { shouldUse } from '../src/advisor.js'
-import { clearCache } from '../src/registry.js'
+import { clearCache, disableDiskCache } from '../src/registry.js'
 import type { FetchFn } from '../src/types.js'
 
 function createAdvisorFetch(packages: Array<{ name: string; score: number; license?: string; downloads?: number }>): FetchFn {
@@ -73,7 +73,7 @@ function createAdvisorFetch(packages: Array<{ name: string; score: number; licen
 }
 
 beforeEach(() => {
-  clearCache()
+  clearCache(); disableDiskCache()
 })
 
 describe('shouldUse', () => {
@@ -141,7 +141,7 @@ describe('shouldUse', () => {
     // With high threshold, medium lib might get caution or write-from-scratch
     assert.ok(rec1.action !== 'install' || rec1.score !== null && rec1.score >= 90)
 
-    clearCache()
+    clearCache(); disableDiskCache()
     const rec2 = await shouldUse('something', { fetcher, threshold: 30 })
     // With low threshold, should recommend install
     assert.strictEqual(rec2.action, 'install')

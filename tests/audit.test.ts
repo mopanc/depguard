@@ -1,7 +1,7 @@
 import { describe, it, beforeEach } from 'node:test'
 import assert from 'node:assert/strict'
 import { audit } from '../src/audit.js'
-import { clearCache } from '../src/registry.js'
+import { clearCache, disableDiskCache } from '../src/registry.js'
 import type { FetchFn } from '../src/types.js'
 
 const FIXTURE_PKG = {
@@ -49,7 +49,7 @@ function createMockFetch(overrides: Record<string, unknown> = {}): FetchFn {
 }
 
 beforeEach(() => {
-  clearCache()
+  clearCache(); disableDiskCache()
 })
 
 describe('audit', () => {

@@ -1,17 +1,22 @@
 export { audit } from './audit.js'
+export { analyzeScripts } from './script-analysis.js'
+export { auditBulk } from './bulk.js'
 export { search } from './search.js'
 export { score } from './scorer.js'
 export { shouldUse } from './advisor.js'
 export { checkLicenseCompatibility, knownLicenses } from './license.js'
-export { clearCache } from './registry.js'
+export { clearCache, fetchGitHubAdvisories } from './registry.js'
 export { calculateSavings, estimateTokens } from './tokens.js'
 export type {
   AdvisorOptions,
   AuditReport,
   CacheEntry,
   FetchFn,
+  GitHubAdvisory,
   LicenseCompatibility,
   NpmAdvisory,
+  ScriptAnalysis,
+  ScriptRisk,
   NpmDownloadsResponse,
   NpmPackageData,
   NpmSearchResult,
@@ -24,3 +29,4 @@ export type {
   VulnerabilitySummary,
 } from './types.js'
 export type { TokenSavings } from './tokens.js'
+export type { BulkAuditReport, BulkAuditOptions } from './bulk.js'

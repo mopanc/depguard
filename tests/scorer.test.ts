@@ -1,7 +1,7 @@
 import { describe, it, beforeEach } from 'node:test'
 import assert from 'node:assert/strict'
 import { score } from '../src/scorer.js'
-import { clearCache } from '../src/registry.js'
+import { clearCache, disableDiskCache } from '../src/registry.js'
 import type { FetchFn } from '../src/types.js'
 
 function createScorerFetch(overrides: Record<string, unknown> = {}): FetchFn {
@@ -45,7 +45,7 @@ function createScorerFetch(overrides: Record<string, unknown> = {}): FetchFn {
 }
 
 beforeEach(() => {
-  clearCache()
+  clearCache(); disableDiskCache()
 })
 
 describe('score', () => {

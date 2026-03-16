@@ -84,6 +84,19 @@ function manualProfileFor(tool: string, argCount: number): ManualProfile {
         tokens: MANUAL_COST.webSearch * 2 + MANUAL_COST.webFetchLarge + MANUAL_COST.reasoning,
       }
 
+    case 'depguard_audit_bulk': {
+      const pkgCount = argCount || 10
+      const perPkg = MANUAL_COST.webSearch * 2 + MANUAL_COST.webFetch * 3 + MANUAL_COST.reasoning
+      return {
+        steps: [
+          `${pkgCount}x individual audit: each requires 2x WebSearch + 3x WebFetch + reasoning (~${perPkg} tokens each)`,
+          `Total manual cost for ${pkgCount} packages (~${perPkg * pkgCount} tokens)`,
+          `Reasoning: consolidate findings across all packages (~${MANUAL_COST.reasoning * 2} tokens)`,
+        ],
+        tokens: perPkg * pkgCount + MANUAL_COST.reasoning * 2,
+      }
+    }
+
     case 'depguard_should_use': {
       // shouldUse = search + score N packages + reasoning
       const candidateCount = argCount || 5
