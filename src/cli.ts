@@ -13,9 +13,15 @@ const { values, positionals } = parseArgs({
     'threshold': { type: 'string', default: '60' },
     'limit': { type: 'string', default: '10' },
     'json': { type: 'boolean', default: false },
+    'mcp': { type: 'boolean', default: false },
     'help': { type: 'boolean', short: 'h', default: false },
   },
 })
+
+// Launch MCP server when --mcp flag is passed
+if (values.mcp) {
+  void import('./mcp.js')
+} else {
 
 const command = positionals[0]
 
@@ -37,6 +43,7 @@ Options:
   --threshold <n>          Score threshold for should-use (default: 60)
   --limit <n>              Max results for search (default: 10)
   --json                   Output as JSON
+  --mcp                    Start MCP server (JSON-RPC over stdio)
   -h, --help               Show this help
 `)
   process.exit(0)
@@ -143,3 +150,4 @@ main().catch(err => {
   console.error(err.message)
   process.exit(1)
 })
+} // end else --mcp

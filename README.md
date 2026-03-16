@@ -1,4 +1,4 @@
-# depguard.ai
+# depguard-cli
 
 Audit npm packages for security, maintenance, licenses, and dependencies. Recommends whether to install a package or write from scratch.
 
@@ -7,13 +7,13 @@ Built for AI agents and developers who need to make informed decisions about npm
 ## Install
 
 ```bash
-npm install -g depguard.ai
+npm install -g depguard-cli
 ```
 
 Or use directly:
 
 ```bash
-npx depguard audit express
+npx depguard-cli audit express
 ```
 
 ## CLI
@@ -51,7 +51,7 @@ depguard should-use "http client" --threshold 70
 ## API
 
 ```typescript
-import { audit, search, score, shouldUse } from 'depguard.ai'
+import { audit, search, score, shouldUse } from 'depguard-cli'
 
 // Full audit report
 const report = await audit('express', 'MIT')
@@ -139,30 +139,36 @@ depguard includes a built-in [MCP](https://modelcontextprotocol.io/) (Model Cont
 
 ### Setup
 
-Add to your MCP configuration file:
-
-```json
-{
-  "mcpServers": {
-    "depguard": {
-      "command": "depguard-mcp",
-      "args": []
-    }
-  }
-}
-```
-
-Or using npx (no install needed):
+Using npx (no install needed):
 
 ```json
 {
   "mcpServers": {
     "depguard": {
       "command": "npx",
-      "args": ["-y", "depguard.ai", "--mcp"]
+      "args": ["-y", "depguard-cli", "--mcp"]
     }
   }
 }
+```
+
+Or if installed globally:
+
+```json
+{
+  "mcpServers": {
+    "depguard": {
+      "command": "depguard",
+      "args": ["--mcp"]
+    }
+  }
+}
+```
+
+Or via Claude Code CLI:
+
+```bash
+claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 ```
 
 ### Available tools

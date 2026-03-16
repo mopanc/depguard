@@ -1,6 +1,6 @@
 # Roadmap
 
-The plan for depguard.ai — where we are and where we're going.
+The plan for depguard-cli — where we are and where we're going.
 
 ## Released
 
