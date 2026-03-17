@@ -17,6 +17,15 @@ const SEARCH_URL = 'https://registry.npmjs.org/-/v1/search'
 const ADVISORIES_URL = 'https://registry.npmjs.org/-/npm/v1/security/advisories/bulk'
 const GITHUB_ADVISORIES_URL = 'https://api.github.com/advisories'
 
+/** Read GitHub token from environment (if available) for higher rate limits */
+function getGitHubToken(): string | null {
+  try {
+    return process.env.GITHUB_TOKEN || process.env.DEPGUARD_GITHUB_TOKEN || null
+  } catch {
+    return null
+  }
+}
+
 const DEFAULT_TTL = 5 * 60 * 1000 // 5 minutes
 
 const cache = new Map<string, CacheEntry<unknown>>()
@@ -166,9 +175,11 @@ export async function fetchGitHubAdvisories(
       affects: name,
       per_page: '30',
     })
-    const res = await fetcher(`${GITHUB_ADVISORIES_URL}?${params}`, {
-      headers: { 'Accept': 'application/vnd.github+json' },
-    })
+    const token = getGitHubToken()
+    const headers: Record<string, string> = { 'Accept': 'application/vnd.github+json' }
+    if (token) headers['Authorization'] = `Bearer ${token}`
+
+    const res = await fetcher(`${GITHUB_ADVISORIES_URL}?${params}`, { headers })
 
     // Track rate limit from response headers
     const remaining = res.headers?.get?.('x-ratelimit-remaining')

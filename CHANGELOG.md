@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-03-17
+
+### Added
+
+- **GitHub auth token support** — set `GITHUB_TOKEN` env var to increase GitHub Advisory API rate limit from 60 to 5,000 requests/hour. Auto-detected if already configured (Closes #9)
+- **Project audit** — new `depguard_audit_project` MCP tool that reads a `package.json` file path and audits all dependencies automatically, with optional devDependencies and auto-detected project license (Closes #11)
+- **Vulnerability fix suggestions** — each advisory now includes a `fixSuggestions` field with the specific version to upgrade to (Closes #24)
+- **Smart native advisor** — `should_use` now checks for native Node.js alternatives before recommending npm packages. Covers 20+ common intents (fetch, uuid, hashing, deep clone, testing, SQLite, etc.) with example code and minimum Node.js version (Closes #33)
+- **Semver range matching** — `satisfiesRange()` for accurate version-based advisory filtering
+- 9 new tests (93 total)
+
 ## [1.2.1] - 2026-03-17
 
 ### Fixed
@@ -70,6 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In-memory cache with TTL for registry requests
 - Comprehensive test suite (54 tests)
 
+[1.3.0]: https://github.com/mopanc/depguard/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/mopanc/depguard/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/mopanc/depguard/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/mopanc/depguard/compare/v1.1.0...v1.1.1

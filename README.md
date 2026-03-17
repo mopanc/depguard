@@ -177,9 +177,10 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 |------|-------------|
 | `depguard_audit` | Full security audit of an npm package |
 | `depguard_audit_bulk` | Audit multiple packages in a single call |
+| `depguard_audit_project` | Audit all dependencies from a package.json file path |
 | `depguard_search` | Search npm for packages by keywords |
 | `depguard_score` | Score a package 0-100 |
-| `depguard_should_use` | Recommend install vs write-from-scratch |
+| `depguard_should_use` | Recommend install, use native Node.js, or write from scratch |
 
 ### Bulk audit
 
@@ -196,6 +197,61 @@ console.log(report.summary)     // { critical: 0, high: 2, moderate: 5, low: 3 }
 ```
 
 Via MCP, the AI agent can pass the dependencies object from `package.json` directly — no need to extract package names manually.
+
+### Project audit
+
+Audit all dependencies from a `package.json` file in one call:
+
+```typescript
+import { auditProject } from 'depguard-cli'
+
+const report = await auditProject('./package.json', {
+  includeDevDependencies: true,  // also audit devDependencies
+})
+```
+
+Via MCP, the agent just passes the file path — depguard reads it, detects the project license, and audits everything.
+
+## Smart Advisor
+
+The `should_use` tool now checks for native Node.js alternatives before recommending npm packages:
+
+```
+"I need an http client"     → Use native fetch() (Node 18+). No package needed.
+"I need uuid generation"    → Use crypto.randomUUID() (Node 19+). No package needed.
+"I need deep cloning"       → Use structuredClone() (Node 17+). No package needed.
+"I need a date formatter"   → Install date-fns (score 85). No native alternative.
+```
+
+Covers 20+ common intents including fetch, uuid, hashing, URL parsing, CLI args, testing, SQLite, glob, streams, compression, and more. Each recommendation includes example code and the minimum Node.js version required.
+
+## Fix Suggestions
+
+When vulnerabilities are found, each audit report includes actionable fix suggestions:
+
+```json
+"fixSuggestions": [
+  {
+    "vulnerability": "Prototype Pollution",
+    "severity": "high",
+    "currentVersion": "4.17.19",
+    "fixVersion": "4.17.21",
+    "action": "upgrade"
+  }
+]
+```
+
+If no patch exists, `action` is `"no-fix-available"`.
+
+## GitHub Token
+
+For higher GitHub Advisory API rate limits (60/hour → 5,000/hour), set a GitHub token:
+
+```bash
+export GITHUB_TOKEN=ghp_your_token_here
+```
+
+No special scopes needed — the token only identifies you for rate limiting. If already set (e.g. by `gh` CLI or GitHub Actions), depguard uses it automatically.
 
 ## Install Script Analysis
 
@@ -257,7 +313,7 @@ A dependency is compatible if its license is equally or more permissive than you
 ```bash
 npm run build    # compile TypeScript
 npm run lint     # ESLint (strict)
-npm test         # 84 tests (all offline)
+npm test         # 93 tests (all offline)
 npm run check    # build + lint + test + audit
 ```
 
