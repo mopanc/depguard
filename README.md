@@ -224,7 +224,7 @@ depguard combines two advisory databases for maximum coverage:
 | **npm Registry** | Advisories from `npm audit` |
 | **GitHub Advisory Database** | GHSA advisories, often not in npm |
 
-Results are deduplicated and each advisory includes a `source` field (`npm` or `github`).
+Results are deduplicated, filtered by the current package version (only vulnerabilities that actually affect the installed version are reported), and each advisory includes a `source` field (`npm` or `github`).
 
 ### Caching
 
@@ -257,7 +257,7 @@ A dependency is compatible if its license is equally or more permissive than you
 ```bash
 npm run build    # compile TypeScript
 npm run lint     # ESLint (strict)
-npm test         # 54 tests (all offline)
+npm test         # 84 tests (all offline)
 npm run check    # build + lint + test + audit
 ```
 

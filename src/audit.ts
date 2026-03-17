@@ -2,6 +2,7 @@ import type { AuditReport, FetchFn, NpmAdvisory, VulnerabilitySummary } from './
 import { fetchPackage, fetchDownloads, fetchAdvisories, fetchGitHubAdvisories } from './registry.js'
 import { checkLicenseCompatibility } from './license.js'
 import { analyzeScripts } from './script-analysis.js'
+import { satisfiesRange } from './semver.js'
 
 const INSTALL_SCRIPT_NAMES = ['preinstall', 'install', 'postinstall']
 
@@ -23,11 +24,12 @@ function mapGitHubSeverity(severity: string): NpmAdvisory['severity'] {
 function mergeAdvisories(
   npmAdvisories: NpmAdvisory[],
   ghAdvisories: Awaited<ReturnType<typeof fetchGitHubAdvisories>>,
+  currentVersion: string,
 ): NpmAdvisory[] {
   const seen = new Set<string>()
   const merged: NpmAdvisory[] = []
 
-  // Add npm advisories first
+  // Add npm advisories first (npm bulk endpoint already filters by version)
   for (const adv of npmAdvisories) {
     seen.add(adv.url)
     merged.push({ ...adv, source: 'npm' as const })
@@ -44,13 +46,19 @@ function mergeAdvisories(
     const ghsaInNpm = npmAdvisories.some(a => a.url.includes(gh.ghsa_id))
     if (ghsaInNpm) continue
 
+    // Filter: only include if current version is actually affected
     const vuln = gh.vulnerabilities?.[0]
+    const range = vuln?.vulnerable_version_range
+    if (range && !satisfiesRange(currentVersion, range)) {
+      continue // Current version is NOT in the vulnerable range — skip
+    }
+
     merged.push({
       id: parseInt(gh.ghsa_id.replace(/\D/g, '').slice(0, 8)) || 0,
       title: gh.summary,
       severity: mapGitHubSeverity(gh.severity),
       url: gh.html_url,
-      vulnerable_versions: vuln?.vulnerable_version_range ?? '*',
+      vulnerable_versions: range ?? '*',
       patched_versions: vuln?.first_patched_version ?? null,
       cwe: gh.cwes?.map(c => c.cwe_id),
       cvss: gh.cvss ? { score: gh.cvss.score, vectorString: gh.cvss.vector_string } : undefined,
@@ -113,7 +121,7 @@ export async function audit(
     }),
   ])
 
-  const advisories = mergeAdvisories(npmAdvisories, ghAdvisories)
+  const advisories = mergeAdvisories(npmAdvisories, ghAdvisories, latestVersion)
 
   const license = versionData?.license ?? pkg.license ?? null
   const deps = versionData?.dependencies ?? {}
