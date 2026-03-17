@@ -11,7 +11,7 @@
 
 import { cleanupDiskCache } from './disk-cache.js'
 import { audit } from './audit.js'
-import { auditBulk } from './bulk.js'
+import { auditBulk, auditProject } from './bulk.js'
 import { search } from './search.js'
 import { score } from './scorer.js'
 import { shouldUse } from './advisor.js'
@@ -19,7 +19,7 @@ import { calculateSavings } from './tokens.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.2.1',
+  version: '1.3.0',
 }
 
 const TOOLS = [
@@ -76,6 +76,19 @@ const TOOLS = [
         targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
       },
       required: ['packages'],
+    },
+  },
+  {
+    name: 'depguard_audit_project',
+    description: 'Audit all dependencies from a package.json file path. Reads the file, extracts all dependency names, and runs a bulk audit.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        path: { type: 'string', description: 'Absolute path to package.json file' },
+        includeDevDependencies: { type: 'boolean', description: 'Include devDependencies in audit (default: false)' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (auto-detected from package.json if not set)' },
+      },
+      required: ['path'],
     },
   },
   {
@@ -190,6 +203,26 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
               targetLicense: (args.targetLicense as string) ?? 'MIT',
             })
             return success(req.id, toolResult('depguard_audit_bulk', result, packageNames.length))
+          }
+
+          case 'depguard_audit_project': {
+            const filePath = args.path as string
+            if (!filePath) {
+              return error(req.id, -32602, 'path is required')
+            }
+            try {
+              const result = await auditProject(filePath, {
+                includeDevDependencies: (args.includeDevDependencies as boolean) ?? false,
+                targetLicense: args.targetLicense as string | undefined,
+              })
+              return success(req.id, toolResult('depguard_audit_bulk', result, result.total))
+            } catch (err) {
+              const msg = err instanceof Error ? err.message : 'Failed to read package.json'
+              return success(req.id, {
+                content: [{ type: 'text', text: `Error: ${msg}` }],
+                isError: true,
+              })
+            }
           }
 
           case 'depguard_should_use': {

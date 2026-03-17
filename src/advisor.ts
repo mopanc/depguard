@@ -1,13 +1,15 @@
 import type { AdvisorOptions, Recommendation } from './types.js'
 import { search } from './search.js'
 import { score } from './scorer.js'
+import { findNativeAlternative } from './native-alternatives.js'
 
 /**
  * Given a user intent (e.g. "date formatting", "http client"),
- * search for packages, audit the top results, and recommend
- * whether to install one or write from scratch.
+ * first check if Node.js has a native solution, then search for
+ * packages, audit the top results, and recommend the best option.
  *
  * Thresholds:
+ *   native match: "use-native"
  *   ≥60: "install"
  *   40-59: "caution"
  *   <40: "write-from-scratch"
@@ -23,6 +25,29 @@ export async function shouldUse(
     fetcher = globalThis.fetch,
   } = options
 
+  // Check for native Node.js alternative first
+  const native = findNativeAlternative(intent)
+  if (native) {
+    // Still search npm to provide alternatives if user wants them
+    const results = await search(intent, { limit: 3, fetcher }).catch(() => [])
+    const alternatives = results.map(r => ({ name: r.name, score: r.score }))
+
+    return {
+      intent,
+      action: 'use-native',
+      package: null,
+      score: null,
+      nativeAlternative: {
+        api: native.api,
+        example: native.example,
+        minNodeVersion: native.minNodeVersion,
+      },
+      alternatives,
+      reasoning: `Node.js has a built-in solution: ${native.api} (available since Node ${native.minNodeVersion}). No package needed.`,
+      warnings: [],
+    }
+  }
+
   const results = await search(intent, { limit, fetcher })
 
   if (results.length === 0) {
@@ -31,6 +56,7 @@ export async function shouldUse(
       action: 'write-from-scratch',
       package: null,
       score: null,
+      nativeAlternative: null,
       alternatives: [],
       reasoning: 'No packages found matching this intent',
       warnings: [],
@@ -60,6 +86,7 @@ export async function shouldUse(
     action,
     package: action !== 'write-from-scratch' ? best.name : null,
     score: best.score,
+    nativeAlternative: null,
     alternatives,
     reasoning,
     warnings: allWarnings,

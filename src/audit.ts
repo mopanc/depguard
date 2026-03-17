@@ -1,4 +1,4 @@
-import type { AuditReport, FetchFn, NpmAdvisory, VulnerabilitySummary } from './types.js'
+import type { AuditReport, FetchFn, FixSuggestion, NpmAdvisory, VulnerabilitySummary } from './types.js'
 import { fetchPackage, fetchDownloads, fetchAdvisories, fetchGitHubAdvisories } from './registry.js'
 import { checkLicenseCompatibility } from './license.js'
 import { analyzeScripts } from './script-analysis.js'
@@ -97,6 +97,7 @@ export async function audit(
       deprecated: false,
       vulnerabilities: emptyVulnerabilities(),
       scriptAnalysis: { suspicious: false, risks: [] },
+      fixSuggestions: [],
       licenseCompatibility: checkLicenseCompatibility(null, targetLicense),
       warnings: ['Could not fetch package data from npm registry'],
     }
@@ -159,6 +160,15 @@ export async function audit(
     advisories,
   }
 
+  // Generate fix suggestions from advisories
+  const fixSuggestions: FixSuggestion[] = advisories.map(adv => ({
+    vulnerability: adv.title,
+    severity: adv.severity,
+    currentVersion: latestVersion,
+    fixVersion: adv.patched_versions ?? null,
+    action: adv.patched_versions ? 'upgrade' as const : 'no-fix-available' as const,
+  }))
+
   const licenseCompat = checkLicenseCompatibility(license, targetLicense)
 
   // Compute last publish date
@@ -181,6 +191,7 @@ export async function audit(
     deprecated,
     vulnerabilities,
     scriptAnalysis: scriptResult,
+    fixSuggestions,
     licenseCompatibility: licenseCompat,
     warnings,
   }

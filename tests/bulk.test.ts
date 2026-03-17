@@ -1,6 +1,8 @@
-import { describe, it, beforeEach } from 'node:test'
+import { describe, it, beforeEach, afterEach } from 'node:test'
 import assert from 'node:assert/strict'
-import { auditBulk } from '../src/bulk.js'
+import { writeFileSync, mkdirSync, rmSync } from 'node:fs'
+import { join } from 'node:path'
+import { auditBulk, auditProject } from '../src/bulk.js'
 import { clearCache, disableDiskCache } from '../src/registry.js'
 import type { FetchFn } from '../src/types.js'
 
@@ -113,5 +115,70 @@ describe('auditBulk', () => {
     assert.strictEqual(report.total, 7)
     // With concurrency=2, we should never have more than 2 registry fetches in flight
     assert.ok(maxInFlight <= 2, `Expected max 2 in flight, got ${maxInFlight}`)
+  })
+})
+
+describe('auditProject', () => {
+  const tmpDir = join(process.cwd(), '.test-tmp-project')
+
+  beforeEach(() => {
+    mkdirSync(tmpDir, { recursive: true })
+  })
+
+  afterEach(() => {
+    rmSync(tmpDir, { recursive: true, force: true })
+  })
+
+  it('audits dependencies from package.json file', async () => {
+    const pkg = {
+      name: 'test-project',
+      license: 'MIT',
+      dependencies: { 'pkg-a': '^1.0.0', 'pkg-b': '^2.0.0' },
+      devDependencies: { 'pkg-dev': '^1.0.0' },
+    }
+    const filePath = join(tmpDir, 'package.json')
+    writeFileSync(filePath, JSON.stringify(pkg))
+
+    const fetcher = createMockFetch(['pkg-a', 'pkg-b'])
+    const report = await auditProject(filePath, { fetcher })
+
+    // Should only audit deps, not devDeps
+    assert.strictEqual(report.total, 2)
+    const names = report.results.map(r => r.name)
+    assert.ok(names.includes('pkg-a'))
+    assert.ok(names.includes('pkg-b'))
+  })
+
+  it('includes devDependencies when requested', async () => {
+    const pkg = {
+      name: 'test-project',
+      dependencies: { 'pkg-a': '^1.0.0' },
+      devDependencies: { 'pkg-dev': '^1.0.0' },
+    }
+    const filePath = join(tmpDir, 'package.json')
+    writeFileSync(filePath, JSON.stringify(pkg))
+
+    const fetcher = createMockFetch(['pkg-a', 'pkg-dev'])
+    const report = await auditProject(filePath, { fetcher, includeDevDependencies: true })
+
+    assert.strictEqual(report.total, 2)
+    const names = report.results.map(r => r.name)
+    assert.ok(names.includes('pkg-a'))
+    assert.ok(names.includes('pkg-dev'))
+  })
+
+  it('uses project license as target if not set', async () => {
+    const pkg = {
+      name: 'test-project',
+      license: 'Apache-2.0',
+      dependencies: { 'pkg-a': '^1.0.0' },
+    }
+    const filePath = join(tmpDir, 'package.json')
+    writeFileSync(filePath, JSON.stringify(pkg))
+
+    const fetcher = createMockFetch(['pkg-a'])
+    const report = await auditProject(filePath, { fetcher })
+
+    assert.strictEqual(report.results[0].licenseCompatibility.targetLicense, 'Apache-2.0')
   })
 })

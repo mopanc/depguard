@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import type { AuditReport, FetchFn } from './types.js'
 import { audit } from './audit.js'
 
@@ -79,4 +80,38 @@ export async function auditBulk(
     results,
     summary,
   }
+}
+
+/** Options for project audit */
+export interface ProjectAuditOptions extends BulkAuditOptions {
+  includeDevDependencies?: boolean
+}
+
+/**
+ * Audit all dependencies from a package.json file.
+ * Reads the file, extracts dependency names, and runs bulk audit.
+ */
+export async function auditProject(
+  packageJsonPath: string,
+  options: ProjectAuditOptions = {},
+): Promise<BulkAuditReport> {
+  const { includeDevDependencies = false, ...bulkOptions } = options
+
+  const raw = readFileSync(packageJsonPath, 'utf-8')
+  const pkg = JSON.parse(raw) as {
+    dependencies?: Record<string, string>
+    devDependencies?: Record<string, string>
+    license?: string
+  }
+
+  const deps = Object.keys(pkg.dependencies ?? {})
+  const devDeps = includeDevDependencies ? Object.keys(pkg.devDependencies ?? {}) : []
+  const allPackages = [...new Set([...deps, ...devDeps])]
+
+  // Use project license as target if not explicitly set
+  if (!bulkOptions.targetLicense && pkg.license) {
+    bulkOptions.targetLicense = pkg.license
+  }
+
+  return auditBulk(allPackages, bulkOptions)
 }

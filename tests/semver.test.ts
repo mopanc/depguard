@@ -21,12 +21,9 @@ describe('satisfiesRange', () => {
     assert.strictEqual(satisfiesRange('1.2.4', '= 1.2.3'), false)
   })
 
-  it('handles <= operator', () => {
+  it('handles <= and >= operators', () => {
     assert.strictEqual(satisfiesRange('3.5.0', '<= 3.5.0'), true)
     assert.strictEqual(satisfiesRange('3.5.1', '<= 3.5.0'), false)
-  })
-
-  it('handles >= operator', () => {
     assert.strictEqual(satisfiesRange('3.5.0', '>= 3.5.0'), true)
     assert.strictEqual(satisfiesRange('3.4.9', '>= 3.5.0'), false)
   })
@@ -36,24 +33,20 @@ describe('satisfiesRange', () => {
     assert.strictEqual(satisfiesRange('v4.17.21', '< 4.17.20'), false)
   })
 
-  it('returns true for wildcard range', () => {
+  it('returns true for wildcard or empty range', () => {
     assert.strictEqual(satisfiesRange('1.0.0', '*'), true)
-  })
-
-  it('returns true for empty/null range', () => {
     assert.strictEqual(satisfiesRange('1.0.0', ''), true)
   })
 
   it('returns true for unparseable version (safe default)', () => {
-    assert.strictEqual(satisfiesRange('not-a-version', '< 4.0.0'), true)
+    assert.strictEqual(satisfiesRange('unknown', '< 4.0.0'), true)
   })
 
-  it('handles real-world GitHub advisory ranges', () => {
-    // React: advisory for versions < 0.4.2 should NOT affect 19.2.4
+  it('handles real GitHub advisory ranges', () => {
+    // React advisory for 0.4.x should NOT affect 19.x
     assert.strictEqual(satisfiesRange('19.2.4', '>= 0.4.0, < 0.4.2'), false)
-    // Express: advisory for < 4.21.2 SHOULD affect 4.21.1
+    // Express advisory should affect 4.21.1 but not 5.0.0
     assert.strictEqual(satisfiesRange('4.21.1', '< 4.21.2'), true)
-    // Express: but NOT 5.0.0
     assert.strictEqual(satisfiesRange('5.0.0', '< 4.21.2'), false)
   })
 })

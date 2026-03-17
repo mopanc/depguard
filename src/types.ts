@@ -96,6 +96,15 @@ export interface ScriptAnalysis {
   risks: ScriptRisk[]
 }
 
+/** Fix suggestion for a vulnerability */
+export interface FixSuggestion {
+  vulnerability: string
+  severity: string
+  currentVersion: string
+  fixVersion: string | null
+  action: 'upgrade' | 'no-fix-available'
+}
+
 /** Audit report for a package */
 export interface AuditReport {
   name: string
@@ -110,6 +119,7 @@ export interface AuditReport {
   deprecated: boolean
   vulnerabilities: VulnerabilitySummary
   scriptAnalysis: ScriptAnalysis
+  fixSuggestions: FixSuggestion[]
   licenseCompatibility: LicenseCompatibility
   warnings: string[]
 }
@@ -171,12 +181,20 @@ export interface SearchOptions {
   fetcher?: FetchFn
 }
 
+/** Native Node.js alternative */
+export interface NativeAlternativeInfo {
+  api: string
+  example: string
+  minNodeVersion: string
+}
+
 /** Advisor recommendation */
 export interface Recommendation {
   intent: string
-  action: 'install' | 'caution' | 'write-from-scratch'
+  action: 'install' | 'caution' | 'write-from-scratch' | 'use-native'
   package: string | null
   score: number | null
+  nativeAlternative: NativeAlternativeInfo | null
   alternatives: Array<{ name: string; score: number }>
   reasoning: string
   warnings: string[]
