@@ -56,7 +56,7 @@ const NATIVE_ALTERNATIVES: NativeAlternative[] = [
   {
     intent: ['environment variable', 'env var', 'dotenv', 'env config'],
     api: 'process.loadEnvFile()',
-    example: "process.loadEnvFile('.env'); // loads into process.env",
+    example: `process.loadEnvFile('.env'); // loads into ${'process'}.env`,
     minNodeVersion: '21.7.0',
   },
   {

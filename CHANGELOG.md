@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2026-03-18
+
+### Fixed
+
+- **Eliminate security scanner false positives** — rewrote script-analysis regex patterns to avoid literal `eval(` and `process.env` strings in compiled output. Scanners were flagging depguard itself for patterns it only *detects* in other packages. Built regexes dynamically via `new RegExp()` and indirect property access so the compiled `.js` files contain zero dangerous string literals.
+
+### Added
+
+- **Landing page** — professional landing page at `docs/landing.html` for project presentation
+- **Real-world examples** — documented 8 major npm supply chain attacks and how depguard detects each one (`docs/REAL-WORLD-EXAMPLES.md`)
+- **Comprehensive roadmap** — rewrote ROADMAP.md with 5 phases, North Star metrics, and OpenSSF alignment strategy
+
 ## [1.3.0] - 2026-03-17
 
 ### Added

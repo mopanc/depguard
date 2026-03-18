@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>depguard — npm Supply Chain Security for AI Agents & Developers</title>
+  <meta name="description" content="Zero-dependency npm package auditing. Security scoring, vulnerability triage, supply chain attack detection, and smart recommendations — built for AI agents and developers.">
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --surface-2: #1a2332;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #22d3ee;
+      --accent-2: #06b6d4;
+      --green: #34d399;
+      --red: #f87171;
+      --orange: #fb923c;
+      --yellow: #fbbf24;
+      --purple: #a78bfa;
+      --max-w: 1120px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 50; background: rgba(10,14,23,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; }
+    nav .inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    nav .logo { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+    nav .logo span { color: var(--text-muted); font-weight: 400; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav ul a { color: var(--text-muted); font-size: .85rem; }
+    nav ul a:hover { color: var(--text); text-decoration: none; }
+
+    /* HERO */
+    .hero { max-width: var(--max-w); margin: 0 auto; padding: 6rem 2rem 4rem; text-align: center; }
+    .hero .badge { display: inline-block; background: var(--surface-2); border: 1px solid var(--border); padding: .3rem 1rem; border-radius: 999px; font-size: .75rem; color: var(--accent); margin-bottom: 1.5rem; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .hero h1 .highlight { color: var(--accent); }
+    .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 2rem; }
+    .hero .cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero .cta a { display: inline-flex; align-items: center; gap: .5rem; padding: .7rem 1.6rem; border-radius: 8px; font-size: .9rem; font-weight: 600; font-family: inherit; }
+    .btn-primary { background: var(--accent-2); color: var(--bg); }
+    .btn-primary:hover { background: var(--accent); text-decoration: none; }
+    .btn-secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); text-decoration: none; }
+
+    /* TERMINAL */
+    .terminal-wrap { max-width: 720px; margin: 3rem auto 0; }
+    .terminal { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; text-align: left; }
+    .terminal-bar { background: var(--surface-2); padding: .5rem 1rem; display: flex; gap: 6px; align-items: center; }
+    .terminal-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-bar .dot.r { background: var(--red); }
+    .terminal-bar .dot.y { background: var(--yellow); }
+    .terminal-bar .dot.g { background: var(--green); }
+    .terminal pre { padding: 1.2rem 1.5rem; font-size: .82rem; overflow-x: auto; line-height: 1.7; }
+    .terminal .prompt { color: var(--green); }
+    .terminal .cmd { color: var(--text); }
+    .terminal .comment { color: var(--text-muted); }
+    .terminal .val { color: var(--accent); }
+    .terminal .warn { color: var(--orange); }
+    .terminal .crit { color: var(--red); }
+
+    /* SECTIONS */
+    section { max-width: var(--max-w); margin: 0 auto; padding: 5rem 2rem; }
+    section h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: .5rem; }
+    section .subtitle { color: var(--text-muted); margin-bottom: 3rem; font-size: 1rem; }
+
+    /* FEATURES GRID */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.8rem; transition: border-color .2s; }
+    .feature-card:hover { border-color: var(--accent-2); }
+    .feature-card .icon { font-size: 1.5rem; margin-bottom: .8rem; }
+    .feature-card h3 { font-size: 1rem; margin-bottom: .5rem; }
+    .feature-card p { font-size: .85rem; color: var(--text-muted); }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; text-align: center; }
+    .stat .number { font-size: 2rem; font-weight: 800; color: var(--accent); }
+    .stat .label { font-size: .8rem; color: var(--text-muted); margin-top: .3rem; }
+
+    /* INCIDENTS TABLE */
+    .incidents-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .incidents-table th { text-align: left; padding: .8rem 1rem; background: var(--surface-2); color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+    .incidents-table td { padding: .8rem 1rem; border-bottom: 1px solid var(--border); }
+    .incidents-table tr:hover { background: var(--surface); }
+    .severity { display: inline-block; padding: .15rem .6rem; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+    .severity.critical { background: rgba(248,113,113,.15); color: var(--red); }
+    .severity.high { background: rgba(251,146,60,.15); color: var(--orange); }
+
+    /* SCORING */
+    .scoring-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+    .scoring-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; text-align: center; }
+    .scoring-item .weight { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+    .scoring-item .dim { font-size: .85rem; font-weight: 600; margin-top: .3rem; }
+    .scoring-item .desc { font-size: .75rem; color: var(--text-muted); margin-top: .3rem; }
+
+    /* INTEGRATIONS */
+    .integrations { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem; }
+    .integration { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: .8rem 1.5rem; font-size: .85rem; font-weight: 600; }
+
+    /* USE CASES */
+    .use-cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .use-case { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.8rem; }
+    .use-case h3 { font-size: 1rem; margin-bottom: .5rem; color: var(--accent); }
+    .use-case p { font-size: .85rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .use-case code { display: block; background: var(--surface-2); padding: .8rem 1rem; border-radius: 6px; font-size: .8rem; overflow-x: auto; white-space: pre; }
+
+    /* OPENSSF SECTION */
+    .openssf-banner { background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%); border: 1px solid var(--accent-2); border-radius: 12px; padding: 2.5rem; text-align: center; margin-top: 3rem; }
+    .openssf-banner h3 { font-size: 1.3rem; margin-bottom: .8rem; }
+    .openssf-banner p { color: var(--text-muted); font-size: .9rem; max-width: 600px; margin: 0 auto 1.5rem; }
+    .openssf-banner .orgs { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 1.5rem; }
+    .openssf-banner .org { background: var(--bg); border: 1px solid var(--border); padding: .4rem 1rem; border-radius: 6px; font-size: .8rem; color: var(--text-muted); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 3rem 2rem; text-align: center; color: var(--text-muted); font-size: .8rem; }
+    footer .links { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      .hero { padding: 4rem 1.5rem 3rem; }
+      section { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo">depguard<span>-cli</span></div>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#real-threats">Real Threats</a></li>
+      <li><a href="#scoring">Scoring</a></li>
+      <li><a href="#integrations">Integrations</a></li>
+      <li><a href="#use-cases">Use Cases</a></li>
+      <li><a href="https://github.com/mopanc/depguard" target="_blank">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Apache-2.0 &middot; Zero Dependencies &middot; Node.js 18+</div>
+  <h1>
+    Stop blindly trusting<br>
+    <span class="highlight">npm install</span>
+  </h1>
+  <p>
+    Audit npm packages for vulnerabilities, supply chain attacks, license conflicts, and maintenance risks.
+    Built for <strong>AI agents</strong> and <strong>developers</strong> who need data-driven dependency decisions.
+  </p>
+  <div class="cta">
+    <a href="https://www.npmjs.com/package/depguard-cli" class="btn-primary" target="_blank">npm install -g depguard-cli</a>
+    <a href="https://github.com/mopanc/depguard" class="btn-secondary" target="_blank">View on GitHub</a>
+  </div>
+
+  <div class="terminal-wrap">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      </div>
+      <pre>
+<span class="prompt">$</span> <span class="cmd">depguard-cli audit lodash@4.17.19</span>
+
+<span class="comment"># Package: lodash@4.17.19</span>
+<span class="comment"># Vulnerabilities:</span>  <span class="crit">1 high</span>  <span class="warn">1 moderate</span>
+<span class="comment"># Score:</span>           <span class="val">62/100</span>
+<span class="comment"># License:</span>         <span class="val">MIT (compatible)</span>
+<span class="comment"># Weekly Downloads:</span> <span class="val">52,000,000</span>
+<span class="comment"># Fix Suggestions:</span>
+  <span class="warn">Prototype Pollution (high)</span>
+  <span class="val">upgrade 4.17.19 -> 4.17.21</span>
+
+<span class="prompt">$</span> <span class="cmd">depguard-cli should-use "http client"</span>
+
+<span class="comment"># Action:</span> <span class="val">use-native</span>
+<span class="comment"># Use globalThis.fetch() — built into Node 18+</span>
+<span class="comment"># No package needed. Zero dependencies.</span>
+      </pre>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<section>
+  <div class="stats">
+    <div class="stat">
+      <div class="number">0</div>
+      <div class="label">Runtime Dependencies</div>
+    </div>
+    <div class="stat">
+      <div class="number">93</div>
+      <div class="label">Offline Tests</div>
+    </div>
+    <div class="stat">
+      <div class="number">20+</div>
+      <div class="label">Native Alternatives Mapped</div>
+    </div>
+    <div class="stat">
+      <div class="number">6</div>
+      <div class="label">MCP Tools for AI Agents</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <h2>Why depguard?</h2>
+  <p class="subtitle">Every npm install is a trust decision. depguard gives you the data to make it.</p>
+  <div class="features">
+    <div class="feature-card">
+      <div class="icon">&#x1f6e1;</div>
+      <h3>Vulnerability Triage</h3>
+      <p>Combines npm Registry and GitHub Advisory Database. Deduplicates, filters by your installed version, and suggests specific upgrade paths to fix CVEs.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">&#x26d3;</div>
+      <h3>Supply Chain Attack Detection</h3>
+      <p>Static analysis of install scripts catches reverse shells, credential exfiltration, obfuscated code, and remote code execution patterns before they run.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">&#x1f4ca;</div>
+      <h3>Package Scoring (0-100)</h3>
+      <p>Weighted scoring across security, maintenance, popularity, license compatibility, and dependency count. Configurable weights for your risk profile.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">&#x1f916;</div>
+      <h3>AI-Native (MCP Server)</h3>
+      <p>Built-in MCP server lets any AI agent — Claude, Cursor, Windsurf, Continue.dev — audit packages during code generation. Token savings tracked per response.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">&#x1f4a1;</div>
+      <h3>Smart Advisor</h3>
+      <p>"Should I install this?" — depguard checks native Node.js alternatives first, then scores npm candidates, and recommends install, caution, or write-from-scratch.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">&#x1f4dc;</div>
+      <h3>License Compliance</h3>
+      <p>15+ SPDX licenses ranked by permissiveness. Instantly know if a dependency's license is compatible with your project — no lawyer required.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REAL-WORLD THREATS -->
+<section id="real-threats">
+  <h2>Real-World Supply Chain Attacks</h2>
+  <p class="subtitle">These attacks happened. depguard detects the patterns that made them possible.</p>
+  <div style="overflow-x:auto">
+    <table class="incidents-table">
+      <thead>
+        <tr>
+          <th>Package</th>
+          <th>Year</th>
+          <th>Severity</th>
+          <th>What Happened</th>
+          <th>depguard Detection</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>event-stream</strong></td>
+          <td>2018</td>
+          <td><span class="severity critical">CRITICAL</span></td>
+          <td>Malicious maintainer added flatmap-stream dependency that stole cryptocurrency wallet keys. 8M weekly downloads affected.</td>
+          <td>Dependency audit flags new suspicious transitive dependency. Install script analysis detects credential access patterns.</td>
+        </tr>
+        <tr>
+          <td><strong>ua-parser-js</strong></td>
+          <td>2021</td>
+          <td><span class="severity critical">CRITICAL</span></td>
+          <td>Hijacked account published versions with cryptominers and password stealers. 8M weekly downloads.</td>
+          <td>Install script analysis catches process spawning, external network calls, and credential file access in postinstall.</td>
+        </tr>
+        <tr>
+          <td><strong>node-ipc</strong></td>
+          <td>2022</td>
+          <td><span class="severity critical">CRITICAL</span></td>
+          <td>Maintainer deliberately added code to wipe files on Russian/Belarusian IPs. Dependency of vue-cli (millions of devs).</td>
+          <td>Vulnerability database flags GHSA advisory. Install script analysis detects file system writes and network-based conditionals.</td>
+        </tr>
+        <tr>
+          <td><strong>colors + faker</strong></td>
+          <td>2022</td>
+          <td><span class="severity high">HIGH</span></td>
+          <td>Maintainer sabotaged own packages with infinite loops, breaking thousands of projects. "Liberty" protest.</td>
+          <td>Maintenance scoring drops — erratic release pattern. Vulnerability database flags known advisory. Score falls below threshold.</td>
+        </tr>
+        <tr>
+          <td><strong>eslint-scope</strong></td>
+          <td>2018</td>
+          <td><span class="severity critical">CRITICAL</span></td>
+          <td>Compromised npm token used to publish malicious version that stole npm tokens from developers' machines.</td>
+          <td>Install script analysis detects ~/.npmrc credential file access and environment variable exfiltration ($NPM_TOKEN).</td>
+        </tr>
+        <tr>
+          <td><strong>coa + rc</strong></td>
+          <td>2021</td>
+          <td><span class="severity critical">CRITICAL</span></td>
+          <td>Hijacked accounts published versions with credential-stealing malware. Affected react-scripts/vue-cli users.</td>
+          <td>Install script analysis catches obfuscated code (eval + base64), process spawning, and external network calls in preinstall.</td>
+        </tr>
+        <tr>
+          <td><strong>Typosquatting<br>(crossenv, etc.)</strong></td>
+          <td>Ongoing</td>
+          <td><span class="severity high">HIGH</span></td>
+          <td>Malicious packages with names similar to popular ones (crossenv vs cross-env) steal environment variables.</td>
+          <td>Low popularity score + install script analysis detects environment variable exfiltration. Score well below install threshold.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SCORING -->
+<section id="scoring">
+  <h2>Scoring Model</h2>
+  <p class="subtitle">Every package scored 0-100 across five dimensions. Transparent, reproducible, configurable.</p>
+  <div class="scoring-grid">
+    <div class="scoring-item">
+      <div class="weight">30%</div>
+      <div class="dim">Security</div>
+      <div class="desc">CVEs, advisories, known vulnerabilities</div>
+    </div>
+    <div class="scoring-item">
+      <div class="weight">25%</div>
+      <div class="dim">Maintenance</div>
+      <div class="desc">Last publish, version activity, deprecation</div>
+    </div>
+    <div class="scoring-item">
+      <div class="weight">20%</div>
+      <div class="dim">Popularity</div>
+      <div class="desc">Weekly downloads (log scale)</div>
+    </div>
+    <div class="scoring-item">
+      <div class="weight">15%</div>
+      <div class="dim">License</div>
+      <div class="desc">Compatibility with your project</div>
+    </div>
+    <div class="scoring-item">
+      <div class="weight">10%</div>
+      <div class="dim">Dependencies</div>
+      <div class="desc">Dep count, install scripts risk</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section id="integrations">
+  <h2>Works Everywhere</h2>
+  <p class="subtitle">CLI, API, or MCP server — use depguard however your workflow demands.</p>
+  <div class="integrations">
+    <div class="integration">Claude Code</div>
+    <div class="integration">Claude Desktop</div>
+    <div class="integration">Cursor</div>
+    <div class="integration">Windsurf</div>
+    <div class="integration">Continue.dev</div>
+    <div class="integration">Cline</div>
+    <div class="integration">Roo Code</div>
+    <div class="integration">GitHub Actions</div>
+    <div class="integration">Any MCP Client</div>
+  </div>
+  <div class="terminal-wrap" style="margin-top:2rem">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      </div>
+      <pre>
+<span class="comment"># Add to any MCP-compatible client — zero install needed</span>
+<span class="prompt">$</span> <span class="cmd">claude mcp add depguard -- npx -y depguard-cli --mcp</span>
+
+<span class="comment"># Or configure in your mcp.json:</span>
+{
+  "<span class="val">mcpServers</span>": {
+    "<span class="val">depguard</span>": {
+      "command": "npx",
+      "args": ["-y", "depguard-cli", "--mcp"]
+    }
+  }
+}
+      </pre>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="use-cases">
+  <h2>Use Cases</h2>
+  <p class="subtitle">From solo devs to enterprise security teams.</p>
+  <div class="use-cases">
+    <div class="use-case">
+      <h3>AI Agent Guardrail</h3>
+      <p>Your AI coding assistant wants to npm install a package. depguard audits it first and blocks risky installs automatically.</p>
+      <code>// AI agent calls MCP tool before installing
+const audit = await depguard_audit("some-package")
+if (audit.score < 60) reject("Package too risky")</code>
+    </div>
+    <div class="use-case">
+      <h3>CI/CD Pipeline Gate</h3>
+      <p>Block PRs that add vulnerable or unmaintained dependencies. Audit the entire package.json on every push.</p>
+      <code>depguard-cli audit-project ./package.json --json \
+  | jq '.vulnerable > 0' && exit 1</code>
+    </div>
+    <div class="use-case">
+      <h3>Dependency Review</h3>
+      <p>Before adding any new dependency, get a data-driven answer: install, write from scratch, or use the native Node.js alternative.</p>
+      <code>depguard-cli should-use "yaml parser" --threshold 70
+# Action: install
+# Package: yaml (score 88/100)</code>
+    </div>
+    <div class="use-case">
+      <h3>Security Audit Report</h3>
+      <p>Generate a full vulnerability and license compliance report for all project dependencies in one command.</p>
+      <code>depguard-cli audit-project ./package.json
+# Total: 47 packages
+# Vulnerable: 3 (2 high, 1 moderate)
+# Fix suggestions included</code>
+    </div>
+  </div>
+</section>
+
+<!-- OPENSSF ALIGNMENT -->
+<section>
+  <div class="openssf-banner">
+    <h3>Aligned with OpenSSF &amp; Alpha-Omega Mission</h3>
+    <p>
+      depguard addresses the exact challenges the Linux Foundation's $12.5M security grant targets:
+      AI-assisted vulnerability triage, maintainer tooling, and Node.js ecosystem security.
+    </p>
+    <a href="https://openssf.org" class="btn-primary" target="_blank" style="display:inline-block;margin-top:.5rem">Learn about OpenSSF</a>
+    <div class="orgs">
+      <div class="org">Anthropic</div>
+      <div class="org">AWS</div>
+      <div class="org">GitHub</div>
+      <div class="org">Google</div>
+      <div class="org">Microsoft</div>
+      <div class="org">OpenAI</div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN PRINCIPLES -->
+<section>
+  <h2>Design Principles</h2>
+  <p class="subtitle">Security tooling should practice what it preaches.</p>
+  <div class="features" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+    <div class="feature-card">
+      <h3>Zero Dependencies</h3>
+      <p>Only Node.js built-in APIs. No supply chain risk from the security tool itself.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Never Throws</h3>
+      <p>Network failures return degraded results with warnings — never crashes your pipeline.</p>
+    </div>
+    <div class="feature-card">
+      <h3>TypeScript Strict</h3>
+      <p>Full type safety. Every API response is typed. Every edge case handled at compile time.</p>
+    </div>
+    <div class="feature-card">
+      <h3>100% Offline Tests</h3>
+      <p>All 93 tests use mock fetch. CI never flakes due to network issues.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="text-align:center;padding-bottom:6rem">
+  <h2>Get Started in 30 Seconds</h2>
+  <p class="subtitle">No configuration needed. No account required. No dependencies to install.</p>
+  <div class="terminal-wrap" style="max-width:540px">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      </div>
+      <pre>
+<span class="prompt">$</span> <span class="cmd">npx depguard-cli audit express</span>
+<span class="prompt">$</span> <span class="cmd">npx depguard-cli should-use "date formatting"</span>
+<span class="prompt">$</span> <span class="cmd">npx depguard-cli score react</span>
+      </pre>
+    </div>
+  </div>
+  <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+    <a href="https://www.npmjs.com/package/depguard-cli" class="btn-primary" target="_blank">Install from npm</a>
+    <a href="https://github.com/mopanc/depguard" class="btn-secondary" target="_blank">Star on GitHub</a>
+  </div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="https://github.com/mopanc/depguard">GitHub</a>
+    <a href="https://www.npmjs.com/package/depguard-cli">npm</a>
+    <a href="https://github.com/mopanc/depguard/blob/main/LICENSE">Apache-2.0</a>
+  </div>
+  <p>depguard-cli &copy; 2026 Jorge Morais. Open source under Apache-2.0.</p>
+</footer>
+
+</body>
+</html>
