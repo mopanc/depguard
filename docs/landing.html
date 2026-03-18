@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>depguard — npm Supply Chain Security for AI Agents &amp; Developers</title>
   <meta name="description" content="Zero-dependency npm security auditing tool. Vulnerability triage, supply chain attack detection, package scoring, and smart recommendations. Built-in MCP server for AI coding agents. Know before you npm install.">
   <meta name="keywords" content="npm security, supply chain security, npm audit tool, MCP server security, vibe coding security, package scoring, vulnerability detection, AI coding security, depguard, npm package auditor, dependency security, npm supply chain, Node.js security, open source security">
@@ -126,6 +126,7 @@
       scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      background: var(--bg);
     }
 
     body {
@@ -198,10 +199,7 @@
       right: 0;
       z-index: 100;
       background: var(--bg);
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
       border-bottom: 1px solid var(--border);
-      padding-top: env(safe-area-inset-top, 0);
     }
 
     .nav-inner {
