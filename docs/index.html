@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>depguard — npm Supply Chain Security for AI Agents &amp; Developers</title>
   <meta name="description" content="Zero-dependency npm security auditing tool. Vulnerability triage, supply chain attack detection, package scoring, and smart recommendations. Built-in MCP server for AI coding agents. Know before you npm install.">
   <meta name="keywords" content="npm security, supply chain security, npm audit tool, MCP server security, vibe coding security, package scoring, vulnerability detection, AI coding security, depguard, npm package auditor, dependency security, npm supply chain, Node.js security, open source security">
@@ -197,9 +197,11 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(8, 12, 20, 0.8);
+      background: var(--bg);
       backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
       border-bottom: 1px solid var(--border);
+      padding-top: env(safe-area-inset-top, 0);
     }
 
     .nav-inner {
@@ -1253,31 +1255,48 @@
       .natives-grid { grid-template-columns: 1fr; }
       .thresholds { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
+      .integrations-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 640px) {
       .hero { padding: 7rem 1.5rem 4rem; }
+      .hero h1 { font-size: 1.8rem; }
       .section { padding: 4rem 1.5rem; }
       .nav-links { display: none; }
       .nav-links.open {
         display: flex;
         flex-direction: column;
-        position: absolute;
+        position: fixed;
         top: 54px;
         left: 0;
         right: 0;
-        background: var(--bg-elevated);
+        background: var(--bg);
         border-bottom: 1px solid var(--border);
-        padding: 1rem 2rem;
-        gap: 1rem;
+        padding: 1.5rem 2rem;
+        gap: 1.2rem;
+        z-index: 99;
+        box-shadow: 0 10px 30px rgba(0,0,0,.5);
       }
       .mobile-toggle { display: block; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .stat-number { font-size: 1.6rem; }
+      .stat-label { font-size: .65rem; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { justify-content: center; }
       .demo-input-row { flex-direction: column; }
       .contact-grid { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
       .score-row { grid-template-columns: 90px 1fr 40px; }
+      .hero-terminal { margin-top: 2rem; }
+      .term-body { padding: 1rem; font-size: .72rem; }
+      .integrations-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-badge { font-size: .6rem; padding: .3rem .8rem; }
+      .compare-table { font-size: .68rem; }
+      .compare-table th,
+      .compare-table td { padding: .5rem .6rem; }
+      .attacks-table th,
+      .attacks-table td { padding: .6rem .8rem; }
     }
   </style>
 </head>
