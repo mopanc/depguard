@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>depguard — npm Supply Chain Security for AI Agents &amp; Developers</title>
-  <meta name="description" content="Zero-dependency npm security auditing tool. Vulnerability triage, supply chain attack detection, package scoring, and smart recommendations. Built-in MCP server for AI coding agents. Know before you npm install.">
-  <meta name="keywords" content="npm security, supply chain security, npm audit tool, MCP server security, vibe coding security, package scoring, vulnerability detection, AI coding security, depguard, npm package auditor, dependency security, npm supply chain, Node.js security, open source security">
+  <title>depguard — MCP Security Server for AI Coding Agents</title>
+  <meta name="description" content="MCP server that gives AI coding agents real-time npm security auditing. Your AI agent checks vulnerabilities, supply chain attacks, and package quality before every install. Works with Claude, Cursor, Windsurf. Zero dependencies.">
+  <meta name="keywords" content="MCP server, npm security, AI coding agent security, supply chain security, vibe coding security, Model Context Protocol, package auditing, vulnerability detection, Claude MCP, Cursor MCP, AI agent tools, dependency security, npm supply chain, Node.js security, open source security">
   <meta name="author" content="Jorge Morais">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="theme-color" content="#080c14">
@@ -13,16 +13,16 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="depguard — Know before you npm install">
-  <meta property="og:description" content="npm supply chain security for the AI coding era. Audit packages across 5 dimensions, detect attack patterns, get smart recommendations. Zero dependencies. Built-in MCP server.">
+  <meta property="og:title" content="depguard — MCP Security Server for AI Coding Agents">
+  <meta property="og:description" content="MCP server that gives AI agents real-time npm security auditing. Vulnerability triage, supply chain attack detection, package scoring. Works with Claude, Cursor, Windsurf. Zero dependencies.">
   <meta property="og:url" content="https://depguard.dev">
   <meta property="og:site_name" content="depguard">
   <meta property="og:image" content="https://depguard.dev/og-image.png">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="depguard — Know before you npm install">
-  <meta name="twitter:description" content="npm supply chain security for the AI coding era. Zero-dependency auditing with built-in MCP server for AI agents.">
+  <meta name="twitter:title" content="depguard — MCP Security Server for AI Coding Agents">
+  <meta name="twitter:description" content="MCP server for real-time npm security auditing. Your AI agent checks every dependency before installing. Zero dependencies.">
   <meta name="twitter:image" content="https://depguard.dev/og-image.png">
 
   <!-- Favicon -->
@@ -38,7 +38,7 @@
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Security Tool",
     "operatingSystem": "Cross-platform (Node.js 18+)",
-    "description": "Zero-dependency npm package auditing tool with built-in MCP server for AI coding agents. Audits security, maintenance, licenses, and dependencies. Detects supply chain attacks in install scripts. Recommends install vs write-from-scratch. The security layer for vibe coding.",
+    "description": "MCP server that gives AI coding agents real-time npm security auditing. 6 tools for vulnerability triage, supply chain attack detection, package scoring, and smart recommendations. Zero dependencies. Works with Claude, Cursor, Windsurf, and any MCP-compatible client.",
     "url": "https://depguard.dev",
     "downloadUrl": "https://www.npmjs.com/package/depguard-cli",
     "softwareVersion": "1.3.1",
@@ -1329,17 +1329,17 @@
   <div class="hero-content">
     <div class="hero-badge reveal">
       <span class="dot" aria-hidden="true"></span>
-      Zero Dependencies &middot; Apache-2.0 &middot; Node.js 18+ &middot;
+      MCP Server &middot; 6 Tools &middot; Zero Dependencies &middot; Apache-2.0 &middot;
       <svg width="14" height="10" viewBox="0 0 16 11" aria-label="Made in Portugal" style="vertical-align:middle;opacity:.6"><rect width="6" height="11" fill="#006600"/><rect x="6" width="10" height="11" fill="#ff0000"/><circle cx="6" cy="5.5" r="2" fill="#ffcc00" stroke="#006600" stroke-width=".3"/></svg>
     </div>
     <h1 id="hero-heading" class="reveal reveal-delay-1">
-      Know before you<br><span class="cmd">npm install</span>
+      Your AI agent's<br><span class="cmd">security guardrail</span>
     </h1>
     <p class="hero-sub reveal reveal-delay-2">
-      AI agents install packages 100x faster than humans can review. depguard is the <strong>security layer for the vibe coding era</strong> &mdash; audit every dependency before it enters your project, while <strong>saving up to 99% of AI tokens</strong> compared to manual research.
+      An <strong>MCP server</strong> that gives AI coding agents real-time npm security auditing. Every package is checked for vulnerabilities, supply chain attacks, and quality &mdash; <strong>before it enters your project</strong>. Saves up to 99% of AI tokens compared to manual research.
     </p>
     <div class="hero-actions reveal reveal-delay-3">
-      <a href="https://www.npmjs.com/package/depguard-cli" target="_blank" rel="noopener" class="btn btn-accent">npm install -g depguard-cli</a>
+      <a href="#setup" class="btn btn-accent">Add to your AI agent</a>
       <a href="https://github.com/mopanc/depguard" target="_blank" rel="noopener" class="btn btn-ghost">View on GitHub</a>
     </div>
 
@@ -1347,24 +1347,21 @@
       <div class="term">
         <div class="term-bar" aria-hidden="true">
           <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-          <span class="term-title">depguard-cli</span>
+          <span class="term-title">one command to connect</span>
           <span style="width:30px"></span>
         </div>
         <div class="term-body">
-<pre><span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit depguard-cli</span>
+<pre><span class="t-comment">// Add depguard to any MCP-compatible AI agent</span>
+<span class="t-prompt">$</span> <span class="t-cmd">claude mcp add depguard -- npx -y depguard-cli --mcp</span>
 
-<span class="t-key">Package</span>          <span class="t-val">depguard-cli@1.3.1</span>
-<span class="t-key">Score</span>            <span class="t-str">95</span><span class="t-comment">/100</span>
-<span class="t-key">Vulnerabilities</span>  <span class="t-str">None found</span>
-<span class="t-key">License</span>          <span class="t-str">Apache-2.0 (compatible)</span>
-<span class="t-key">Dependencies</span>     <span class="t-str">0 (zero runtime deps)</span>
-<span class="t-key">Scripts</span>          <span class="t-str">Clean</span>
+<span class="t-comment">// Your AI agent now audits packages automatically:</span>
+<span class="t-key">Agent</span>    <span class="t-comment">"I want to install axios for HTTP requests"</span>
+<span class="t-key">depguard</span> <span class="t-str">use-native</span> <span class="t-comment">— Use globalThis.fetch() (Node 18+)</span>
+         <span class="t-comment">No package needed. Zero dependencies.</span>
 
-<span class="t-prompt">$</span> <span class="t-cmd">depguard-cli should-use "http client"</span>
-
-<span class="t-key">Action</span>   <span class="t-str">use-native</span>
-<span class="t-key">API</span>      <span class="t-val">globalThis.fetch()</span>
-<span class="t-comment">Built into Node 18+. No package needed.</span><span class="cursor" aria-hidden="true"></span></pre>
+<span class="t-key">Agent</span>    <span class="t-comment">"I need a date formatting library"</span>
+<span class="t-key">depguard</span> <span class="t-str">install</span> <span class="t-comment">— date-fns (score 89/100, 0 vulnerabilities)</span>
+         <span class="t-val">Safe to install.</span><span class="cursor" aria-hidden="true"></span></pre>
         </div>
       </div>
     </div>
@@ -1376,8 +1373,8 @@
 <!-- ============ THE PROBLEM ============ -->
 <section class="section" aria-labelledby="problem-heading">
   <div class="section-label reveal">The Problem</div>
-  <h2 id="problem-heading" class="reveal">Supply chain attacks are accelerating</h2>
-  <p class="section-desc reveal">In the vibe coding era, AI agents install packages faster than anyone can review. npm audit only checks known CVEs &mdash; it doesn't score maintenance, scan install scripts, check licenses, or tell you when to write your own. That gap is where attacks live.</p>
+  <h2 id="problem-heading" class="reveal">Your AI agent installs blindly</h2>
+  <p class="section-desc reveal">AI coding agents install packages without checking security, maintenance, or licenses. They can't detect supply chain attacks or know when a native Node.js API would be better. Without depguard, every <code style="color:var(--accent);background:var(--bg-deep);padding:.1rem .4rem;border-radius:3px">npm install</code> is a blind trust decision.</p>
 
   <div class="stats-grid reveal">
     <div class="stat-card">
@@ -1408,24 +1405,24 @@
 <!-- ============ HOW IT WORKS ============ -->
 <section class="section" id="how-it-works" aria-labelledby="how-heading">
   <div class="section-label reveal">How It Works</div>
-  <h2 id="how-heading" class="reveal">Three steps to safe dependencies</h2>
-  <p class="section-desc reveal">Run a command or let your AI agent call the MCP tool. Same audit, same score, same protection.</p>
+  <h2 id="how-heading" class="reveal">How MCP integration works</h2>
+  <p class="section-desc reveal">One command connects depguard to your AI agent. From that moment, every dependency decision is data-driven.</p>
 
   <div class="steps">
     <article class="step reveal">
-      <h3>Audit</h3>
-      <p>Run one command or let your MCP-connected AI agent call depguard automatically during code generation.</p>
-      <code>npx depguard-cli audit express</code>
+      <h3>Connect</h3>
+      <p>Add depguard as an MCP server to your AI coding agent. One command, zero configuration, no API keys needed.</p>
+      <code>claude mcp add depguard</code>
     </article>
     <article class="step reveal reveal-delay-1">
-      <h3>Analyze</h3>
-      <p>depguard queries 2 advisory databases, analyzes install scripts for 9 attack patterns, and scores across 5 weighted dimensions.</p>
-      <code>npm + GitHub Advisory DB</code>
+      <h3>Agent Calls depguard</h3>
+      <p>When your AI agent wants to install a package, it calls depguard's MCP tools automatically &mdash; checking 2 advisory databases, 9 attack patterns, and 5 quality dimensions.</p>
+      <code>depguard_should_use("yaml parser")</code>
     </article>
     <article class="step reveal reveal-delay-2">
-      <h3>Decide</h3>
-      <p>Get a clear, data-driven recommendation: install, caution, write-from-scratch, or use a native Node.js alternative.</p>
-      <code>Score 85/100 &rarr; install</code>
+      <h3>Informed Decision</h3>
+      <p>depguard returns a clear recommendation: install, caution, write-from-scratch, or use a native Node.js API. The agent acts on data, not guesswork.</p>
+      <code>install &middot; caution &middot; native &middot; write</code>
     </article>
   </div>
 </section>
@@ -1434,46 +1431,46 @@
 
 <!-- ============ FEATURES ============ -->
 <section class="section" id="features" aria-labelledby="features-heading">
-  <div class="section-label reveal">Capabilities</div>
-  <h2 id="features-heading" class="reveal">Everything npm audit should have been</h2>
-  <p class="section-desc reveal">Six integrated tools. Zero dependencies. One clear answer.</p>
+  <div class="section-label reveal">MCP Tools</div>
+  <h2 id="features-heading" class="reveal">6 tools your AI agent can call</h2>
+  <p class="section-desc reveal">Each MCP tool returns structured data with token savings tracking. Your agent gets exactly the information it needs to make safe dependency decisions.</p>
 
   <div class="features-grid reveal">
     <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x25C8;</div>
-      <h3>Vulnerability Triage</h3>
-      <p>Combines npm Registry and GitHub Advisory Database. Deduplicates results, filters by installed version, and suggests specific upgrade paths.</p>
-      <span class="feat-tag green">Fix Suggestions</span>
+      <div class="feat-icon" aria-hidden="true">&#x25CE;</div>
+      <h3>depguard_should_use</h3>
+      <p>The primary tool. Agent describes what it needs ("yaml parser") &mdash; depguard checks native alternatives first, then scores npm candidates and recommends install, caution, or write-from-scratch.</p>
+      <span class="feat-tag green">Start Here</span>
     </article>
     <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x2666;</div>
-      <h3>Supply Chain Detection</h3>
-      <p>Static analysis of install scripts catches reverse shells, credential exfiltration, obfuscated payloads, and remote code execution. No code is ever executed.</p>
-      <span class="feat-tag red">9 Attack Patterns</span>
+      <div class="feat-icon" aria-hidden="true">&#x25C8;</div>
+      <h3>depguard_audit</h3>
+      <p>Full security audit of a specific package. Combines npm + GitHub Advisory Database, analyzes install scripts for 9 attack patterns, suggests fix versions.</p>
+      <span class="feat-tag orange">Deep Analysis</span>
     </article>
     <article class="feat">
       <div class="feat-icon" aria-hidden="true">&#x25A0;</div>
-      <h3>Package Scoring</h3>
-      <p>Every package scored 0&ndash;100 across security, maintenance, popularity, license, and dependency count. Transparent, reproducible, configurable weights.</p>
-      <span class="feat-tag green">Configurable</span>
+      <h3>depguard_score</h3>
+      <p>Quick 0&ndash;100 score across security, maintenance, popularity, license, and dependencies. When the agent needs a fast quality check without a full audit.</p>
+      <span class="feat-tag green">Fast Check</span>
+    </article>
+    <article class="feat">
+      <div class="feat-icon" aria-hidden="true">&#x2666;</div>
+      <h3>depguard_audit_project</h3>
+      <p>Audit an entire package.json in one call. The agent passes a file path &mdash; depguard reads it, detects the project license, and audits every dependency.</p>
+      <span class="feat-tag red">Full Project</span>
     </article>
     <article class="feat">
       <div class="feat-icon" aria-hidden="true">&#x25B2;</div>
-      <h3>Smart Advisor</h3>
-      <p>Checks 20+ native Node.js alternatives before recommending npm packages. Saves bloat, reduces attack surface, eliminates unnecessary dependencies.</p>
-      <span class="feat-tag green">20+ Alternatives</span>
-    </article>
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x25CE;</div>
-      <h3>AI-Native MCP Server</h3>
-      <p>Built-in MCP server with 6 tools. Your AI agent audits packages during code generation. Token savings tracked per response to quantify ROI.</p>
-      <span class="feat-tag orange">6 MCP Tools</span>
+      <h3>depguard_search</h3>
+      <p>Search npm by keywords, sorted by depguard quality score. The agent finds the best packages for any intent without web searches.</p>
+      <span class="feat-tag green">Discovery</span>
     </article>
     <article class="feat">
       <div class="feat-icon" aria-hidden="true">&#x25C6;</div>
-      <h3>License Compliance</h3>
-      <p>15+ SPDX licenses ranked by permissiveness. Instantly know if a dependency's license is compatible with your project. No legal review needed.</p>
-      <span class="feat-tag green">15+ Licenses</span>
+      <h3>depguard_audit_bulk</h3>
+      <p>Audit multiple packages in parallel. Accepts an array of names or a dependencies object directly from package.json.</p>
+      <span class="feat-tag orange">Batch Audit</span>
     </article>
   </div>
 </section>
@@ -1649,9 +1646,9 @@
 
 <!-- ============ INTEGRATIONS ============ -->
 <section class="section" id="integrations" aria-labelledby="integ-heading">
-  <div class="section-label reveal">Integrations</div>
-  <h2 id="integ-heading" class="reveal">Works with every AI coding tool</h2>
-  <p class="section-desc reveal">Built-in MCP server for the vibe coding workflow. One command to connect. Your AI agent audits packages before every install.</p>
+  <div class="section-label reveal" id="setup">Setup</div>
+  <h2 id="integ-heading" class="reveal">Add depguard to your AI agent</h2>
+  <p class="section-desc reveal">One command. Zero configuration. Your AI agent starts checking every dependency immediately.</p>
 
   <div class="integrations-grid reveal">
     <div class="integ">Claude Code<span class="integ-status">MCP Ready</span></div>
@@ -1664,17 +1661,18 @@
     <div class="integ">Any MCP Client<span class="integ-status">JSON-RPC 2.0</span></div>
   </div>
 
-  <div class="term reveal" style="max-width:640px">
+  <div class="term reveal" style="max-width:700px">
     <div class="term-bar" aria-hidden="true">
       <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-      <span class="term-title">Setup</span>
+      <span class="term-title">Setup &mdash; choose your agent</span>
       <span style="width:30px"></span>
     </div>
     <div class="term-body">
-<pre><span class="t-comment">// One command &mdash; zero install needed</span>
+<pre><span class="t-comment">// Claude Code — one command</span>
 <span class="t-prompt">$</span> <span class="t-cmd">claude mcp add depguard -- npx -y depguard-cli --mcp</span>
 
-<span class="t-comment">// Or add to mcp.json / claude_desktop_config.json</span>
+<span class="t-comment">// Claude Desktop, Cursor, Windsurf, Continue.dev, Cline, Roo Code</span>
+<span class="t-comment">// Add to your MCP config file:</span>
 {
   <span class="t-val">"mcpServers"</span>: {
     <span class="t-val">"depguard"</span>: {
@@ -1682,7 +1680,10 @@
       <span class="t-key">"args"</span>: [<span class="t-str">"-y"</span>, <span class="t-str">"depguard-cli"</span>, <span class="t-str">"--mcp"</span>]
     }
   }
-}</pre>
+}
+
+<span class="t-comment">// That's it. Your agent now has 6 security tools.</span>
+<span class="t-comment">// No API keys. No accounts. No configuration.</span></pre>
     </div>
   </div>
 </section>
@@ -1803,27 +1804,26 @@
 <!-- ============ FOOTER CTA ============ -->
 <section class="section final-cta" aria-labelledby="cta-heading">
   <div class="section-label reveal" style="justify-content:center">Get Started</div>
-  <h2 id="cta-heading" class="reveal">30 seconds to safer dependencies</h2>
-  <p class="section-desc reveal" style="text-align:center">No configuration. No account. No dependencies to install.</p>
+  <h2 id="cta-heading" class="reveal">One command. Infinite peace of mind.</h2>
+  <p class="section-desc reveal" style="text-align:center">No API keys. No accounts. No configuration. Your AI agent gets security superpowers in 10 seconds.</p>
 
   <div class="final-term reveal">
     <div class="term">
       <div class="term-bar" aria-hidden="true">
         <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-        <span class="term-title">terminal</span>
+        <span class="term-title">connect depguard</span>
         <span style="width:30px"></span>
       </div>
       <div class="term-body">
-<pre><span class="t-prompt">$</span> <span class="t-cmd">npx depguard-cli audit express</span>
-<span class="t-prompt">$</span> <span class="t-cmd">npx depguard-cli should-use "date formatting"</span>
-<span class="t-prompt">$</span> <span class="t-cmd">npx depguard-cli score react</span></pre>
+<pre><span class="t-prompt">$</span> <span class="t-cmd">claude mcp add depguard -- npx -y depguard-cli --mcp</span></pre>
       </div>
     </div>
   </div>
 
   <div class="hero-actions reveal" style="justify-content:center">
-    <a href="https://www.npmjs.com/package/depguard-cli" target="_blank" rel="noopener" class="btn btn-accent">Install from npm</a>
+    <a href="#setup" class="btn btn-accent">Setup Guide</a>
     <a href="https://github.com/mopanc/depguard" target="_blank" rel="noopener" class="btn btn-ghost">Star on GitHub</a>
+    <a href="https://www.npmjs.com/package/depguard-cli" target="_blank" rel="noopener" class="btn btn-ghost">npm</a>
   </div>
 </section>
 
