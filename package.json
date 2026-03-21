@@ -23,7 +23,7 @@
     "build": "tsc",
     "test": "node --import tsx --test tests/*.test.ts",
     "lint": "eslint src/ tests/",
-    "audit:security": "npm audit --audit-level=high",
+    "audit:security": "npm audit --audit-level=high --omit=dev",
     "check": "npm run build && npm run lint && npm test && npm run audit:security",
     "prepublishOnly": "npm run check"
   },
