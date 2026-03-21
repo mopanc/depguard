@@ -96,6 +96,36 @@ describe('checkLicenseCompatibility', () => {
     const result = checkLicenseCompatibility('CC0-1.0', 'MIT')
     assert.strictEqual(result.compatible, true)
   })
+
+  it('handles dual license with OR — compatible if any option matches', () => {
+    const result = checkLicenseCompatibility('MIT OR GPL-3.0', 'MIT')
+    assert.strictEqual(result.compatible, true)
+  })
+
+  it('handles dual license with OR — incompatible if no option matches', () => {
+    const result = checkLicenseCompatibility('GPL-3.0 OR AGPL-3.0', 'MIT')
+    assert.strictEqual(result.compatible, false)
+  })
+
+  it('handles compound license with AND — all must be compatible', () => {
+    const result = checkLicenseCompatibility('MIT AND ISC', 'Apache-2.0')
+    assert.strictEqual(result.compatible, true)
+  })
+
+  it('handles compound license with AND — fails if any is incompatible', () => {
+    const result = checkLicenseCompatibility('MIT AND GPL-3.0', 'MIT')
+    assert.strictEqual(result.compatible, false)
+  })
+
+  it('detects source-available licenses as restrictive', () => {
+    const result = checkLicenseCompatibility('SSPL-1.0', 'MIT')
+    assert.strictEqual(result.compatible, false)
+  })
+
+  it('handles parenthesized SPDX expressions', () => {
+    const result = checkLicenseCompatibility('(MIT OR Apache-2.0)', 'MIT')
+    assert.strictEqual(result.compatible, true)
+  })
 })
 
 describe('knownLicenses', () => {

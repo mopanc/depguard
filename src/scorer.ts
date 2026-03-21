@@ -41,13 +41,18 @@ export async function score(
   const totalWeight = weights.security + weights.maintenance + weights.popularity +
     weights.license + weights.dependencies
 
-  const total = Math.round(
+  let total = Math.round(
     (breakdown.security * weights.security +
       breakdown.maintenance * weights.maintenance +
       breakdown.popularity * weights.popularity +
       breakdown.license * weights.license +
       breakdown.dependencies * weights.dependencies) / totalWeight,
   )
+
+  // Hard ceiling: packages with critical/high security scores cannot score above thresholds
+  // regardless of how good other dimensions are. Security is non-negotiable.
+  if (breakdown.security <= 15) total = Math.min(total, 30)  // Critical vulns → max 30
+  else if (breakdown.security <= 40) total = Math.min(total, 50)  // High vulns → max 50
 
   return {
     name,
@@ -57,18 +62,46 @@ export async function score(
   }
 }
 
-/** Security: 100 = no vulns, deduct for each severity level */
+/**
+ * Security: 100 = no vulns.
+ * Uses exponential decay — any critical vuln caps the score at 15 max.
+ * CVSS scores used when available for more accurate severity weighting.
+ */
 function computeSecurityScore(report: AuditReport): number {
   const v = report.vulnerabilities
+  if (v.total === 0) return 100
+
+  // Critical vulns are a hard ceiling — no package with a critical vuln scores above 15
+  if (v.critical > 0) return Math.max(0, 15 - (v.critical - 1) * 5)
+
+  // High vulns cap at 40
+  if (v.high > 0) return Math.max(0, 40 - (v.high - 1) * 10)
+
+  // Use CVSS scores when available for more granular scoring
+  let maxCvss = 0
+  for (const adv of v.advisories) {
+    if (adv.cvss?.score && adv.cvss.score > maxCvss) {
+      maxCvss = adv.cvss.score
+    }
+  }
+
+  // If we have CVSS, use it (0-10 scale → inverted to 0-100)
+  if (maxCvss > 0) {
+    return Math.max(0, Math.round(100 - maxCvss * 10))
+  }
+
+  // Fallback: moderate and low deductions
   let s = 100
-  s -= v.critical * 40
-  s -= v.high * 20
-  s -= v.moderate * 10
+  s -= v.moderate * 15
   s -= v.low * 5
   return Math.max(0, s)
 }
 
-/** Maintenance: based on recency of last publish and version count */
+/**
+ * Maintenance: based on recency, version history, and deprecation.
+ * Stable packages with many versions get a maturity bonus to avoid
+ * penalizing well-maintained LTS packages like lodash or express.
+ */
 function computeMaintenanceScore(report: AuditReport): number {
   if (!report.lastPublish) return 0
 
@@ -76,12 +109,13 @@ function computeMaintenanceScore(report: AuditReport): number {
     (Date.now() - new Date(report.lastPublish).getTime()) / (1000 * 60 * 60 * 24),
   )
 
-  // Recency score: 100 if published today, 0 if >2 years ago
-  let recency = 100 - Math.min(100, Math.floor(daysSincePublish / 7.3))
+  // Recency score: 100 if published today, 0 if >3 years ago (was 2 years — too aggressive)
+  let recency = 100 - Math.min(100, Math.floor(daysSincePublish / 11))
 
-  // Bonus for having multiple versions (active development)
-  if (report.versionCount >= 10) recency = Math.min(100, recency + 10)
-  if (report.versionCount >= 50) recency = Math.min(100, recency + 10)
+  // Maturity bonus — packages with many versions are stable, not abandoned
+  if (report.versionCount >= 10) recency = Math.min(100, recency + 15)
+  if (report.versionCount >= 50) recency = Math.min(100, recency + 15)
+  if (report.versionCount >= 100) recency = Math.min(100, recency + 10)
 
   // Penalty for deprecation
   if (report.deprecated) recency = Math.floor(recency * 0.3)
@@ -103,17 +137,23 @@ function computeLicenseScore(report: AuditReport): number {
   return report.licenseCompatibility.compatible ? 100 : 0
 }
 
-/** Dependencies: fewer deps = better, install scripts are a big red flag */
+/**
+ * Dependencies: fewer direct deps = smaller attack surface.
+ * Install scripts are penalized in security scoring (scriptAnalysis),
+ * so we only penalize dependency count here to avoid double-counting.
+ */
 function computeDependencyScore(report: AuditReport): number {
   let s = 100
 
-  // Deduct for dependency count
+  // Graduated deduction for dependency count
   if (report.dependencyCount > 5) s -= 10
   if (report.dependencyCount > 15) s -= 15
   if (report.dependencyCount > 30) s -= 25
+  if (report.dependencyCount > 50) s -= 20
 
-  // Major penalty for install scripts
-  if (report.hasInstallScripts) s -= 30
+  // Install scripts add risk but are already scored in security dimension
+  // Only a mild flag here for awareness
+  if (report.hasInstallScripts) s -= 10
 
   return Math.max(0, s)
 }

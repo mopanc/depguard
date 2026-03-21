@@ -1,0 +1,84 @@
+# depguard-cli
+
+> MCP security server for AI coding agents. 9 tools for npm dependency security.
+
+depguard is an MCP (Model Context Protocol) server that gives AI coding agents real-time npm security auditing. It works with Claude, Cursor, Windsurf, and any MCP-compatible client.
+
+## Quick Start
+
+```bash
+npx -y depguard-cli --mcp
+```
+
+Or add to MCP config:
+```json
+{
+  "mcpServers": {
+    "depguard": {
+      "command": "npx",
+      "args": ["-y", "depguard-cli", "--mcp"]
+    }
+  }
+}
+```
+
+## Available MCP Tools (9)
+
+### depguard_guard
+Pre-install guardian. Before installing any package, verify it exists on npm, check for typosquatting, run security audit, and return allow/warn/block decision. **Use this before every npm install.**
+- Input: `{ name: string, threshold?: number, targetLicense?: string }`
+- Output: `{ decision: "allow"|"warn"|"block", exists: boolean, possibleTyposquat: boolean, score: number, reasons: string[] }`
+
+### depguard_verify
+AI hallucination guard. Check if a package name actually exists on npm. Detects typosquatting via Levenshtein distance against 100+ popular packages.
+- Input: `{ name: string }`
+- Output: `{ exists: boolean, possibleTyposquat: boolean, similarTo: string[] }`
+
+### depguard_sweep
+Dead dependency detection. Scan project source files for imports and find unused packages in package.json. Config-aware (eslint, typescript, jest, etc.), workspace-aware, peer-dep-aware.
+- Input: `{ path: string, includeDevDependencies?: boolean }`
+- Output: `{ unused: [...], maybeUnused: [...], estimatedSavingsKB: number }`
+
+### depguard_audit
+Full security audit. Combines npm + GitHub Advisory Database, analyzes install scripts for 9 attack patterns, checks license compatibility, suggests fix versions.
+- Input: `{ name: string, targetLicense?: string }`
+- Output: Full audit report with vulnerabilities, score, script analysis, fix suggestions.
+
+### depguard_score
+Quick 0-100 score across security (30%), maintenance (25%), popularity (20%), license (15%), dependencies (10%). Critical vulns cap total at 30. CVSS scores used when available.
+- Input: `{ name: string, targetLicense?: string }`
+
+### depguard_should_use
+Given an intent (e.g. "yaml parser"), checks native Node.js alternatives first, then scores npm candidates. Returns install/caution/write-from-scratch recommendation.
+- Input: `{ intent: string, threshold?: number }`
+
+### depguard_audit_bulk
+Audit multiple packages in parallel.
+- Input: `{ packages: string[] | Record<string,string>, targetLicense?: string }`
+
+### depguard_audit_project
+Audit all dependencies from a package.json file path.
+- Input: `{ path: string, includeDevDependencies?: boolean }`
+
+### depguard_search
+Search npm by keywords, sorted by depguard quality score.
+- Input: `{ keywords: string, limit?: number }`
+
+## Key Features
+
+- Zero runtime dependencies (only Node.js built-ins)
+- Dual advisory databases (npm + GitHub Advisory Database)
+- CVSS score integration for accurate severity weighting
+- Security ceiling: critical vulns cap score at 30/100, high at 50/100
+- 25+ license types including SSPL, Elastic-2.0, BUSL-1.1
+- Dual license parsing (MIT OR GPL-3.0 SPDX expressions)
+- Semver OR clause support for advisory ranges
+- 147 offline tests
+- Apache-2.0 license
+
+## Links
+
+- Website: https://depguard.dev
+- GitHub: https://github.com/mopanc/depguard
+- npm: https://www.npmjs.com/package/depguard-cli
+- Author: Jorge Morais (https://www.jorgemopanc.com)

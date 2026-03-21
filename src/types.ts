@@ -213,3 +213,93 @@ export interface CacheEntry<T> {
   data: T
   expiresAt: number
 }
+
+// ====== SWEEP TYPES ======
+
+/** Classification of why a dependency might be considered "used" even without imports */
+export type DepUsageReason =
+  | 'imported'
+  | 'config-referenced'
+  | 'npm-script'
+  | 'types-only'
+  | 'peer-dep'
+  | 'bin-usage'
+
+/** Result for a single dependency in sweep */
+export interface SweepDepResult {
+  name: string
+  version: string
+  status: 'unused' | 'used' | 'maybe-unused'
+  reasons: DepUsageReason[]
+  estimatedSizeKB: number | null
+}
+
+/** Full sweep result */
+export interface SweepResult {
+  projectPath: string
+  totalDependencies: number
+  unused: SweepDepResult[]
+  maybeUnused: SweepDepResult[]
+  used: number
+  estimatedSavingsKB: number
+  scannedFiles: number
+  warnings: string[]
+  /** Always present — reminds users that results are recommendations, not commands */
+  note: string
+}
+
+/** Options for sweep */
+export interface SweepOptions {
+  includeDevDependencies?: boolean
+  excludePatterns?: string[]
+}
+
+// ====== GUARD TYPES ======
+
+/** Decision from the guard */
+export type GuardDecision = 'allow' | 'warn' | 'block'
+
+/** Guard check result */
+export interface GuardResult {
+  package: string
+  decision: GuardDecision
+  exists: boolean
+  possibleTyposquat: boolean
+  similarTo: string[]
+  score: number | null
+  reasons: string[]
+  auditSummary: {
+    vulnerabilities: number
+    critical: number
+    high: number
+    deprecated: boolean
+    hasInstallScripts: boolean
+    scriptAnalysisSuspicious: boolean
+    license: string | null
+  } | null
+}
+
+/** Options for guard */
+export interface GuardOptions {
+  threshold?: number
+  targetLicense?: string
+  block?: boolean
+  fetcher?: FetchFn
+}
+
+// ====== VERIFY TYPES ======
+
+/** Verify result (existence + typosquat check) */
+export interface VerifyResult {
+  package: string
+  exists: boolean
+  possibleTyposquat: boolean
+  similarTo: string[]
+  description: string | null
+  version: string | null
+}
+
+/** Options for verify */
+export interface VerifyOptions {
+  fetcher?: FetchFn
+}

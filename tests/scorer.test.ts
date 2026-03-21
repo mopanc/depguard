@@ -86,6 +86,20 @@ describe('score', () => {
     assert.ok(result.breakdown.security < 50, `Expected security <50 but got ${result.breakdown.security}`)
   })
 
+  it('critical vulnerability caps security score at 15', async () => {
+    const advisories = {
+      'good-pkg': [
+        { id: 1, title: 'RCE', severity: 'critical', url: '', vulnerable_versions: '*', patched_versions: null },
+      ],
+    }
+    const result = await score('good-pkg', {
+      fetcher: createScorerFetch({ 'security/advisories/bulk': advisories }),
+    })
+    assert.ok(result.breakdown.security <= 15, `Critical vuln should cap at 15, got ${result.breakdown.security}`)
+    // Total score must be low — a critical vuln package should never be recommended
+    assert.ok(result.total < 60, `Package with critical vuln should score <60, got ${result.total}`)
+  })
+
   it('license score is 0 for incompatible license', async () => {
     const pkg = {
       name: 'gpl-pkg',

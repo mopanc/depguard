@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-03-21
+
+### Added
+
+- **Pre-install guardian (`depguard_guard`)** — verify a package exists on npm, check for AI hallucination and typosquatting, run quick security audit, and return allow/warn/block decision. Use this before installing any package suggested by an AI agent.
+- **AI hallucination guard (`depguard_verify`)** — lightweight check if an npm package name actually exists on the registry. Typosquatting detection via Levenshtein distance against 100+ popular packages.
+- **Dead dependency detection (`depguard_sweep`)** — scan a project for npm packages in package.json that are not actually imported or used in source code. Smart detection: config-only deps (eslint, prettier, typescript, etc.), npm script binaries, `@types/*` packages, estimated size savings.
+- **CLI commands** — `depguard-cli guard <package>` and `depguard-cli sweep [path]` with `--block` and `--include-dev` flags
+- **Token savings profiles** for all 3 new MCP tools
+- **Peer dependency awareness** — packages required as peerDependencies by other installed packages are not flagged as unused
+- **Workspace/monorepo support** — scans workspace package.json files to prevent false positives in monorepos (npm, yarn, pnpm workspaces)
+- **`require.resolve()` detection** — packages referenced via `require.resolve('pkg')` are correctly detected as used
+- **Expanded config plugin detection** — tailwind plugins, postcss plugins, webpack loaders, vite/rollup plugins
+- **Hardened scoring algorithm** — critical vulnerabilities now cap the total score at 30/100 max (was possible to score 66 with a critical vuln). High vulns cap at 50/100. Security is non-negotiable.
+- **CVSS score integration** — security scoring uses CVSS scores when available for more accurate severity weighting
+- **Improved maintenance scoring** — stable LTS packages (lodash, express) no longer unfairly penalized. Maturity bonus for packages with 50+ versions.
+- **Dual license support** — `MIT OR GPL-3.0` and `MIT AND ISC` SPDX expressions now parsed correctly
+- **Modern license coverage** — added SSPL-1.0, Elastic-2.0, BUSL-1.1, Commons-Clause, WTFPL, CC-BY-4.0, CC-BY-SA-4.0, BSL-1.0, OSL-3.0
+- **Semver OR clause support** — `>= 1.0.0, < 2.0.0 || >= 3.0.0, < 3.5.0` ranges now parsed correctly
+- **Improved advisory deduplication** — dedup by CVE ID in addition to URL and GHSA ID
+- **Safer severity defaults** — unknown GitHub advisory severity now maps to `moderate` instead of `low`
+- 54 new tests (147 total)
+
 ## [1.3.1] - 2026-03-18
 
 ### Fixed
@@ -93,6 +116,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In-memory cache with TTL for registry requests
 - Comprehensive test suite (54 tests)
 
+[1.4.0]: https://github.com/mopanc/depguard/compare/v1.3.1...v1.4.0
 [1.3.0]: https://github.com/mopanc/depguard/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/mopanc/depguard/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/mopanc/depguard/compare/v1.1.1...v1.2.0

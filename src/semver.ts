@@ -2,9 +2,11 @@
  * Minimal semver range checker — zero dependencies.
  * Supports common version range patterns from GitHub advisories:
  *   "< 4.0.0", ">= 1.0.0, < 2.0.0", "<= 3.5.0", "= 1.2.3"
+ *   ">= 1.0.0, < 2.0.0 || >= 3.0.0, < 3.5.0" (OR clauses)
  *
- * Does NOT support: ||, ~, ^, *, x, pre-release tags, build metadata.
+ * Does NOT support: ~, ^, *, x, pre-release comparison, build metadata.
  * This is intentional — advisory ranges use simple comparators.
+ * Unknown ranges are treated as vulnerable (safe default).
  */
 
 interface SemVer {
@@ -60,21 +62,41 @@ export function satisfiesRange(version: string, range: string): boolean {
 
   if (!range || range === '*') return true
 
-  // Split by comma for compound ranges: ">= 1.0.0, < 2.0.0"
-  const parts = range.split(',').map(s => s.trim()).filter(Boolean)
+  // Support OR clauses: "< 2.0.0 || >= 3.0.0, < 3.5.0"
+  // Vulnerable if ANY OR clause matches
+  const orClauses = range.split('||').map(s => s.trim()).filter(Boolean)
+
+  for (const clause of orClauses) {
+    if (satisfiesAndClause(ver, clause)) {
+      return true // Vulnerable — matches at least one OR clause
+    }
+  }
+
+  return false // Not vulnerable — doesn't match any OR clause
+}
+
+/**
+ * Check if a version satisfies ALL conditions in an AND clause.
+ * AND clauses are comma-separated: ">= 1.0.0, < 2.0.0"
+ */
+function satisfiesAndClause(ver: SemVer, clause: string): boolean {
+  const parts = clause.split(',').map(s => s.trim()).filter(Boolean)
+  let hadValidPart = false
 
   for (const part of parts) {
     const match = part.match(/^(>=|<=|>|<|=)\s*(.+)$/)
     if (!match) continue
 
+    hadValidPart = true
     const op = match[1]
     const target = parse(match[2])
     if (!target) continue
 
     if (!matchComparator(ver, op, target)) {
-      return false // One condition not met → not in vulnerable range
+      return false // One condition not met → not in this clause's range
     }
   }
 
-  return true
+  // If no valid parts were parsed, treat as vulnerable (safe default)
+  return hadValidPart || true
 }

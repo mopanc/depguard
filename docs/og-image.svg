@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#080c14"/>
+      <stop offset="100%" stop-color="#0d1520"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00ffc8"/>
+      <stop offset="100%" stop-color="#00cc9f"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.06" stroke="#00ffc8" stroke-width="0.5">
+    <line x1="0" y1="0" x2="0" y2="630" transform="translate(60,0)"/>
+    <line x1="0" y1="0" x2="0" y2="630" transform="translate(120,0)"/>
+    <line x1="0" y1="0" x2="0" y2="630" transform="translate(180,0)"/>
+    <line x1="0" y1="0" x2="0" y2="630" transform="translate(1020,0)"/>
+    <line x1="0" y1="0" x2="0" y2="630" transform="translate(1080,0)"/>
+    <line x1="0" y1="0" x2="0" y2="630" transform="translate(1140,0)"/>
+    <line x1="0" y1="0" x2="1200" y2="0" transform="translate(0,60)"/>
+    <line x1="0" y1="0" x2="1200" y2="0" transform="translate(0,570)"/>
+  </g>
+
+  <!-- Accent line top -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#accent)"/>
+
+  <!-- Shield icon -->
+  <g transform="translate(100, 180)">
+    <path d="M40 10 L70 25 L70 55 C70 75 55 90 40 95 C25 90 10 75 10 55 L10 25 Z" fill="none" stroke="#00ffc8" stroke-width="3"/>
+    <path d="M30 50 L38 58 L52 42" fill="none" stroke="#00ffc8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Title -->
+  <text x="190" y="225" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="64" font-weight="800" fill="#e8edf4">
+    dep<tspan fill="#00ffc8">guard</tspan>
+  </text>
+
+  <!-- Subtitle -->
+  <text x="190" y="275" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#8899aa" font-weight="400">
+    MCP Security Server for AI Coding Agents
+  </text>
+
+  <!-- Feature pills -->
+  <g transform="translate(190, 320)">
+    <rect x="0" y="0" width="130" height="36" rx="18" fill="none" stroke="#00ffc8" stroke-width="1.5" opacity="0.6"/>
+    <text x="65" y="23" font-family="system-ui, sans-serif" font-size="14" fill="#00ffc8" text-anchor="middle" font-weight="600">9 MCP Tools</text>
+
+    <rect x="150" y="0" width="150" height="36" rx="18" fill="none" stroke="#00ffc8" stroke-width="1.5" opacity="0.6"/>
+    <text x="225" y="23" font-family="system-ui, sans-serif" font-size="14" fill="#00ffc8" text-anchor="middle" font-weight="600">Zero Deps</text>
+
+    <rect x="320" y="0" width="160" height="36" rx="18" fill="none" stroke="#00ffc8" stroke-width="1.5" opacity="0.6"/>
+    <text x="400" y="23" font-family="system-ui, sans-serif" font-size="14" fill="#00ffc8" text-anchor="middle" font-weight="600">Apache-2.0</text>
+
+    <rect x="500" y="0" width="190" height="36" rx="18" fill="none" stroke="#ff6b6b" stroke-width="1.5" opacity="0.6"/>
+    <text x="595" y="23" font-family="system-ui, sans-serif" font-size="14" fill="#ff6b6b" text-anchor="middle" font-weight="600">AI Hallucination Guard</text>
+  </g>
+
+  <!-- Feature list -->
+  <g transform="translate(190, 400)" font-family="system-ui, sans-serif" font-size="18" fill="#8899aa">
+    <text x="0" y="0"><tspan fill="#00ffc8">&#x25CF;</tspan>  Pre-install guardian — allow / warn / block</text>
+    <text x="0" y="35"><tspan fill="#00ffc8">&#x25CF;</tspan>  Dead dependency detection — find unused packages</text>
+    <text x="0" y="70"><tspan fill="#00ffc8">&#x25CF;</tspan>  Vulnerability audit — CVE + GitHub Advisory + CVSS</text>
+    <text x="0" y="105"><tspan fill="#00ffc8">&#x25CF;</tspan>  Works with Claude, Cursor, Windsurf, any MCP client</text>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="580" width="1200" height="50" fill="rgba(0,255,200,0.04)"/>
+  <text x="100" y="612" font-family="system-ui, sans-serif" font-size="16" fill="#556677">depguard.dev</text>
+  <text x="1100" y="612" font-family="system-ui, sans-serif" font-size="16" fill="#556677" text-anchor="end">v1.4.0</text>
+
+  <!-- Accent line bottom -->
+  <rect x="0" y="627" width="1200" height="3" fill="url(#accent)"/>
+</svg>

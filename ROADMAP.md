@@ -34,24 +34,34 @@ The plan for depguard-cli — where we are, where we're going, and why.
 - [x] Semver range matching for accurate advisory filtering
 - [x] 93 offline tests
 
+### v1.4.0 — Guardian & Sweep (2026-03-21)
+- [x] Pre-install guardian — verify + audit + allow/warn/block decision
+- [x] AI hallucination guard — verify package existence on npm registry
+- [x] Typosquatting detection — Levenshtein distance against 100+ popular packages
+- [x] Dead dependency detection — scan project for unused packages in package.json
+- [x] Config-aware sweep — recognizes eslint, prettier, typescript, jest, babel, tailwind, etc.
+- [x] npm script binary detection — finds deps used via CLI in package.json scripts
+- [x] @types/* pairing — recognizes type-only packages linked to runtime deps
+- [x] 147 offline tests
+
 ---
 
 ## Phase 2 — Production Hardening (Q2 2026)
 
-### v1.4.0 — Transitive Dependency Analysis
+### v1.5.0 — Transitive Dependency Analysis
 - [ ] **Recursive dependency tree audit** — audit transitive dependencies, not just direct
 - [ ] **Dependency tree visualization** — show the full dependency graph with risk highlighting
 - [ ] **Total attack surface score** — aggregate risk across the entire dependency tree
 - [ ] **Phantom dependency detection** — flag packages installed but not in package.json
 
-### v1.5.0 — CI/CD Integration
+### v1.6.0 — CI/CD Integration
 - [ ] **GitHub Action** — run depguard on PRs that modify package.json/package-lock.json
 - [ ] **Exit codes** — configurable exit codes for CI pipelines (fail on critical, warn on moderate)
 - [ ] **SARIF output** — GitHub Security tab compatible vulnerability format
 - [ ] **PR comment bot** — auto-comment on PRs with audit summary and score changes
 - [ ] **Diff mode** — only audit new/changed dependencies, not the entire lockfile
 
-### v1.6.0 — Advanced Threat Detection
+### v1.7.0 — Advanced Threat Detection
 - [ ] **Typosquatting detection** — Levenshtein distance check against top 5000 npm packages
 - [ ] **Maintainer change alerts** — flag packages where ownership recently transferred
 - [ ] **Publication anomaly detection** — detect unusual version jumps, publish frequency spikes
@@ -123,8 +133,8 @@ The plan for depguard-cli — where we are, where we're going, and why.
 | npm weekly downloads | — | 1,000 | 10,000 |
 | GitHub stars | — | 100 | 1,000 |
 | Packages in advisory DB | npm + GHSA | + PyPI + Cargo | + Go |
-| Attack patterns detected | 9 | 15 | 25 |
-| Test coverage | 93 tests | 150+ tests | 300+ tests |
+| Attack patterns detected | 9 + typosquatting | 15 | 25 |
+| Test coverage | 134 tests | 200+ tests | 300+ tests |
 | Ecosystems supported | npm | npm | npm, PyPI, Cargo, Go |
 | MCP client integrations | 7 | 10 | 15 |
 | OpenSSF Scorecard | — | Passing | Silver |

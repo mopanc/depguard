@@ -6,14 +6,14 @@ import { satisfiesRange } from './semver.js'
 
 const INSTALL_SCRIPT_NAMES = ['preinstall', 'install', 'postinstall']
 
-/** Map GitHub severity to npm severity */
+/** Map GitHub severity to npm severity — unknown defaults to moderate (not low) for safety */
 function mapGitHubSeverity(severity: string): NpmAdvisory['severity'] {
   switch (severity) {
     case 'critical': return 'critical'
     case 'high': return 'high'
     case 'medium': return 'moderate'
     case 'low': return 'low'
-    default: return 'low'
+    default: return 'moderate' // Unknown severity → err on side of caution
   }
 }
 
@@ -26,12 +26,13 @@ function mergeAdvisories(
   ghAdvisories: Awaited<ReturnType<typeof fetchGitHubAdvisories>>,
   currentVersion: string,
 ): NpmAdvisory[] {
-  const seen = new Set<string>()
+  const seenUrls = new Set<string>()
+  const seenCves = new Set<string>()
   const merged: NpmAdvisory[] = []
 
   // Add npm advisories first (npm bulk endpoint already filters by version)
   for (const adv of npmAdvisories) {
-    seen.add(adv.url)
+    seenUrls.add(adv.url)
     merged.push({ ...adv, source: 'npm' as const })
   }
 
@@ -40,11 +41,18 @@ function mergeAdvisories(
 
   // Add GitHub advisories that aren't already covered
   for (const gh of ghAdvisories) {
-    if (seen.has(gh.html_url)) continue
+    // Dedup by URL
+    if (seenUrls.has(gh.html_url)) continue
 
-    // Also check if we already have the same GHSA by matching URL patterns
+    // Dedup by GHSA ID in npm URLs
     const ghsaInNpm = npmAdvisories.some(a => a.url.includes(gh.ghsa_id))
     if (ghsaInNpm) continue
+
+    // Dedup by CVE ID — same vulnerability reported under different GHSA entries
+    if (gh.cve_id) {
+      if (seenCves.has(gh.cve_id)) continue
+      seenCves.add(gh.cve_id)
+    }
 
     // Filter: only include if current version is actually affected
     const vuln = gh.vulnerabilities?.[0]

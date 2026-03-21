@@ -5,6 +5,8 @@ import { audit } from './audit.js'
 import { search } from './search.js'
 import { score } from './scorer.js'
 import { shouldUse } from './advisor.js'
+import { guard } from './guard.js'
+import { sweep } from './sweep.js'
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -14,6 +16,8 @@ const { values, positionals } = parseArgs({
     'limit': { type: 'string', default: '10' },
     'json': { type: 'boolean', default: false },
     'mcp': { type: 'boolean', default: false },
+    'block': { type: 'boolean', default: false },
+    'include-dev': { type: 'boolean', default: false },
     'help': { type: 'boolean', short: 'h', default: false },
   },
 })
@@ -37,13 +41,17 @@ Commands:
   search <keywords...>     Search npm for packages by keywords
   score <package>          Score a package 0-100
   should-use <intent...>   Recommend install vs write-from-scratch
+  guard <package>          Pre-install check: verify, audit, allow/warn/block
+  sweep [path]             Detect unused dependencies in a project
 
 Options:
   --target-license <id>    Target project license (default: MIT)
-  --threshold <n>          Score threshold for should-use (default: 60)
+  --threshold <n>          Score threshold for should-use/guard (default: 60)
   --limit <n>              Max results for search (default: 10)
   --json                   Output as JSON
   --mcp                    Start MCP server (JSON-RPC over stdio)
+  --block                  Guard: escalate warnings to blocks
+  --include-dev            Sweep: include devDependencies
   -h, --help               Show this help
 `)
   process.exit(0)
@@ -140,8 +148,68 @@ async function main() {
       break
     }
 
+    case 'guard': {
+      const name = positionals[1]
+      if (!name) {
+        console.error('Usage: depguard-cli guard <package>')
+        process.exit(1)
+      }
+      const result = await guard(name, {
+        threshold,
+        targetLicense,
+        block: values.block ?? false,
+      })
+      if (json) {
+        output(result, true)
+      } else {
+        const icon = result.decision === 'allow' ? 'ALLOW' : result.decision === 'warn' ? 'WARN' : 'BLOCK'
+        console.log(`\n[${icon}] ${result.package}`)
+        if (!result.exists) console.log('  Package does NOT exist on npm!')
+        if (result.possibleTyposquat) console.log(`  Possible typosquat of: ${result.similarTo.join(', ')}`)
+        if (result.score !== null) console.log(`  Score: ${result.score}/100`)
+        for (const reason of result.reasons) console.log(`  - ${reason}`)
+        console.log()
+      }
+      if (result.decision === 'block') process.exit(1)
+      break
+    }
+
+    case 'sweep': {
+      const projectPath = positionals[1] ?? process.cwd()
+      const result = await sweep(projectPath, {
+        includeDevDependencies: values['include-dev'] ?? false,
+      })
+      if (json) {
+        output(result, true)
+      } else {
+        console.log(`\nScanned ${result.scannedFiles} files, ${result.totalDependencies} dependencies\n`)
+        if (result.unused.length > 0) {
+          console.log(`Unused (${result.unused.length}):`)
+          for (const dep of result.unused) {
+            const size = dep.estimatedSizeKB ? ` (~${dep.estimatedSizeKB} KB)` : ''
+            console.log(`  - ${dep.name}@${dep.version}${size}`)
+          }
+        }
+        if (result.maybeUnused.length > 0) {
+          console.log(`\nMaybe unused (${result.maybeUnused.length}):`)
+          for (const dep of result.maybeUnused) {
+            console.log(`  ? ${dep.name}@${dep.version}`)
+          }
+        }
+        if (result.unused.length === 0 && result.maybeUnused.length === 0) {
+          console.log('All dependencies appear to be in use.')
+        }
+        if (result.estimatedSavingsKB > 0) {
+          console.log(`\nEstimated savings: ~${result.estimatedSavingsKB} KB`)
+        }
+        console.log(`\nNote: ${result.note}`)
+        console.log()
+      }
+      break
+    }
+
     default:
-      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use`)
+      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep`)
       process.exit(1)
   }
 }

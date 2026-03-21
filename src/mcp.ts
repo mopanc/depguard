@@ -15,11 +15,13 @@ import { auditBulk, auditProject } from './bulk.js'
 import { search } from './search.js'
 import { score } from './scorer.js'
 import { shouldUse } from './advisor.js'
+import { guard, verify } from './guard.js'
+import { sweep } from './sweep.js'
 import { calculateSavings } from './tokens.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.3.0',
+  version: '1.4.0',
 }
 
 const TOOLS = [
@@ -102,6 +104,42 @@ const TOOLS = [
         targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
       },
       required: ['intent'],
+    },
+  },
+  {
+    name: 'depguard_guard',
+    description: 'Pre-install guardian: verify a package exists on npm, check for AI hallucination and typosquatting, run quick security audit, and return allow/warn/block decision. Use this BEFORE installing any package.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        name: { type: 'string', description: 'npm package name to check before installing' },
+        threshold: { type: 'number', description: 'Score threshold for allow decision (default: 60)' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
+      },
+      required: ['name'],
+    },
+  },
+  {
+    name: 'depguard_verify',
+    description: 'AI hallucination guard: verify if an npm package name actually exists on the registry. Also checks for possible typosquatting against 100+ popular packages using Levenshtein distance.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        name: { type: 'string', description: 'npm package name to verify' },
+      },
+      required: ['name'],
+    },
+  },
+  {
+    name: 'depguard_sweep',
+    description: 'Dead dependency detection: scan a project for npm packages in package.json that are not actually imported or used in source code. Reports unused deps with estimated size savings.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        path: { type: 'string', description: 'Absolute path to project root (must contain package.json)' },
+        includeDevDependencies: { type: 'boolean', description: 'Include devDependencies in scan (default: false)' },
+      },
+      required: ['path'],
     },
   },
 ]
@@ -232,6 +270,32 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
               targetLicense: (args.targetLicense as string) ?? 'MIT',
             })
             return success(req.id, toolResult('depguard_should_use', result, limit))
+          }
+
+          case 'depguard_guard': {
+            const name = args.name as string
+            if (!name) return error(req.id, -32602, 'name is required')
+            const result = await guard(name, {
+              threshold: (args.threshold as number) ?? 60,
+              targetLicense: (args.targetLicense as string) ?? 'MIT',
+            })
+            return success(req.id, toolResult('depguard_guard', result))
+          }
+
+          case 'depguard_verify': {
+            const name = args.name as string
+            if (!name) return error(req.id, -32602, 'name is required')
+            const result = await verify(name)
+            return success(req.id, toolResult('depguard_verify', result))
+          }
+
+          case 'depguard_sweep': {
+            const filePath = args.path as string
+            if (!filePath) return error(req.id, -32602, 'path is required')
+            const result = await sweep(filePath, {
+              includeDevDependencies: (args.includeDevDependencies as boolean) ?? false,
+            })
+            return success(req.id, toolResult('depguard_sweep', result))
           }
 
           default:

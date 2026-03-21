@@ -30,6 +30,12 @@ depguard-cli score <package> [--target-license MIT] [--json]
 
 # Get install/write recommendation
 depguard-cli should-use <intent...> [--threshold 60] [--json]
+
+# Pre-install guardian (verify + audit + allow/warn/block)
+depguard-cli guard <package> [--threshold 60] [--block] [--json]
+
+# Detect unused dependencies
+depguard-cli sweep [path] [--include-dev] [--json]
 ```
 
 ### Examples
@@ -46,12 +52,20 @@ depguard-cli score lodash --json
 
 # Should I install or write my own?
 depguard-cli should-use "http client" --threshold 70
+
+# Check before installing — blocks nonexistent/typosquat packages
+depguard-cli guard expresss
+# [WARN] expresss
+#   Possible typosquat of: express
+
+# Find unused dependencies in your project
+depguard-cli sweep . --include-dev
 ```
 
 ## API
 
 ```typescript
-import { audit, search, score, shouldUse } from 'depguard-cli'
+import { audit, search, score, shouldUse, guard, verify, sweep } from 'depguard-cli'
 
 // Full audit report
 const report = await audit('express', 'MIT')
@@ -73,6 +87,22 @@ const rec = await shouldUse('http client')
 console.log(rec.action)     // "install"
 console.log(rec.package)    // "axios"
 console.log(rec.reasoning)  // "axios scores 85/100 (≥60) — safe to install"
+
+// Pre-install guardian — verify + audit + decision
+const check = await guard('expresss')
+console.log(check.exists)           // true (but suspicious)
+console.log(check.possibleTyposquat) // true
+console.log(check.similarTo)        // ["express"]
+console.log(check.decision)         // "warn"
+
+// AI hallucination guard — does this package even exist?
+const exists = await verify('ai-hallucinated-pkg')
+console.log(exists.exists)          // false
+
+// Dead dependency detection
+const sweepResult = await sweep('.', { includeDevDependencies: true })
+console.log(sweepResult.unused)     // [{ name: 'lodash', status: 'unused', ... }]
+console.log(sweepResult.estimatedSavingsKB) // 1400
 ```
 
 ## Scoring
@@ -181,6 +211,9 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 | `depguard_search` | Search npm for packages by keywords |
 | `depguard_score` | Score a package 0-100 |
 | `depguard_should_use` | Recommend install, use native Node.js, or write from scratch |
+| `depguard_guard` | Pre-install guardian: verify, audit, allow/warn/block decision |
+| `depguard_verify` | AI hallucination guard: check if a package exists + typosquatting |
+| `depguard_sweep` | Dead dependency detection: find unused packages in a project |
 
 ### Bulk audit
 
@@ -211,6 +244,87 @@ const report = await auditProject('./package.json', {
 ```
 
 Via MCP, the agent just passes the file path — depguard reads it, detects the project license, and audits everything.
+
+## Pre-Install Guardian
+
+The `guard` command is the recommended entry point for AI agents. Before installing any package, it runs three checks in sequence:
+
+1. **Existence check** — Does the package exist on npm? (blocks AI hallucinations)
+2. **Typosquatting detection** — Is the name suspiciously similar to a popular package? (Levenshtein distance against 100+ top packages)
+3. **Security audit** — Score, vulnerabilities, deprecated status, install script analysis
+
+```bash
+# Safe package
+depguard-cli guard express
+# [ALLOW] express
+#   Score: 82/100 — safe to install
+
+# Typosquat attempt
+depguard-cli guard expresss
+# [WARN] expresss
+#   Possible typosquat of: express
+#   Score: 45/100 is below threshold 60
+
+# Nonexistent package (AI hallucination)
+depguard-cli guard ai-made-up-package
+# [BLOCK] ai-made-up-package
+#   Package does NOT exist on npm!
+```
+
+Use `--block` to escalate all warnings to blocks (useful in CI):
+
+```bash
+depguard-cli guard sketchy-lib --block
+```
+
+### AI Hallucination Guard
+
+The `verify` tool is a lightweight version of `guard` — it only checks if a package exists and whether the name is a possible typosquat. No audit, no scoring. Fast enough to run on every `npm install` suggestion from an AI agent.
+
+```typescript
+import { verify } from 'depguard-cli'
+
+const result = await verify('expresss')
+console.log(result.exists)           // true
+console.log(result.possibleTyposquat) // true
+console.log(result.similarTo)        // ["express"]
+```
+
+## Dead Dependency Detection
+
+The `sweep` command scans your project to find npm packages listed in `package.json` but not actually imported or used in source code.
+
+```bash
+depguard-cli sweep . --include-dev
+
+# Scanned 42 files, 15 dependencies
+#
+# Unused (3):
+#   - lodash@^4.17.21 (~1400 KB)
+#   - moment@^2.29.4 (~800 KB)
+#   - request@^2.88.2 (~250 KB)
+#
+# Maybe unused (1):
+#   ? some-dev-tool@^1.0.0
+#
+# Estimated savings: ~2450 KB
+```
+
+**Smart detection:**
+- Scans all `.js`, `.ts`, `.mjs`, `.cjs`, `.jsx`, `.tsx` files for `import`/`require`/`export from`
+- Recognizes config-only dependencies (eslint, prettier, typescript, jest, vitest, babel, tailwind, etc.)
+- Detects binaries used in npm scripts
+- Handles `@types/*` packages paired with runtime dependencies
+- Marks untraced devDependencies as "maybe-unused" instead of "unused"
+- Estimates disk size savings
+
+```typescript
+import { sweep } from 'depguard-cli'
+
+const result = await sweep('.', { includeDevDependencies: true })
+console.log(result.unused)            // [{ name: 'lodash', estimatedSizeKB: 1400, ... }]
+console.log(result.estimatedSavingsKB) // 2450
+```
 
 ## Smart Advisor
 
@@ -313,7 +427,7 @@ A dependency is compatible if its license is equally or more permissive than you
 ```bash
 npm run build    # compile TypeScript
 npm run lint     # ESLint (strict)
-npm test         # 93 tests (all offline)
+npm test         # 147 tests (all offline)
 npm run check    # build + lint + test + audit
 ```
 

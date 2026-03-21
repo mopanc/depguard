@@ -49,4 +49,15 @@ describe('satisfiesRange', () => {
     assert.strictEqual(satisfiesRange('4.21.1', '< 4.21.2'), true)
     assert.strictEqual(satisfiesRange('5.0.0', '< 4.21.2'), false)
   })
+
+  it('handles OR clauses (||)', () => {
+    // Version 1.5.0 should match the first clause
+    assert.strictEqual(satisfiesRange('1.5.0', '>= 1.0.0, < 2.0.0 || >= 3.0.0, < 3.5.0'), true)
+    // Version 3.2.0 should match the second clause
+    assert.strictEqual(satisfiesRange('3.2.0', '>= 1.0.0, < 2.0.0 || >= 3.0.0, < 3.5.0'), true)
+    // Version 2.5.0 should not match any clause
+    assert.strictEqual(satisfiesRange('2.5.0', '>= 1.0.0, < 2.0.0 || >= 3.0.0, < 3.5.0'), false)
+    // Version 4.0.0 should not match any clause
+    assert.strictEqual(satisfiesRange('4.0.0', '>= 1.0.0, < 2.0.0 || >= 3.0.0, < 3.5.0'), false)
+  })
 })

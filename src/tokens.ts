@@ -115,6 +115,40 @@ function manualProfileFor(tool: string, argCount: number): ManualProfile {
       }
     }
 
+    case 'depguard_guard':
+      return {
+        steps: [
+          `WebSearch: "does {package} exist on npm" (~${MANUAL_COST.webSearch} tokens)`,
+          `WebFetch: npm registry page to verify existence (~${MANUAL_COST.webFetch} tokens)`,
+          `WebSearch: "{package} typosquatting similar names" (~${MANUAL_COST.webSearch} tokens)`,
+          `Full audit of the package (~${MANUAL_COST.webSearch * 2 + MANUAL_COST.webFetch * 3} tokens)`,
+          `Reasoning: decide allow/warn/block (~${MANUAL_COST.reasoning} tokens)`,
+        ],
+        tokens: MANUAL_COST.webSearch * 4 + MANUAL_COST.webFetch * 4 + MANUAL_COST.reasoning,
+      }
+
+    case 'depguard_verify':
+      return {
+        steps: [
+          `WebSearch: "npm {package}" (~${MANUAL_COST.webSearch} tokens)`,
+          `WebFetch: npm registry to check existence (~${MANUAL_COST.webFetch} tokens)`,
+          `Reasoning: check for similar package names (~${MANUAL_COST.reasoning} tokens)`,
+        ],
+        tokens: MANUAL_COST.webSearch + MANUAL_COST.webFetch + MANUAL_COST.reasoning,
+      }
+
+    case 'depguard_sweep':
+      return {
+        steps: [
+          `Manual file scanning: grep through all source files for imports (~${MANUAL_COST.webFetchLarge} tokens)`,
+          `Cross-reference each dependency against imports (~${MANUAL_COST.reasoning * 3} tokens)`,
+          `Check config files for tool dependencies (~${MANUAL_COST.reasoning * 2} tokens)`,
+          `Check npm scripts for binary usage (~${MANUAL_COST.reasoning} tokens)`,
+          `Reasoning: classify used vs unused (~${MANUAL_COST.reasoning} tokens)`,
+        ],
+        tokens: MANUAL_COST.webFetchLarge + MANUAL_COST.reasoning * 7,
+      }
+
     default:
       return { steps: ['Unknown tool'], tokens: MANUAL_COST.webSearch }
   }
