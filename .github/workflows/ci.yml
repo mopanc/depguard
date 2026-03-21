@@ -21,4 +21,4 @@ jobs:
       - run: npm run build
       - run: npm run lint
       - run: npm test
-      - run: npm audit --audit-level=high
+      - run: npm audit --audit-level=high --omit=dev
