@@ -52,5 +52,15 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "socket": {
+    "network": {
+      "reason": "Fetches package metadata from npm registry (registry.npmjs.org) and security advisories from GitHub Advisory Database (api.github.com). No other network access. All URLs are hardcoded constants — no dynamic URL construction.",
+      "domains": [
+        "registry.npmjs.org",
+        "api.npmjs.org",
+        "api.github.com"
+      ]
+    }
   }
 }
