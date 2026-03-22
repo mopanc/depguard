@@ -1,8 +1,8 @@
 # depguard-cli
 
-Audit npm packages for security, maintenance, licenses, and dependencies. Recommends whether to install a package or write from scratch.
+MCP security server for AI coding agents. 9 tools: pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, and smart recommendations.
 
-Built for AI agents and developers who need to make informed decisions about npm dependencies.
+Your AI agent verifies every `npm install` before it happens. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
 
 ## Install
 
