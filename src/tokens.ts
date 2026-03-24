@@ -137,6 +137,19 @@ function manualProfileFor(tool: string, argCount: number): ManualProfile {
         tokens: MANUAL_COST.webSearch + MANUAL_COST.webFetch + MANUAL_COST.reasoning,
       }
 
+    case 'depguard_audit_deep': {
+      const depCount = argCount || 20
+      const perDep = MANUAL_COST.webSearch + MANUAL_COST.webFetch * 2
+      return {
+        steps: [
+          `WebFetch: npm registry for root package metadata (~${MANUAL_COST.webFetch} tokens)`,
+          `${depCount}x transitive dep: WebSearch + 2x WebFetch each (~${perDep * depCount} tokens)`,
+          `Reasoning: build dependency graph and aggregate risks (~${MANUAL_COST.reasoning * 3} tokens)`,
+        ],
+        tokens: MANUAL_COST.webFetch + perDep * depCount + MANUAL_COST.reasoning * 3,
+      }
+    }
+
     case 'depguard_sweep':
       return {
         steps: [

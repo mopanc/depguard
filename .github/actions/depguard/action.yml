@@ -1,0 +1,85 @@
+name: 'depguard Security Audit'
+description: 'Audit npm dependencies for vulnerabilities, license issues, and supply chain risks using depguard-cli'
+branding:
+  icon: 'shield'
+  color: 'green'
+
+inputs:
+  threshold:
+    description: 'Minimum score threshold (0-100). Packages below this score trigger warnings.'
+    required: false
+    default: '60'
+  target-license:
+    description: 'Project license for compatibility check (SPDX identifier)'
+    required: false
+    default: 'MIT'
+  include-dev:
+    description: 'Include devDependencies in audit'
+    required: false
+    default: 'false'
+  fail-on-critical:
+    description: 'Fail the action if critical or high vulnerabilities are found'
+    required: false
+    default: 'true'
+  version:
+    description: 'depguard-cli version to use'
+    required: false
+    default: '1.5.0'
+
+outputs:
+  total-packages:
+    description: 'Total number of packages audited'
+  vulnerable-count:
+    description: 'Number of packages with vulnerabilities'
+  critical-count:
+    description: 'Number of critical vulnerabilities found'
+  high-count:
+    description: 'Number of high severity vulnerabilities found'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run depguard audit
+      shell: bash
+      id: audit
+      run: |
+        echo "::group::depguard Security Audit"
+
+        # Run project audit
+        ARGS="--target-license ${{ inputs.target-license }} --json"
+        if [ "${{ inputs.include-dev }}" = "true" ]; then
+          ARGS="$ARGS --include-dev"
+        fi
+
+        npx -y depguard-cli@${{ inputs.version }} audit package.json $ARGS > /tmp/depguard-results.json 2>/dev/null || true
+
+        # Parse results
+        if [ -f /tmp/depguard-results.json ]; then
+          TOTAL=$(node -e "const r=require('/tmp/depguard-results.json'); console.log(r.total || 0)")
+          VULNERABLE=$(node -e "const r=require('/tmp/depguard-results.json'); console.log(r.vulnerable || 0)")
+          CRITICAL=$(node -e "const r=require('/tmp/depguard-results.json'); console.log(r.summary?.critical || 0)")
+          HIGH=$(node -e "const r=require('/tmp/depguard-results.json'); console.log(r.summary?.high || 0)")
+
+          echo "total-packages=$TOTAL" >> $GITHUB_OUTPUT
+          echo "vulnerable-count=$VULNERABLE" >> $GITHUB_OUTPUT
+          echo "critical-count=$CRITICAL" >> $GITHUB_OUTPUT
+          echo "high-count=$HIGH" >> $GITHUB_OUTPUT
+
+          echo "Packages audited: $TOTAL"
+          echo "Vulnerable: $VULNERABLE"
+          echo "Critical: $CRITICAL"
+          echo "High: $HIGH"
+
+          # Fail if critical/high found and fail-on-critical is true
+          if [ "${{ inputs.fail-on-critical }}" = "true" ]; then
+            if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 0 ]; then
+              echo "::error::Found $CRITICAL critical and $HIGH high severity vulnerabilities"
+              echo "::endgroup::"
+              exit 1
+            fi
+          fi
+        else
+          echo "::warning::depguard audit did not produce results"
+        fi
+
+        echo "::endgroup::"

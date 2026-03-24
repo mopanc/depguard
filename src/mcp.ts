@@ -17,11 +17,12 @@ import { score } from './scorer.js'
 import { shouldUse } from './advisor.js'
 import { guard, verify } from './guard.js'
 import { sweep } from './sweep.js'
+import { auditTransitive } from './transitive.js'
 import { calculateSavings } from './tokens.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.4.0',
+  version: '1.5.0',
 }
 
 const TOOLS = [
@@ -126,6 +127,19 @@ const TOOLS = [
       type: 'object' as const,
       properties: {
         name: { type: 'string', description: 'npm package name to verify' },
+      },
+      required: ['name'],
+    },
+  },
+  {
+    name: 'depguard_audit_deep',
+    description: 'Deep transitive dependency audit: recursively audits all dependencies in the tree with BFS traversal. Returns vulnerability counts by depth, circular dependencies, deprecated packages, and aggregate risk across the full dependency graph.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        name: { type: 'string', description: 'npm package name' },
+        maxDepth: { type: 'number', description: 'Max recursion depth (default: 5, max: 10)' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
       },
       required: ['name'],
     },
@@ -287,6 +301,16 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
             if (!name) return error(req.id, -32602, 'name is required')
             const result = await verify(name)
             return success(req.id, toolResult('depguard_verify', result))
+          }
+
+          case 'depguard_audit_deep': {
+            const name = args.name as string
+            if (!name) return error(req.id, -32602, 'name is required')
+            const result = await auditTransitive(name, {
+              maxDepth: (args.maxDepth as number) ?? 5,
+              targetLicense: (args.targetLicense as string) ?? 'MIT',
+            })
+            return success(req.id, toolResult('depguard_audit_deep', result, result.totalTransitiveDeps))
           }
 
           case 'depguard_sweep': {

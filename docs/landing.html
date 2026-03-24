@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>depguard — MCP Security Server for AI Coding Agents</title>
-  <meta name="description" content="MCP security server for AI coding agents. 9 tools: pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection. Your AI agent verifies every npm install. Zero dependencies. Works with Claude, Cursor, Windsurf.">
+  <meta name="description" content="MCP security server for AI coding agents. 10 tools: pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection. Your AI agent verifies every npm install. Zero dependencies. Works with Claude, Cursor, Windsurf.">
   <meta name="keywords" content="MCP server, npm security, AI coding agent, supply chain security, vibe coding, Model Context Protocol, package auditing, vulnerability detection, Claude MCP, Cursor MCP, AI agent tools, dependency security, npm audit, Node.js security, open source security, typosquatting detection, dead dependencies, unused packages, pre-install check, AI hallucination guard, depguard, package scoring, CVSS, license compliance, SPDX">
   <meta name="author" content="Jorge Morais">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -20,7 +20,7 @@
   <meta property="og:image" content="https://depguard.dev/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="depguard — MCP Security Server for AI Coding Agents. 9 tools. Zero dependencies.">
+  <meta property="og:image:alt" content="depguard — MCP Security Server for AI Coding Agents. 10 tools. Zero dependencies.">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card -->
@@ -52,10 +52,10 @@
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Security Tool",
     "operatingSystem": "Cross-platform (Node.js 18+)",
-    "description": "MCP server that gives AI coding agents real-time npm security auditing. 9 tools for vulnerability triage, supply chain attack detection, package scoring, pre-install guardian, AI hallucination guard, dead dependency detection, and smart recommendations. Zero dependencies. Works with Claude, Cursor, Windsurf, and any MCP-compatible client.",
+    "description": "MCP server that gives AI coding agents real-time npm security auditing. 10 tools for vulnerability triage, supply chain attack detection, package scoring, pre-install guardian, AI hallucination guard, dead dependency detection, and smart recommendations. Zero dependencies. Works with Claude, Cursor, Windsurf, and any MCP-compatible client.",
     "url": "https://depguard.dev",
     "downloadUrl": "https://www.npmjs.com/package/depguard-cli",
-    "softwareVersion": "1.4.0",
+    "softwareVersion": "1.5.0",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "programmingLanguage": "TypeScript",
     "runtimePlatform": "Node.js",
@@ -84,7 +84,7 @@
       "Package scoring 0-100 with security ceiling (critical vulns cap at 30)",
       "Install script static analysis",
       "Native Node.js alternative recommendations (20+)",
-      "MCP server with 9 tools for AI coding agents",
+      "MCP server with 10 tools for AI coding agents",
       "Dual license support (SPDX OR/AND expressions, 25+ licenses)",
       "Bulk and project-level auditing",
       "Fix version suggestions",
@@ -1352,7 +1352,7 @@
   <div class="hero-content">
     <div class="hero-badge reveal">
       <span class="dot" aria-hidden="true"></span>
-      MCP Server &middot; 9 Tools &middot; Zero Dependencies &middot; Apache-2.0 &middot;
+      MCP Server &middot; 10 Tools &middot; Zero Dependencies &middot; Apache-2.0 &middot;
       <svg width="14" height="10" viewBox="0 0 16 11" aria-label="Made in Portugal" style="vertical-align:middle;opacity:.6"><rect width="6" height="11" fill="#006600"/><rect x="6" width="10" height="11" fill="#ff0000"/><circle cx="6" cy="5.5" r="2" fill="#ffcc00" stroke="#006600" stroke-width=".3"/></svg>
     </div>
     <h1 id="hero-heading" class="reveal reveal-delay-1">
@@ -1455,7 +1455,7 @@
 <!-- ============ FEATURES ============ -->
 <section class="section" id="features" aria-labelledby="features-heading">
   <div class="section-label reveal">MCP Tools</div>
-  <h2 id="features-heading" class="reveal">9 tools your AI agent can call</h2>
+  <h2 id="features-heading" class="reveal">10 tools your AI agent can call</h2>
   <p class="section-desc reveal">Each MCP tool returns structured data with token savings tracking. Your agent gets exactly the information it needs to make safe dependency decisions.</p>
 
   <div class="features-grid reveal">
@@ -1510,8 +1510,14 @@
     <article class="feat">
       <div class="feat-icon" aria-hidden="true">&#x2702;</div>
       <h3>depguard_sweep</h3>
-      <p>Dead dependency detection. Scans source files for imports, cross-references with package.json, and finds unused packages with estimated size savings.</p>
+      <p>Dead dependency detection. Scans source files for imports, cross-references with package.json, finds unused packages and phantom dependencies.</p>
       <span class="feat-tag green">Cleanup</span>
+    </article>
+    <article class="feat">
+      <div class="feat-icon" aria-hidden="true">&#x26A0;</div>
+      <h3>depguard_audit_deep</h3>
+      <p>Deep transitive dependency tree audit. BFS through the entire dependency graph with vulnerability aggregation, circular detection, and maintainer/publication risk analysis.</p>
+      <span class="feat-tag red">Deep Scan</span>
     </article>
   </div>
 </section>

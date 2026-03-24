@@ -7,6 +7,7 @@ import { score } from './scorer.js'
 import { shouldUse } from './advisor.js'
 import { guard } from './guard.js'
 import { sweep } from './sweep.js'
+import { auditTransitive } from './transitive.js'
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -43,6 +44,7 @@ Commands:
   should-use <intent...>   Recommend install vs write-from-scratch
   guard <package>          Pre-install check: verify, audit, allow/warn/block
   sweep [path]             Detect unused dependencies in a project
+  audit-deep <package>     Deep transitive dependency tree audit
 
 Options:
   --target-license <id>    Target project license (default: MIT)
@@ -208,8 +210,43 @@ async function main() {
       break
     }
 
+    case 'audit-deep': {
+      const name = positionals[1]
+      if (!name) {
+        console.error('Usage: depguard-cli audit-deep <package>')
+        process.exit(1)
+      }
+      const result = await auditTransitive(name, {
+        maxDepth: 5,
+        targetLicense,
+      })
+      if (json) {
+        output(result, true)
+      } else {
+        console.log(`\nTransitive dependency tree for ${result.root}@${result.rootVersion}`)
+        console.log(`  Depth: ${result.maxDepthReached}/${result.maxDepthLimit}`)
+        console.log(`  Total packages: ${result.uniquePackages}`)
+        console.log(`  Circular deps: ${result.circularDeps.length}`)
+        const v = result.aggregateVulnerabilities
+        if (v.total > 0) {
+          console.log(`\n  Vulnerabilities: ${v.total} (critical: ${v.critical}, high: ${v.high}, moderate: ${v.moderate}, low: ${v.low})`)
+          for (const pkg of v.byPackage) {
+            console.log(`    - ${pkg.name} (depth ${pkg.depth}): ${pkg.total} vulns${pkg.critical > 0 ? ' [CRITICAL]' : ''}`)
+          }
+        } else {
+          console.log(`\n  No vulnerabilities found in dependency tree`)
+        }
+        if (result.warnings.length > 0) {
+          console.log(`\n  Warnings:`)
+          for (const w of result.warnings) console.log(`    - ${w}`)
+        }
+        console.log()
+      }
+      break
+    }
+
     default:
-      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep`)
+      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep, audit-deep`)
       process.exit(1)
   }
 }

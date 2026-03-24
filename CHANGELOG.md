@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-03-24
+
+### Added
+
+- **Transitive dependency tree audit (`depguard_audit_deep`)** — BFS traversal through the full dependency tree with concurrency control, circular dependency detection, and configurable depth limit (default: 5, max: 10). Aggregates vulnerabilities across the entire tree with per-package breakdown.
+- **Phantom dependency detection** — detects packages installed in node_modules but not declared in package.json. Integrated into existing `depguard_sweep` results.
+- **Maintainer risk analysis** — flags single-maintainer packages, free email addresses on enterprise packages, missing maintainers, and large teams (>10). Enriches existing audit reports.
+- **Publication anomaly detection** — detects burst publishing (>5 versions in 24h), dormant account resurrection (>365 day gap), and suspicious version jumps (major jump >2). Enriches existing audit reports.
+- **GitHub Action** — composite action at `.github/actions/depguard/` for CI/CD integration with configurable threshold, fail-on-critical, and include-dev options.
+- **CLI command** — `depguard-cli audit-deep <package>` for transitive dependency auditing
+- **MCP tool** — `depguard_audit_deep` (total: 10 MCP tools)
+- 37 new tests (184 total)
+
 ## [1.4.0] - 2026-03-21
 
 ### Added
@@ -116,6 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In-memory cache with TTL for registry requests
 - Comprehensive test suite (54 tests)
 
+[1.5.0]: https://github.com/mopanc/depguard/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/mopanc/depguard/compare/v1.3.1...v1.4.0
 [1.3.0]: https://github.com/mopanc/depguard/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/mopanc/depguard/compare/v1.2.0...v1.2.1

@@ -44,18 +44,20 @@ The plan for depguard-cli — where we are, where we're going, and why.
 - [x] @types/* pairing — recognizes type-only packages linked to runtime deps
 - [x] 147 offline tests
 
+### v1.5.0 — Deep Audit & Supply Chain Intelligence (2026-03-24)
+- [x] Transitive dependency tree audit — BFS with concurrency, circular detection, depth limit
+- [x] Phantom dependency detection — node_modules vs package.json comparison
+- [x] Maintainer risk analysis — single-maintainer, free email, large team flags
+- [x] Publication anomaly detection — burst publishing, dormant resurrection, version jumps
+- [x] GitHub Action for CI/CD integration
+- [x] 184 offline tests
+
 ---
 
 ## Phase 2 — Production Hardening (Q2 2026)
 
-### v1.5.0 — Transitive Dependency Analysis
-- [ ] **Recursive dependency tree audit** — audit transitive dependencies, not just direct
-- [ ] **Dependency tree visualization** — show the full dependency graph with risk highlighting
-- [ ] **Total attack surface score** — aggregate risk across the entire dependency tree
-- [ ] **Phantom dependency detection** — flag packages installed but not in package.json
-
 ### v1.6.0 — CI/CD Integration
-- [ ] **GitHub Action** — run depguard on PRs that modify package.json/package-lock.json
+- [x] **GitHub Action** — composite action with configurable threshold and fail-on-critical
 - [ ] **Exit codes** — configurable exit codes for CI pipelines (fail on critical, warn on moderate)
 - [ ] **SARIF output** — GitHub Security tab compatible vulnerability format
 - [ ] **PR comment bot** — auto-comment on PRs with audit summary and score changes

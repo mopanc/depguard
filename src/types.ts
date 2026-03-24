@@ -121,6 +121,8 @@ export interface AuditReport {
   scriptAnalysis: ScriptAnalysis
   fixSuggestions: FixSuggestion[]
   licenseCompatibility: LicenseCompatibility
+  maintainerAnalysis?: MaintainerAnalysis
+  publicationAnalysis?: PublicationAnalysis
   warnings: string[]
 }
 
@@ -244,6 +246,8 @@ export interface SweepResult {
   estimatedSavingsKB: number
   scannedFiles: number
   warnings: string[]
+  /** Packages installed in node_modules but not declared in package.json */
+  phantomDeps?: PhantomDep[]
   /** Always present — reminds users that results are recommendations, not commands */
   note: string
 }
@@ -302,4 +306,88 @@ export interface VerifyResult {
 /** Options for verify */
 export interface VerifyOptions {
   fetcher?: FetchFn
+}
+
+// ====== PHANTOM DEPENDENCY TYPES ======
+
+/** A dependency installed in node_modules but not declared in package.json */
+export interface PhantomDep {
+  name: string
+  version: string | null
+  estimatedSizeKB: number | null
+  reason: string
+}
+
+// ====== TRANSITIVE AUDIT TYPES ======
+
+/** A single node in the transitive dependency tree */
+export interface TransitiveDepNode {
+  name: string
+  version: string
+  depth: number
+  requiredBy: string[]
+  dependencies: string[]
+  vulnerabilities: VulnerabilitySummary
+  license: string | null
+  deprecated: boolean
+  circular: boolean
+}
+
+/** Result of a transitive dependency tree audit */
+export interface TransitiveAuditResult {
+  root: string
+  rootVersion: string
+  maxDepthReached: number
+  maxDepthLimit: number
+  totalTransitiveDeps: number
+  uniquePackages: number
+  nodes: TransitiveDepNode[]
+  circularDeps: Array<{ from: string; to: string }>
+  aggregateVulnerabilities: {
+    total: number
+    critical: number
+    high: number
+    moderate: number
+    low: number
+    byPackage: Array<{ name: string; depth: number; total: number; critical: number; high: number }>
+  }
+  warnings: string[]
+}
+
+/** Options for transitive audit */
+export interface TransitiveAuditOptions {
+  maxDepth?: number
+  concurrency?: number
+  targetLicense?: string
+  fetcher?: FetchFn
+}
+
+// ====== MAINTAINER ANALYSIS TYPES ======
+
+export type MaintainerRiskLevel = 'none' | 'low' | 'medium' | 'high'
+
+export interface MaintainerAnalysis {
+  riskLevel: MaintainerRiskLevel
+  maintainerCount: number
+  maintainers: Array<{ name: string; email?: string }>
+  flags: string[]
+}
+
+// ====== PUBLICATION ANALYSIS TYPES ======
+
+export type PublicationRiskLevel = 'none' | 'low' | 'medium' | 'high'
+
+export interface PublicationAnomaly {
+  type: 'burst-publishing' | 'dormant-resurrection' | 'version-jump' | 'rapid-major-bumps'
+  severity: 'low' | 'medium' | 'high'
+  description: string
+  details: string
+}
+
+export interface PublicationAnalysis {
+  riskLevel: PublicationRiskLevel
+  totalVersions: number
+  firstPublish: string | null
+  lastPublish: string | null
+  anomalies: PublicationAnomaly[]
 }

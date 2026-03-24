@@ -9,6 +9,7 @@ import {
   collectSourceFiles,
   findConfigDependencies,
   findScriptDependencies,
+  detectPhantomDeps,
   sweep,
 } from '../src/sweep.js'
 
@@ -349,5 +350,68 @@ describe('sweep', () => {
     const result = await sweep(testDir)
     assert.ok(result.warnings.some(w => w.includes('Monorepo')))
     assert.strictEqual(result.used, 1)
+  })
+})
+
+describe('detectPhantomDeps', () => {
+  it('detects phantom dependency in node_modules', () => {
+    writeFileSync(join(testDir, 'package.json'), JSON.stringify({
+      dependencies: { 'express': '^4.0.0' },
+    }))
+    // Create express (declared) and lodash (phantom)
+    mkdirSync(join(testDir, 'node_modules', 'express'), { recursive: true })
+    writeFileSync(join(testDir, 'node_modules', 'express', 'package.json'), JSON.stringify({ name: 'express', version: '4.18.0' }))
+    mkdirSync(join(testDir, 'node_modules', 'lodash'), { recursive: true })
+    writeFileSync(join(testDir, 'node_modules', 'lodash', 'package.json'), JSON.stringify({ name: 'lodash', version: '4.17.21' }))
+
+    const phantoms = detectPhantomDeps(testDir, ['express'])
+    assert.strictEqual(phantoms.length, 1)
+    assert.strictEqual(phantoms[0].name, 'lodash')
+    assert.strictEqual(phantoms[0].version, '4.17.21')
+  })
+
+  it('detects scoped phantom package', () => {
+    mkdirSync(join(testDir, 'node_modules', '@scope', 'pkg'), { recursive: true })
+    writeFileSync(join(testDir, 'node_modules', '@scope', 'pkg', 'package.json'), JSON.stringify({ name: '@scope/pkg', version: '1.0.0' }))
+
+    const phantoms = detectPhantomDeps(testDir, [])
+    assert.ok(phantoms.some(p => p.name === '@scope/pkg'))
+  })
+
+  it('returns empty when all packages are declared', () => {
+    mkdirSync(join(testDir, 'node_modules', 'express'), { recursive: true })
+    writeFileSync(join(testDir, 'node_modules', 'express', 'package.json'), JSON.stringify({ name: 'express' }))
+
+    const phantoms = detectPhantomDeps(testDir, ['express'])
+    assert.strictEqual(phantoms.length, 0)
+  })
+
+  it('returns empty when node_modules does not exist', () => {
+    const phantoms = detectPhantomDeps(join(testDir, 'nonexistent'), [])
+    assert.strictEqual(phantoms.length, 0)
+  })
+
+  it('ignores dot-prefixed entries', () => {
+    mkdirSync(join(testDir, 'node_modules', '.package-lock.json'), { recursive: true })
+    mkdirSync(join(testDir, 'node_modules', '.cache'), { recursive: true })
+
+    const phantoms = detectPhantomDeps(testDir, [])
+    assert.strictEqual(phantoms.length, 0)
+  })
+
+  it('is integrated into sweep results', async () => {
+    writeFileSync(join(testDir, 'package.json'), JSON.stringify({
+      dependencies: { 'express': '^4.0.0' },
+    }))
+    mkdirSync(join(testDir, 'src'), { recursive: true })
+    writeFileSync(join(testDir, 'src', 'index.ts'), `import express from 'express'`)
+    mkdirSync(join(testDir, 'node_modules', 'express'), { recursive: true })
+    writeFileSync(join(testDir, 'node_modules', 'express', 'package.json'), JSON.stringify({ name: 'express' }))
+    mkdirSync(join(testDir, 'node_modules', 'phantom-pkg'), { recursive: true })
+    writeFileSync(join(testDir, 'node_modules', 'phantom-pkg', 'package.json'), JSON.stringify({ name: 'phantom-pkg', version: '1.0.0' }))
+
+    const result = await sweep(testDir)
+    assert.ok(result.phantomDeps)
+    assert.ok(result.phantomDeps.some(p => p.name === 'phantom-pkg'))
   })
 })

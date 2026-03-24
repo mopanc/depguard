@@ -10,7 +10,7 @@
 
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs'
 import { join, extname, resolve } from 'node:path'
-import type { SweepResult, SweepOptions, SweepDepResult, DepUsageReason } from './types.js'
+import type { SweepResult, SweepOptions, SweepDepResult, DepUsageReason, PhantomDep } from './types.js'
 
 /** File extensions to scan for imports */
 const SOURCE_EXTENSIONS = new Set([
@@ -458,6 +458,66 @@ function scanWorkspaceImports(
 }
 
 /**
+ * Detect phantom dependencies: packages installed in node_modules
+ * but not declared in package.json dependencies.
+ */
+export function detectPhantomDeps(
+  projectPath: string,
+  declaredDeps: string[],
+): PhantomDep[] {
+  const nmPath = join(projectPath, 'node_modules')
+  if (!existsSync(nmPath)) return []
+
+  const phantoms: PhantomDep[] = []
+  const declaredSet = new Set(declaredDeps)
+
+  try {
+    const entries = readdirSync(nmPath)
+    for (const entry of entries) {
+      // Skip hidden files and directories (.package-lock.json, .cache, etc.)
+      if (entry.startsWith('.')) continue
+      // Skip the .bin directory
+      if (entry === '.bin') continue
+
+      if (entry.startsWith('@')) {
+        // Scoped packages: read subdirectories
+        try {
+          const scopedEntries = readdirSync(join(nmPath, entry))
+          for (const scopedEntry of scopedEntries) {
+            const fullName = `${entry}/${scopedEntry}`
+            if (!declaredSet.has(fullName)) {
+              phantoms.push(createPhantomEntry(projectPath, fullName))
+            }
+          }
+        } catch { /* skip unreadable scope directory */ }
+      } else {
+        if (!declaredSet.has(entry)) {
+          phantoms.push(createPhantomEntry(projectPath, entry))
+        }
+      }
+    }
+  } catch { /* skip unreadable node_modules */ }
+
+  return phantoms
+}
+
+function createPhantomEntry(projectPath: string, name: string): PhantomDep {
+  let version: string | null = null
+  try {
+    const pkgPath = join(projectPath, 'node_modules', ...name.split('/'), 'package.json')
+    const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'))
+    version = pkg.version ?? null
+  } catch { /* skip */ }
+
+  return {
+    name,
+    version,
+    estimatedSizeKB: estimatePackageSize(projectPath, name),
+    reason: 'Installed in node_modules but not declared in package.json',
+  }
+}
+
+/**
  * Detect unused dependencies in a project.
  * Purely filesystem-based — no network calls.
  */
@@ -683,6 +743,9 @@ export async function sweep(
   // Calculate estimated savings
   const estimatedSavingsKB = unused.reduce((sum, dep) => sum + (dep.estimatedSizeKB ?? 0), 0)
 
+  // Detect phantom dependencies (installed but not declared)
+  const phantomDeps = detectPhantomDeps(absPath, depNames)
+
   return {
     projectPath: absPath,
     totalDependencies: depNames.length,
@@ -692,6 +755,7 @@ export async function sweep(
     estimatedSavingsKB,
     scannedFiles: sourceFiles.length + styleFiles.length,
     warnings,
+    phantomDeps: phantomDeps.length > 0 ? phantomDeps : undefined,
     note: SWEEP_NOTE,
   }
 }

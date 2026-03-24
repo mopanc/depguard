@@ -159,6 +159,21 @@ export async function fetchAdvisories(
 /** Track GitHub rate limit state */
 let githubRateLimitRemaining = 60
 let githubRateLimitReset = 0
+let githubRateLimitExhausted = false
+
+/** Check if GitHub rate limit has been exhausted during this session */
+export function isGitHubRateLimited(): boolean {
+  return githubRateLimitExhausted
+}
+
+/** Get remaining GitHub API calls */
+export function getGitHubRateLimit(): { remaining: number; resetAt: number; exhausted: boolean } {
+  return {
+    remaining: githubRateLimitRemaining,
+    resetAt: githubRateLimitReset,
+    exhausted: githubRateLimitExhausted,
+  }
+}
 
 /** Fetch security advisories from GitHub Advisory Database */
 export async function fetchGitHubAdvisories(
@@ -171,6 +186,7 @@ export async function fetchGitHubAdvisories(
 
   // Skip GitHub if rate limited (reserve 5 requests as buffer)
   if (githubRateLimitRemaining <= 5 && Date.now() / 1000 < githubRateLimitReset) {
+    githubRateLimitExhausted = true
     return []
   }
 

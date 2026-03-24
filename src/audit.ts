@@ -1,8 +1,10 @@
 import type { AuditReport, FetchFn, FixSuggestion, NpmAdvisory, VulnerabilitySummary } from './types.js'
-import { fetchPackage, fetchDownloads, fetchAdvisories, fetchGitHubAdvisories } from './registry.js'
+import { fetchPackage, fetchDownloads, fetchAdvisories, fetchGitHubAdvisories, isGitHubRateLimited } from './registry.js'
 import { checkLicenseCompatibility } from './license.js'
 import { analyzeScripts } from './script-analysis.js'
 import { satisfiesRange } from './semver.js'
+import { analyzeMaintainers } from './maintainer-analysis.js'
+import { analyzePublicationTimeline } from './publication-analysis.js'
 
 const INSTALL_SCRIPT_NAMES = ['preinstall', 'install', 'postinstall']
 
@@ -21,7 +23,7 @@ function mapGitHubSeverity(severity: string): NpmAdvisory['severity'] {
  * Merge npm and GitHub advisories, deduplicating by URL.
  * GitHub advisories are converted to NpmAdvisory format.
  */
-function mergeAdvisories(
+export function mergeAdvisories(
   npmAdvisories: NpmAdvisory[],
   ghAdvisories: Awaited<ReturnType<typeof fetchGitHubAdvisories>>,
   currentVersion: string,
@@ -201,7 +203,11 @@ export async function audit(
     scriptAnalysis: scriptResult,
     fixSuggestions,
     licenseCompatibility: licenseCompat,
-    warnings,
+    maintainerAnalysis: analyzeMaintainers(pkg),
+    publicationAnalysis: analyzePublicationTimeline(pkg),
+    warnings: isGitHubRateLimited()
+      ? [...warnings, 'GitHub Advisory API rate limit reached. Audit used npm advisories only. Set GITHUB_TOKEN for full coverage (5,000 req/hour).']
+      : warnings,
   }
 }
 
