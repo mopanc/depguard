@@ -1,7 +1,8 @@
-import type { AuditReport, FetchFn, FixSuggestion, NpmAdvisory, VulnerabilitySummary } from './types.js'
+import type { AuditReport, FetchFn, FixSuggestion, NpmAdvisory, SecurityFinding, VulnerabilitySummary } from './types.js'
 import { fetchPackage, fetchDownloads, fetchAdvisories, fetchGitHubAdvisories, isGitHubRateLimited } from './registry.js'
 import { checkLicenseCompatibility } from './license.js'
-import { analyzeScripts } from './script-analysis.js'
+import { analyzeScripts, scriptRisksToFindings } from './script-analysis.js'
+import { analyzeCode } from './code-analysis.js'
 import { satisfiesRange } from './semver.js'
 import { analyzeMaintainers } from './maintainer-analysis.js'
 import { analyzePublicationTimeline } from './publication-analysis.js'
@@ -181,6 +182,36 @@ export async function audit(
 
   const licenseCompat = checkLicenseCompatibility(license, targetLicense)
 
+  // Static code analysis: download tarball and scan for suspicious patterns
+  const codeAnalysisResult = await analyzeCode(
+    name,
+    latestVersion,
+    pkg.description ?? '',
+    pkg.keywords ?? [],
+    fetcher,
+  ).catch(() => ({
+    hasFinding: false,
+    findings: [] as SecurityFinding[],
+    filesAnalyzed: 0,
+    skipped: true,
+    skipReason: 'Code analysis failed',
+  }))
+
+  // Merge security findings from install scripts + code analysis
+  const scriptFindings = scriptRisksToFindings(scriptResult)
+  const allFindings = [...scriptFindings, ...codeAnalysisResult.findings]
+
+  if (codeAnalysisResult.hasFinding) {
+    const criticalCount = codeAnalysisResult.findings.filter(f => f.severity === 'critical').length
+    const highCount = codeAnalysisResult.findings.filter(f => f.severity === 'high').length
+    if (criticalCount > 0) {
+      warnings.push(`CODE ANALYSIS: ${criticalCount} critical finding(s) in package source code`)
+    }
+    if (highCount > 0) {
+      warnings.push(`CODE ANALYSIS: ${highCount} high-severity finding(s) in package source code`)
+    }
+  }
+
   // Compute last publish date
   const times = Object.entries(pkg.time)
     .filter(([key]) => key !== 'created' && key !== 'modified')
@@ -205,6 +236,14 @@ export async function audit(
     licenseCompatibility: licenseCompat,
     maintainerAnalysis: analyzeMaintainers(pkg),
     publicationAnalysis: analyzePublicationTimeline(pkg),
+    securityFindings: allFindings.length > 0 ? allFindings : undefined,
+    codeAnalysis: {
+      hasFinding: codeAnalysisResult.hasFinding,
+      findings: codeAnalysisResult.findings,
+      filesAnalyzed: codeAnalysisResult.filesAnalyzed,
+      skipped: codeAnalysisResult.skipped,
+      skipReason: codeAnalysisResult.skipReason,
+    },
     warnings: isGitHubRateLimited()
       ? [...warnings, 'GitHub Advisory API rate limit reached. Audit used npm advisories only. Set GITHUB_TOKEN for full coverage (5,000 req/hour).']
       : warnings,

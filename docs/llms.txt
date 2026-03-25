@@ -1,8 +1,8 @@
 # depguard-cli
 
-> MCP security server for AI coding agents. 9 tools for npm dependency security.
+> MCP security server for AI coding agents. 10 tools for npm dependency security with static code analysis.
 
-depguard is an MCP (Model Context Protocol) server that gives AI coding agents real-time npm security auditing. It works with Claude, Cursor, Windsurf, and any MCP-compatible client.
+depguard is an MCP (Model Context Protocol) server that gives AI coding agents real-time npm security auditing. It downloads package tarballs and scans source code for malware, obfuscation, and behavioral mismatches. Works with Claude, Cursor, Windsurf, and any MCP-compatible client.
 
 ## Quick Start
 
@@ -22,7 +22,7 @@ Or add to MCP config:
 }
 ```
 
-## Available MCP Tools (9)
+## Available MCP Tools (10)
 
 ### depguard_guard
 Pre-install guardian. Before installing any package, verify it exists on npm, check for typosquatting, run security audit, and return allow/warn/block decision. **Use this before every npm install.**
@@ -40,9 +40,14 @@ Dead dependency detection. Scan project source files for imports and find unused
 - Output: `{ unused: [...], maybeUnused: [...], estimatedSavingsKB: number }`
 
 ### depguard_audit
-Full security audit. Combines npm + GitHub Advisory Database, analyzes install scripts for 9 attack patterns, checks license compatibility, suggests fix versions.
+Full security audit with static code analysis. Downloads package tarball, scans source code for 18+ malware patterns, combines npm + GitHub Advisory Database, analyzes install scripts, checks license compatibility. Returns SecurityFinding[] with rich explanations.
 - Input: `{ name: string, targetLicense?: string }`
-- Output: Full audit report with vulnerabilities, score, script analysis, fix suggestions.
+- Output: Full audit report with vulnerabilities, securityFindings, codeAnalysis, script analysis, fix suggestions.
+
+### depguard_audit_deep
+Deep transitive dependency tree audit. BFS through the entire dependency graph with vulnerability aggregation, circular detection, and depth limiting.
+- Input: `{ name: string, maxDepth?: number, targetLicense?: string }`
+- Output: Full dependency tree with per-node vulnerabilities and aggregate risk.
 
 ### depguard_score
 Quick 0-100 score across security (30%), maintenance (25%), popularity (20%), license (15%), dependencies (10%). Critical vulns cap total at 30. CVSS scores used when available.
@@ -73,7 +78,9 @@ Search npm by keywords, sorted by depguard quality score.
 - 25+ license types including SSPL, Elastic-2.0, BUSL-1.1
 - Dual license parsing (MIT OR GPL-3.0 SPDX expressions)
 - Semver OR clause support for advisory ranges
-- 147 offline tests
+- Static code analysis: downloads tarball, scans for malware, obfuscation, data exfiltration
+- Behavioral mismatch detection: flags when code contradicts package description
+- 212 offline tests
 - Apache-2.0 license
 
 ## Links

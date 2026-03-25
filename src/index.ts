@@ -1,5 +1,6 @@
 export { audit } from './audit.js'
-export { analyzeScripts } from './script-analysis.js'
+export { analyzeScripts, scriptRisksToFindings } from './script-analysis.js'
+export { analyzeCode } from './code-analysis.js'
 export { findNativeAlternative } from './native-alternatives.js'
 export { auditBulk, auditProject } from './bulk.js'
 export { search } from './search.js'
@@ -43,6 +44,9 @@ export type {
   VerifyResult,
   VulnerabilitySummary,
   PhantomDep,
+  SecurityFinding,
+  FindingCategory,
+  CodeAnalysis,
   TransitiveDepNode,
   TransitiveAuditResult,
   TransitiveAuditOptions,

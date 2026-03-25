@@ -22,13 +22,13 @@ import { calculateSavings } from './tokens.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.5.0',
+  version: '1.6.0',
 }
 
 const TOOLS = [
   {
     name: 'depguard_audit',
-    description: 'Full security audit of an npm package: vulnerabilities, maintenance, license compatibility, dependencies, and install scripts.',
+    description: 'Full security audit of an npm package: vulnerabilities, static code analysis (downloads tarball and scans for malware patterns), behavioral analysis, maintenance, license compatibility, dependencies, and install scripts. Returns detailed security findings with explanations.',
     inputSchema: {
       type: 'object' as const,
       properties: {

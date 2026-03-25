@@ -1,8 +1,8 @@
 # depguard-cli
 
-MCP security server for AI coding agents. 9 tools: pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, and smart recommendations.
+MCP security server for AI coding agents. 10 tools: **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, and smart recommendations.
 
-Your AI agent verifies every `npm install` before it happens. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
+Your AI agent verifies every `npm install` before it happens. Now with **tarball download and source code scanning** that detects malware patterns, obfuscation, and behavioral mismatches with rich explanations. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
 
 ## Install
 
@@ -70,9 +70,11 @@ depguard-cli sweep . --include-dev
 ```typescript
 import { audit, search, score, shouldUse, guard, verify, sweep } from 'depguard-cli'
 
-// Full audit report
+// Full audit report (now includes static code analysis)
 const report = await audit('express', 'MIT')
 console.log(report.vulnerabilities.total)      // 0
+console.log(report.securityFindings)           // [] (clean) or SecurityFinding[]
+console.log(report.codeAnalysis.filesAnalyzed) // 42
 console.log(report.licenseCompatibility.compatible) // true
 console.log(report.weeklyDownloads)            // 35000000
 
@@ -114,7 +116,7 @@ Each package is scored 0-100 across five dimensions:
 
 | Dimension | Weight | What it measures |
 |-----------|--------|------------------|
-| Security | 30% | Known CVEs and advisories |
+| Security | 30% | Known CVEs, advisories, and static code analysis findings |
 | Maintenance | 25% | Last publish date, version count, deprecation |
 | Popularity | 20% | Weekly downloads (log scale) |
 | License | 15% | Compatibility with your project license |
@@ -208,7 +210,7 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 
 | Tool | Description |
 |------|-------------|
-| `depguard_audit` | Full security audit of an npm package |
+| `depguard_audit` | Full security audit with static code analysis, vulnerabilities, and install script scanning |
 | `depguard_audit_bulk` | Audit multiple packages in a single call |
 | `depguard_audit_project` | Audit all dependencies from a package.json file path |
 | `depguard_search` | Search npm for packages by keywords |
@@ -389,6 +391,41 @@ depguard statically analyzes install scripts (`preinstall`, `install`, `postinst
 
 Each audit report includes a `scriptAnalysis` field with `suspicious` (boolean) and `risks` (array of detected patterns with severity and description). No scripts are executed — analysis is purely static pattern matching.
 
+## Static Code Analysis
+
+**New in v1.6.0.** depguard downloads the package tarball from npm, extracts JS files, and scans for 18+ malware patterns across 6 threat categories:
+
+| Category | Severity | What it detects |
+|----------|----------|-----------------|
+| `malware` | Critical | Eval of decoded payloads, reverse shells (net.connect), crypto mining (stratum+tcp) |
+| `data-exfiltration` | Critical/High | JSON.stringify(process.env), Object.keys(process.env), dynamic fetch URLs, credential file reads |
+| `code-execution` | High | eval(), new Function(), child_process.exec/spawn, shell spawning |
+| `obfuscation` | High/Medium | Long hex/unicode strings, base64 payloads, minified source in non-.min.js files |
+| `unexpected-behavior` | High/Medium | Network calls in a "formatter" package, filesystem access in a "date utility" |
+| `supply-chain` | Critical | Typosquatting patterns in install scripts |
+
+Every finding includes a rich `SecurityFinding` object:
+
+```typescript
+interface SecurityFinding {
+  severity: 'critical' | 'high' | 'medium' | 'low' | 'info'
+  category: 'malware' | 'supply-chain' | 'vulnerability' | 'obfuscation' | 'data-exfiltration' | 'unexpected-behavior' | 'code-execution'
+  title: string           // "Serialization of entire environment"
+  explanation: string     // Rich, human-readable explanation of WHY it's dangerous
+  evidence: string        // The exact code that triggered the detection
+  file: string            // Where it was found (e.g. "src/index.js")
+  recommendation: string  // What to do about it
+}
+```
+
+### Behavioral Mismatch Detection
+
+depguard compares the package description and keywords against detected code behavior. A "string formatter" that makes network calls or a "date utility" that reads the filesystem is flagged as `unexpected-behavior` with a detailed explanation.
+
+### Impact on Scoring
+
+Critical code analysis findings cap the security score at 20/100. High findings cap at 45/100. This ensures that packages with suspicious source code cannot achieve high scores regardless of popularity or maintenance status.
+
 ## Data sources
 
 depguard combines two advisory databases for maximum coverage:
@@ -431,7 +468,7 @@ A dependency is compatible if its license is equally or more permissive than you
 ```bash
 npm run build    # compile TypeScript
 npm run lint     # ESLint (strict)
-npm test         # 184 tests (all offline)
+npm test         # 212 tests (all offline)
 npm run check    # build + lint + test + audit
 ```
 

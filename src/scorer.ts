@@ -63,38 +63,62 @@ export async function score(
 }
 
 /**
- * Security: 100 = no vulns.
+ * Security: 100 = no vulns and no code analysis findings.
  * Uses exponential decay — any critical vuln caps the score at 15 max.
  * CVSS scores used when available for more accurate severity weighting.
+ * Code analysis findings further reduce the score.
  */
 function computeSecurityScore(report: AuditReport): number {
   const v = report.vulnerabilities
-  if (v.total === 0) return 100
 
-  // Critical vulns are a hard ceiling — no package with a critical vuln scores above 15
-  if (v.critical > 0) return Math.max(0, 15 - (v.critical - 1) * 5)
+  // Start with vulnerability-based score
+  let vulnScore = 100
 
-  // High vulns cap at 40
-  if (v.high > 0) return Math.max(0, 40 - (v.high - 1) * 10)
+  if (v.total > 0) {
+    // Critical vulns are a hard ceiling — no package with a critical vuln scores above 15
+    if (v.critical > 0) vulnScore = Math.max(0, 15 - (v.critical - 1) * 5)
+    // High vulns cap at 40
+    else if (v.high > 0) vulnScore = Math.max(0, 40 - (v.high - 1) * 10)
+    else {
+      // Use CVSS scores when available for more granular scoring
+      let maxCvss = 0
+      for (const adv of v.advisories) {
+        if (adv.cvss?.score && adv.cvss.score > maxCvss) {
+          maxCvss = adv.cvss.score
+        }
+      }
 
-  // Use CVSS scores when available for more granular scoring
-  let maxCvss = 0
-  for (const adv of v.advisories) {
-    if (adv.cvss?.score && adv.cvss.score > maxCvss) {
-      maxCvss = adv.cvss.score
+      // If we have CVSS, use it (0-10 scale → inverted to 0-100)
+      if (maxCvss > 0) {
+        vulnScore = Math.max(0, Math.round(100 - maxCvss * 10))
+      } else {
+        // Fallback: moderate and low deductions
+        vulnScore -= v.moderate * 15
+        vulnScore -= v.low * 5
+        vulnScore = Math.max(0, vulnScore)
+      }
     }
   }
 
-  // If we have CVSS, use it (0-10 scale → inverted to 0-100)
-  if (maxCvss > 0) {
-    return Math.max(0, Math.round(100 - maxCvss * 10))
+  // Apply code analysis findings penalty
+  const findings = report.securityFindings ?? []
+  if (findings.length > 0) {
+    const criticalFindings = findings.filter(f => f.severity === 'critical').length
+    const highFindings = findings.filter(f => f.severity === 'high').length
+    const mediumFindings = findings.filter(f => f.severity === 'medium').length
+
+    // Critical code findings are as serious as critical vulns
+    if (criticalFindings > 0) vulnScore = Math.min(vulnScore, 20)
+    // High findings cap security score
+    else if (highFindings > 0) vulnScore = Math.min(vulnScore, 45)
+
+    // Additional deductions for volume
+    vulnScore -= criticalFindings * 15
+    vulnScore -= highFindings * 8
+    vulnScore -= mediumFindings * 3
   }
 
-  // Fallback: moderate and low deductions
-  let s = 100
-  s -= v.moderate * 15
-  s -= v.low * 5
-  return Math.max(0, s)
+  return Math.max(0, vulnScore)
 }
 
 /**

@@ -123,6 +123,10 @@ export interface AuditReport {
   licenseCompatibility: LicenseCompatibility
   maintainerAnalysis?: MaintainerAnalysis
   publicationAnalysis?: PublicationAnalysis
+  /** Security findings from static code analysis (tarball + install scripts) */
+  securityFindings?: SecurityFinding[]
+  /** Code analysis metadata */
+  codeAnalysis?: CodeAnalysis
   warnings: string[]
 }
 
@@ -214,6 +218,43 @@ export interface AdvisorOptions {
 export interface CacheEntry<T> {
   data: T
   expiresAt: number
+}
+
+// ====== SECURITY FINDING TYPES ======
+
+/** Category of security finding */
+export type FindingCategory =
+  | 'malware'
+  | 'supply-chain'
+  | 'vulnerability'
+  | 'obfuscation'
+  | 'data-exfiltration'
+  | 'unexpected-behavior'
+  | 'code-execution'
+
+/** A single security finding with rich explanation */
+export interface SecurityFinding {
+  severity: 'critical' | 'high' | 'medium' | 'low' | 'info'
+  category: FindingCategory
+  title: string
+  explanation: string
+  evidence: string
+  file: string
+  recommendation: string
+}
+
+/** Result of static code analysis on a package tarball */
+export interface CodeAnalysis {
+  /** Whether any findings were detected */
+  hasFinding: boolean
+  /** All security findings from code analysis */
+  findings: SecurityFinding[]
+  /** Number of files analyzed */
+  filesAnalyzed: number
+  /** Whether the analysis was skipped (e.g. tarball too large) */
+  skipped: boolean
+  /** Reason for skipping, if applicable */
+  skipReason?: string
 }
 
 // ====== SWEEP TYPES ======
