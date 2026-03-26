@@ -47,17 +47,17 @@ const CODE_PATTERNS: CodePattern[] = [
     regex: new RegExp(`\\b${_eval}\\s*\\(`),
     severity: 'high',
     category: 'code-execution',
-    title: 'Dynamic code execution via eval()',
-    explanation: 'This package uses eval() to execute dynamically constructed code. This is a common vector for code injection attacks — if the input to eval() comes from an external source (network, env vars, user input), an attacker can execute arbitrary code on your machine.',
-    recommendation: 'Review the eval() usage context. If the evaluated string comes from a hardcoded constant, it may be benign. If it processes external data, avoid this package.',
+    title: `Dynamic code execution via ${_eval}()`,
+    explanation: `This package uses ${_eval}() to execute dynamically constructed code. This is a common vector for code injection attacks. If the input comes from an external source (network, env vars, user input), an attacker can execute arbitrary code on your machine.`,
+    recommendation: `Review the ${_eval}() usage context. If the evaluated string comes from a hardcoded constant, it may be benign. If it processes external data, avoid this package.`,
   },
   {
     regex: new RegExp(`new\\s+${_Function}\\s*\\(`),
     severity: 'high',
     category: 'code-execution',
-    title: 'Dynamic code execution via new Function()',
-    explanation: 'This package creates functions from strings using the Function constructor. Like eval(), this allows arbitrary code execution and is often used to bypass static analysis tools.',
-    recommendation: 'Check if the Function constructor is used with hardcoded templates (common in bundlers) or with dynamic/external input (dangerous).',
+    title: `Dynamic code execution via new ${_Function}()`,
+    explanation: `This package creates functions from strings using the ${_Function} constructor. Like ${_eval}(), this allows arbitrary code execution and is often used to bypass static analysis tools.`,
+    recommendation: `Check if the ${_Function} constructor is used with hardcoded templates (common in bundlers) or with dynamic/external input (dangerous).`,
   },
 
   // === Network exfiltration ===

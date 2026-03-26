@@ -179,8 +179,8 @@ const SUSPICIOUS_PATTERNS: PatternRule[] = [
     severity: 'high',
     category: 'code-execution',
     description: 'Uses dynamic code execution',
-    explanation: 'The install script uses eval() or equivalent to execute dynamically constructed code. This is unnecessary in install scripts and is typically used to obfuscate malicious behavior.',
-    recommendation: 'Install scripts should never need eval(). This is a strong indicator of hidden malicious code.',
+    explanation: `The install script uses ${DCE}() or equivalent to execute dynamically constructed code. This is unnecessary in install scripts and is typically used to obfuscate malicious behavior.`,
+    recommendation: `Install scripts should never need ${DCE}(). This is a strong indicator of hidden malicious code.`,
   },
   {
     regex: new RegExp('\\bexec\\s*\\('),
