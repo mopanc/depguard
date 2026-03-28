@@ -62,14 +62,8 @@ const CODE_PATTERNS: CodePattern[] = [
   },
 
   // === Network exfiltration ===
-  {
-    regex: /https?:\/\/(?!(?:registry\.npmjs\.org|github\.com|nodejs\.org|unpkg\.com|cdn\.jsdelivr\.net|cdnjs\.cloudflare\.com)[/\s'"])/i,
-    severity: 'medium',
-    category: 'data-exfiltration',
-    title: 'Network request to external URL',
-    explanation: 'This package contains a hardcoded URL to an external server. While this may be legitimate (API endpoint, CDN), it could also be used to exfiltrate data or download malicious payloads at runtime.',
-    recommendation: 'Verify that the URL belongs to a known, trusted service related to the package functionality. Unknown or suspicious domains are a red flag.',
-  },
+  // NOTE: URL detection is handled separately in analyzeCode() with comment-awareness.
+  // Only dynamic/suspicious fetch patterns are checked here as regex patterns.
   {
     regex: /\bfetch\s*\(\s*(?:process|_env|env|config)/,
     severity: 'critical',
@@ -253,6 +247,17 @@ function parseTar(buffer: Buffer): TarEntry[] {
       // Regular file — extract if it's a JS file
       const ext = filename.slice(filename.lastIndexOf('.'))
       if (ANALYZABLE_EXTENSIONS.includes(ext) && size < 512 * 1024) {
+        // Skip test files — they legitimately use patterns (net.connect, fetch, etc.)
+        // that would be flagged as suspicious in production code
+        const lower = filename.toLowerCase()
+        if (lower.includes('/test/') || lower.includes('/tests/') ||
+            lower.includes('/__tests__/') || lower.includes('.test.') ||
+            lower.includes('.spec.') || lower.includes('/fixtures/') ||
+            lower.includes('/benchmark') || lower.includes('/example')) {
+          offset += Math.ceil(size / 512) * 512
+          continue
+        }
+
         const content = buffer.subarray(offset, offset + size).toString('utf-8')
         // Strip the leading "package/" prefix that npm tarballs use
         const cleanName = filename.replace(/^package\//, '')
@@ -348,6 +353,26 @@ const NON_FS_KEYWORDS = [
   'array', 'object', 'number', 'encode', 'decode', 'convert',
 ]
 
+/** Keywords that indicate a package LEGITIMATELY uses network */
+const NETWORK_EXPECTED_KEYWORDS = [
+  'server', 'http', 'https', 'request', 'fetch', 'api', 'client',
+  'framework', 'web', 'socket', 'websocket', 'tcp', 'udp', 'net',
+  'proxy', 'middleware', 'router', 'express', 'fastify', 'koa',
+  'database', 'db', 'sql', 'mongo', 'redis', 'queue', 'message',
+  'email', 'mail', 'smtp', 'auth', 'oauth', 'graphql', 'rest',
+  'download', 'upload', 'stream', 'cdn', 'cloud', 'aws', 'azure',
+  'logging', 'logger', 'monitor', 'telemetry', 'analytics',
+]
+
+/** Keywords that indicate a package LEGITIMATELY uses filesystem */
+const FS_EXPECTED_KEYWORDS = [
+  'file', 'fs', 'read', 'write', 'path', 'directory', 'dir',
+  'config', 'configuration', 'loader', 'plugin', 'bundler', 'build',
+  'compiler', 'transpiler', 'babel', 'webpack', 'rollup', 'vite',
+  'cli', 'tool', 'generator', 'scaffold', 'template', 'cache',
+  'log', 'logger', 'test', 'testing', 'coverage', 'report',
+]
+
 function detectBehaviorMismatch(
   description: string,
   keywords: string[],
@@ -363,8 +388,12 @@ function detectBehaviorMismatch(
     f.title.includes('filesystem') || f.title.includes('home directory') || f.title.includes('system files'),
   )
 
-  const isNonNetworkPackage = NON_NETWORK_KEYWORDS.some(kw => descLower.includes(kw))
-  const isNonFsPackage = NON_FS_KEYWORDS.some(kw => descLower.includes(kw))
+  // Check if the package is expected to use network/fs based on its purpose
+  const expectsNetwork = NETWORK_EXPECTED_KEYWORDS.some(kw => descLower.includes(kw))
+  const expectsFs = FS_EXPECTED_KEYWORDS.some(kw => descLower.includes(kw))
+
+  const isNonNetworkPackage = NON_NETWORK_KEYWORDS.some(kw => descLower.includes(kw)) && !expectsNetwork
+  const isNonFsPackage = NON_FS_KEYWORDS.some(kw => descLower.includes(kw)) && !expectsFs
 
   if (hasNetworkFindings && isNonNetworkPackage) {
     mismatches.push({
@@ -457,6 +486,55 @@ export async function analyzeCode(
     }
   }
 
+  // Check for suspicious URLs in executable code (not comments/strings)
+  // This is separate from regex patterns because it needs context-awareness
+  const safeUrlDomains = [
+    'registry.npmjs.org', 'github.com', 'nodejs.org', 'unpkg.com',
+    'cdn.jsdelivr.net', 'cdnjs.cloudflare.com', 'developer.mozilla.org',
+    'json-schema.org', 'ecma-international.org', 'tc39.es',
+    'www.w3.org', 'tools.ietf.org', 'wikipedia.org', 'stackoverflow.com',
+    'bugs.webkit.org', 'bugs.chromium.org', 'crbug.com', 'mdn.io',
+    'creativecommons.org', 'spdx.org', 'semver.org', 'opensource.org',
+    'day.js.org', 'eslint.org', 'prettier.io', 'jestjs.io',
+    'typescriptlang.org', 'reactjs.org', 'vuejs.org', 'angular.io',
+    'npmjs.com', 'yarnpkg.com', 'pnpm.io',
+  ]
+  const urlRegex = /https?:\/\/[^\s'")\]}>]+/gi
+  for (const entry of entries) {
+    const lines = entry.content.split('\n')
+    for (const line of lines) {
+      const trimmed = line.trim()
+      // Skip comment lines
+      if (trimmed.startsWith('//') || trimmed.startsWith('*') || trimmed.startsWith('/*')) continue
+      // Skip lines that are clearly documentation strings
+      if (trimmed.startsWith("'") && trimmed.endsWith("',")) continue
+
+      urlRegex.lastIndex = 0
+      let urlMatch: RegExpExecArray | null
+      while ((urlMatch = urlRegex.exec(line)) !== null) {
+        const url = urlMatch[0]
+        // Check if it's a safe/known domain
+        const isSafe = safeUrlDomains.some(domain => url.includes(domain))
+        if (isSafe) continue
+
+        // Check if it looks like an active fetch/request (not just a reference)
+        const hasFetchContext = /fetch\s*\(|request\s*\(|axios\s*[.(]|got\s*[.(]|http\.get|https\.get/.test(line)
+        if (!hasFetchContext) continue // Skip URLs that aren't being fetched
+
+        findings.push({
+          severity: 'medium',
+          category: 'data-exfiltration',
+          title: 'Network request to external URL in executable code',
+          explanation: 'This code makes a network request to an external URL. Verify this is expected behavior for the package.',
+          evidence: trimmed.length > 200 ? trimmed.slice(0, 200) + '...' : trimmed,
+          file: entry.filename,
+          recommendation: 'Verify the URL belongs to a trusted service related to the package functionality.',
+        })
+        break // One finding per line is enough
+      }
+    }
+  }
+
   // Check for obfuscated/minified source distributed as non-minified
   for (const entry of entries) {
     // Skip files that are intentionally minified (*.min.js)
@@ -480,13 +558,37 @@ export async function analyzeCode(
     }
   }
 
+  // Context-aware severity adjustment based on package purpose
+  const descLower = (description + ' ' + keywords.join(' ')).toLowerCase()
+  const isNetworkPackage = NETWORK_EXPECTED_KEYWORDS.some(kw => descLower.includes(kw))
+
+  // Packages that legitimately use eval/new Function for compilation/templating
+  const isCompilerLike = ['compiler', 'template', 'render', 'framework', 'bundler',
+    'transpiler', 'parser', 'lint', 'linter', 'rule', 'plugin', 'engine',
+    'view', 'component', 'runtime', 'vm', 'sandbox', 'logger', 'middleware',
+    'serializ', 'deserializ', 'marshal', 'format'].some(kw => descLower.includes(kw))
+
+  for (const f of findings) {
+    // TCP/UDP connections are expected in web frameworks/network tools
+    if (isNetworkPackage && (f.title.includes('TCP connection') || f.title.includes('UDP socket'))) {
+      f.severity = 'info'
+    }
+    // eval/new Function are expected in compilers, template engines, linters
+    if (isCompilerLike && (f.title.includes('Dynamic code execution'))) {
+      f.severity = 'info'
+    }
+  }
+
   // Behavior mismatch analysis
   const mismatches = detectBehaviorMismatch(description, keywords, findings)
   findings.push(...mismatches)
 
+  // Remove info-level findings to keep output focused
+  const actionable = findings.filter(f => f.severity !== 'info')
+
   // Deduplicate: same title + same file = one finding
   const seen = new Set<string>()
-  const deduped = findings.filter(f => {
+  const deduped = actionable.filter(f => {
     const key = `${f.title}::${f.file}`
     if (seen.has(key)) return false
     seen.add(key)
