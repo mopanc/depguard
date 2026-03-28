@@ -19,6 +19,7 @@ import { guard, verify } from './guard.js'
 import { sweep } from './sweep.js'
 import { auditTransitive } from './transitive.js'
 import { review } from './review.js'
+import { scoreFromReport } from './scorer.js'
 import { calculateSavings } from './tokens.js'
 import { printStatsBanner, recordCall, setVersion } from './stats.js'
 
@@ -199,7 +200,8 @@ function error(id: number | string | null, code: number, message: string): JsonR
 }
 
 /** Maximum response size in characters to avoid exceeding MCP client limits */
-const MAX_RESPONSE_CHARS = 80_000
+/** Keep responses under 50K to avoid MCP client limits (~12K tokens) */
+const MAX_RESPONSE_CHARS = 50_000
 
 function toolResult(toolName: string, content: unknown, argCount?: number): unknown {
   const responseJson = JSON.stringify(content, null, 2)
@@ -240,7 +242,7 @@ function condenseResult(data: Record<string, unknown>, toolName: string): Record
       const condensedResults = results.map(r => ({
         name: r.name,
         version: r.version,
-        score: r.score,
+        score: scoreFromReport(r as unknown as Parameters<typeof scoreFromReport>[0]),
         vulnerabilities: r.vulnerabilities ? {
           total: (r.vulnerabilities as Record<string, unknown>).total,
           critical: (r.vulnerabilities as Record<string, unknown>).critical,

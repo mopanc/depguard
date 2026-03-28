@@ -63,6 +63,37 @@ export async function score(
 }
 
 /**
+ * Compute a score from an existing AuditReport without fetching again.
+ * Used by bulk/project audit to include scores in condensed output.
+ */
+export function scoreFromReport(report: AuditReport): number {
+  const weights = DEFAULT_WEIGHTS
+  const breakdown = {
+    security: computeSecurityScore(report),
+    maintenance: computeMaintenanceScore(report),
+    popularity: computePopularityScore(report),
+    license: computeLicenseScore(report),
+    dependencies: computeDependencyScore(report),
+  }
+
+  const totalWeight = weights.security + weights.maintenance + weights.popularity +
+    weights.license + weights.dependencies
+
+  let total = Math.round(
+    (breakdown.security * weights.security +
+      breakdown.maintenance * weights.maintenance +
+      breakdown.popularity * weights.popularity +
+      breakdown.license * weights.license +
+      breakdown.dependencies * weights.dependencies) / totalWeight,
+  )
+
+  if (breakdown.security <= 15) total = Math.min(total, 30)
+  else if (breakdown.security <= 40) total = Math.min(total, 50)
+
+  return total
+}
+
+/**
  * Security: 100 = no vulns and no code analysis findings.
  * Uses exponential decay — any critical vuln caps the score at 15 max.
  * CVSS scores used when available for more accurate severity weighting.
