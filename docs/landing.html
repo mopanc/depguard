@@ -899,6 +899,30 @@
       <div><strong style="color:var(--text)">Intl Alternatives</strong><br>DateTimeFormat, NumberFormat, RelativeTimeFormat, Collator detected as native alternatives.</div>
     </div>
   </div>
+
+  <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:rgba(255,0,0,0.02)" class="reveal">
+    <h3 style="color:var(--red);margin:0 0 1rem 0;font-size:1rem">Real Impact: v1.8 Score Accuracy</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:1.5rem;font-size:0.85rem">
+      <div>
+        <div style="color:var(--text-dim);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em;font-size:.7rem">Compromised packages now blocked</div>
+        <div style="font-family:var(--font-mono);line-height:1.8">
+          <span style="color:var(--red)">event-stream</span> allow (75) <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--red)">block (0)</strong><br>
+          <span style="color:var(--red)">colors</span> allow (88) <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--red)">score 0</strong><br>
+          <span style="color:var(--red)">faker</span> allow <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--red)">score 0</strong>
+        </div>
+      </div>
+      <div>
+        <div style="color:var(--text-dim);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em;font-size:.7rem">False positives eliminated</div>
+        <div style="font-family:var(--font-mono);line-height:1.8">
+          <span style="color:var(--text)">eslint</span> 50 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">94</strong><br>
+          <span style="color:var(--text)">vue</span> 50 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">94</strong><br>
+          <span style="color:var(--text)">fastify</span> 30 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">93</strong><br>
+          <span style="color:var(--text)">zod</span> 30 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">96</strong><br>
+          <span style="color:var(--text)">morgan</span> 50 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">92</strong>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 </div><!-- /changelog -->
