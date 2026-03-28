@@ -9,6 +9,9 @@ export { shouldUse } from './advisor.js'
 export { guard, verify, levenshtein } from './guard.js'
 export { sweep, extractImports, collectSourceFiles, detectPhantomDeps } from './sweep.js'
 export { auditTransitive } from './transitive.js'
+export { review } from './review.js'
+export { loadStats, recordCall } from './stats.js'
+export type { DepguardStats } from './stats.js'
 export { analyzeMaintainers } from './maintainer-analysis.js'
 export { analyzePublicationTimeline } from './publication-analysis.js'
 export { checkLicenseCompatibility, knownLicenses } from './license.js'
@@ -55,6 +58,10 @@ export type {
   PublicationAnalysis,
   PublicationAnomaly,
   PublicationRiskLevel,
+  ReviewFinding,
+  ReviewFindingType,
+  ReviewResult,
+  ReviewOptions,
 } from './types.js'
 export type { TokenSavings } from './tokens.js'
 export type { BulkAuditReport, BulkAuditOptions, ProjectAuditOptions } from './bulk.js'

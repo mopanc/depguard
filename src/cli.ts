@@ -8,6 +8,8 @@ import { shouldUse } from './advisor.js'
 import { guard } from './guard.js'
 import { sweep } from './sweep.js'
 import { auditTransitive } from './transitive.js'
+import { review } from './review.js'
+import { loadStats, recordCall } from './stats.js'
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -19,6 +21,7 @@ const { values, positionals } = parseArgs({
     'mcp': { type: 'boolean', default: false },
     'block': { type: 'boolean', default: false },
     'include-dev': { type: 'boolean', default: false },
+    'full': { type: 'boolean', default: false },
     'help': { type: 'boolean', short: 'h', default: false },
   },
 })
@@ -45,6 +48,8 @@ Commands:
   guard <package>          Pre-install check: verify, audit, allow/warn/block
   sweep [path]             Detect unused dependencies in a project
   audit-deep <package>     Deep transitive dependency tree audit
+  review [path]            AI code review (detect debris left by AI agents)
+  stats                    Show local usage statistics
 
 Options:
   --target-license <id>    Target project license (default: MIT)
@@ -105,6 +110,7 @@ async function main() {
         process.exit(1)
       }
       const report = await audit(name, targetLicense)
+      recordCall('depguard_audit', { packagesAudited: 1 })
       output(report, json)
       break
     }
@@ -160,6 +166,10 @@ async function main() {
         threshold,
         targetLicense,
         block: values.block ?? false,
+      })
+      recordCall('depguard_guard', {
+        packagesAudited: 1,
+        threatsBlocked: result.decision === 'block' ? 1 : 0,
       })
       if (json) {
         output(result, true)
@@ -245,8 +255,58 @@ async function main() {
       break
     }
 
+    case 'review': {
+      const projectPath = positionals[1] ?? process.cwd()
+      const mode = values.full ? 'full' as const : 'quick' as const
+      const result = await review(projectPath, { mode })
+      recordCall('depguard_review', { reviewFindings: result.totalFindings })
+      if (json) {
+        output(result, true)
+      } else {
+        console.log(`\nAI Code Review (${result.mode} mode) — ${result.filesAnalyzed} files`)
+        console.log(`${result.summary}\n`)
+        if (result.findings.length > 0) {
+          for (const f of result.findings) {
+            const icon = f.severity === 'error' ? 'ERROR' : f.severity === 'warning' ? 'WARN' : 'INFO'
+            console.log(`  [${icon}] ${f.type} — ${f.file}:${f.line}`)
+            console.log(`         ${f.code}`)
+            console.log(`         ${f.suggestion}\n`)
+          }
+        }
+        console.log(`Note: ${result.note}\n`)
+      }
+      break
+    }
+
+    case 'stats': {
+      const stats = loadStats()
+      if (json) {
+        output(stats, true)
+      } else {
+        const formatNum = (n: number) => n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(1)}K` : String(n)
+        console.log('\n  depguard usage statistics (local only, never sent anywhere)\n')
+        console.log(`  First used:          ${stats.firstUsed}`)
+        console.log(`  Last used:           ${stats.lastUsed}`)
+        console.log(`  Total calls:         ${formatNum(stats.totalCalls)}`)
+        console.log(`  Tokens saved:        ${formatNum(stats.tokensEstimatedSaved)}`)
+        console.log(`  Packages audited:    ${formatNum(stats.packagesAudited)}`)
+        console.log(`  Threats blocked:     ${stats.threatsBlocked}`)
+        console.log(`  Review findings:     ${stats.reviewFindings}`)
+        if (Object.keys(stats.calls).length > 0) {
+          console.log('\n  Calls by tool:')
+          const sorted = Object.entries(stats.calls).sort((a, b) => b[1] - a[1])
+          for (const [tool, count] of sorted) {
+            console.log(`    ${tool.replace('depguard_', '')}: ${count}`)
+          }
+        }
+        console.log('\n  Data stored in: ~/.depguard/stats.json')
+        console.log('  Privacy: all data is local. Nothing is sent to any server.\n')
+      }
+      break
+    }
+
     default:
-      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep, audit-deep`)
+      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep, audit-deep, review, stats`)
       process.exit(1)
   }
 }

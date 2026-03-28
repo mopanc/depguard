@@ -22,7 +22,7 @@ Or add to MCP config:
 }
 ```
 
-## Available MCP Tools (10)
+## Available MCP Tools (11)
 
 ### depguard_guard
 Pre-install guardian. Before installing any package, verify it exists on npm, check for typosquatting, run security audit, and return allow/warn/block decision. **Use this before every npm install.**
@@ -43,6 +43,13 @@ Dead dependency detection. Scan project source files for imports and find unused
 Full security audit with static code analysis. Downloads package tarball, scans source code for 18+ malware patterns, combines npm + GitHub Advisory Database, analyzes install scripts, checks license compatibility. Returns SecurityFinding[] with rich explanations.
 - Input: `{ name: string, targetLicense?: string }`
 - Output: Full audit report with vulnerabilities, securityFindings, codeAnalysis, script analysis, fix suggestions.
+
+### depguard_review
+AI Code Review. Scans project source files for debris left by AI coding agents. Detects console.logs in production, empty catch blocks, TODOs without issue references, broken imports (files that don't exist), empty test files, and orphan files. Returns structured ReviewFinding[] the agent can auto-fix.
+- Input: `{ path: string, mode?: "quick"|"full" }`
+- Output: `{ findings: ReviewFinding[], summary: string, totalFindings: number }`
+- Quick mode (~500ms): per-file analysis only
+- Full mode (~2-5s): adds cross-file analysis (orphan files, empty tests)
 
 ### depguard_audit_deep
 Deep transitive dependency tree audit. BFS through the entire dependency graph with vulnerability aggregation, circular detection, and depth limiting.

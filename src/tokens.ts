@@ -150,6 +150,17 @@ function manualProfileFor(tool: string, argCount: number): ManualProfile {
       }
     }
 
+    case 'depguard_review':
+      return {
+        steps: [
+          `Manual file scanning: read and check each source file for quality issues (~${MANUAL_COST.webFetchLarge} tokens)`,
+          `Pattern matching: console.logs, empty catch, TODOs, broken imports (~${MANUAL_COST.reasoning * 4} tokens)`,
+          `Cross-file analysis: orphan files, empty tests (~${MANUAL_COST.reasoning * 2} tokens)`,
+          `Reasoning: compile findings and generate suggestions (~${MANUAL_COST.reasoning} tokens)`,
+        ],
+        tokens: MANUAL_COST.webFetchLarge + MANUAL_COST.reasoning * 7,
+      }
+
     case 'depguard_sweep':
       return {
         steps: [

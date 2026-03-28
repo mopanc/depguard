@@ -432,3 +432,37 @@ export interface PublicationAnalysis {
   lastPublish: string | null
   anomalies: PublicationAnomaly[]
 }
+
+// ====== AI CODE REVIEW TYPES ======
+
+export type ReviewFindingType =
+  | 'console-log'
+  | 'empty-catch'
+  | 'abandoned-todo'
+  | 'broken-import'
+  | 'empty-test'
+  | 'orphan-file'
+
+export interface ReviewFinding {
+  type: ReviewFindingType
+  severity: 'error' | 'warning' | 'info'
+  file: string
+  line: number
+  code: string
+  suggestion: string
+}
+
+export interface ReviewResult {
+  mode: 'quick' | 'full'
+  projectPath: string
+  filesAnalyzed: number
+  totalFindings: number
+  findings: ReviewFinding[]
+  summary: string
+  note: string
+}
+
+export interface ReviewOptions {
+  mode?: 'quick' | 'full'
+  excludePatterns?: string[]
+}

@@ -52,21 +52,36 @@ The plan for depguard-cli — where we are, where we're going, and why.
 - [x] GitHub Action for CI/CD integration
 - [x] 184 offline tests
 
+### v1.6.0 — Static Code Analysis (2026-03-26)
+- [x] Tarball download and source code scanning for malware patterns
+- [x] Behavioral mismatch detection
+- [x] 18+ code analysis patterns across 6 threat categories
+- [x] 212 offline tests
+
+### v1.7.0 — AI Code Review & Stats (2026-03-28)
+- [x] AI Code Review (`depguard_review`) — console.logs, empty catch, broken imports, orphans, TODOs, empty tests
+- [x] Quick mode (<500ms) and full mode (2-5s) with cross-file analysis
+- [x] tsconfig path alias support for orphan detection
+- [x] Local usage statistics (`depguard-cli stats`) — calls, tokens saved, threats blocked
+- [x] MCP startup banner with session stats
+- [x] MCP response condensing for large projects (80K char limit)
+- [x] Improved tool descriptions guiding AI agents on when to call each tool
+- [x] All scanner false positives eliminated (dynamic string construction)
+- [x] 237 offline tests
+
 ---
 
 ## Phase 2 — Production Hardening (Q2 2026)
 
-### v1.6.0 — CI/CD Integration
-- [x] **GitHub Action** — composite action with configurable threshold and fail-on-critical
+### v1.8.0 — CI/CD Integration
 - [ ] **Exit codes** — configurable exit codes for CI pipelines (fail on critical, warn on moderate)
 - [ ] **SARIF output** — GitHub Security tab compatible vulnerability format
 - [ ] **PR comment bot** — auto-comment on PRs with audit summary and score changes
 - [ ] **Diff mode** — only audit new/changed dependencies, not the entire lockfile
 
-### v1.7.0 — Advanced Threat Detection
+### v1.9.0 — Advanced Threat Detection
 - [ ] **Typosquatting detection** — Levenshtein distance check against top 5000 npm packages
 - [ ] **Maintainer change alerts** — flag packages where ownership recently transferred
-- [ ] **Publication anomaly detection** — detect unusual version jumps, publish frequency spikes
 - [ ] **Binary/native addon analysis** — flag packages that compile native code during install
 - [ ] **Network behavior analysis** — detect install scripts that phone home
 

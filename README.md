@@ -39,6 +39,9 @@ depguard-cli sweep [path] [--include-dev] [--json]
 
 # Deep transitive dependency tree audit
 depguard-cli audit-deep <package> [--json]
+
+# AI code review (detect debris left by AI agents)
+depguard-cli review [path] [--full] [--json]
 ```
 
 ### Examples
@@ -220,6 +223,7 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 | `depguard_verify` | AI hallucination guard: check if a package exists + typosquatting |
 | `depguard_sweep` | Dead dependency detection: find unused packages in a project |
 | `depguard_audit_deep` | Deep transitive dependency tree audit with vulnerability aggregation |
+| `depguard_review` | AI Code Review: detect debris left by AI agents (console.logs, empty catch, broken imports, orphan files) |
 
 ### Bulk audit
 
@@ -468,7 +472,7 @@ A dependency is compatible if its license is equally or more permissive than you
 ```bash
 npm run build    # compile TypeScript
 npm run lint     # ESLint (strict)
-npm test         # 212 tests (all offline)
+npm test         # 237 tests (all offline)
 npm run check    # build + lint + test + audit
 ```
 

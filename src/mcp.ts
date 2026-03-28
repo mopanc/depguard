@@ -18,17 +18,60 @@ import { shouldUse } from './advisor.js'
 import { guard, verify } from './guard.js'
 import { sweep } from './sweep.js'
 import { auditTransitive } from './transitive.js'
+import { review } from './review.js'
 import { calculateSavings } from './tokens.js'
+import { printStatsBanner, recordCall, setVersion } from './stats.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.6.0',
+  version: '1.7.0',
 }
 
 const TOOLS = [
+  // === BEFORE INSTALLING — call these before npm install ===
+  {
+    name: 'depguard_guard',
+    description: 'MANDATORY: call this BEFORE running npm install, yarn add, or pnpm add — whether the user asked for the package or you decided to install it yourself. Verifies the package exists (blocks hallucinated names), checks for typosquatting, runs security audit, and returns allow/warn/block. If the result is "block" or "warn", do NOT install the package without informing the user.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        name: { type: 'string', description: 'npm package name to check before installing' },
+        threshold: { type: 'number', description: 'Score threshold for allow decision (default: 60)' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
+      },
+      required: ['name'],
+    },
+  },
+  {
+    name: 'depguard_should_use',
+    description: 'When you need functionality (e.g. "RTSP streaming", "date formatting"), call this BEFORE choosing a package yourself. Checks if Node.js has a native solution first, then evaluates npm candidates and recommends install, caution, or write-from-scratch. Always prefer this over picking a package from your training data — it gives you up-to-date security and quality data.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        intent: { type: 'string', description: 'What you want to accomplish (e.g. "http client", "date formatting")' },
+        threshold: { type: 'number', description: 'Score threshold for install recommendation (default: 60)' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
+      },
+      required: ['intent'],
+    },
+  },
+  // === AFTER CODE CHANGES — call these after modifying code ===
+  {
+    name: 'depguard_review',
+    description: 'Call this AFTER making significant code changes or before the user commits. Scans source files for issues you may have introduced: console.logs left in production code, empty catch blocks, broken imports, TODOs without issue references, empty test files, orphan files. Fix the findings before reporting your work as done.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        path: { type: 'string', description: 'Absolute path to project root' },
+        mode: { type: 'string', description: 'quick = per-file only (~500ms), full = cross-file analysis (~2-5s). Default: quick' },
+      },
+      required: ['path'],
+    },
+  },
+  // === PROJECT HEALTH — call these when auditing a project ===
   {
     name: 'depguard_audit',
-    description: 'Full security audit of an npm package: vulnerabilities, static code analysis (downloads tarball and scans for malware patterns), behavioral analysis, maintenance, license compatibility, dependencies, and install scripts. Returns detailed security findings with explanations.',
+    description: 'Deep security audit of a single npm package. Downloads the tarball, scans source code for malware, checks vulnerabilities (npm + GitHub Advisory), analyzes install scripts, verifies license. Use when you need full details on a specific package.',
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -39,8 +82,70 @@ const TOOLS = [
     },
   },
   {
+    name: 'depguard_audit_project',
+    description: 'Audit ALL dependencies in a project at once. Pass the path to package.json and get a consolidated security report. Use this when the user asks to review project security or after cloning a new repo.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        path: { type: 'string', description: 'Absolute path to package.json file' },
+        includeDevDependencies: { type: 'boolean', description: 'Include devDependencies in audit (default: false)' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (auto-detected from package.json if not set)' },
+      },
+      required: ['path'],
+    },
+  },
+  {
+    name: 'depguard_audit_deep',
+    description: 'Audit the full transitive dependency tree of a package. Crawls all nested dependencies recursively and aggregates vulnerabilities across the entire graph. Use when you need to know the total attack surface, not just direct deps.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        name: { type: 'string', description: 'npm package name' },
+        maxDepth: { type: 'number', description: 'Max recursion depth (default: 5, max: 10)' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
+      },
+      required: ['name'],
+    },
+  },
+  {
+    name: 'depguard_sweep',
+    description: 'Find unused npm packages in the project. Scans source files for imports and cross-references with package.json. Also detects phantom deps (installed but not declared). Call this after a coding session where you installed multiple packages — some may no longer be needed.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        path: { type: 'string', description: 'Absolute path to project root (must contain package.json)' },
+        includeDevDependencies: { type: 'boolean', description: 'Include devDependencies in scan (default: false)' },
+      },
+      required: ['path'],
+    },
+  },
+  // === QUICK LOOKUPS — lightweight tools for specific checks ===
+  {
+    name: 'depguard_score',
+    description: 'Quick 0-100 quality score for a package. Faster than depguard_audit when you only need the score. Critical vulns cap at 30, high at 50.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        name: { type: 'string', description: 'npm package name' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
+      },
+      required: ['name'],
+    },
+  },
+  {
+    name: 'depguard_verify',
+    description: 'Quick check if a package name exists on npm + typosquatting detection. Faster than depguard_guard when you only need existence verification without a full audit.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        name: { type: 'string', description: 'npm package name to verify' },
+      },
+      required: ['name'],
+    },
+  },
+  {
     name: 'depguard_search',
-    description: 'Search npm for packages matching keywords, sorted by quality score.',
+    description: 'Search npm for packages by keywords, sorted by depguard quality score. Use when you need to find packages but already know the keywords.',
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -52,20 +157,8 @@ const TOOLS = [
     },
   },
   {
-    name: 'depguard_score',
-    description: 'Score an npm package 0-100 across security, maintenance, popularity, license, and dependencies.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        name: { type: 'string', description: 'npm package name' },
-        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
-      },
-      required: ['name'],
-    },
-  },
-  {
     name: 'depguard_audit_bulk',
-    description: 'Audit multiple npm packages in a single call. Accepts a list of package names or a full dependencies object from package.json. Returns a consolidated report with vulnerability summary.',
+    description: 'Audit multiple packages in one call. Accepts an array of names or a dependencies object from package.json. Use depguard_audit_project instead if you have a package.json path.',
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -79,81 +172,6 @@ const TOOLS = [
         targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
       },
       required: ['packages'],
-    },
-  },
-  {
-    name: 'depguard_audit_project',
-    description: 'Audit all dependencies from a package.json file path. Reads the file, extracts all dependency names, and runs a bulk audit.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        path: { type: 'string', description: 'Absolute path to package.json file' },
-        includeDevDependencies: { type: 'boolean', description: 'Include devDependencies in audit (default: false)' },
-        targetLicense: { type: 'string', description: 'Project license for compatibility check (auto-detected from package.json if not set)' },
-      },
-      required: ['path'],
-    },
-  },
-  {
-    name: 'depguard_should_use',
-    description: 'Given an intent (e.g. "date formatting"), search packages, audit top candidates, and recommend install vs write-from-scratch.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        intent: { type: 'string', description: 'What you want to accomplish (e.g. "http client", "date formatting")' },
-        threshold: { type: 'number', description: 'Score threshold for install recommendation (default: 60)' },
-        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
-      },
-      required: ['intent'],
-    },
-  },
-  {
-    name: 'depguard_guard',
-    description: 'Pre-install guardian: verify a package exists on npm, check for AI hallucination and typosquatting, run quick security audit, and return allow/warn/block decision. Use this BEFORE installing any package.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        name: { type: 'string', description: 'npm package name to check before installing' },
-        threshold: { type: 'number', description: 'Score threshold for allow decision (default: 60)' },
-        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
-      },
-      required: ['name'],
-    },
-  },
-  {
-    name: 'depguard_verify',
-    description: 'AI hallucination guard: verify if an npm package name actually exists on the registry. Also checks for possible typosquatting against 100+ popular packages using Levenshtein distance.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        name: { type: 'string', description: 'npm package name to verify' },
-      },
-      required: ['name'],
-    },
-  },
-  {
-    name: 'depguard_audit_deep',
-    description: 'Deep transitive dependency audit: recursively audits all dependencies in the tree with BFS traversal. Returns vulnerability counts by depth, circular dependencies, deprecated packages, and aggregate risk across the full dependency graph.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        name: { type: 'string', description: 'npm package name' },
-        maxDepth: { type: 'number', description: 'Max recursion depth (default: 5, max: 10)' },
-        targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
-      },
-      required: ['name'],
-    },
-  },
-  {
-    name: 'depguard_sweep',
-    description: 'Dead dependency detection: scan a project for npm packages in package.json that are not actually imported or used in source code. Reports unused deps with estimated size savings.',
-    inputSchema: {
-      type: 'object' as const,
-      properties: {
-        path: { type: 'string', description: 'Absolute path to project root (must contain package.json)' },
-        includeDevDependencies: { type: 'boolean', description: 'Include devDependencies in scan (default: false)' },
-      },
-      required: ['path'],
     },
   },
 ]
@@ -180,12 +198,101 @@ function error(id: number | string | null, code: number, message: string): JsonR
   return { jsonrpc: '2.0', id, error: { code, message } }
 }
 
+/** Maximum response size in characters to avoid exceeding MCP client limits */
+const MAX_RESPONSE_CHARS = 80_000
+
 function toolResult(toolName: string, content: unknown, argCount?: number): unknown {
   const responseJson = JSON.stringify(content, null, 2)
   const savings = calculateSavings(toolName, responseJson, argCount)
+
+  // Record local stats (never sent anywhere)
+  const contentObj = content as Record<string, unknown>
+  recordCall(toolName, {
+    tokensSaved: savings.saved,
+    packagesAudited: toolName.includes('audit') ? (argCount ?? 1) : 0,
+    threatsBlocked: toolName === 'depguard_guard' && contentObj.decision === 'block' ? 1 : 0,
+    reviewFindings: toolName === 'depguard_review' ? (contentObj.totalFindings as number ?? 0) : 0,
+  })
+
   const enriched = { ...(content as Record<string, unknown>), tokenSavings: savings }
+  let resultJson = JSON.stringify(enriched, null, 2)
+
+  // If response is too large, condense it to fit MCP client limits
+  if (resultJson.length > MAX_RESPONSE_CHARS) {
+    const condensed = condenseResult(enriched, toolName)
+    resultJson = JSON.stringify(condensed, null, 2)
+  }
+
   return {
-    content: [{ type: 'text', text: JSON.stringify(enriched, null, 2) }],
+    content: [{ type: 'text', text: resultJson }],
+  }
+}
+
+/**
+ * Condense a large result by removing verbose fields while keeping the summary.
+ * This ensures bulk/project audits don't exceed MCP client limits.
+ */
+function condenseResult(data: Record<string, unknown>, toolName: string): Record<string, unknown> {
+  // For bulk/project audits: keep summary, remove individual package details
+  if (toolName === 'depguard_audit_bulk' || toolName === 'depguard_audit_project') {
+    const results = data.results as Array<Record<string, unknown>> | undefined
+    if (results && Array.isArray(results)) {
+      const condensedResults = results.map(r => ({
+        name: r.name,
+        version: r.version,
+        score: r.score,
+        vulnerabilities: r.vulnerabilities ? {
+          total: (r.vulnerabilities as Record<string, unknown>).total,
+          critical: (r.vulnerabilities as Record<string, unknown>).critical,
+          high: (r.vulnerabilities as Record<string, unknown>).high,
+        } : undefined,
+        deprecated: r.deprecated,
+        hasInstallScripts: r.hasInstallScripts,
+        license: r.license,
+        warnings: (r.warnings as string[] | undefined)?.length ?? 0,
+        codeAnalysisFindings: r.securityFindings ? (r.securityFindings as unknown[]).length : 0,
+      }))
+      return {
+        ...data,
+        results: condensedResults,
+        _condensed: true,
+        _note: 'Response was condensed to fit MCP limits. Use depguard_audit on individual packages for full details.',
+      }
+    }
+  }
+
+  // For sweep: keep summary, limit unused/maybeUnused lists
+  if (toolName === 'depguard_sweep') {
+    const unused = data.unused as unknown[] | undefined
+    const maybeUnused = data.maybeUnused as unknown[] | undefined
+    const phantomDeps = data.phantomDeps as unknown[] | undefined
+    return {
+      ...data,
+      unused: unused?.slice(0, 20),
+      maybeUnused: maybeUnused?.slice(0, 20),
+      phantomDeps: phantomDeps?.slice(0, 20),
+      _condensed: true,
+      _note: `Response condensed. Showing first 20 of each category. Full counts: ${unused?.length ?? 0} unused, ${maybeUnused?.length ?? 0} maybe-unused, ${phantomDeps?.length ?? 0} phantom.`,
+    }
+  }
+
+  // For review: limit findings list
+  if (toolName === 'depguard_review') {
+    const findings = data.findings as unknown[] | undefined
+    return {
+      ...data,
+      findings: findings?.slice(0, 30),
+      _condensed: true,
+      _note: `Response condensed. Showing first 30 of ${findings?.length ?? 0} findings.`,
+    }
+  }
+
+  // Generic: just truncate the JSON
+  return {
+    _condensed: true,
+    _note: 'Response was too large and has been condensed.',
+    summary: data.summary ?? data.total ?? 'See depguard-cli for full output',
+    tokenSavings: data.tokenSavings,
   }
 }
 
@@ -313,6 +420,15 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
             return success(req.id, toolResult('depguard_audit_deep', result, result.totalTransitiveDeps))
           }
 
+          case 'depguard_review': {
+            const filePath = args.path as string
+            if (!filePath) return error(req.id, -32602, 'path is required')
+            const result = await review(filePath, {
+              mode: (args.mode as 'quick' | 'full') ?? 'quick',
+            })
+            return success(req.id, toolResult('depguard_review', result))
+          }
+
           case 'depguard_sweep': {
             const filePath = args.path as string
             if (!filePath) return error(req.id, -32602, 'path is required')
@@ -344,6 +460,10 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
 }
 
 async function main() {
+  // Show stats banner on startup (stderr only, never interferes with MCP protocol on stdout)
+  setVersion(SERVER_INFO.version)
+  printStatsBanner()
+
   // Clean up expired cache files on startup
   cleanupDiskCache()
 
