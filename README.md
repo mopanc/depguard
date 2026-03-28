@@ -472,7 +472,7 @@ A dependency is compatible if its license is equally or more permissive than you
 ```bash
 npm run build    # compile TypeScript
 npm run lint     # ESLint (strict)
-npm test         # 237 tests (all offline)
+npm test         # 238 tests (all offline)
 npm run check    # build + lint + test + audit
 ```
 

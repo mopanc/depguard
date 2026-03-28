@@ -1,5 +1,6 @@
 import type { AuditReport, FetchFn, ScoreResult, ScoreWeights } from './types.js'
 import { audit } from './audit.js'
+import { lookupCompromised } from './advisory-db.js'
 
 const DEFAULT_WEIGHTS: ScoreWeights = {
   security: 30,
@@ -49,8 +50,10 @@ export async function score(
       breakdown.dependencies * weights.dependencies) / totalWeight,
   )
 
+  // Known compromised packages = total score 0, no exceptions
+  if (lookupCompromised(name)) return { name, total: 0, breakdown, warnings: report.warnings }
+
   // Hard ceiling: packages with critical/high security scores cannot score above thresholds
-  // regardless of how good other dimensions are. Security is non-negotiable.
   if (breakdown.security <= 15) total = Math.min(total, 30)  // Critical vulns → max 30
   else if (breakdown.security <= 40) total = Math.min(total, 50)  // High vulns → max 50
 
@@ -97,16 +100,21 @@ export function scoreFromReport(report: AuditReport): number {
  * Security: 100 = no vulns and no code analysis findings.
  * Uses exponential decay — any critical vuln caps the score at 15 max.
  * CVSS scores used when available for more accurate severity weighting.
- * Code analysis findings further reduce the score.
+ * Code analysis findings are INFORMATIONAL — they appear in the report
+ * but do NOT reduce the security score. Only CVEs and advisory DB affect scoring.
  */
 function computeSecurityScore(report: AuditReport): number {
+  // Known compromised package = score 0 (advisory database)
+  const compromised = lookupCompromised(report.name)
+  if (compromised) return 0
+
   const v = report.vulnerabilities
 
   // Start with vulnerability-based score
   let vulnScore = 100
 
   if (v.total > 0) {
-    // Critical vulns are a hard ceiling — no package with a critical vuln scores above 15
+    // Critical vulns are a hard ceiling
     if (v.critical > 0) vulnScore = Math.max(0, 15 - (v.critical - 1) * 5)
     // High vulns cap at 40
     else if (v.high > 0) vulnScore = Math.max(0, 40 - (v.high - 1) * 10)
@@ -119,11 +127,9 @@ function computeSecurityScore(report: AuditReport): number {
         }
       }
 
-      // If we have CVSS, use it (0-10 scale → inverted to 0-100)
       if (maxCvss > 0) {
         vulnScore = Math.max(0, Math.round(100 - maxCvss * 10))
       } else {
-        // Fallback: moderate and low deductions
         vulnScore -= v.moderate * 15
         vulnScore -= v.low * 5
         vulnScore = Math.max(0, vulnScore)
@@ -131,23 +137,10 @@ function computeSecurityScore(report: AuditReport): number {
     }
   }
 
-  // Apply code analysis findings penalty
-  const findings = report.securityFindings ?? []
-  if (findings.length > 0) {
-    const criticalFindings = findings.filter(f => f.severity === 'critical').length
-    const highFindings = findings.filter(f => f.severity === 'high').length
-    const mediumFindings = findings.filter(f => f.severity === 'medium').length
-
-    // Critical code findings are as serious as critical vulns
-    if (criticalFindings > 0) vulnScore = Math.min(vulnScore, 20)
-    // High findings cap security score
-    else if (highFindings > 0) vulnScore = Math.min(vulnScore, 45)
-
-    // Additional deductions for volume
-    vulnScore -= criticalFindings * 15
-    vulnScore -= highFindings * 8
-    vulnScore -= mediumFindings * 3
-  }
+  // NOTE: Code analysis findings (securityFindings) are NOT used in scoring.
+  // They are informational — present in the audit report for the developer/agent
+  // to review, but do not automatically penalize the score. This prevents false
+  // positives from reducing scores of legitimate packages.
 
   return Math.max(0, vulnScore)
 }

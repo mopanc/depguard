@@ -21,7 +21,7 @@ export async function search(
     name: obj.package.name,
     version: obj.package.version,
     description: obj.package.description ?? '',
-    score: Math.round(obj.score.final * 100),
+    score: Math.min(100, Math.round((obj.score.final > 1 ? obj.score.final : obj.score.final * 100))),
     keywords: obj.package.keywords ?? [],
     date: obj.package.date,
   }))

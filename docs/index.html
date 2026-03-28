@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>depguard — MCP Security Server for AI Coding Agents</title>
-  <meta name="description" content="MCP security server for AI coding agents. 11 tools: static code analysis, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection. Zero dependencies. Works with Claude, Cursor, Windsurf.">
+  <meta name="description" content="MCP security server for AI coding agents. 11 tools: known compromised package detection, AI code review, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit. Curated advisory database. Zero dependencies. Works with Claude, Cursor, Windsurf.">
   <meta name="keywords" content="MCP server, npm security, AI coding agent, supply chain security, vibe coding, Model Context Protocol, package auditing, vulnerability detection, Claude MCP, Cursor MCP, AI agent tools, dependency security, npm audit, Node.js security, open source security, typosquatting detection, dead dependencies, unused packages, pre-install check, AI hallucination guard, depguard, package scoring, CVSS, license compliance, SPDX, static code analysis, behavioral analysis">
   <meta name="author" content="Jorge Morais">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -55,7 +55,7 @@
     "description": "MCP server that gives AI coding agents real-time npm security auditing. 11 tools for static code analysis, vulnerability triage, supply chain attack detection, package scoring, pre-install guardian, AI hallucination guard, dead dependency detection, and smart recommendations. Zero dependencies.",
     "url": "https://depguard.dev",
     "downloadUrl": "https://www.npmjs.com/package/depguard-cli",
-    "softwareVersion": "1.7.0",
+    "softwareVersion": "1.8.0",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "programmingLanguage": "TypeScript",
     "runtimePlatform": "Node.js",
@@ -75,9 +75,11 @@
       "priceCurrency": "USD"
     },
     "featureList": [
+      "Known compromised packages database — curated advisory DB blocks event-stream, colors, faker, ua-parser-js, and 20+ documented attacks",
       "AI Code Review — detects console.logs, empty catch blocks, broken imports, orphan files, abandoned TODOs left by AI agents",
       "Local usage statistics — tracks calls, tokens saved, threats blocked (data never leaves the machine)",
-      "Static code analysis — downloads tarball, scans for malware patterns with rich explanations",
+      "Comment-aware code analysis — strips comments before scanning, eliminates false positives from documentation URLs",
+      "Lock file parsing — reads package-lock.json and pnpm-lock.yaml for accurate phantom dependency detection",
       "Pre-install guardian — verify, audit, allow/warn/block before every npm install (AI-initiated or user-requested)",
       "AI hallucination guard — verify package names exist on npm registry",
       "Typosquatting detection via Levenshtein distance against 100+ popular packages",
@@ -133,14 +135,14 @@
   <div class="hero-content">
     <div class="hero-badge reveal">
       <span class="dot" aria-hidden="true"></span>
-      v1.7.0 &middot; AI Code Review &middot; 11 Tools &middot; Zero Dependencies &middot;
+      v1.8.0 &middot; Advisory Database &middot; 11 Tools &middot; Zero Dependencies &middot;
       <svg width="14" height="10" viewBox="0 0 16 11" aria-label="Made in Portugal" style="vertical-align:middle;opacity:.6"><rect width="6" height="11" fill="#006600"/><rect x="6" width="10" height="11" fill="#ff0000"/><circle cx="6" cy="5.5" r="2" fill="#ffcc00" stroke="#006600" stroke-width=".3"/></svg>
     </div>
     <h1 id="hero-heading" class="reveal reveal-delay-1">
       Your AI agent's<br><span class="cmd">security guardrail</span>
     </h1>
     <p class="hero-sub reveal reveal-delay-2">
-      An <strong>MCP server</strong> that guards your codebase from two threats: <strong>insecure npm packages</strong> and <strong>debris left by AI coding agents</strong>. Every package is verified before install. Every coding session is reviewed for console.logs, broken imports, orphan files, and empty catch blocks. The AI agent cleans up after itself.
+      An <strong>MCP server</strong> that guards your codebase from three threats: <strong>compromised npm packages</strong>, <strong>insecure dependencies</strong>, and <strong>debris left by AI coding agents</strong>. Backed by a curated advisory database of known attacks. Every package is verified before install, every coding session is reviewed, every unused dependency is flagged.
     </p>
     <div class="hero-actions reveal reveal-delay-3">
       <a href="#/docs" class="btn btn-accent" data-nav>Get Started</a>
@@ -887,14 +889,14 @@
   </div>
 
   <div style="margin-top:3rem;padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:rgba(0,255,200,0.02)" class="reveal">
-    <h3 style="color:var(--accent);margin:0 0 1rem 0;font-size:1rem">v1.4 Security Hardening</h3>
+    <h3 style="color:var(--accent);margin:0 0 1rem 0;font-size:1rem">v1.8 Architecture Redesign</h3>
     <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;font-size:0.85rem;color:var(--text-dim)">
-      <div><strong style="color:var(--text)">CVSS Integration</strong><br>Uses real CVSS scores when available, not just severity labels</div>
-      <div><strong style="color:var(--text)">Security Ceiling</strong><br>Critical vulns cap total at 30/100. High vulns at 50. Non-negotiable.</div>
-      <div><strong style="color:var(--text)">Dual License</strong><br>Parses <code>MIT OR GPL-3.0</code> SPDX expressions correctly</div>
-      <div><strong style="color:var(--text)">Modern Licenses</strong><br>SSPL, Elastic-2.0, BUSL-1.1, Commons-Clause detected</div>
-      <div><strong style="color:var(--text)">CVE Dedup</strong><br>Advisory dedup by CVE ID + GHSA ID + URL prevents double-counting</div>
-      <div><strong style="color:var(--text)">OR Ranges</strong><br>Semver <code>|| </code> clauses in advisory ranges now parsed</div>
+      <div><strong style="color:var(--red)">Advisory Database</strong><br>Curated database of known compromised packages. event-stream, colors, faker auto-blocked with full incident history.</div>
+      <div><strong style="color:var(--text)">Comment Stripping</strong><br>Code analysis strips comments before scanning. URLs in JSDoc and license headers no longer flagged.</div>
+      <div><strong style="color:var(--text)">Informational Findings</strong><br>Code analysis findings are informational. Only CVEs and advisory DB affect the security score.</div>
+      <div><strong style="color:var(--text)">Lock File Parsing</strong><br>Reads package-lock.json and pnpm-lock.yaml. Transitive deps no longer flagged as phantom.</div>
+      <div><strong style="color:var(--text)">CVSS + Security Ceiling</strong><br>Critical vulns cap at 30. High at 50. Compromised packages score 0. Non-negotiable.</div>
+      <div><strong style="color:var(--text)">Intl Alternatives</strong><br>DateTimeFormat, NumberFormat, RelativeTimeFormat, Collator detected as native alternatives.</div>
     </div>
   </div>
 </section>

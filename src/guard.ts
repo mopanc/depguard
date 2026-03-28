@@ -11,6 +11,7 @@ import type { GuardResult, GuardOptions, VerifyResult, VerifyOptions } from './t
 import { fetchPackage } from './registry.js'
 import { audit } from './audit.js'
 import { score } from './scorer.js'
+import { lookupCompromised } from './advisory-db.js'
 
 /**
  * Top ~100 popular npm packages for typosquatting detection.
@@ -178,7 +179,26 @@ export async function guard(
     }
   }
 
-  // Step 2: Typosquatting warning (package exists but name is suspiciously similar)
+  // Step 2: Check advisory database for known compromised packages
+  const compromised = lookupCompromised(packageName)
+  if (compromised) {
+    const incident = compromised.incidents[0]
+    reasons.push(`KNOWN COMPROMISED: ${incident.description}`)
+    reasons.push(`Incident type: ${incident.type}, date: ${incident.date}`)
+    if (incident.cve) reasons.push(`CVE: ${incident.cve}`)
+    return {
+      package: packageName,
+      decision: 'block',
+      exists: true,
+      possibleTyposquat: verifyResult.possibleTyposquat,
+      similarTo: verifyResult.similarTo,
+      score: 0,
+      reasons,
+      auditSummary: null,
+    }
+  }
+
+  // Step 3: Typosquatting warning (package exists but name is suspiciously similar)
   if (verifyResult.possibleTyposquat) {
     reasons.push(`Possible typosquat of: ${verifyResult.similarTo.join(', ')}`)
     decision = 'warn'

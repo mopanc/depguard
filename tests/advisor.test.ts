@@ -81,12 +81,12 @@ describe('shouldUse', () => {
     const fetcher = createAdvisorFetch([
       { name: 'great-lib', score: 90, downloads: 1000000 },
     ])
-    const rec = await shouldUse('date formatting', { fetcher })
+    const rec = await shouldUse('pdf generation', { fetcher })
 
     assert.strictEqual(rec.action, 'install')
     assert.strictEqual(rec.package, 'great-lib')
     assert.ok(rec.score !== null && rec.score >= 60)
-    assert.strictEqual(rec.intent, 'date formatting')
+    assert.strictEqual(rec.intent, 'pdf generation')
   })
 
   it('recommends "write-from-scratch" when no packages found', async () => {

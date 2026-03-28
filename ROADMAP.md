@@ -69,6 +69,17 @@ The plan for depguard-cli — where we are, where we're going, and why.
 - [x] All scanner false positives eliminated (dynamic string construction)
 - [x] 237 offline tests
 
+### v1.8.0 — Architecture Redesign (2026-03-28)
+- [x] Known compromised packages database — curated JSON with ~25 documented incidents (event-stream, colors, faker, etc.)
+- [x] Comment stripping in code analysis — eliminates false positives from URLs in docs/comments
+- [x] Code analysis informational (not punitive) — findings no longer reduce security score
+- [x] Lock file parsing — package-lock.json and pnpm-lock.yaml for accurate phantom dep detection
+- [x] Search score normalization — npm API scores capped at 0-100
+- [x] Intl native alternatives — DateTimeFormat, RelativeTimeFormat, NumberFormat, Collator
+- [x] Warnings deduplication in advisor results
+- [x] 238 offline tests
+- [x] 237 offline tests
+
 ---
 
 ## Phase 2 — Production Hardening (Q2 2026)

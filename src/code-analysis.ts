@@ -24,6 +24,20 @@ const MAX_FILES = 200
 /** File extensions to analyze inside the tarball */
 const ANALYZABLE_EXTENSIONS = ['.js', '.cjs', '.mjs']
 
+/**
+ * Strip comments from JavaScript source code to prevent false positives.
+ * Removes block comments, JSDoc, and line comments.
+ * Preserves string contents (does not remove // inside strings).
+ */
+function stripComments(source: string): string {
+  // Remove block comments (/* ... */ and /** ... */)
+  let result = source.replace(/\/\*[\s\S]*?\*\//g, '')
+  // Remove line comments (// ...) but preserve URLs in strings
+  // Only strip if // is not inside a quoted string
+  result = result.replace(/^(\s*)\/\/.*$/gm, '$1')
+  return result
+}
+
 // ========================
 // Pattern rules
 // ========================
@@ -465,8 +479,12 @@ export async function analyzeCode(
   const findings: SecurityFinding[] = []
 
   for (const entry of entries) {
+    // Strip comments BEFORE pattern matching to avoid false positives
+    // on URLs, keywords, and patterns that appear in documentation
+    const strippedContent = stripComments(entry.content)
+
     for (const pattern of CODE_PATTERNS) {
-      const match = pattern.regex.exec(entry.content)
+      const match = pattern.regex.exec(strippedContent)
       if (match) {
         // Extract evidence: the matched text plus surrounding context
         const matchStart = Math.max(0, match.index - 40)

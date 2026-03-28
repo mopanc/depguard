@@ -131,6 +131,30 @@ const NATIVE_ALTERNATIVES: NativeAlternative[] = [
     example: "import { DatabaseSync } from 'node:sqlite'; const db = new DatabaseSync(':memory:')",
     minNodeVersion: '22.5.0',
   },
+  {
+    intent: ['date format', 'date formatting', 'format date', 'date display', 'date locale'],
+    api: 'Intl.DateTimeFormat',
+    example: "new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date())",
+    minNodeVersion: '0.12.0',
+  },
+  {
+    intent: ['relative time', 'time ago', 'from now', 'ago'],
+    api: 'Intl.RelativeTimeFormat',
+    example: "new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(-1, 'day') // 'yesterday'",
+    minNodeVersion: '12.0.0',
+  },
+  {
+    intent: ['number format', 'number formatting', 'currency format', 'currency formatting'],
+    api: 'Intl.NumberFormat',
+    example: "new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(1234.56) // '$1,234.56'",
+    minNodeVersion: '0.12.0',
+  },
+  {
+    intent: ['string sort', 'string comparison', 'locale sort', 'collation'],
+    api: 'Intl.Collator',
+    example: "const collator = new Intl.Collator('de'); ['z','a','o'].sort(collator.compare) // locale-aware sort",
+    minNodeVersion: '0.12.0',
+  },
 ]
 
 /**

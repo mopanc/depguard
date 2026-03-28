@@ -79,15 +79,16 @@ Search npm by keywords, sorted by depguard quality score.
 ## Key Features
 
 - Zero runtime dependencies (only Node.js built-ins)
+- Known compromised packages database: curated list of ~25 documented supply chain attacks (event-stream, colors, faker, etc.). Auto-blocks on guard, score 0 on audit.
 - Dual advisory databases (npm + GitHub Advisory Database)
+- Comment-aware code analysis: strips comments before scanning to eliminate false positives
+- Code analysis findings are informational (do not reduce score). Only CVEs and advisory DB affect scoring.
+- Lock file parsing: reads package-lock.json and pnpm-lock.yaml for accurate phantom dep detection
 - CVSS score integration for accurate severity weighting
-- Security ceiling: critical vulns cap score at 30/100, high at 50/100
+- Security ceiling: critical vulns cap score at 30/100, high at 50/100, compromised = 0
 - 25+ license types including SSPL, Elastic-2.0, BUSL-1.1
-- Dual license parsing (MIT OR GPL-3.0 SPDX expressions)
-- Semver OR clause support for advisory ranges
-- Static code analysis: downloads tarball, scans for malware, obfuscation, data exfiltration
-- Behavioral mismatch detection: flags when code contradicts package description
-- 212 offline tests
+- Intl native alternatives: DateTimeFormat, RelativeTimeFormat, NumberFormat, Collator
+- 238 offline tests
 - Apache-2.0 license
 
 ## Links

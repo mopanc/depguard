@@ -11,6 +11,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs'
 import { join, extname, resolve } from 'node:path'
 import type { SweepResult, SweepOptions, SweepDepResult, DepUsageReason, PhantomDep } from './types.js'
+import { getAllInstalledDeps } from './lockfile.js'
 
 /** File extensions to scan for imports */
 const SOURCE_EXTENSIONS = new Set([
@@ -744,7 +745,13 @@ export async function sweep(
   const estimatedSavingsKB = unused.reduce((sum, dep) => sum + (dep.estimatedSizeKB ?? 0), 0)
 
   // Detect phantom dependencies (installed but not declared)
-  const phantomDeps = detectPhantomDeps(absPath, depNames)
+  // Use lock file to get ALL deps (direct + transitive) for phantom detection
+  // This prevents transitive deps from being flagged as phantom
+  const lockfileDeps = getAllInstalledDeps(absPath)
+  const allKnownDeps = lockfileDeps.size > 0
+    ? [...lockfileDeps]
+    : depNames // Fallback to direct deps if no lock file
+  const phantomDeps = detectPhantomDeps(absPath, allKnownDeps)
 
   return {
     projectPath: absPath,

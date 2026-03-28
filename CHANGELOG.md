@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2026-03-28
+
+### Added
+
+- **Known compromised packages database** — curated JSON database of ~25 packages with documented security incidents (event-stream, colors, faker, ua-parser-js, node-ipc, coa, rc, eslint-scope, SANDWORM_MODE typosquats, and more). Integrated into guard (auto-block), audit (knownIncidents field), and scoring (compromised = score 0). Updated with each release.
+- **Comment stripping in code analysis** — JavaScript comments are now stripped before pattern matching, eliminating false positives from URLs in JSDoc, license headers, and spec references
+- **Lock file parsing** — reads package-lock.json and pnpm-lock.yaml to distinguish transitive dependencies from true phantom deps
+- **Intl native alternatives** — `Intl.DateTimeFormat`, `Intl.RelativeTimeFormat`, `Intl.NumberFormat`, `Intl.Collator` added to native recommendations
+- **`scoreFromReport()` exported** — compute scores from existing AuditReport without extra API calls
+
+### Changed
+
+- **Code analysis findings are now informational** — security findings from static code analysis appear in the audit report but no longer penalize the security score. Scores are based on CVEs, GHSA advisories, and the compromised packages database only. This eliminates false score reductions on legitimate packages like eslint (50 to 94), vue (50 to 94), fastify (30 to 93), and zod (30 to 96).
+
+### Fixed
+
+- **Search scores normalized** — npm API scores now correctly capped at 0-100 (was returning 65000+ for some packages)
+- **Warnings deduplicated** — "GitHub Advisory API rate limit reached" now appears once instead of per-candidate in should_use results
+- **Phantom deps false positives eliminated** — transitive dependencies read from lock files are no longer flagged as phantom
+- **event-stream correctly blocked** — known compromised packages are auto-blocked by guard with full incident explanation (was previously allowed with score 75)
+- **colors correctly scored 0** — sabotaged packages detected via advisory database
+
 ## [1.7.0] - 2026-03-28
 
 ### Added
@@ -148,6 +170,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In-memory cache with TTL for registry requests
 - Comprehensive test suite (54 tests)
 
+[1.8.0]: https://github.com/mopanc/depguard/compare/v1.7.2...v1.8.0
 [1.7.0]: https://github.com/mopanc/depguard/compare/v1.6.1...v1.7.0
 [1.5.0]: https://github.com/mopanc/depguard/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/mopanc/depguard/compare/v1.3.1...v1.4.0

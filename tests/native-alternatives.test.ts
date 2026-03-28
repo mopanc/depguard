@@ -41,10 +41,16 @@ describe('findNativeAlternative', () => {
   })
 
   it('returns null for intents without native solution', () => {
-    assert.strictEqual(findNativeAlternative('date formatting'), null)
     assert.strictEqual(findNativeAlternative('email sending'), null)
     assert.strictEqual(findNativeAlternative('image processing'), null)
     assert.strictEqual(findNativeAlternative('pdf generation'), null)
+    assert.strictEqual(findNativeAlternative('graphql schema builder'), null)
+  })
+
+  it('finds Intl.DateTimeFormat for date formatting', () => {
+    const result = findNativeAlternative('date formatting')
+    assert.ok(result)
+    assert.ok(result.api.includes('Intl.DateTimeFormat'))
   })
 
   it('includes example code', () => {

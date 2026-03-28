@@ -89,7 +89,7 @@ export async function shouldUse(
     nativeAlternative: null,
     alternatives,
     reasoning,
-    warnings: allWarnings,
+    warnings: [...new Set(allWarnings)], // Deduplicate warnings
   }
 }
 

@@ -1,0 +1,269 @@
+{
+  "version": "2026-03-28",
+  "packages": {
+    "event-stream": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": "3.3.6",
+        "type": "supply-chain",
+        "date": "2018-11-26",
+        "cve": "CVE-2018-16472",
+        "description": "Malicious dependency flatmap-stream injected, targeting Copay Bitcoin wallet. Obfuscated code stole cryptocurrency."
+      }]
+    },
+    "flatmap-stream": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": "0.1.0-0.1.1",
+        "type": "supply-chain",
+        "date": "2018-11-26",
+        "cve": "CVE-2018-16472",
+        "description": "Malicious package injected into event-stream. Contained obfuscated Bitcoin-stealing code."
+      }]
+    },
+    "ua-parser-js": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": "0.7.29,0.8.0,1.0.0",
+        "type": "account-hijack",
+        "date": "2021-10-22",
+        "cve": "CVE-2021-4229",
+        "description": "Maintainer account hijacked. Compromised versions contained XMRig cryptominer and credential stealer."
+      }]
+    },
+    "coa": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": "2.0.3,2.0.4,2.1.1,2.1.3,3.0.1,3.1.3",
+        "type": "account-hijack",
+        "date": "2021-11-04",
+        "cve": null,
+        "description": "npm account compromised. Deployed Danabot password-stealing trojan via Windows certutil."
+      }]
+    },
+    "rc": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": "1.2.9,1.3.9,2.3.9",
+        "type": "account-hijack",
+        "date": "2021-11-04",
+        "cve": null,
+        "description": "npm account compromised. Same malware as coa incident. Credential-stealing trojan."
+      }]
+    },
+    "colors": {
+      "compromised": true,
+      "severity": "high",
+      "incidents": [{
+        "version": ">=1.4.1",
+        "type": "maintainer-sabotage",
+        "date": "2022-01-08",
+        "cve": "CVE-2021-23567",
+        "description": "Maintainer intentionally introduced infinite loop (americanFlag). Protest against corporate use of open source."
+      }]
+    },
+    "faker": {
+      "compromised": true,
+      "severity": "high",
+      "incidents": [{
+        "version": "6.6.6",
+        "type": "maintainer-sabotage",
+        "date": "2022-01-05",
+        "cve": null,
+        "description": "Maintainer purged all package contents, leaving empty source code. 20M+ monthly downloads affected."
+      }]
+    },
+    "node-ipc": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": "10.1.0,10.1.1,10.1.2",
+        "type": "protestware",
+        "date": "2022-03-16",
+        "cve": "CVE-2022-23812",
+        "description": "Protestware targeting Russian/Belarusian IPs. Overwrote entire filesystem with heart emoji."
+      }]
+    },
+    "peacenotwar": {
+      "compromised": true,
+      "severity": "high",
+      "incidents": [{
+        "version": ">=0.0.1",
+        "type": "protestware",
+        "date": "2022-03-08",
+        "cve": null,
+        "description": "Added as dependency to node-ipc. Created protest files on user desktop."
+      }]
+    },
+    "eslint-scope": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": "3.7.2",
+        "type": "account-hijack",
+        "date": "2018-07-12",
+        "cve": null,
+        "description": "Maintainer npm account compromised. Exfiltrated .npmrc tokens via pastebin download."
+      }]
+    },
+    "crossenv": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=1.0.0",
+        "type": "typosquat",
+        "date": "2017-07-19",
+        "cve": "CVE-2017-16074",
+        "description": "Typosquat of cross-env. Exfiltrated environment variables to attacker server npm.hacktask.net."
+      }]
+    },
+    "babelcli": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=1.0.0",
+        "type": "typosquat",
+        "date": "2017-07-19",
+        "cve": "CVE-2017-16060",
+        "description": "Typosquat of @babel/cli. Part of hacktask campaign exfiltrating env vars from 37+ packages."
+      }]
+    },
+    "electorn": {
+      "compromised": true,
+      "severity": "high",
+      "incidents": [{
+        "version": ">=1.0.0",
+        "type": "typosquat",
+        "date": "2020-01-01",
+        "cve": null,
+        "description": "Typosquat of electron. Exfiltrated IP address, username, and device fingerprint."
+      }]
+    },
+    "loadsh": {
+      "compromised": true,
+      "severity": "low",
+      "incidents": [{
+        "version": "0.0.4",
+        "type": "typosquat",
+        "date": "2020-01-01",
+        "cve": null,
+        "description": "Typosquat of lodash. Demonstration package showing typosquatting risk."
+      }]
+    },
+    "d3.js": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=1.0.0",
+        "type": "typosquat",
+        "date": "2017-07-19",
+        "cve": null,
+        "description": "Typosquat of d3. Part of hacktask campaign targeting 37+ packages."
+      }]
+    },
+    "fabric-js": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=1.0.0",
+        "type": "typosquat",
+        "date": "2017-07-19",
+        "cve": null,
+        "description": "Typosquat of fabric. Part of hacktask campaign targeting 37+ packages."
+      }]
+    },
+    "gruntcli": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=1.0.0",
+        "type": "typosquat",
+        "date": "2017-07-19",
+        "cve": null,
+        "description": "Typosquat of grunt-cli. Part of hacktask campaign targeting 37+ packages."
+      }]
+    },
+    "http-proxy.js": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=1.0.0",
+        "type": "typosquat",
+        "date": "2017-07-19",
+        "cve": null,
+        "description": "Typosquat of http-proxy. Part of hacktask campaign."
+      }]
+    },
+    "jquery.js": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=1.0.0",
+        "type": "typosquat",
+        "date": "2017-07-19",
+        "cve": null,
+        "description": "Typosquat of jquery. Part of hacktask campaign."
+      }]
+    },
+    "claud-code": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=0.0.1",
+        "type": "typosquat",
+        "date": "2026-02-20",
+        "cve": null,
+        "description": "SANDWORM_MODE worm. Typosquat targeting Claude Code AI assistant. Harvests dev/CI secrets."
+      }]
+    },
+    "cloude-code": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=0.0.1",
+        "type": "typosquat",
+        "date": "2026-02-20",
+        "cve": null,
+        "description": "SANDWORM_MODE worm. Typosquat targeting Claude Code AI assistant."
+      }]
+    },
+    "cloude": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=0.0.1",
+        "type": "typosquat",
+        "date": "2026-02-20",
+        "cve": null,
+        "description": "SANDWORM_MODE worm. Typosquat targeting Claude AI."
+      }]
+    },
+    "suport-color": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=0.0.1",
+        "type": "typosquat",
+        "date": "2026-02-20",
+        "cve": null,
+        "description": "SANDWORM_MODE worm. Typosquat of supports-color."
+      }]
+    },
+    "veim": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [{
+        "version": ">=0.0.1",
+        "type": "typosquat",
+        "date": "2026-02-20",
+        "cve": null,
+        "description": "SANDWORM_MODE worm. Typosquat of vim package."
+      }]
+    }
+  }
+}
