@@ -89,6 +89,7 @@ export async function audit(
   name: string,
   targetLicense = 'MIT',
   fetcher: FetchFn = globalThis.fetch,
+  version?: string,
 ): Promise<AuditReport> {
   const warnings: string[] = []
 
@@ -97,7 +98,7 @@ export async function audit(
   if (!pkg) {
     return {
       name,
-      version: 'unknown',
+      version: version ?? 'unknown',
       license: null,
       description: '',
       lastPublish: null,
@@ -115,7 +116,13 @@ export async function audit(
   }
 
   const latestVersion = pkg['dist-tags']?.latest ?? Object.keys(pkg.versions).pop() ?? 'unknown'
-  const versionData = pkg.versions[latestVersion]
+  // Use the requested version if provided, otherwise fall back to latest
+  const auditVersion = version ?? latestVersion
+  const versionData = pkg.versions[auditVersion] ?? pkg.versions[latestVersion]
+
+  if (version && !pkg.versions[version]) {
+    warnings.push(`Requested version ${version} not found in registry — using metadata from ${latestVersion}`)
+  }
 
   // Fetch downloads, npm advisories, and GitHub advisories concurrently
   const [downloads, npmAdvisories, ghAdvisories] = await Promise.all([
@@ -123,7 +130,7 @@ export async function audit(
       warnings.push('Could not fetch download counts')
       return 0
     }),
-    fetchAdvisories(name, latestVersion, fetcher).catch(() => {
+    fetchAdvisories(name, auditVersion, fetcher).catch(() => {
       warnings.push('Could not fetch npm security advisories')
       return []
     }),
@@ -133,7 +140,7 @@ export async function audit(
     }),
   ])
 
-  const advisories = mergeAdvisories(npmAdvisories, ghAdvisories, latestVersion)
+  const advisories = mergeAdvisories(npmAdvisories, ghAdvisories, auditVersion)
 
   const license = versionData?.license ?? pkg.license ?? null
   const deps = versionData?.dependencies ?? {}
@@ -175,7 +182,7 @@ export async function audit(
   const fixSuggestions: FixSuggestion[] = advisories.map(adv => ({
     vulnerability: adv.title,
     severity: adv.severity,
-    currentVersion: latestVersion,
+    currentVersion: auditVersion,
     fixVersion: adv.patched_versions ?? null,
     action: adv.patched_versions ? 'upgrade' as const : 'no-fix-available' as const,
   }))
@@ -185,7 +192,7 @@ export async function audit(
   // Static code analysis: download tarball and scan for suspicious patterns
   const codeAnalysisResult = await analyzeCode(
     name,
-    latestVersion,
+    auditVersion,
     pkg.description ?? '',
     pkg.keywords ?? [],
     fetcher,
@@ -221,7 +228,7 @@ export async function audit(
 
   return {
     name,
-    version: latestVersion,
+    version: auditVersion,
     license: typeof license === 'string' ? license : null,
     description: pkg.description ?? '',
     lastPublish,

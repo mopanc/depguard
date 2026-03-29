@@ -130,4 +130,24 @@ describe('audit', () => {
     const report = await audit('test-lib', 'MIT', createMockFetch())
     assert.strictEqual(report.lastPublish, '2025-06-01T00:00:00.000Z')
   })
+
+  it('audits a specific version when provided', async () => {
+    // Version 2.0.0 has 1 dep, 2.5.0 has 2 deps — use that to verify correct version is picked
+    const report = await audit('test-lib', 'MIT', createMockFetch(), '2.0.0')
+    assert.strictEqual(report.version, '2.0.0')
+    assert.strictEqual(report.dependencyCount, 1) // 2.0.0 has only dep-a
+  })
+
+  it('falls back to latest metadata when version not in registry', async () => {
+    const report = await audit('test-lib', 'MIT', createMockFetch(), '9.9.9')
+    assert.strictEqual(report.version, '9.9.9')
+    assert.ok(report.warnings.some(w => w.includes('9.9.9 not found')))
+    // Should still work using latest version metadata
+    assert.strictEqual(report.dependencyCount, 2) // falls back to 2.5.0 data
+  })
+
+  it('uses latest when version not provided', async () => {
+    const report = await audit('test-lib', 'MIT', createMockFetch())
+    assert.strictEqual(report.version, '2.5.0') // latest
+  })
 })

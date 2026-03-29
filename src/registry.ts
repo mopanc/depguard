@@ -156,6 +156,72 @@ export async function fetchAdvisories(
   }
 }
 
+/**
+ * Fetch security advisories for many packages at once via the npm bulk endpoint.
+ * Accepts a Map<name, version> and sends them in batches (max 100 per request)
+ * to avoid payload limits. Returns a Map<name, NpmAdvisory[]>.
+ *
+ * This is far more efficient than calling fetchAdvisories per package —
+ * the npm bulk endpoint is designed for exactly this use case.
+ */
+export async function fetchBulkAdvisories(
+  packages: Map<string, string>,
+  fetcher: FetchFn = globalThis.fetch,
+): Promise<Map<string, NpmAdvisory[]>> {
+  const result = new Map<string, NpmAdvisory[]>()
+  if (packages.size === 0) return result
+
+  // Check cache first, collect uncached
+  const uncached = new Map<string, string>()
+  for (const [name, version] of packages) {
+    const key = `adv:${name}@${version}`
+    const cached = getCached<NpmAdvisory[]>(key)
+    if (cached) {
+      if (cached.length > 0) result.set(name, cached)
+    } else {
+      uncached.set(name, version)
+    }
+  }
+
+  if (uncached.size === 0) return result
+
+  // Batch into chunks of 100 to avoid payload limits
+  const BATCH_SIZE = 100
+  const entries = [...uncached.entries()]
+
+  for (let i = 0; i < entries.length; i += BATCH_SIZE) {
+    const batch = entries.slice(i, i + BATCH_SIZE)
+    const body: Record<string, string[]> = {}
+    for (const [name, version] of batch) {
+      body[name] = [version]
+    }
+
+    try {
+      const res = await fetcher(ADVISORIES_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      if (!res.ok) continue
+
+      const data = (await res.json()) as Record<string, NpmAdvisory[]>
+
+      // Cache and collect results
+      for (const [name, version] of batch) {
+        const advisories = data[name] ?? []
+        setCache(`adv:${name}@${version}`, advisories)
+        if (advisories.length > 0) {
+          result.set(name, advisories)
+        }
+      }
+    } catch {
+      // Network error for this batch — skip, individual audits can retry
+    }
+  }
+
+  return result
+}
+
 /** Track GitHub rate limit state */
 let githubRateLimitRemaining = 60
 let githubRateLimitReset = 0

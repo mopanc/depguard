@@ -5,6 +5,7 @@ import {
   fetchDownloads,
   searchPackages,
   fetchAdvisories,
+  fetchBulkAdvisories,
   fetchGitHubAdvisories,
   clearCache,
   disableDiskCache,
@@ -183,5 +184,45 @@ describe('fetchGitHubAdvisories', () => {
     }) as FetchFn
     const result = await fetchGitHubAdvisories('test', fetcher)
     assert.deepStrictEqual(result, [])
+  })
+})
+
+describe('fetchBulkAdvisories', () => {
+  it('returns advisories for vulnerable packages', async () => {
+    const packages = new Map([
+      ['express', '3.0.0'],
+      ['lodash', '4.17.21'],
+    ])
+    const advisories = {
+      'express': [{
+        id: 1,
+        title: 'Express vuln',
+        severity: 'high',
+        url: 'https://example.com/1',
+        vulnerable_versions: '<4.0.0',
+        patched_versions: '>=4.0.0',
+      }],
+    }
+    const fetcher = mockFetch({ 'security/advisories/bulk': advisories })
+    const result = await fetchBulkAdvisories(packages, fetcher)
+
+    assert.strictEqual(result.size, 1)
+    assert.ok(result.has('express'))
+    const expressAdvs = result.get('express')
+    assert.ok(expressAdvs)
+    assert.strictEqual(expressAdvs[0].severity, 'high')
+    assert.ok(!result.has('lodash')) // clean package not in results
+  })
+
+  it('returns empty map for empty input', async () => {
+    const fetcher = mockFetch({})
+    const result = await fetchBulkAdvisories(new Map(), fetcher)
+    assert.strictEqual(result.size, 0)
+  })
+
+  it('handles network errors gracefully', async () => {
+    const packages = new Map([['express', '3.0.0']])
+    const result = await fetchBulkAdvisories(packages, failingFetch())
+    assert.strictEqual(result.size, 0)
   })
 })

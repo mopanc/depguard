@@ -31,6 +31,103 @@ export function getAllInstalledDeps(projectPath: string): Set<string> {
 }
 
 /**
+ * Get all installed dependencies with their resolved versions from the lock file.
+ * Returns Map<name, version> for direct + transitive deps.
+ * Falls back to empty map if no lock file found.
+ */
+export function getAllInstalledVersions(projectPath: string): Map<string, string> {
+  const npmLock = join(projectPath, 'package-lock.json')
+  if (existsSync(npmLock)) {
+    return parsePackageLockVersions(npmLock)
+  }
+
+  const pnpmLock = join(projectPath, 'pnpm-lock.yaml')
+  if (existsSync(pnpmLock)) {
+    return parsePnpmLockVersions(pnpmLock)
+  }
+
+  return new Map()
+}
+
+/**
+ * Parse npm's package-lock.json (v2/v3 format) — names + resolved versions.
+ */
+function parsePackageLockVersions(lockPath: string): Map<string, string> {
+  const deps = new Map<string, string>()
+
+  try {
+    const raw = readFileSync(lockPath, 'utf-8')
+    const lock = JSON.parse(raw)
+
+    // v2/v3 format uses "packages" with "node_modules/" prefixed keys
+    if (lock.packages) {
+      for (const [key, entry] of Object.entries(lock.packages)) {
+        if (!key || key === '') continue // root entry
+        const name = key.replace(/^node_modules\//, '')
+        if (name.includes('node_modules/')) continue // skip nested
+        const version = (entry as { version?: string }).version
+        if (version) deps.set(name, version)
+      }
+    }
+
+    // v1 fallback
+    if (deps.size === 0 && lock.dependencies) {
+      collectV1DepsVersions(lock.dependencies, deps)
+    }
+  } catch { /* silently return empty map */ }
+
+  return deps
+}
+
+/**
+ * Recursively collect dependency name+version from v1 package-lock format.
+ */
+function collectV1DepsVersions(
+  depsObj: Record<string, { version?: string; dependencies?: Record<string, unknown> }>,
+  result: Map<string, string>,
+): void {
+  for (const [name, spec] of Object.entries(depsObj)) {
+    if (spec.version) result.set(name, spec.version)
+    if (spec.dependencies) {
+      collectV1DepsVersions(spec.dependencies as typeof depsObj, result)
+    }
+  }
+}
+
+/**
+ * Parse pnpm's pnpm-lock.yaml — names + resolved versions.
+ */
+function parsePnpmLockVersions(lockPath: string): Map<string, string> {
+  const deps = new Map<string, string>()
+
+  try {
+    const raw = readFileSync(lockPath, 'utf-8')
+    const lines = raw.split('\n')
+
+    let inPackages = false
+    for (const line of lines) {
+      if (line === 'packages:') {
+        inPackages = true
+        continue
+      }
+      if (inPackages && !line.startsWith(' ') && !line.startsWith('/') && line.trim() !== '') {
+        inPackages = false
+        continue
+      }
+
+      if (inPackages) {
+        const match = line.match(/^\s+'?\/?(@[^@]+\/[^@]+|[^@/][^@]*)@([^:]+):?/)
+        if (match) {
+          deps.set(match[1], match[2])
+        }
+      }
+    }
+  } catch { /* silently return empty map */ }
+
+  return deps
+}
+
+/**
  * Parse npm's package-lock.json (v2/v3 format).
  */
 function parsePackageLock(lockPath: string): Set<string> {

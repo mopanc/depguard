@@ -11,13 +11,13 @@ export { sweep, extractImports, collectSourceFiles, detectPhantomDeps } from './
 export { auditTransitive } from './transitive.js'
 export { review } from './review.js'
 export { lookupCompromised, getIncidents, getDBVersion, getDBSize } from './advisory-db.js'
-export { getAllInstalledDeps } from './lockfile.js'
+export { getAllInstalledDeps, getAllInstalledVersions } from './lockfile.js'
 export { loadStats, recordCall } from './stats.js'
 export type { DepguardStats } from './stats.js'
 export { analyzeMaintainers } from './maintainer-analysis.js'
 export { analyzePublicationTimeline } from './publication-analysis.js'
 export { checkLicenseCompatibility, knownLicenses } from './license.js'
-export { clearCache, fetchGitHubAdvisories, isGitHubRateLimited, getGitHubRateLimit } from './registry.js'
+export { clearCache, fetchBulkAdvisories, fetchGitHubAdvisories, isGitHubRateLimited, getGitHubRateLimit } from './registry.js'
 export { calculateSavings, estimateTokens } from './tokens.js'
 export type {
   AdvisorOptions,
@@ -66,4 +66,4 @@ export type {
   ReviewOptions,
 } from './types.js'
 export type { TokenSavings } from './tokens.js'
-export type { BulkAuditReport, BulkAuditOptions, ProjectAuditOptions } from './bulk.js'
+export type { BulkAuditReport, BulkAuditOptions, ProjectAuditOptions, TransitiveVulnerability } from './bulk.js'

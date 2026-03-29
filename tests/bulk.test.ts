@@ -181,4 +181,155 @@ describe('auditProject', () => {
 
     assert.strictEqual(report.results[0].licenseCompatibility.targetLicense, 'Apache-2.0')
   })
+
+  it('warns when no lock file is present', async () => {
+    const pkg = {
+      name: 'test-project',
+      license: 'MIT',
+      dependencies: { 'pkg-a': '^1.0.0' },
+    }
+    const filePath = join(tmpDir, 'package.json')
+    writeFileSync(filePath, JSON.stringify(pkg))
+
+    const fetcher = createMockFetch(['pkg-a'])
+    const report = await auditProject(filePath, { fetcher })
+
+    assert.ok(report.warnings, 'Expected warnings array')
+    assert.ok(report.warnings?.some(w => w.includes('No lock file found')))
+    assert.strictEqual(report.transitiveSummary, undefined)
+  })
+
+  it('audits transitive deps from lock file and merges into summary', async () => {
+    const pkg = {
+      name: 'test-project',
+      license: 'MIT',
+      dependencies: { 'pkg-a': '^1.0.0' },
+    }
+    const filePath = join(tmpDir, 'package.json')
+    writeFileSync(filePath, JSON.stringify(pkg))
+
+    // Create a package-lock.json with a transitive dep
+    const lockFile = {
+      name: 'test-project',
+      lockfileVersion: 3,
+      packages: {
+        '': { name: 'test-project', version: '1.0.0' },
+        'node_modules/pkg-a': { version: '1.0.0' },
+        'node_modules/transitive-dep': { version: '2.3.0' },
+        'node_modules/another-transitive': { version: '0.5.1' },
+      },
+    }
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify(lockFile))
+
+    // Mock fetcher that returns advisories for the transitive dep
+    const transitiveAdvisory = {
+      'transitive-dep': [{
+        id: 1001,
+        title: 'Prototype Pollution in transitive-dep',
+        severity: 'high',
+        url: 'https://github.com/advisories/GHSA-1',
+        vulnerable_versions: '<=2.5.0',
+        patched_versions: '>=2.6.0',
+      }],
+    }
+
+    const baseFetcher = createMockFetch(['pkg-a'])
+    const fetcher = ((input: string | URL | Request, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url
+
+      // Intercept bulk advisory calls that include transitive deps
+      if (url.includes('security/advisories/bulk') && init?.body) {
+        const body = JSON.parse(init.body as string)
+        if ('transitive-dep' in body) {
+          return Promise.resolve({ ok: true, json: async () => transitiveAdvisory } as Response)
+        }
+      }
+
+      return baseFetcher(input, init)
+    }) as FetchFn
+
+    const report = await auditProject(filePath, { fetcher })
+
+    // Direct deps still audited
+    assert.strictEqual(report.total, 1)
+    assert.ok(report.results.some(r => r.name === 'pkg-a'))
+
+    // Transitive summary present
+    const ts = report.transitiveSummary
+    assert.ok(ts, 'Expected transitiveSummary')
+    assert.strictEqual(ts.totalDeps, 2) // transitive-dep + another-transitive
+    assert.strictEqual(ts.vulnerable, 1)
+    assert.strictEqual(ts.high, 1)
+    assert.strictEqual(ts.critical, 0)
+
+    // Merged summary includes transitive vulns
+    assert.strictEqual(report.summary.high, 1)
+
+    // Warnings mention transitive vulns
+    assert.ok(report.warnings?.some(w => w.includes('transitive')))
+  })
+
+  it('reports clean transitive summary when no transitive vulns found', async () => {
+    const pkg = {
+      name: 'test-project',
+      license: 'MIT',
+      dependencies: { 'pkg-a': '^1.0.0' },
+    }
+    const filePath = join(tmpDir, 'package.json')
+    writeFileSync(filePath, JSON.stringify(pkg))
+
+    const lockFile = {
+      name: 'test-project',
+      lockfileVersion: 3,
+      packages: {
+        '': { name: 'test-project', version: '1.0.0' },
+        'node_modules/pkg-a': { version: '1.0.0' },
+        'node_modules/safe-transitive': { version: '3.0.0' },
+      },
+    }
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify(lockFile))
+
+    const fetcher = createMockFetch(['pkg-a'])
+    const report = await auditProject(filePath, { fetcher })
+
+    const ts = report.transitiveSummary
+    assert.ok(ts, 'Expected transitiveSummary')
+    assert.strictEqual(ts.totalDeps, 1) // safe-transitive
+    assert.strictEqual(ts.vulnerable, 0)
+    assert.strictEqual(ts.critical, 0)
+    assert.strictEqual(ts.high, 0)
+  })
+
+  it('audits packageManager field from package.json', async () => {
+    const pkg = {
+      name: 'test-project',
+      license: 'MIT',
+      dependencies: { 'pkg-a': '^1.0.0' },
+      packageManager: 'yarn@4.5.3',
+    }
+    const filePath = join(tmpDir, 'package.json')
+    writeFileSync(filePath, JSON.stringify(pkg))
+
+    // yarn exists on npm, so mock it
+    const fetcher = createMockFetch(['pkg-a', 'yarn'])
+    const report = await auditProject(filePath, { fetcher })
+
+    assert.ok(report.packageManagerAudit, 'Expected packageManagerAudit')
+    assert.strictEqual(report.packageManagerAudit.name, 'yarn')
+  })
+
+  it('skips packageManager audit when field not present', async () => {
+    const pkg = {
+      name: 'test-project',
+      license: 'MIT',
+      dependencies: { 'pkg-a': '^1.0.0' },
+    }
+    const filePath = join(tmpDir, 'package.json')
+    writeFileSync(filePath, JSON.stringify(pkg))
+
+    const fetcher = createMockFetch(['pkg-a'])
+    const report = await auditProject(filePath, { fetcher })
+
+    assert.strictEqual(report.packageManagerAudit, undefined)
+  })
 })
