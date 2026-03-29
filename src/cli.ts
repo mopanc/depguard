@@ -41,7 +41,7 @@ Usage:
   depguard-cli <command> <args> [options]
 
 Commands:
-  audit <package>          Full audit report for a package
+  audit <package[@version]> Full audit report for a package (or specific version)
   search <keywords...>     Search npm for packages by keywords
   score <package>          Score a package 0-100
   should-use <intent...>   Recommend install vs write-from-scratch
@@ -104,12 +104,17 @@ async function main() {
 
   switch (command) {
     case 'audit': {
-      const name = positionals[1]
-      if (!name) {
-        console.error('Usage: depguard-cli audit <package>')
+      const rawName = positionals[1]
+      if (!rawName) {
+        console.error('Usage: depguard-cli audit <package[@version]>')
         process.exit(1)
       }
-      const report = await audit(name, targetLicense)
+      // Support name@version syntax (e.g. "express@4.17.1")
+      const atIdx = rawName.lastIndexOf('@')
+      const hasVersion = atIdx > 0 && !rawName.startsWith('@') || atIdx > rawName.indexOf('/')
+      const name = hasVersion ? rawName.slice(0, atIdx) : rawName
+      const version = hasVersion ? rawName.slice(atIdx + 1) : undefined
+      const report = await audit(name, targetLicense, undefined, version)
       recordCall('depguard_audit', { packagesAudited: 1 })
       output(report, json)
       break

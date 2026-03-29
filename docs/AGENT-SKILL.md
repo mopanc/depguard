@@ -6,7 +6,7 @@
 
 ## What is depguard?
 
-depguard is an MCP server that provides real-time npm security auditing. It gives you 6 tools to check vulnerabilities, supply chain attacks, license compliance, maintenance health, and package quality — before installing any dependency.
+depguard is an MCP server that provides real-time npm security auditing. It gives you 11 tools to check vulnerabilities, supply chain attacks, license compliance, maintenance health, and package quality — before installing any dependency.
 
 ## When to use depguard
 
@@ -40,10 +40,10 @@ Call this when the user describes what they need (not a specific package).
 
 Call this when the user wants to install a specific named package.
 
-**Input:** `{ "name": "express", "targetLicense": "MIT" }`
+**Input:** `{ "name": "express", "targetLicense": "MIT" }` or with a specific version: `{ "name": "express", "version": "4.17.1" }`
 **Returns:** Full report with vulnerabilities, score, license compatibility, install script analysis, fix suggestions.
 
-**Use when:** "Install express", "Is lodash safe?", "Audit this package"
+**Use when:** "Install express", "Is lodash safe?", "Audit this package", "Check express@4.17.1"
 
 ### 3. `depguard_score` — Quick quality check.
 
@@ -65,10 +65,10 @@ Call this when looking for packages matching a description.
 
 ### 5. `depguard_audit_project` — Audit entire package.json.
 
-Call this to review all dependencies in a project at once.
+Call this to review all dependencies in a project at once. Scans direct deps (full audit), transitive deps from lock file (vulnerability check), and the `packageManager` field if present.
 
 **Input:** `{ "path": "./package.json", "includeDevDependencies": true }`
-**Returns:** Aggregate report with total packages, vulnerable count, summary by severity, and individual reports.
+**Returns:** Aggregate report with direct dep audits, transitive vulnerability summary (from lock file), packageManager audit, and overall severity counts.
 
 **Use when:** "Audit my project", "Are my dependencies safe?", "Security review"
 
@@ -81,7 +81,20 @@ Call this to audit a list of packages in parallel.
 
 **Use when:** Comparing a shortlist of candidates, auditing a subset of dependencies.
 
-## Decision Flow
+## Quick Decision Flow
+
+| Situation | Tool to use |
+|-----------|-------------|
+| "I need X functionality" | `depguard_should_use` |
+| "Install package Y" | `depguard_guard` |
+| "Audit my project" | `depguard_audit_project` |
+| "Compare A vs B vs C" | `depguard_audit_bulk` |
+| "Deep dive on package Y" | `depguard_audit` |
+| "Find a library for X" | `depguard_search` |
+| "Clean up unused deps" | `depguard_sweep` |
+| "Review my code" | `depguard_review` |
+
+## Detailed Decision Flow
 
 ```
 User needs functionality

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.2] - 2026-03-29
+
+### Fixed
+
+- **Project audit now matches npm audit results** — `depguard_audit_project` previously only audited direct dependencies using the latest registry version, missing transitive vulnerabilities entirely. Now reads the lock file (`package-lock.json` / `pnpm-lock.yaml`) to scan all transitive dependencies for known vulnerabilities via the npm bulk advisory endpoint. Reports include a `transitiveSummary` with full severity breakdown. ([#39](https://github.com/mopanc/depguard/issues/39))
+
+### Added
+
+- **Version-specific audit** — `depguard_audit` and CLI `audit` now accept an optional version parameter (`depguard-cli audit express@4.17.1`). Audits the exact installed version instead of always checking latest. ([#39](https://github.com/mopanc/depguard/issues/39))
+- **packageManager audit** — `depguard_audit_project` now reads the `packageManager` field from `package.json` (e.g. `yarn@4.5.3`) and audits it for known vulnerabilities. Reports include a `packageManagerAudit` field. ([#37](https://github.com/mopanc/depguard/issues/37))
+- **Bulk advisory fetch** — new `fetchBulkAdvisories()` function sends up to 100 packages per request to the npm bulk advisory endpoint, with caching. Used internally by project audit for efficient transitive scanning.
+- **Lock file version extraction** — new `getAllInstalledVersions()` returns a `Map<name, version>` from the lock file (npm v1/v2/v3 and pnpm formats).
+
 ## [1.8.0] - 2026-03-28
 
 ### Added

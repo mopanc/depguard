@@ -25,7 +25,7 @@ import { printStatsBanner, recordCall, setVersion } from './stats.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.8.0',
+  version: '1.8.2',
 }
 
 const TOOLS = [
@@ -72,11 +72,12 @@ const TOOLS = [
   // === PROJECT HEALTH — call these when auditing a project ===
   {
     name: 'depguard_audit',
-    description: 'Deep security audit of a single npm package. Downloads the tarball, scans source code for malware, checks vulnerabilities (npm + GitHub Advisory), analyzes install scripts, verifies license. Use when you need full details on a specific package.',
+    description: 'Deep security audit of a single npm package. Downloads the tarball, scans source code for malware, checks vulnerabilities (npm + GitHub Advisory), analyzes install scripts, verifies license. Use when you need full details on a specific package. Pass a version to audit a specific installed version instead of latest.',
     inputSchema: {
       type: 'object' as const,
       properties: {
         name: { type: 'string', description: 'npm package name' },
+        version: { type: 'string', description: 'Specific version to audit (e.g. "4.17.1"). If omitted, audits the latest version.' },
         targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
       },
       required: ['name'],
@@ -84,7 +85,7 @@ const TOOLS = [
   },
   {
     name: 'depguard_audit_project',
-    description: 'Audit ALL dependencies in a project at once. Pass the path to package.json and get a consolidated security report. Use this when the user asks to review project security or after cloning a new repo.',
+    description: 'Audit ALL dependencies in a project at once. Scans direct deps (full audit), transitive deps from lock file (vulnerability check), and the packageManager field. Pass the path to package.json and get a consolidated security report. Use this when the user asks to review project security or after cloning a new repo.',
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -328,6 +329,8 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
             const result = await audit(
               args.name as string,
               (args.targetLicense as string) ?? 'MIT',
+              undefined,
+              args.version as string | undefined,
             )
             return success(req.id, toolResult('depguard_audit', result))
           }

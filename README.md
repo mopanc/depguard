@@ -19,8 +19,8 @@ npx depguard-cli audit express
 ## CLI
 
 ```bash
-# Full audit report
-depguard-cli audit <package> [--target-license MIT] [--json]
+# Full audit report (optionally pin a version)
+depguard-cli audit <package[@version]> [--target-license MIT] [--json]
 
 # Search npm for packages
 depguard-cli search <keywords...> [--limit 10] [--json]
@@ -49,6 +49,9 @@ depguard-cli review [path] [--full] [--json]
 ```bash
 # Audit express for an Apache-2.0 project
 depguard-cli audit express --target-license Apache-2.0
+
+# Audit a specific installed version (not just latest)
+depguard-cli audit express@4.17.1
 
 # Find date formatting libraries
 depguard-cli search date formatting --limit 5
@@ -213,9 +216,9 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 
 | Tool | Description |
 |------|-------------|
-| `depguard_audit` | Full security audit with static code analysis, vulnerabilities, and install script scanning |
+| `depguard_audit` | Full security audit with static code analysis, vulnerabilities, and install script scanning. Accepts optional `version` to audit a specific installed version. |
 | `depguard_audit_bulk` | Audit multiple packages in a single call |
-| `depguard_audit_project` | Audit all dependencies from a package.json file path |
+| `depguard_audit_project` | Audit all dependencies from a package.json file path. Scans transitive deps via lock file and audits the `packageManager` field. |
 | `depguard_search` | Search npm for packages by keywords |
 | `depguard_score` | Score a package 0-100 |
 | `depguard_should_use` | Recommend install, use native Node.js, or write from scratch |
@@ -224,6 +227,19 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 | `depguard_sweep` | Dead dependency detection: find unused packages in a project |
 | `depguard_audit_deep` | Deep transitive dependency tree audit with vulnerability aggregation |
 | `depguard_review` | AI Code Review: detect debris left by AI agents (console.logs, empty catch, broken imports, orphan files) |
+
+**Which tool should I use?**
+
+| Situation | Tool |
+|-----------|------|
+| "I need X functionality" | `depguard_should_use` |
+| "Install package Y" | `depguard_guard` |
+| "Audit my project" | `depguard_audit_project` |
+| "Compare A vs B vs C" | `depguard_audit_bulk` |
+| "Deep dive on package Y" | `depguard_audit` |
+| "Find a library for X" | `depguard_search` |
+| "Clean up unused deps" | `depguard_sweep` |
+| "Review my code" | `depguard_review` |
 
 ### Bulk audit
 
@@ -243,7 +259,7 @@ Via MCP, the AI agent can pass the dependencies object from `package.json` direc
 
 ### Project audit
 
-Audit all dependencies from a `package.json` file in one call:
+Audit all dependencies from a `package.json` file in one call. When a lock file is present (`package-lock.json` or `pnpm-lock.yaml`), depguard also scans all transitive dependencies for known vulnerabilities and audits the `packageManager` field:
 
 ```typescript
 import { auditProject } from 'depguard-cli'
@@ -251,9 +267,18 @@ import { auditProject } from 'depguard-cli'
 const report = await auditProject('./package.json', {
   includeDevDependencies: true,  // also audit devDependencies
 })
+
+// Direct dependency audit results
+console.log(report.summary)            // { critical: 0, high: 2, moderate: 5, low: 3 }
+
+// Transitive dependency vulnerabilities (from lock file)
+console.log(report.transitiveSummary)  // { totalDeps: 800, vulnerable: 12, critical: 1, ... }
+
+// Package manager audit (e.g. yarn@4.5.3)
+console.log(report.packageManagerAudit?.vulnerabilities)
 ```
 
-Via MCP, the agent just passes the file path — depguard reads it, detects the project license, and audits everything.
+Via MCP, the agent just passes the file path — depguard reads it, detects the project license, scans the lock file for transitive deps, and audits everything.
 
 ## Pre-Install Guardian
 
