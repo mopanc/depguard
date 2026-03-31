@@ -75,6 +75,8 @@ function output(data: unknown, json: boolean): void {
 function printFormatted(obj: Record<string, unknown>, indent = 0): void {
   const pad = '  '.repeat(indent)
   for (const [key, val] of Object.entries(obj)) {
+    // Skip undefined and null values
+    if (val === undefined || val === null) continue
     if (Array.isArray(val)) {
       if (val.length === 0) {
         console.log(`${pad}${key}: (none)`)
