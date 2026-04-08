@@ -732,6 +732,7 @@
     }
 
     /* Spinner inside audit button */
+    .spinner[hidden] { display: none; }
     .spinner {
       display: inline-block;
       width: 14px;
