@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = "docs"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Redirect /api/audit → Netlify Function
+[[redirects]]
+  from = "/api/audit"
+  to = "/.netlify/functions/audit"
+  status = 200
+
+# SPA fallback — serve index.html for all routes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

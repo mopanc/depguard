@@ -274,6 +274,44 @@ describe('analyzeCode', () => {
     assert.ok(result.skipReason)
   })
 
+  it('rejects tarball URL from untrusted domain', async () => {
+    const fetcher: FetchFn = async (input: RequestInfo | URL) => {
+      const url = typeof input === 'string' ? input : input.toString()
+      if (url.includes('.tgz')) {
+        return new Response('should not reach here', { status: 200 })
+      }
+      return new Response(JSON.stringify({
+        dist: {
+          tarball: 'https://evil-server.com/malware.tgz',
+          unpackedSize: 1000,
+        },
+      }), { status: 200 })
+    }
+
+    const result = await analyzeCode('suspicious-pkg', '1.0.0', '', [], fetcher)
+    assert.strictEqual(result.skipped, true)
+    assert.ok(result.skipReason?.includes('Untrusted'))
+  })
+
+  it('rejects non-HTTPS tarball URL', async () => {
+    const fetcher: FetchFn = async (input: RequestInfo | URL) => {
+      const url = typeof input === 'string' ? input : input.toString()
+      if (url.includes('.tgz')) {
+        return new Response('should not reach here', { status: 200 })
+      }
+      return new Response(JSON.stringify({
+        dist: {
+          tarball: 'http://registry.npmjs.org/pkg/-/pkg-1.0.0.tgz',
+          unpackedSize: 1000,
+        },
+      }), { status: 200 })
+    }
+
+    const result = await analyzeCode('http-pkg', '1.0.0', '', [], fetcher)
+    assert.strictEqual(result.skipped, true)
+    assert.ok(result.skipReason?.includes('Untrusted'))
+  })
+
   it('handles oversized packages gracefully', async () => {
     const fetcher: FetchFn = async (input: RequestInfo | URL) => {
       const url = typeof input === 'string' ? input : input.toString()

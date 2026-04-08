@@ -726,6 +726,53 @@
       min-height: 180px;
     }
 
+    .demo-btn:disabled {
+      opacity: .7;
+      cursor: wait;
+    }
+
+    /* Spinner inside audit button */
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--bg);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Inline score bar in terminal output */
+    .score-bar-inline {
+      display: inline-block;
+      width: 80px;
+      height: 8px;
+      background: var(--bg-surface);
+      border-radius: 4px;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    .score-fill-inline {
+      display: block;
+      height: 100%;
+      border-radius: 4px;
+      transition: width .6s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* Loading animation dots */
+    .audit-loader::after {
+      content: '';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+    @keyframes dots {
+      0%   { content: ''; }
+      25%  { content: '.'; }
+      50%  { content: '..'; }
+      75%  { content: '...'; }
+      100% { content: ''; }
+    }
+
     /* ========================================
        SCORING
        ======================================== */

@@ -237,35 +237,39 @@
 
 <div class="divider" aria-hidden="true"></div>
 
-<!-- LIVE DEMO -->
+<!-- LIVE SECURITY TESTER -->
 <section class="section" id="demo" aria-labelledby="demo-heading">
-  <div class="section-label reveal">Try It</div>
-  <h2 id="demo-heading" class="reveal">See depguard in action</h2>
-  <p class="section-desc reveal">This is a <strong style="color:var(--orange)">limited demo</strong> with pre-loaded data for 6 popular packages. For live audits on any package, install depguard-cli locally.</p>
+  <div class="section-label reveal">Live Security Tester</div>
+  <h2 id="demo-heading" class="reveal">Your AI suggested <code style="color:var(--orange)">npm install</code> &mdash; but did you check?</h2>
+  <p class="section-desc reveal">Audit <strong>any npm package</strong> in real time. Same engine as the CLI &mdash; vulnerabilities, malware patterns, license, maintainer analysis, and a 0-100 security score. No install required.</p>
 
   <div class="demo-container reveal">
-    <div style="font-size:.7rem;color:var(--text-dim);margin-bottom:.8rem;letter-spacing:.03em">AVAILABLE PACKAGES: express, lodash, react, axios, chalk, moment</div>
+    <div style="font-size:.7rem;color:var(--text-dim);margin-bottom:.8rem;letter-spacing:.03em">POPULAR PACKAGES &mdash; click to audit instantly</div>
     <div class="demo-suggestions" role="list" aria-label="Suggested packages">
-      <button class="demo-sug" onclick="runDemo('express')" role="listitem">express</button>
-      <button class="demo-sug" onclick="runDemo('lodash')" role="listitem">lodash</button>
-      <button class="demo-sug" onclick="runDemo('react')" role="listitem">react</button>
-      <button class="demo-sug" onclick="runDemo('axios')" role="listitem">axios</button>
-      <button class="demo-sug" onclick="runDemo('chalk')" role="listitem">chalk</button>
-      <button class="demo-sug" onclick="runDemo('moment')" role="listitem">moment</button>
+      <button class="demo-sug" onclick="runLiveAudit('express')" role="listitem">express</button>
+      <button class="demo-sug" onclick="runLiveAudit('lodash')" role="listitem">lodash</button>
+      <button class="demo-sug" onclick="runLiveAudit('react')" role="listitem">react</button>
+      <button class="demo-sug" onclick="runLiveAudit('axios')" role="listitem">axios</button>
+      <button class="demo-sug" onclick="runLiveAudit('chalk')" role="listitem">chalk</button>
+      <button class="demo-sug" onclick="runLiveAudit('moment')" role="listitem">moment</button>
     </div>
     <div class="demo-input-row">
-      <input type="text" class="demo-input" id="demo-pkg" placeholder="Package name (e.g. express)" aria-label="Package name to audit" onkeydown="if(event.key==='Enter')runDemo()">
-      <button class="demo-btn" onclick="runDemo()" aria-label="Run audit">Audit</button>
+      <input type="text" class="demo-input" id="demo-pkg" placeholder="Type any npm package name..." aria-label="Package name to audit" onkeydown="if(event.key==='Enter')runLiveAudit()" autocomplete="off" spellcheck="false">
+      <button class="demo-btn" id="demo-btn" onclick="runLiveAudit()" aria-label="Run audit">
+        <span id="demo-btn-text">Audit</span>
+        <span id="demo-btn-spinner" class="spinner" hidden></span>
+      </button>
     </div>
     <div class="demo-result" id="demo-result" role="region" aria-live="polite">
       <div class="term">
         <div class="term-bar" aria-hidden="true">
           <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-          <span class="term-title">depguard-cli audit</span>
+          <span class="term-title">depguard live audit</span>
           <span style="width:30px"></span>
         </div>
         <div class="term-body" id="demo-output">
-<pre><span class="t-comment">// Select a package above or type one to see the audit report</span>
+<pre><span class="t-comment">// Type a package name or click one above</span>
+<span class="t-comment">// Full real-time security audit &mdash; powered by the depguard engine</span>
 <span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ___</span><span class="cursor" aria-hidden="true"></span></pre>
         </div>
       </div>
@@ -1085,56 +1089,149 @@ const scoreObserver = new IntersectionObserver((entries) => {
 const scoreBars = document.querySelector('.score-bars');
 if (scoreBars) scoreObserver.observe(scoreBars);
 
-// ============ DEMO DATA ============
-const demoData = {
-  express: { version: '4.21.2', score: 88, vulns: { critical: 0, high: 0, moderate: 0, low: 0 }, license: 'MIT (compatible)', downloads: '35,200,000', maintenance: 'Active', scripts: 'Clean', codeAnalysis: '0 findings', fix: null, action: 'install' },
-  lodash: { version: '4.17.21', score: 78, vulns: { critical: 0, high: 0, moderate: 0, low: 0 }, license: 'MIT (compatible)', downloads: '52,400,000', maintenance: 'Stable', scripts: 'Clean', codeAnalysis: '0 findings', fix: null, action: 'install' },
-  react: { version: '19.1.0', score: 92, vulns: { critical: 0, high: 0, moderate: 0, low: 0 }, license: 'MIT (compatible)', downloads: '28,100,000', maintenance: 'Active', scripts: 'Clean', codeAnalysis: '0 findings', fix: null, action: 'install' },
-  axios: { version: '1.7.9', score: 72, vulns: { critical: 0, high: 0, moderate: 1, low: 0 }, license: 'MIT (compatible)', downloads: '48,900,000', maintenance: 'Active', scripts: 'Clean', codeAnalysis: '0 findings', fix: null, action: 'install', native: 'Consider using globalThis.fetch() (Node 18+)' },
-  chalk: { version: '5.4.1', score: 84, vulns: { critical: 0, high: 0, moderate: 0, low: 0 }, license: 'MIT (compatible)', downloads: '280,000,000', maintenance: 'Active', scripts: 'Clean', codeAnalysis: '0 findings', fix: null, action: 'install' },
-  moment: { version: '2.30.1', score: 48, vulns: { critical: 0, high: 0, moderate: 1, low: 1 }, license: 'MIT (compatible)', downloads: '18,200,000', maintenance: 'Deprecated', scripts: 'Clean', codeAnalysis: '0 findings', fix: 'Consider migrating to date-fns or Temporal API', action: 'caution' }
-};
+// ============ LIVE AUDIT TESTER ============
+const API_URL = '/api/audit';
+let auditInFlight = false;
 
-function runDemo(pkg) {
+function setLoading(on) {
+  const btn = document.getElementById('demo-btn');
+  const txt = document.getElementById('demo-btn-text');
+  const spin = document.getElementById('demo-btn-spinner');
+  btn.disabled = on;
+  txt.textContent = on ? '' : 'Audit';
+  spin.hidden = !on;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function formatNumber(n) {
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1_000) return (n / 1_000).toFixed(1).replace(/\.0$/, '') + 'K';
+  return String(n);
+}
+
+function renderAuditResult(name, d) {
+  const output = document.getElementById('demo-output');
+  const safe = escapeHtml;
+
+  // Vulnerabilities
+  const vulnParts = [];
+  const v = d.vulns || {};
+  if (v.critical) vulnParts.push(`<span class="t-err">${v.critical} critical</span>`);
+  if (v.high) vulnParts.push(`<span class="t-err">${v.high} high</span>`);
+  if (v.moderate) vulnParts.push(`<span class="t-warn">${v.moderate} moderate</span>`);
+  if (v.low) vulnParts.push(`<span class="t-comment">${v.low} low</span>`);
+  const vulnStr = vulnParts.length ? vulnParts.join('  ') : '<span class="t-str">None found</span>';
+
+  // Score styling
+  const score = d.score ?? 0;
+  const scoreColor = score >= 60 ? 't-str' : score >= 40 ? 't-warn' : 't-err';
+  const barPct = Math.min(score, 100);
+  const barColor = score >= 60 ? 'var(--accent)' : score >= 40 ? 'var(--orange)' : 'var(--red)';
+
+  // Maintenance status
+  const maint = d.deprecated ? 'Deprecated' : (d.lastPublish ? (daysSince(d.lastPublish) < 365 ? 'Active' : 'Stale') : 'Unknown');
+  const maintColor = maint === 'Deprecated' ? 't-warn' : maint === 'Stale' ? 't-warn' : 't-val';
+
+  // Scripts
+  const scripts = d.scripts?.hasInstallScripts ? `<span class="t-warn">${d.scripts.risks?.length || 0} risks detected</span>` : '<span class="t-str">Clean</span>';
+
+  // Code analysis
+  const code = d.codeAnalysis
+    ? (d.codeAnalysis.skipped ? '<span class="t-comment">Skipped</span>' : `<span class="${d.codeAnalysis.findings ? 't-warn' : 't-str'}">${d.codeAnalysis.findings} findings</span>`)
+    : '<span class="t-comment">N/A</span>';
+
+  // License
+  const licStr = d.license ? safe(d.license) : 'Unknown';
+  const licColor = d.licenseCompatible ? 't-str' : 't-warn';
+
+  // Compromised
+  let compromisedLine = '';
+  if (d.compromised) {
+    compromisedLine = `\n<span class="t-key">COMPROMISED</span>     <span class="t-err">KNOWN MALICIOUS PACKAGE — ${safe(d.compromised.severity)}</span>`;
+  }
+
+  // Maintainer analysis
+  let maintainerLine = '';
+  if (d.maintainers && d.maintainers.risk !== 'none') {
+    maintainerLine = `\n<span class="t-key">Maintainers</span>     <span class="${d.maintainers.risk === 'high' ? 't-err' : 't-warn'}">${safe(d.maintainers.flags?.join(', ') || d.maintainers.risk)}</span>`;
+  }
+
+  // Warnings
+  let warnLines = '';
+  if (d.warnings?.length) {
+    warnLines = '\n' + d.warnings.map(w => `<span class="t-warn">! ${safe(w)}</span>`).join('\n');
+  }
+
+  // Score bar (visual)
+  const scoreBar = `<span class="score-bar-inline"><span class="score-fill-inline" style="width:${barPct}%;background:${barColor}"></span></span>`;
+
+  output.innerHTML = `<pre><span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ${safe(name)}</span>${compromisedLine}
+
+<span class="t-key">Package</span>          <span class="t-val">${safe(name)}@${safe(d.version || '?')}</span>
+<span class="t-key">Score</span>            <span class="${scoreColor}">${score}</span><span class="t-comment">/100</span>  ${scoreBar}
+<span class="t-key">Vulnerabilities</span>  ${vulnStr}
+<span class="t-key">Code Analysis</span>    ${code}
+<span class="t-key">License</span>          <span class="${licColor}">${licStr}${d.licenseCompatible ? ' (compatible)' : d.licenseCompatible === false ? ' (incompatible)' : ''}</span>
+<span class="t-key">Downloads</span>        <span class="t-val">${formatNumber(d.downloads || 0)}</span><span class="t-comment">/week</span>
+<span class="t-key">Maintenance</span>      <span class="${maintColor}">${maint}</span>
+<span class="t-key">Scripts</span>          ${scripts}${maintainerLine}${warnLines}
+
+<span class="t-comment">// Live audit powered by depguard engine</span>
+<span class="t-comment">// Install the CLI: npx depguard-cli audit ${safe(name)}</span></pre>`;
+}
+
+function daysSince(dateStr) {
+  if (!dateStr) return Infinity;
+  return Math.floor((Date.now() - new Date(dateStr).getTime()) / 86400000);
+}
+
+async function runLiveAudit(pkg) {
+  if (auditInFlight) return;
+
   const input = document.getElementById('demo-pkg');
   const output = document.getElementById('demo-output');
   const name = (pkg || input.value || '').trim().toLowerCase();
 
   if (!name) { input.focus(); return; }
-
-  input.value = name;
-  const d = demoData[name];
-
-  if (!d) {
-    output.innerHTML = `<pre><span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ${name}</span>\n\n<span class="t-comment">Package not in demo dataset.</span>\n<span class="t-comment">Install depguard-cli for live results:</span>\n\n<span class="t-prompt">$</span> <span class="t-val">npx depguard-cli audit ${name}</span></pre>`;
+  if (!/^(@[a-z0-9\-_.]+\/)?[a-z0-9\-_.]+$/.test(name)) {
+    output.innerHTML = `<pre><span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ${escapeHtml(name)}</span>\n\n<span class="t-err">Invalid package name</span></pre>`;
     return;
   }
 
-  const vulnParts = [];
-  if (d.vulns.critical) vulnParts.push(`<span class="t-err">${d.vulns.critical} critical</span>`);
-  if (d.vulns.high) vulnParts.push(`<span class="t-err">${d.vulns.high} high</span>`);
-  if (d.vulns.moderate) vulnParts.push(`<span class="t-warn">${d.vulns.moderate} moderate</span>`);
-  if (d.vulns.low) vulnParts.push(`<span class="t-comment">${d.vulns.low} low</span>`);
-  const vulnStr = vulnParts.length ? vulnParts.join('  ') : '<span class="t-str">None found</span>';
+  input.value = name;
+  auditInFlight = true;
+  setLoading(true);
 
-  const scoreColor = d.score >= 60 ? 't-str' : d.score >= 40 ? 't-warn' : 't-err';
-  const actionColor = d.action === 'install' ? 't-str' : d.action === 'caution' ? 't-warn' : 't-err';
+  // Show loading state
+  output.innerHTML = `<pre><span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ${escapeHtml(name)}</span>
 
-  let extra = '';
-  if (d.fix) extra += `\n<span class="t-key">Suggestion</span>     <span class="t-warn">${d.fix}</span>`;
-  if (d.native) extra += `\n<span class="t-key">Native Alt</span>     <span class="t-val">${d.native}</span>`;
+<span class="t-comment">Fetching package metadata...</span>
+<span class="t-comment">Checking advisory databases...</span>
+<span class="t-comment">Analyzing code patterns...</span>
+<span class="audit-loader"></span></pre>`;
 
-  output.innerHTML = `<pre><span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ${name}</span>
+  try {
+    const res = await fetch(`${API_URL}?package=${encodeURIComponent(name)}`);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    renderAuditResult(name, data);
+  } catch (e) {
+    output.innerHTML = `<pre><span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ${escapeHtml(name)}</span>
 
-<span class="t-key">Package</span>          <span class="t-val">${name}@${d.version}</span>
-<span class="t-key">Score</span>            <span class="${scoreColor}">${d.score}</span><span class="t-comment">/100</span>
-<span class="t-key">Vulnerabilities</span>  ${vulnStr}
-<span class="t-key">Code Analysis</span>    <span class="t-str">${d.codeAnalysis}</span>
-<span class="t-key">License</span>          <span class="t-str">${d.license}</span>
-<span class="t-key">Downloads</span>        <span class="t-val">${d.downloads}</span><span class="t-comment">/week</span>
-<span class="t-key">Maintenance</span>      <span class="${d.maintenance === 'Deprecated' ? 't-warn' : 't-val'}">${d.maintenance}</span>
-<span class="t-key">Scripts</span>          <span class="t-str">${d.scripts}</span>
-<span class="t-key">Action</span>           <span class="${actionColor}">${d.action}</span>${extra}</pre>`;
+<span class="t-err">Audit failed: ${escapeHtml(e.message || 'Network error')}</span>
+
+<span class="t-comment">// Try locally instead:</span>
+<span class="t-prompt">$</span> <span class="t-val">npx depguard-cli audit ${escapeHtml(name)}</span></pre>`;
+  } finally {
+    auditInFlight = false;
+    setLoading(false);
+  }
 }
 
 // ============ INIT ============

@@ -1,7 +1,19 @@
 {
   "permissions": {
     "allow": [
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "WebSearch",
+      "WebFetch(domain:bun.com)",
+      "WebFetch(domain:dev.to)",
+      "Bash(bun --version)",
+      "Bash(yarn --version)",
+      "Read(//private/tmp/bun-test/**)",
+      "Bash(yarn install:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/oven-sh/bun/main/bun.lock\")",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)"
     ]
   }
 }

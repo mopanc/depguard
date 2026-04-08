@@ -315,6 +315,16 @@ async function downloadAndExtract(
       return { entries: [], skipped: true, skipReason: 'No tarball URL in registry metadata' }
     }
 
+    // Validate tarball URL — must be HTTPS from a trusted registry domain
+    try {
+      const parsed = new URL(tarballUrl)
+      if (parsed.protocol !== 'https:' || !parsed.hostname.endsWith('.npmjs.org')) {
+        return { entries: [], skipped: true, skipReason: `Untrusted tarball URL: ${parsed.hostname}` }
+      }
+    } catch {
+      return { entries: [], skipped: true, skipReason: 'Invalid tarball URL in registry metadata' }
+    }
+
     // Skip huge packages to avoid memory issues
     if (unpackedSize > MAX_TARBALL_BYTES) {
       return { entries: [], skipped: true, skipReason: `Package too large for code analysis (${Math.round(unpackedSize / 1024)}KB > ${Math.round(MAX_TARBALL_BYTES / 1024)}KB limit)` }
