@@ -1,10 +1,12 @@
 import { describe, it, afterEach } from 'node:test'
 import assert from 'node:assert/strict'
 import { writeFileSync, mkdirSync, rmSync } from 'node:fs'
-import { join } from 'node:path'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { getAllInstalledDeps, getAllInstalledVersions } from '../src/lockfile.js'
 
-const tmpDir = join(import.meta.dirname, '.tmp-lockfile-test')
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const tmpDir = join(__dirname, '.tmp-lockfile-test')
 
 function setup() {
   mkdirSync(tmpDir, { recursive: true })
