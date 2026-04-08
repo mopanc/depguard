@@ -1,5 +1,6 @@
 [build]
-  command = "npm run build"
+  base = "/"
+  command = "npm install && npm run build"
   publish = "docs"
   functions = "netlify/functions"
 
