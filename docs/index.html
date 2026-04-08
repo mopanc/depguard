@@ -55,7 +55,7 @@
     "description": "MCP server that gives AI coding agents real-time npm security auditing. 11 tools for static code analysis, vulnerability triage, supply chain attack detection, package scoring, pre-install guardian, AI hallucination guard, dead dependency detection, and smart recommendations. Zero dependencies.",
     "url": "https://depguard.dev",
     "downloadUrl": "https://www.npmjs.com/package/depguard-cli",
-    "softwareVersion": "1.8.2",
+    "softwareVersion": "1.8.3",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "programmingLanguage": "TypeScript",
     "runtimePlatform": "Node.js",
@@ -135,7 +135,7 @@
   <div class="hero-content">
     <div class="hero-badge reveal">
       <span class="dot" aria-hidden="true"></span>
-      v1.8.2 &middot; Advisory Database &middot; 11 Tools &middot; Zero Dependencies &middot;
+      v1.8.3 &middot; Advisory Database &middot; 11 Tools &middot; Zero Dependencies &middot;
       <svg width="14" height="10" viewBox="0 0 16 11" aria-label="Made in Portugal" style="vertical-align:middle;opacity:.6"><rect width="6" height="11" fill="#006600"/><rect x="6" width="10" height="11" fill="#ff0000"/><circle cx="6" cy="5.5" r="2" fill="#ffcc00" stroke="#006600" stroke-width=".3"/></svg>
     </div>
     <h1 id="hero-heading" class="reveal reveal-delay-1">
@@ -597,7 +597,7 @@
         <tr><td>Verify license compatibility</td><td class="check" aria-label="Automated">&#10003; 25+ SPDX</td><td>Read LICENSE file, understand copyleft hierarchy</td></tr>
         <tr><td>Evaluate package quality</td><td class="check" aria-label="Automated">&#10003; 0&ndash;100</td><td>Subjective judgement, no consistent scoring</td></tr>
         <tr><td>Find native alternatives</td><td class="check" aria-label="Automated">&#10003; 20+ mapped</td><td>Know Node.js APIs by heart or search docs</td></tr>
-        <tr><td>AI agent integration</td><td class="check" aria-label="Automated">&#10003; 10 MCP tools</td><td>Not possible &mdash; agents install blindly</td></tr>
+        <tr><td>AI agent integration</td><td class="check" aria-label="Automated">&#10003; 11 MCP tools</td><td>Not possible &mdash; agents install blindly</td></tr>
         <tr><td>Time per package</td><td class="check" aria-label="Fast">~2 seconds</td><td>15&ndash;30 minutes of research</td></tr>
       </tbody>
     </table>
@@ -795,6 +795,33 @@
      PAGE: CHANGELOG
      ================================================================ -->
 <div data-page="changelog" hidden>
+
+<!-- v1.8.3 -->
+<section class="section" aria-labelledby="v183-heading">
+  <div class="section-label reveal" style="color:var(--accent)">v1.8.3 &mdash; Full JS Ecosystem + Live Tester</div>
+  <h2 id="v183-heading" class="reveal">Every lock file. Every package manager. Live on the web.</h2>
+  <p class="section-desc reveal">Transitive scanning now covers the entire JavaScript ecosystem. Plus a live security tester on <a href="https://depguard.dev" style="color:var(--accent)">depguard.dev</a> &mdash; audit any npm package without installing anything.</p>
+
+  <div class="features-grid reveal">
+    <article class="feat" style="border-color: var(--accent); border-width: 2px;">
+      <div class="feat-icon" aria-hidden="true" style="color:var(--accent)">&#x1F512;</div>
+      <h3 style="color:var(--accent)">yarn.lock + bun.lock</h3>
+      <p>Lock file parsing now supports all 4 JS package managers: npm (<code>package-lock.json</code>), pnpm (<code>pnpm-lock.yaml</code>), yarn classic + berry (<code>yarn.lock</code>), and Bun (<code>bun.lock</code>).</p>
+    </article>
+    <article class="feat" style="border-color: var(--orange); border-width: 2px;">
+      <div class="feat-icon" aria-hidden="true" style="color:var(--orange)">&#x1F310;</div>
+      <h3 style="color:var(--orange)">Live Security Tester</h3>
+      <p>Audit any npm package directly on <strong>depguard.dev</strong> &mdash; real-time results powered by the same engine as the CLI. No install required. Built for vibecoders and junior devs.</p>
+    </article>
+    <article class="feat" style="border-color: var(--red); border-width: 2px;">
+      <div class="feat-icon" aria-hidden="true" style="color:var(--red)">&#x1F6E1;</div>
+      <h3 style="color:var(--red)">SSRF Protection</h3>
+      <p>Tarball download URLs from npm registry metadata are now validated &mdash; HTTPS only, <code>.npmjs.org</code> domain only. Prevents potential server-side request forgery.</p>
+    </article>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"></div>
 
 <!-- v1.6.0 -->
 <section class="section" aria-labelledby="v16-heading">

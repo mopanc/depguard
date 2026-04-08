@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.3] - 2026-04-08
+
+### Added
+
+- **yarn.lock support** — transitive dependency scanning now supports yarn classic (v1) and yarn berry (v2+) lock files ([#40](https://github.com/mopanc/depguard/issues/40))
+- **bun.lock support** — transitive dependency scanning now supports Bun's text-based JSONC lock file format ([#40](https://github.com/mopanc/depguard/issues/40))
+- **Live security tester** — [depguard.dev](https://depguard.dev) now has a real-time package audit tool powered by a Netlify serverless function running the full depguard engine
+
+### Fixed
+
+- **SSRF protection** — tarball URL from npm registry metadata is now validated (HTTPS + `.npmjs.org` domain only) before downloading
+- **JSONC parser** — fixed escaped backslash handling (`"\\"`) that could corrupt string boundaries during bun.lock parsing
+- **Block comment bounds** — unclosed block comments in JSONC no longer cause out-of-bounds access
+
+### Changed
+
+- Lock file priority order: `package-lock.json` > `pnpm-lock.yaml` > `yarn.lock` > `bun.lock`
+- 270 tests (up from 238)
+
 ## [1.8.2] - 2026-03-29
 
 ### Fixed

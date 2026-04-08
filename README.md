@@ -1,8 +1,8 @@
 # depguard-cli
 
-MCP security server for AI coding agents. 10 tools: **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, and smart recommendations.
+MCP security server for AI coding agents. 11 tools: **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, and smart recommendations.
 
-Your AI agent verifies every `npm install` before it happens. Now with **tarball download and source code scanning** that detects malware patterns, obfuscation, and behavioral mismatches with rich explanations. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
+Your AI agent verifies every `npm install` before it happens. Tarball download and source code scanning detects malware patterns, obfuscation, and behavioral mismatches. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
 
 ## Install
 
@@ -42,6 +42,9 @@ depguard-cli audit-deep <package> [--json]
 
 # AI code review (detect debris left by AI agents)
 depguard-cli review [path] [--full] [--json]
+
+# Local usage statistics (calls, tokens saved, threats blocked)
+depguard-cli stats [--json]
 ```
 
 ### Examples
@@ -74,7 +77,7 @@ depguard-cli sweep . --include-dev
 ## API
 
 ```typescript
-import { audit, search, score, shouldUse, guard, verify, sweep } from 'depguard-cli'
+import { audit, search, score, scoreFromReport, shouldUse, guard, verify, sweep, auditBulk, auditProject } from 'depguard-cli'
 
 // Full audit report (now includes static code analysis)
 const report = await audit('express', 'MIT')
@@ -259,7 +262,7 @@ Via MCP, the AI agent can pass the dependencies object from `package.json` direc
 
 ### Project audit
 
-Audit all dependencies from a `package.json` file in one call. When a lock file is present (`package-lock.json` or `pnpm-lock.yaml`), depguard also scans all transitive dependencies for known vulnerabilities and audits the `packageManager` field:
+Audit all dependencies from a `package.json` file in one call. When a lock file is present (`package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, or `bun.lock`), depguard also scans all transitive dependencies for known vulnerabilities and audits the `packageManager` field:
 
 ```typescript
 import { auditProject } from 'depguard-cli'
@@ -497,7 +500,7 @@ A dependency is compatible if its license is equally or more permissive than you
 ```bash
 npm run build    # compile TypeScript
 npm run lint     # ESLint (strict)
-npm test         # 238 tests (all offline)
+npm test         # 270 tests (all offline)
 npm run check    # build + lint + test + audit
 ```
 
