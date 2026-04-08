@@ -20,12 +20,10 @@ const GITHUB_ADVISORIES_URL = 'https://api.github.com/advisories'
 /**
  * Read GitHub token from environment (if available) for higher rate limits.
  * Token access is intentional — depguard needs it for GitHub Advisory API.
- * Uses indirect property access to avoid scanner false positives on this file.
  */
-const _env = process['env'] as Record<string, string | undefined>
 function getGitHubToken(): string | null {
   try {
-    return _env.GITHUB_TOKEN || _env.DEPGUARD_GITHUB_TOKEN || null
+    return process.env.GITHUB_TOKEN || process.env.DEPGUARD_GITHUB_TOKEN || null
   } catch {
     return null
   }

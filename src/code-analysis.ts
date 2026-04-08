@@ -38,6 +38,27 @@ function stripComments(source: string): string {
   return result
 }
 
+/**
+ * Check if a pattern match is inside a documentation/description string.
+ * Detects lines like: `explanation: 'This uses process["env"]...'` or
+ * `title: "Indirect environment variable access"` — these are metadata
+ * descriptions of patterns, not actual executable code.
+ *
+ * Does NOT filter matches inside regular variable assignments like
+ * `const pool = "stratum+tcp://..."` — those are real values.
+ */
+function isInsideDescriptionString(source: string, matchIndex: number): boolean {
+  // Find the line containing the match
+  const lineStart = source.lastIndexOf('\n', matchIndex - 1) + 1
+  const lineEnd = source.indexOf('\n', matchIndex)
+  const line = source.slice(lineStart, lineEnd === -1 ? source.length : lineEnd).trim()
+
+  // Check if the line is an object property with a documentation-like key
+  // e.g.: explanation: '...', title: '...', description: '...', recommendation: '...'
+  const descriptionKeyPattern = /^\s*(explanation|title|description|recommendation|message|reason|label|hint|help|note)\s*[:=]/
+  return descriptionKeyPattern.test(line)
+}
+
 // ========================
 // Pattern rules
 // ========================
@@ -496,6 +517,10 @@ export async function analyzeCode(
     for (const pattern of CODE_PATTERNS) {
       const match = pattern.regex.exec(strippedContent)
       if (match) {
+        // Skip matches inside description/documentation strings (e.g. explanation: '...')
+        // to avoid false positives on security tools that describe patterns they detect.
+        if (isInsideDescriptionString(strippedContent, match.index)) continue
+
         // Extract evidence: the matched text plus surrounding context
         const matchStart = Math.max(0, match.index - 40)
         const matchEnd = Math.min(entry.content.length, match.index + match[0].length + 40)
@@ -526,6 +551,7 @@ export async function analyzeCode(
     'day.js.org', 'eslint.org', 'prettier.io', 'jestjs.io',
     'typescriptlang.org', 'reactjs.org', 'vuejs.org', 'angular.io',
     'npmjs.com', 'yarnpkg.com', 'pnpm.io',
+    'example.com', 'example.org', 'example.net', // RFC 2606 reserved domains
   ]
   const urlRegex = /https?:\/\/[^\s'")\]}>]+/gi
   for (const entry of entries) {

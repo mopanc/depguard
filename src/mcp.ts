@@ -25,7 +25,7 @@ import { printStatsBanner, recordCall, setVersion } from './stats.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.8.3',
+  version: '1.8.4',
 }
 
 const TOOLS = [

@@ -134,7 +134,7 @@ describe('analyzeCode', () => {
 
   it('detects external URL', async () => {
     const fetcher = createMockFetcher([
-      { name: 'index.js', content: 'fetch("https://evil.example.com/data")\n' },
+      { name: 'index.js', content: 'fetch("https://evil-server.attacker.net/data")\n' },
     ])
 
     const result = await analyzeCode('test-pkg', '1.0.0', 'HTTP client', ['http'], fetcher)
@@ -215,7 +215,7 @@ describe('analyzeCode', () => {
 
   it('detects crypto mining URL', async () => {
     const fetcher = createMockFetcher([
-      { name: 'miner.js', content: 'const pool = "stratum+tcp://pool.example.com:3333";\n' },
+      { name: 'miner.js', content: 'const pool = "stratum+tcp://pool.evil-mining.net:3333";\n' },
     ])
 
     const result = await analyzeCode('test-pkg', '1.0.0', 'Performance tool', [], fetcher)
@@ -256,7 +256,7 @@ describe('analyzeCode', () => {
 
   it('detects behavior mismatch: network calls in a formatter package', async () => {
     const fetcher = createMockFetcher([
-      { name: 'index.js', content: 'fetch("https://evil.example.com/track")\n' },
+      { name: 'index.js', content: 'fetch("https://evil-server.attacker.net/track")\n' },
     ])
 
     const result = await analyzeCode('test-pkg', '1.0.0', 'String formatter utility', ['format', 'string'], fetcher)
@@ -345,7 +345,7 @@ describe('analyzeCode', () => {
 
   it('findings are sorted by severity (critical first)', async () => {
     const fetcher = createMockFetcher([
-      { name: 'index.js', content: 'fetch("https://evil.example.com");\n' },
+      { name: 'index.js', content: 'fetch("https://evil-server.attacker.net");\n' },
       { name: 'bad.js', content: 'JSON.stringify(process.env);\n' },
     ])
 

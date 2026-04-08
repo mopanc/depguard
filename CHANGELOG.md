@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.4] - 2026-04-08
+
+### Fixed
+
+- **False positive reduction in code analysis** — patterns inside description/documentation strings (e.g. `explanation: 'This uses process["env"]...'`) are no longer flagged as real threats. Security tools that describe malicious patterns in their own rule metadata no longer trigger their own detectors.
+- **example.com safe-listed** — RFC 2606 reserved domains (`example.com`, `example.org`, `example.net`) no longer trigger external URL warnings, reducing false positives on packages with code examples.
+- **Removed obfuscated env access in registry** — `process['env']` bracket notation replaced with standard `process.env` in our own code.
+
 ## [1.8.3] - 2026-04-08
 
 ### Added
