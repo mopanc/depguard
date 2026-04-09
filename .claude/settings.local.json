@@ -13,7 +13,9 @@
       "Read(//private/tmp/**)",
       "Bash(curl -sL \"https://raw.githubusercontent.com/oven-sh/bun/main/bun.lock\")",
       "Bash(npm run:*)",
-      "Bash(npm test:*)"
+      "Bash(npm test:*)",
+      "Bash(curl -s \"https://registry.npmjs.org/-/v1/search?text=&popularity=1.0&size=5\")",
+      "Bash(node -e ':*)"
     ]
   }
 }

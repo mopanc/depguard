@@ -1286,6 +1286,72 @@
 
     .ranking-filter { margin-bottom: 1rem; }
 
+    .ranking-shame {
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(255, 77, 106, 0.03);
+      border: 1px solid rgba(255, 77, 106, 0.15);
+      border-radius: var(--radius-lg);
+    }
+
+    .ranking-shame-title {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: .3rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .ranking-shame-desc {
+      font-size: .75rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .ranking-shame-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: .8rem;
+    }
+
+    .shame-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--red);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+
+    .shame-icon {
+      font-size: 1.3rem;
+    }
+
+    .shame-name {
+      font-weight: 700;
+      color: var(--text-bright);
+      font-size: .85rem;
+    }
+
+    .shame-badge {
+      display: inline-block;
+      width: fit-content;
+      font-size: .6rem;
+      font-weight: 700;
+      color: var(--bg);
+      padding: .15rem .5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .shame-detail {
+      font-size: .7rem;
+      color: var(--text-muted);
+    }
+
     .ranking-alerts {
       margin-bottom: 1.5rem;
       padding: 1.2rem 1.5rem;
@@ -1389,6 +1455,53 @@
       margin-left: .4rem;
       text-transform: uppercase;
       letter-spacing: .03em;
+    }
+
+    /* Trend indicators */
+    .trend-up {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: .8rem;
+    }
+    .trend-down {
+      color: var(--red);
+      font-weight: 700;
+      font-size: .8rem;
+    }
+    .trend-same {
+      color: var(--text-dim);
+      font-size: .8rem;
+    }
+    .trend-new {
+      color: var(--blue);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+    }
+
+    /* Row notes */
+    .ranking-note {
+      font-size: .65rem;
+      margin-top: .2rem;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      display: inline-block;
+    }
+    .ranking-note-critical {
+      color: var(--red);
+      background: rgba(255, 77, 106, 0.1);
+    }
+    .ranking-note-high {
+      color: var(--orange);
+      background: rgba(255, 147, 64, 0.1);
+    }
+    .ranking-note-warn {
+      color: var(--yellow);
+      background: rgba(255, 212, 59, 0.08);
+    }
+    .ranking-note-info {
+      color: var(--text-muted);
+      background: rgba(107, 122, 141, 0.1);
     }
 
     .ranking-badge-warn {

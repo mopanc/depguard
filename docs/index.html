@@ -1000,6 +1000,13 @@
     </div>
   </div>
 
+  <!-- Hall of Shame -->
+  <div id="ranking-shame" class="ranking-shame reveal" hidden>
+    <h3 class="ranking-shame-title">Hall of Shame</h3>
+    <p class="ranking-shame-desc">Packages flagged as compromised, dangerous, or with critical score. Do NOT install these.</p>
+    <div id="ranking-shame-list" class="ranking-shame-grid"></div>
+  </div>
+
   <!-- Search/filter -->
   <div class="ranking-filter reveal">
     <input type="text" class="demo-input" id="ranking-search" placeholder="Filter packages..." oninput="filterRanking()" autocomplete="off" spellcheck="false" style="max-width:400px">
@@ -1385,6 +1392,26 @@ function renderRanking(data) {
     }).join('');
   }
 
+  // Hall of Shame — compromised, deprecated, or score < 30
+  const shamePackages = data.packages.filter(p => p.compromised || p.score < 30);
+  if (shamePackages.length > 0) {
+    document.getElementById('ranking-shame').hidden = false;
+    document.getElementById('ranking-shame-list').innerHTML = shamePackages.map(p => {
+      const reason = p.compromised ? 'COMPROMISED' : p.score === 0 ? 'SCORE 0' : `SCORE ${p.score}`;
+      const icon = p.compromised ? '&#x2620;' : '&#x26A0;';
+      const borderColor = p.compromised ? 'var(--red)' : 'var(--orange)';
+      const vulnTotal = p.vulns.critical + p.vulns.high + p.vulns.moderate + p.vulns.low;
+      const vulnLine = vulnTotal > 0 ? `<div class="shame-detail">${p.vulns.critical ? p.vulns.critical + ' critical ' : ''}${p.vulns.high ? p.vulns.high + ' high ' : ''}${p.vulns.moderate ? p.vulns.moderate + ' moderate' : ''}</div>` : '';
+      return `<div class="shame-card" style="border-color:${borderColor}">
+        <div class="shame-icon" style="color:${borderColor}">${icon}</div>
+        <div class="shame-name">${escapeHtml(p.name)}<span class="ranking-pkg-version">${escapeHtml(p.version)}</span></div>
+        <div class="shame-badge" style="background:${borderColor}">${reason}</div>
+        <div class="shame-detail">${escapeHtml(p.license || 'Unknown')} &middot; ${formatNumber(p.downloads)}/w</div>
+        ${vulnLine}
+      </div>`;
+    }).join('');
+  }
+
   // Table
   rankingFiltered = data.packages;
   rankingPage = 0;
@@ -1425,16 +1452,24 @@ function renderRankingRows(pageItems) {
     const scoreColor = p.score >= 60 ? 'var(--accent)' : p.score >= 40 ? 'var(--orange)' : 'var(--red)';
     const barPct = Math.min(p.score, 100);
 
-    // Trend indicator
+    // Trend indicator — rank change
     let trend = '';
     if (p.prevRank !== null && p.prevRank !== p.rank) {
       const diff = p.prevRank - p.rank;
-      if (diff > 0) trend = `<span style="color:var(--accent)">&#9650;${diff}</span>`;
-      else trend = `<span style="color:var(--red)">&#9660;${Math.abs(diff)}</span>`;
+      if (diff > 0) trend = `<span class="trend-up">&#9650;${diff}</span>`;
+      else trend = `<span class="trend-down">&#9660;${Math.abs(diff)}</span>`;
     } else if (p.prevRank === null) {
-      trend = '<span style="color:var(--text-dim)">NEW</span>';
+      trend = '<span class="trend-new">NEW</span>';
     } else {
-      trend = '<span style="color:var(--text-dim)">&mdash;</span>';
+      trend = '<span class="trend-same">&mdash;</span>';
+    }
+
+    // Score change indicator
+    let scoreDelta = '';
+    if (p.prevScore !== null && p.prevScore !== p.score) {
+      const diff = p.score - p.prevScore;
+      if (diff > 0) scoreDelta = `<span class="trend-up" style="font-size:.65rem">+${diff}</span>`;
+      else scoreDelta = `<span class="trend-down" style="font-size:.65rem">${diff}</span>`;
     }
 
     // Vulns
@@ -1452,20 +1487,31 @@ function renderRankingRows(pageItems) {
     const dl = p.downloads >= 1e6 ? (p.downloads / 1e6).toFixed(1).replace(/\.0$/, '') + 'M'
       : p.downloads >= 1e3 ? (p.downloads / 1e3).toFixed(0) + 'K' : String(p.downloads);
 
+    // Row note — the most important thing to know about this package
+    let note = '';
+    if (p.compromised) note = '<div class="ranking-note ranking-note-critical">Known supply chain attack — do NOT use</div>';
+    else if (p.vulns.critical) note = `<div class="ranking-note ranking-note-critical">${p.vulns.critical} critical vulnerability${p.vulns.critical > 1 ? 'ies' : 'y'}</div>`;
+    else if (p.vulns.high) note = `<div class="ranking-note ranking-note-high">${p.vulns.high} high severity vulnerability${p.vulns.high > 1 ? 'ies' : 'y'}</div>`;
+    else if (p.deprecated) note = '<div class="ranking-note ranking-note-warn">Deprecated — consider alternatives</div>';
+    else if (p.score < 40) note = '<div class="ranking-note ranking-note-warn">Low security score — review before using</div>';
+    else if (p.codeFindings > 0) note = `<div class="ranking-note ranking-note-info">${p.codeFindings} code analysis finding${p.codeFindings > 1 ? 's' : ''}</div>`;
+    else if (p.prevScore !== null && p.prevScore - p.score >= 10) note = `<div class="ranking-note ranking-note-high">Score dropped ${p.prevScore - p.score} points since last scan</div>`;
+
     // Row highlight for compromised/dangerous
     const rowClass = p.compromised ? 'ranking-row-danger' : p.score < 40 ? 'ranking-row-warn' : '';
 
     return `<tr class="${rowClass}">
       <td style="color:var(--text-dim)">${p.rank}</td>
       <td>
-        <span class="ranking-pkg-name">${escapeHtml(p.name)}</span>
-        <span class="ranking-pkg-version">${escapeHtml(p.version)}</span>
+        <div class="ranking-pkg-name">${escapeHtml(p.name)}<span class="ranking-pkg-version">${escapeHtml(p.version)}</span></div>
         ${p.compromised ? '<span class="ranking-badge-danger">COMPROMISED</span>' : ''}
         ${p.deprecated ? '<span class="ranking-badge-warn">DEPRECATED</span>' : ''}
+        ${note}
       </td>
       <td>
-        <div style="display:flex;align-items:center;gap:.5rem">
+        <div style="display:flex;align-items:center;gap:.4rem">
           <span style="color:${scoreColor};font-weight:600;min-width:24px">${p.score}</span>
+          ${scoreDelta}
           <span class="score-bar-inline" style="flex:1"><span class="score-fill-inline" style="width:${barPct}%;background:${scoreColor}"></span></span>
         </div>
       </td>
