@@ -101,8 +101,25 @@ export default async function handler(req: Request) {
       publication: report.publicationAnalysis ?? null,
       scripts,
       codeAnalysis: report.codeAnalysis
-        ? { findings: report.codeAnalysis.findings.length, skipped: report.codeAnalysis.skipped }
+        ? {
+            findings: report.codeAnalysis.findings.length,
+            skipped: report.codeAnalysis.skipped,
+            details: report.codeAnalysis.findings.map(f => ({
+              severity: f.severity,
+              category: f.category,
+              title: f.title,
+              explanation: f.explanation,
+              file: f.file,
+            })),
+          }
         : null,
+      securityFindings: report.securityFindings?.map(f => ({
+        severity: f.severity,
+        category: f.category,
+        title: f.title,
+        explanation: f.explanation,
+        file: f.file,
+      })) ?? [],
       compromised: compromised
         ? { compromised: compromised.compromised, severity: compromised.severity }
         : null,

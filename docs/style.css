@@ -1659,6 +1659,74 @@
       padding: .4rem 0;
     }
 
+    /* Findings detail */
+    .modal-findings {
+      margin-top: 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .modal-findings-title {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--text-muted);
+      padding: .6rem .8rem;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-finding {
+      padding: .7rem .8rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-finding:last-child { border-bottom: none; }
+
+    .modal-finding-header {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .3rem;
+    }
+
+    .modal-finding-severity {
+      font-size: .6rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      min-width: 55px;
+    }
+
+    .modal-finding-title {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .modal-finding-explanation {
+      font-size: .72rem;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: .3rem;
+    }
+
+    .modal-finding-file {
+      font-size: .65rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    .modal-finding-category {
+      display: inline-block;
+      font-size: .6rem;
+      color: var(--text-dim);
+      background: var(--bg-surface);
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      margin-top: .2rem;
+    }
+
     .modal-cli-hint {
       margin-top: 1.2rem;
       padding: .6rem .8rem;

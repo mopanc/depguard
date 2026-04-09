@@ -1570,6 +1570,45 @@ function sharePkgModal() {
   });
 }
 
+function renderFindings(d) {
+  const safe = escapeHtml;
+  // Collect all findings: code analysis + security findings
+  const allFindings = [];
+  if (d.codeAnalysis?.details) allFindings.push(...d.codeAnalysis.details);
+  if (d.securityFindings) allFindings.push(...d.securityFindings);
+  if (allFindings.length === 0) return '';
+
+  // Deduplicate by title
+  const seen = new Set();
+  const unique = allFindings.filter(f => {
+    const key = f.title + f.file;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  // Sort by severity
+  const order = { critical: 0, high: 1, medium: 2, low: 3, info: 4 };
+  unique.sort((a, b) => (order[a.severity] ?? 4) - (order[b.severity] ?? 4));
+
+  return `
+    <div class="modal-findings">
+      <div class="modal-findings-title">Findings (${unique.length})</div>
+      ${unique.map(f => {
+        const color = f.severity === 'critical' ? 'var(--red)' : f.severity === 'high' ? 'var(--orange)' : f.severity === 'medium' ? 'var(--yellow)' : 'var(--text-muted)';
+        return `<div class="modal-finding">
+          <div class="modal-finding-header">
+            <span class="modal-finding-severity" style="color:${color}">${safe(f.severity).toUpperCase()}</span>
+            <span class="modal-finding-title">${safe(f.title)}</span>
+          </div>
+          <div class="modal-finding-explanation">${safe(f.explanation)}</div>
+          ${f.file ? `<div class="modal-finding-file">${safe(f.file)}</div>` : ''}
+          ${f.category ? `<div class="modal-finding-category">${safe(f.category)}</div>` : ''}
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
 function renderPkgModal(name, d) {
   const safe = escapeHtml;
   const body = document.getElementById('pkg-modal-body');
@@ -1677,6 +1716,7 @@ function renderPkgModal(name, d) {
       </div>
       ${maintainerHtml}
     </div>
+    ${renderFindings(d)}
     ${warningsHtml}
     <div class="modal-cli-hint">
       <code>npx depguard-cli audit ${safe(name)}</code>
