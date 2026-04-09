@@ -14,6 +14,7 @@
 import { readFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createRequire } from 'node:module'
 
 export interface Incident {
   version: string
@@ -68,6 +69,18 @@ function ensureLoaded(): void {
         return
       } catch { /* try next path */ }
     }
+
+    // Final fallback: use createRequire which esbuild can statically resolve,
+    // embedding the JSON directly in the bundle (works on Netlify Functions).
+    try {
+      const esmRequire = createRequire(import.meta.url)
+      const data: AdvisoryDBData = esmRequire('../src/data/advisory-db.json')
+      dbVersion = data.version ?? 'unknown'
+      for (const [name, pkg] of Object.entries(data.packages)) {
+        db.set(name, pkg)
+      }
+      return
+    } catch { /* silently degrade — empty DB is safe */ }
   } catch { /* silently degrade — empty DB is safe */ }
 }
 

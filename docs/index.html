@@ -1697,20 +1697,60 @@ function renderPkgModal(name, d) {
     }
   }
 
-  // Compromised
-  let compromisedHtml = '';
-  if (d.compromised) {
-    compromisedHtml = `<div class="modal-banner-danger">KNOWN COMPROMISED PACKAGE — Do not install</div>`;
-  }
-
   // Warnings
   let warningsHtml = '';
   if (d.warnings?.length) {
     warningsHtml = d.warnings.map(w => `<div class="modal-warning">${safe(w)}</div>`).join('');
   }
 
+  // For compromised packages, override all fields to reflect the danger
+  if (d.compromised) {
+    const rankPkg = rankingData?.packages?.find(p => p.name === name);
+    body.innerHTML = `
+      <div class="modal-banner-danger">KNOWN COMPROMISED PACKAGE — Do not install</div>
+      <div class="modal-score-section">
+        <div class="modal-score-number" style="color:var(--red)">0</div>
+        <div class="modal-score-bar"><div class="modal-score-fill" style="width:0%;background:var(--red)"></div></div>
+        <div class="modal-score-label">/100</div>
+      </div>
+      <div class="modal-grid">
+        <div class="modal-row">
+          <span class="modal-label">Version</span>
+          <span>${safe(d.version || '?')}</span>
+        </div>
+        <div class="modal-row">
+          <span class="modal-label">Status</span>
+          <span style="color:var(--red);font-weight:700">COMPROMISED — Known supply chain attack</span>
+        </div>
+        <div class="modal-row">
+          <span class="modal-label">Severity</span>
+          <span style="color:var(--red);font-weight:700">${safe(d.compromised.severity || 'critical').toUpperCase()}</span>
+        </div>
+        <div class="modal-row">
+          <span class="modal-label">Downloads</span>
+          <span>${formatNumber(d.downloads || 0)}/week <span style="color:var(--red)">&mdash; all users at risk</span></span>
+        </div>
+        <div class="modal-row">
+          <span class="modal-label">License</span>
+          <span>${safe(d.license || 'Unknown')}</span>
+        </div>
+        <div class="modal-row">
+          <span class="modal-label">Recommendation</span>
+          <span style="color:var(--red)">Remove immediately. Check for alternatives.</span>
+        </div>
+      </div>
+      <div class="modal-banner-danger" style="margin-top:1rem;font-size:.75rem;background:rgba(255,77,106,0.08)">
+        This package is in the depguard curated advisory database of known compromised packages.
+        The score is forced to 0 regardless of other metrics. Any project using this package is at risk.
+      </div>
+      <div class="modal-cli-hint">
+        <code>npx depguard-cli audit ${safe(name)}</code>
+      </div>
+    `;
+    return;
+  }
+
   body.innerHTML = `
-    ${compromisedHtml}
     <div class="modal-score-section">
       <div class="modal-score-number" style="color:${scoreColor}">${score}</div>
       <div class="modal-score-bar"><div class="modal-score-fill" style="width:${barPct}%;background:${scoreColor}"></div></div>

@@ -22,7 +22,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp -r src/data dist/data",
     "test": "node --import tsx --test tests/*.test.ts",
     "lint": "eslint src/ tests/",
     "audit:security": "npm audit --audit-level=high --omit=dev",
