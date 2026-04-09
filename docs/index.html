@@ -1543,11 +1543,42 @@ function openPkgModal(name) {
   // Update URL for sharing
   history.replaceState(null, '', `#/ranking?pkg=${encodeURIComponent(name)}`);
 
+  // Get ranking data for this package (trusted source — from daily scan)
+  const rankingPkg = rankingData?.packages?.find(p => p.name === name);
+
   fetch(`/api/audit?package=${encodeURIComponent(name)}`)
     .then(r => { if (!r.ok) throw new Error('API error'); return r.json(); })
-    .then(d => renderPkgModal(name, d))
+    .then(d => {
+      // Merge: use ranking data for score and compromised status (advisory-db may not load on Netlify)
+      if (rankingPkg) {
+        if (rankingPkg.compromised) {
+          d.compromised = d.compromised || { compromised: true, severity: 'critical' };
+          d.score = 0;
+        }
+        // Use ranking score as authoritative (computed with advisory-db locally)
+        if (d.score !== 0 && rankingPkg.score !== undefined) {
+          d.rankingScore = rankingPkg.score;
+        }
+      }
+      renderPkgModal(name, d);
+    })
     .catch(() => {
-      body.innerHTML = `<div class="pkg-modal-error">Could not fetch live data for <strong>${escapeHtml(name)}</strong>. Try: <code>npx depguard-cli audit ${escapeHtml(name)}</code></div>`;
+      // Fallback: render from ranking data if API fails
+      if (rankingPkg) {
+        renderPkgModal(name, {
+          name: rankingPkg.name, version: rankingPkg.version,
+          score: rankingPkg.score, vulns: rankingPkg.vulns,
+          license: rankingPkg.license, licenseCompatible: null,
+          downloads: rankingPkg.downloads, deprecated: rankingPkg.deprecated,
+          lastPublish: rankingPkg.lastPublish,
+          compromised: rankingPkg.compromised ? { compromised: true, severity: 'critical' } : null,
+          maintainers: null, scripts: null, codeAnalysis: null,
+          securityFindings: [], warnings: [],
+          _fallback: true,
+        });
+      } else {
+        body.innerHTML = `<div class="pkg-modal-error">Could not fetch live data for <strong>${escapeHtml(name)}</strong>. Try: <code>npx depguard-cli audit ${escapeHtml(name)}</code></div>`;
+      }
     });
 }
 
@@ -1718,6 +1749,7 @@ function renderPkgModal(name, d) {
     </div>
     ${renderFindings(d)}
     ${warningsHtml}
+    ${d._fallback ? '<div class="modal-warning">Showing cached data from daily scan. Live API unavailable.</div>' : ''}
     <div class="modal-cli-hint">
       <code>npx depguard-cli audit ${safe(name)}</code>
     </div>
