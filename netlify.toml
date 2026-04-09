@@ -7,6 +7,10 @@
 [build.environment]
   NODE_VERSION = "20"
 
+[functions]
+  included_files = ["src/data/**", "dist/**"]
+  node_bundler = "esbuild"
+
 # Redirect /api/audit → Netlify Function
 [[redirects]]
   from = "/api/audit"

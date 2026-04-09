@@ -47,11 +47,13 @@ function ensureLoaded(): void {
 
   db = new Map()
   try {
-    // Resolve path relative to this module (works in both dev and dist)
+    // Resolve path relative to this module (works in dev, dist, and Netlify Functions)
     const thisDir = dirname(fileURLToPath(import.meta.url))
     const possiblePaths = [
       join(thisDir, 'data', 'advisory-db.json'),       // dist/data/
       join(thisDir, '..', 'src', 'data', 'advisory-db.json'), // from dist/ to src/
+      join(process.cwd(), 'src', 'data', 'advisory-db.json'), // Netlify: cwd is repo root
+      join(process.cwd(), 'dist', 'data', 'advisory-db.json'), // Netlify: from dist/
     ]
 
     for (const dbPath of possiblePaths) {
