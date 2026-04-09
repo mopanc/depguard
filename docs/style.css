@@ -1286,7 +1286,7 @@
 
     .ranking-filter { margin-bottom: 1rem; }
 
-    .ranking-shame {
+    .ranking-threats {
       margin-bottom: 1.5rem;
       padding: 1.5rem;
       background: rgba(255, 77, 106, 0.03);
@@ -1294,7 +1294,7 @@
       border-radius: var(--radius-lg);
     }
 
-    .ranking-shame-title {
+    .ranking-threats-title {
       font-size: .9rem;
       font-weight: 700;
       color: var(--red);
@@ -1303,19 +1303,19 @@
       letter-spacing: .05em;
     }
 
-    .ranking-shame-desc {
+    .ranking-threats-desc {
       font-size: .75rem;
       color: var(--text-muted);
       margin-bottom: 1rem;
     }
 
-    .ranking-shame-grid {
+    .ranking-threats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: .8rem;
     }
 
-    .shame-card {
+    .threat-card {
       background: var(--bg-elevated);
       border: 1px solid var(--red);
       border-radius: var(--radius);
@@ -1325,17 +1325,17 @@
       gap: .3rem;
     }
 
-    .shame-icon {
+    .threat-icon {
       font-size: 1.3rem;
     }
 
-    .shame-name {
+    .threat-name {
       font-weight: 700;
       color: var(--text-bright);
       font-size: .85rem;
     }
 
-    .shame-badge {
+    .threat-badge {
       display: inline-block;
       width: fit-content;
       font-size: .6rem;
@@ -1347,44 +1347,9 @@
       letter-spacing: .04em;
     }
 
-    .shame-detail {
+    .threat-detail {
       font-size: .7rem;
       color: var(--text-muted);
-    }
-
-    .ranking-alerts {
-      margin-bottom: 1.5rem;
-      padding: 1.2rem 1.5rem;
-      background: rgba(255, 77, 106, 0.05);
-      border: 1px solid rgba(255, 77, 106, 0.2);
-      border-radius: var(--radius-lg);
-    }
-
-    .ranking-alerts-title {
-      font-size: .85rem;
-      font-weight: 700;
-      color: var(--red);
-      margin-bottom: .8rem;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-    }
-
-    .ranking-alert {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      padding: .5rem 0;
-      font-size: .8rem;
-      color: var(--text);
-      border-left: 3px solid var(--red);
-      padding-left: .8rem;
-      margin-bottom: .4rem;
-    }
-
-    .ranking-alert-badge {
-      font-weight: 700;
-      font-size: .75rem;
-      white-space: nowrap;
     }
 
     .ranking-table-wrap {

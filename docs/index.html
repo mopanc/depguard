@@ -970,12 +970,6 @@
   <h2 id="ranking-heading" class="reveal">Top npm packages &mdash; audited every day</h2>
   <p class="section-desc reveal">150 of the most popular npm packages, ranked by security score. Updated daily at 06:00 UTC. Alerts highlight packages that dropped in score or were flagged as dangerous.</p>
 
-  <!-- Alerts section -->
-  <div id="ranking-alerts" class="ranking-alerts reveal" hidden>
-    <h3 class="ranking-alerts-title">Alerts</h3>
-    <div id="ranking-alerts-list"></div>
-  </div>
-
   <!-- Stats bar -->
   <div class="ranking-stats reveal" id="ranking-stats">
     <div class="ranking-stat">
@@ -1000,11 +994,11 @@
     </div>
   </div>
 
-  <!-- Hall of Shame -->
-  <div id="ranking-shame" class="ranking-shame reveal" hidden>
-    <h3 class="ranking-shame-title">Hall of Shame</h3>
-    <p class="ranking-shame-desc">Packages flagged as compromised, dangerous, or with critical score. Do NOT install these.</p>
-    <div id="ranking-shame-list" class="ranking-shame-grid"></div>
+  <!-- Critical Threat Packages -->
+  <div id="ranking-threats" class="ranking-threats reveal" hidden>
+    <h3 class="ranking-threats-title">Critical Threats</h3>
+    <p class="ranking-threats-desc">Packages flagged as compromised or with critically low security scores. These should not be installed in any project.</p>
+    <div id="ranking-threats-list" class="ranking-threats-grid"></div>
   </div>
 
   <!-- Search/filter -->
@@ -1377,36 +1371,21 @@ function renderRanking(data) {
   const scanDate = new Date(data.scannedAt);
   document.getElementById('ranking-date').textContent = scanDate.toLocaleDateString() + ' ' + scanDate.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
 
-  // Alerts
-  if (data.alerts && data.alerts.length > 0) {
-    const alertsEl = document.getElementById('ranking-alerts');
-    const listEl = document.getElementById('ranking-alerts-list');
-    alertsEl.hidden = false;
-    listEl.innerHTML = data.alerts.map(a => {
-      const color = a.severity === 'critical' ? 'var(--red)' : a.severity === 'high' ? 'var(--orange)' : a.severity === 'medium' ? 'var(--yellow)' : 'var(--accent)';
-      const icon = a.severity === 'critical' ? '!!!' : a.severity === 'high' ? '!!' : a.severity === 'info' ? 'i' : '!';
-      return `<div class="ranking-alert" style="border-left-color:${color}">
-        <span class="ranking-alert-badge" style="color:${color}">[${icon}]</span>
-        <span>${escapeHtml(a.message)}</span>
-      </div>`;
-    }).join('');
-  }
-
-  // Hall of Shame — compromised, deprecated, or score < 30
+  // Critical Packages — compromised or score < 30
   const shamePackages = data.packages.filter(p => p.compromised || p.score < 30);
   if (shamePackages.length > 0) {
-    document.getElementById('ranking-shame').hidden = false;
-    document.getElementById('ranking-shame-list').innerHTML = shamePackages.map(p => {
+    document.getElementById('ranking-threats').hidden = false;
+    document.getElementById('ranking-threats-list').innerHTML = shamePackages.map(p => {
       const reason = p.compromised ? 'COMPROMISED' : p.score === 0 ? 'SCORE 0' : `SCORE ${p.score}`;
       const icon = p.compromised ? '&#x2620;' : '&#x26A0;';
       const borderColor = p.compromised ? 'var(--red)' : 'var(--orange)';
       const vulnTotal = p.vulns.critical + p.vulns.high + p.vulns.moderate + p.vulns.low;
-      const vulnLine = vulnTotal > 0 ? `<div class="shame-detail">${p.vulns.critical ? p.vulns.critical + ' critical ' : ''}${p.vulns.high ? p.vulns.high + ' high ' : ''}${p.vulns.moderate ? p.vulns.moderate + ' moderate' : ''}</div>` : '';
-      return `<div class="shame-card" style="border-color:${borderColor}">
-        <div class="shame-icon" style="color:${borderColor}">${icon}</div>
-        <div class="shame-name">${escapeHtml(p.name)}<span class="ranking-pkg-version">${escapeHtml(p.version)}</span></div>
-        <div class="shame-badge" style="background:${borderColor}">${reason}</div>
-        <div class="shame-detail">${escapeHtml(p.license || 'Unknown')} &middot; ${formatNumber(p.downloads)}/w</div>
+      const vulnLine = vulnTotal > 0 ? `<div class="threat-detail">${p.vulns.critical ? p.vulns.critical + ' critical ' : ''}${p.vulns.high ? p.vulns.high + ' high ' : ''}${p.vulns.moderate ? p.vulns.moderate + ' moderate' : ''}</div>` : '';
+      return `<div class="threat-card" style="border-color:${borderColor}">
+        <div class="threat-icon" style="color:${borderColor}">${icon}</div>
+        <div class="threat-name">${escapeHtml(p.name)}<span class="ranking-pkg-version">${escapeHtml(p.version)}</span></div>
+        <div class="threat-badge" style="background:${borderColor}">${reason}</div>
+        <div class="threat-detail">${escapeHtml(p.license || 'Unknown')} &middot; ${formatNumber(p.downloads)}/w</div>
         ${vulnLine}
       </div>`;
     }).join('');
