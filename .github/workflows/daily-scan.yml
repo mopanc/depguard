@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   scan:
@@ -35,3 +36,29 @@ jobs:
           git add docs/data/daily-scan.json
           git diff --staged --quiet || git commit -m "data: daily security scan $(date -u +%Y-%m-%d)"
           git push
+
+      - name: Create alert issue if threats detected
+        if: always()
+        run: |
+          ALERTS=$(node -e "
+            const d = require('./docs/data/daily-scan.json');
+            const critical = d.alerts.filter(a => a.severity === 'critical' || a.severity === 'high');
+            if (critical.length === 0) process.exit(0);
+            const body = '## Daily Scan Alert — ' + d.date + '\n\n' +
+              critical.map(a => '- **[' + a.severity.toUpperCase() + ']** ' + a.message).join('\n') +
+              '\n\n---\n' +
+              'Packages scanned: ' + d.totalPackages + '\n' +
+              'Full report: https://depguard.dev/#/ranking\n\n' +
+              '_Automated by depguard daily scan_';
+            console.log(body);
+          " 2>/dev/null) || true
+
+          if [ -n "$ALERTS" ]; then
+            gh issue create \
+              --title "🚨 Security Alert — $(date -u +%Y-%m-%d)" \
+              --body "$ALERTS" \
+              --label "security,automated" \
+              --repo ${{ github.repository }}
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

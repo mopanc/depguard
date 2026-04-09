@@ -1404,6 +1404,38 @@
       letter-spacing: .03em;
     }
 
+    .ranking-pagination {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .ranking-page-btn {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .4rem .7rem;
+      font-size: .75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all .2s;
+      font-family: var(--font-mono);
+    }
+
+    .ranking-page-btn:hover {
+      border-color: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    .ranking-page-btn.active {
+      background: var(--accent-dim);
+      color: var(--bg);
+      border-color: var(--accent-dim);
+      font-weight: 700;
+    }
+
     /* ========================================
        RESPONSIVE
        ======================================== */

@@ -1023,6 +1023,7 @@
       </tbody>
     </table>
   </div>
+  <div class="ranking-pagination" id="ranking-pagination"></div>
 
   <p class="section-desc reveal" style="margin-top:2rem;font-size:.75rem;color:var(--text-dim)">
     Scans run automatically via GitHub Actions. Data is publicly available at <code>/data/daily-scan.json</code>.
@@ -1339,6 +1340,9 @@ async function runLiveAudit(pkg) {
 // ============ RANKING ============
 let rankingData = null;
 let rankingLoaded = false;
+let rankingPage = 0;
+let rankingFiltered = null;
+const RANKING_PAGE_SIZE = 25;
 
 async function loadRanking() {
   if (rankingLoaded) return;
@@ -1363,7 +1367,8 @@ function renderRanking(data) {
   document.getElementById('ranking-clean').textContent = clean;
   document.getElementById('ranking-warnings').textContent = warnings;
   document.getElementById('ranking-danger').textContent = danger;
-  document.getElementById('ranking-date').textContent = data.date;
+  const scanDate = new Date(data.scannedAt);
+  document.getElementById('ranking-date').textContent = scanDate.toLocaleDateString() + ' ' + scanDate.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
 
   // Alerts
   if (data.alerts && data.alerts.length > 0) {
@@ -1381,12 +1386,42 @@ function renderRanking(data) {
   }
 
   // Table
-  renderRankingRows(data.packages);
+  rankingFiltered = data.packages;
+  rankingPage = 0;
+  renderRankingPage();
 }
 
-function renderRankingRows(packages) {
+function renderRankingPage() {
+  const packages = rankingFiltered || [];
+  const totalPages = Math.ceil(packages.length / RANKING_PAGE_SIZE);
+  const start = rankingPage * RANKING_PAGE_SIZE;
+  const pageItems = packages.slice(start, start + RANKING_PAGE_SIZE);
+
+  renderRankingRows(pageItems);
+
+  // Pagination controls
+  const pag = document.getElementById('ranking-pagination');
+  if (totalPages <= 1) { pag.innerHTML = ''; return; }
+
+  let html = '';
+  if (rankingPage > 0) html += `<button class="ranking-page-btn" onclick="rankingGoTo(${rankingPage - 1})">&laquo; Prev</button>`;
+  for (let i = 0; i < totalPages; i++) {
+    html += `<button class="ranking-page-btn${i === rankingPage ? ' active' : ''}" onclick="rankingGoTo(${i})">${i + 1}</button>`;
+  }
+  if (rankingPage < totalPages - 1) html += `<button class="ranking-page-btn" onclick="rankingGoTo(${rankingPage + 1})">Next &raquo;</button>`;
+  html += `<span style="color:var(--text-dim);font-size:.75rem;margin-left:.5rem">${start + 1}&ndash;${Math.min(start + RANKING_PAGE_SIZE, packages.length)} of ${packages.length}</span>`;
+  pag.innerHTML = html;
+}
+
+function rankingGoTo(page) {
+  rankingPage = page;
+  renderRankingPage();
+  document.getElementById('ranking-table').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderRankingRows(pageItems) {
   const body = document.getElementById('ranking-body');
-  body.innerHTML = packages.map(p => {
+  body.innerHTML = pageItems.map(p => {
     const scoreColor = p.score >= 60 ? 'var(--accent)' : p.score >= 40 ? 'var(--orange)' : 'var(--red)';
     const barPct = Math.min(p.score, 100);
 
@@ -1444,8 +1479,9 @@ function renderRankingRows(packages) {
 function filterRanking() {
   if (!rankingData) return;
   const q = document.getElementById('ranking-search').value.toLowerCase().trim();
-  const filtered = q ? rankingData.packages.filter(p => p.name.includes(q)) : rankingData.packages;
-  renderRankingRows(filtered);
+  rankingFiltered = q ? rankingData.packages.filter(p => p.name.includes(q)) : rankingData.packages;
+  rankingPage = 0;
+  renderRankingPage();
 }
 
 // ============ INIT ============
