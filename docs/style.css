@@ -1251,6 +1251,160 @@
     }
 
     /* ========================================
+       RANKING PAGE
+       ======================================== */
+
+    .ranking-stats {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .ranking-stat {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+    }
+
+    .ranking-stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-bright);
+    }
+
+    .ranking-stat-label {
+      font-size: .7rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .ranking-filter { margin-bottom: 1rem; }
+
+    .ranking-alerts {
+      margin-bottom: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      background: rgba(255, 77, 106, 0.05);
+      border: 1px solid rgba(255, 77, 106, 0.2);
+      border-radius: var(--radius-lg);
+    }
+
+    .ranking-alerts-title {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .ranking-alert {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .5rem 0;
+      font-size: .8rem;
+      color: var(--text);
+      border-left: 3px solid var(--red);
+      padding-left: .8rem;
+      margin-bottom: .4rem;
+    }
+
+    .ranking-alert-badge {
+      font-weight: 700;
+      font-size: .75rem;
+      white-space: nowrap;
+    }
+
+    .ranking-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .8rem;
+    }
+
+    .ranking-table th {
+      text-align: left;
+      padding: .8rem 1rem;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-dim);
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+    }
+
+    .ranking-table td {
+      padding: .6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .ranking-table tbody tr:hover {
+      background: var(--bg-elevated);
+    }
+
+    .ranking-row-danger {
+      background: rgba(255, 77, 106, 0.06);
+    }
+    .ranking-row-danger:hover {
+      background: rgba(255, 77, 106, 0.1) !important;
+    }
+
+    .ranking-row-warn {
+      background: rgba(255, 147, 64, 0.04);
+    }
+
+    .ranking-pkg-name {
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .ranking-pkg-version {
+      font-size: .7rem;
+      color: var(--text-dim);
+      margin-left: .4rem;
+    }
+
+    .ranking-badge-danger {
+      display: inline-block;
+      font-size: .6rem;
+      font-weight: 700;
+      color: var(--red);
+      background: rgba(255, 77, 106, 0.15);
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .4rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .ranking-badge-warn {
+      display: inline-block;
+      font-size: .6rem;
+      font-weight: 700;
+      color: var(--orange);
+      background: rgba(255, 147, 64, 0.15);
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      margin-left: .4rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    /* ========================================
        RESPONSIVE
        ======================================== */
 

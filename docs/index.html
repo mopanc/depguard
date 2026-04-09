@@ -112,6 +112,7 @@
     <ul class="nav-links">
       <li><a href="#/" data-nav data-page-link="home">Home</a></li>
       <li><a href="#/docs" data-nav data-page-link="docs">Docs</a></li>
+      <li><a href="#/ranking" data-nav data-page-link="ranking">Ranking</a></li>
       <li><a href="#/security" data-nav data-page-link="security">Security</a></li>
       <li><a href="#/changelog" data-nav data-page-link="changelog">Changelog</a></li>
       <li><a href="https://www.npmjs.com/package/depguard-cli" target="_blank" rel="noopener">npm</a></li>
@@ -960,6 +961,78 @@
 
 
 <!-- ================================================================
+     PAGE: RANKING
+     ================================================================ -->
+<div data-page="ranking" hidden>
+
+<section class="section" aria-labelledby="ranking-heading">
+  <div class="section-label reveal" style="color:var(--accent)">Daily Security Ranking</div>
+  <h2 id="ranking-heading" class="reveal">Top npm packages &mdash; audited every day</h2>
+  <p class="section-desc reveal">150 of the most popular npm packages, ranked by security score. Updated daily at 06:00 UTC. Alerts highlight packages that dropped in score or were flagged as dangerous.</p>
+
+  <!-- Alerts section -->
+  <div id="ranking-alerts" class="ranking-alerts reveal" hidden>
+    <h3 class="ranking-alerts-title">Alerts</h3>
+    <div id="ranking-alerts-list"></div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="ranking-stats reveal" id="ranking-stats">
+    <div class="ranking-stat">
+      <span class="ranking-stat-value" id="ranking-total">—</span>
+      <span class="ranking-stat-label">Packages</span>
+    </div>
+    <div class="ranking-stat">
+      <span class="ranking-stat-value" id="ranking-clean" style="color:var(--accent)">—</span>
+      <span class="ranking-stat-label">Clean</span>
+    </div>
+    <div class="ranking-stat">
+      <span class="ranking-stat-value" id="ranking-warnings" style="color:var(--orange)">—</span>
+      <span class="ranking-stat-label">Warnings</span>
+    </div>
+    <div class="ranking-stat">
+      <span class="ranking-stat-value" id="ranking-danger" style="color:var(--red)">—</span>
+      <span class="ranking-stat-label">Danger</span>
+    </div>
+    <div class="ranking-stat">
+      <span class="ranking-stat-value" id="ranking-date" style="color:var(--text-muted)">—</span>
+      <span class="ranking-stat-label">Last Scan</span>
+    </div>
+  </div>
+
+  <!-- Search/filter -->
+  <div class="ranking-filter reveal">
+    <input type="text" class="demo-input" id="ranking-search" placeholder="Filter packages..." oninput="filterRanking()" autocomplete="off" spellcheck="false" style="max-width:400px">
+  </div>
+
+  <!-- Ranking table -->
+  <div class="ranking-table-wrap reveal">
+    <table class="ranking-table" id="ranking-table">
+      <thead>
+        <tr>
+          <th style="width:50px">#</th>
+          <th>Package</th>
+          <th style="width:90px">Score</th>
+          <th style="width:80px">Vulns</th>
+          <th style="width:100px">Downloads</th>
+          <th style="width:60px">Trend</th>
+        </tr>
+      </thead>
+      <tbody id="ranking-body">
+        <tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-dim)">Loading ranking data...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="section-desc reveal" style="margin-top:2rem;font-size:.75rem;color:var(--text-dim)">
+    Scans run automatically via GitHub Actions. Data is publicly available at <code>/data/daily-scan.json</code>.
+    Want to add a package? <a href="https://github.com/mopanc/depguard/issues" target="_blank" rel="noopener" style="color:var(--accent)">Open an issue</a>.
+  </p>
+</section>
+
+</div>
+
+<!-- ================================================================
      PAGE: CONTACT
      ================================================================ -->
 <div data-page="contact" hidden>
@@ -1020,6 +1093,7 @@
     <nav class="footer-links" aria-label="Footer navigation">
       <a href="#/" data-nav>Home</a>
       <a href="#/docs" data-nav>Docs</a>
+      <a href="#/ranking" data-nav>Ranking</a>
       <a href="#/security" data-nav>Security</a>
       <a href="#/changelog" data-nav>Changelog</a>
       <a href="https://github.com/mopanc/depguard" target="_blank" rel="noopener">GitHub</a>
@@ -1262,8 +1336,126 @@ async function runLiveAudit(pkg) {
   }
 }
 
+// ============ RANKING ============
+let rankingData = null;
+let rankingLoaded = false;
+
+async function loadRanking() {
+  if (rankingLoaded) return;
+  rankingLoaded = true;
+  try {
+    const res = await fetch('/data/daily-scan.json');
+    if (!res.ok) throw new Error('No data');
+    rankingData = await res.json();
+    renderRanking(rankingData);
+  } catch {
+    document.getElementById('ranking-body').innerHTML =
+      '<tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-dim)">No scan data yet. First scan runs at 06:00 UTC.</td></tr>';
+  }
+}
+
+function renderRanking(data) {
+  // Stats
+  const clean = data.packages.filter(p => p.score >= 60).length;
+  const warnings = data.packages.filter(p => p.score >= 40 && p.score < 60).length;
+  const danger = data.packages.filter(p => p.score < 40 || p.compromised).length;
+  document.getElementById('ranking-total').textContent = data.totalPackages;
+  document.getElementById('ranking-clean').textContent = clean;
+  document.getElementById('ranking-warnings').textContent = warnings;
+  document.getElementById('ranking-danger').textContent = danger;
+  document.getElementById('ranking-date').textContent = data.date;
+
+  // Alerts
+  if (data.alerts && data.alerts.length > 0) {
+    const alertsEl = document.getElementById('ranking-alerts');
+    const listEl = document.getElementById('ranking-alerts-list');
+    alertsEl.hidden = false;
+    listEl.innerHTML = data.alerts.map(a => {
+      const color = a.severity === 'critical' ? 'var(--red)' : a.severity === 'high' ? 'var(--orange)' : a.severity === 'medium' ? 'var(--yellow)' : 'var(--accent)';
+      const icon = a.severity === 'critical' ? '!!!' : a.severity === 'high' ? '!!' : a.severity === 'info' ? 'i' : '!';
+      return `<div class="ranking-alert" style="border-left-color:${color}">
+        <span class="ranking-alert-badge" style="color:${color}">[${icon}]</span>
+        <span>${escapeHtml(a.message)}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Table
+  renderRankingRows(data.packages);
+}
+
+function renderRankingRows(packages) {
+  const body = document.getElementById('ranking-body');
+  body.innerHTML = packages.map(p => {
+    const scoreColor = p.score >= 60 ? 'var(--accent)' : p.score >= 40 ? 'var(--orange)' : 'var(--red)';
+    const barPct = Math.min(p.score, 100);
+
+    // Trend indicator
+    let trend = '';
+    if (p.prevRank !== null && p.prevRank !== p.rank) {
+      const diff = p.prevRank - p.rank;
+      if (diff > 0) trend = `<span style="color:var(--accent)">&#9650;${diff}</span>`;
+      else trend = `<span style="color:var(--red)">&#9660;${Math.abs(diff)}</span>`;
+    } else if (p.prevRank === null) {
+      trend = '<span style="color:var(--text-dim)">NEW</span>';
+    } else {
+      trend = '<span style="color:var(--text-dim)">&mdash;</span>';
+    }
+
+    // Vulns
+    const totalVulns = p.vulns.critical + p.vulns.high + p.vulns.moderate + p.vulns.low;
+    let vulnStr = '<span style="color:var(--accent)">0</span>';
+    if (totalVulns > 0) {
+      const parts = [];
+      if (p.vulns.critical) parts.push(`<span style="color:var(--red)">${p.vulns.critical}C</span>`);
+      if (p.vulns.high) parts.push(`<span style="color:var(--orange)">${p.vulns.high}H</span>`);
+      if (p.vulns.moderate + p.vulns.low) parts.push(`${p.vulns.moderate + p.vulns.low}L`);
+      vulnStr = parts.join(' ');
+    }
+
+    // Downloads
+    const dl = p.downloads >= 1e6 ? (p.downloads / 1e6).toFixed(1).replace(/\.0$/, '') + 'M'
+      : p.downloads >= 1e3 ? (p.downloads / 1e3).toFixed(0) + 'K' : String(p.downloads);
+
+    // Row highlight for compromised/dangerous
+    const rowClass = p.compromised ? 'ranking-row-danger' : p.score < 40 ? 'ranking-row-warn' : '';
+
+    return `<tr class="${rowClass}">
+      <td style="color:var(--text-dim)">${p.rank}</td>
+      <td>
+        <span class="ranking-pkg-name">${escapeHtml(p.name)}</span>
+        <span class="ranking-pkg-version">${escapeHtml(p.version)}</span>
+        ${p.compromised ? '<span class="ranking-badge-danger">COMPROMISED</span>' : ''}
+        ${p.deprecated ? '<span class="ranking-badge-warn">DEPRECATED</span>' : ''}
+      </td>
+      <td>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <span style="color:${scoreColor};font-weight:600;min-width:24px">${p.score}</span>
+          <span class="score-bar-inline" style="flex:1"><span class="score-fill-inline" style="width:${barPct}%;background:${scoreColor}"></span></span>
+        </div>
+      </td>
+      <td>${vulnStr}</td>
+      <td style="color:var(--text-muted)">${dl}/w</td>
+      <td>${trend}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterRanking() {
+  if (!rankingData) return;
+  const q = document.getElementById('ranking-search').value.toLowerCase().trim();
+  const filtered = q ? rankingData.packages.filter(p => p.name.includes(q)) : rankingData.packages;
+  renderRankingRows(filtered);
+}
+
 // ============ INIT ============
 route();
+
+// Load ranking data when navigating to that page
+window.addEventListener('hashchange', () => {
+  if (location.hash === '#/ranking') loadRanking();
+});
+if (location.hash === '#/ranking') loadRanking();
 </script>
 
 </body>

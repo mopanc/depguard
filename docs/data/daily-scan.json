@@ -1,0 +1,22 @@
+{
+  "date": "2026-04-09",
+  "scannedAt": "2026-04-09T06:00:00.000Z",
+  "totalPackages": 10,
+  "totalAlerts": 2,
+  "packages": [
+    {"name":"react","version":"19.1.0","score":92,"prevScore":null,"rank":1,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":0,"low":0},"license":"MIT","downloads":28100000,"deprecated":false,"compromised":false,"codeFindings":0,"lastPublish":"2026-03-15"},
+    {"name":"express","version":"4.21.2","score":88,"prevScore":null,"rank":2,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":0,"low":0},"license":"MIT","downloads":35200000,"deprecated":false,"compromised":false,"codeFindings":0,"lastPublish":"2026-02-01"},
+    {"name":"next","version":"15.1.0","score":85,"prevScore":null,"rank":3,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":0,"low":0},"license":"MIT","downloads":7800000,"deprecated":false,"compromised":false,"codeFindings":0,"lastPublish":"2026-03-20"},
+    {"name":"chalk","version":"5.4.1","score":84,"prevScore":null,"rank":4,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":0,"low":0},"license":"MIT","downloads":280000000,"deprecated":false,"compromised":false,"codeFindings":0,"lastPublish":"2025-12-01"},
+    {"name":"vue","version":"3.5.0","score":82,"prevScore":null,"rank":5,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":0,"low":0},"license":"MIT","downloads":5200000,"deprecated":false,"compromised":false,"codeFindings":0,"lastPublish":"2026-01-10"},
+    {"name":"lodash","version":"4.17.21","score":78,"prevScore":null,"rank":6,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":0,"low":0},"license":"MIT","downloads":52400000,"deprecated":false,"compromised":false,"codeFindings":0,"lastPublish":"2021-02-20"},
+    {"name":"axios","version":"1.7.9","score":72,"prevScore":null,"rank":7,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":1,"low":0},"license":"MIT","downloads":48900000,"deprecated":false,"compromised":false,"codeFindings":0,"lastPublish":"2025-11-01"},
+    {"name":"moment","version":"2.30.1","score":48,"prevScore":null,"rank":8,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":1,"low":1},"license":"MIT","downloads":18200000,"deprecated":true,"compromised":false,"codeFindings":0,"lastPublish":"2024-01-01"},
+    {"name":"colors","version":"1.4.0","score":0,"prevScore":null,"rank":9,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":0,"low":0},"license":"MIT","downloads":21000000,"deprecated":false,"compromised":true,"codeFindings":0,"lastPublish":"2022-01-09"},
+    {"name":"event-stream","version":"4.0.1","score":0,"prevScore":null,"rank":10,"prevRank":null,"vulns":{"critical":0,"high":0,"moderate":0,"low":0},"license":"MIT","downloads":2100000,"deprecated":false,"compromised":true,"codeFindings":0,"lastPublish":"2019-04-20"}
+  ],
+  "alerts": [
+    {"package":"colors","type":"compromised","severity":"critical","message":"colors is a KNOWN COMPROMISED package — protestware that corrupts console output"},
+    {"package":"event-stream","type":"compromised","severity":"critical","message":"event-stream is a KNOWN COMPROMISED package — cryptocurrency wallet theft"}
+  ]
+}

@@ -1,0 +1,37 @@
+name: Daily Security Scan
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # 06:00 UTC daily
+  workflow_dispatch: # allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Run daily scan
+        run: npx tsx scripts/daily-scan.ts
+        timeout-minutes: 30
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push results
+        run: |
+          git config user.name "depguard-bot"
+          git config user.email "depguard-bot@users.noreply.github.com"
+          git add docs/data/daily-scan.json
+          git diff --staged --quiet || git commit -m "data: daily security scan $(date -u +%Y-%m-%d)"
+          git push
