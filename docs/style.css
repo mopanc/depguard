@@ -1403,6 +1403,16 @@
       color: var(--text-bright);
     }
 
+    .ranking-pkg-name a {
+      color: var(--text-bright);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--border-bright);
+    }
+    .ranking-pkg-name a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
     .ranking-pkg-version {
       font-size: .7rem;
       color: var(--text-dim);
@@ -1480,6 +1490,186 @@
       margin-left: .4rem;
       text-transform: uppercase;
       letter-spacing: .03em;
+    }
+
+    /* Package detail modal */
+    .pkg-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 7, 13, 0.85);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(4px);
+    }
+    .pkg-modal-overlay[hidden] { display: none; }
+
+    .pkg-modal {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-bright);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 560px;
+      max-height: 85vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pkg-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pkg-modal-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin: 0;
+    }
+
+    .pkg-modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0 .3rem;
+      line-height: 1;
+    }
+    .pkg-modal-close:hover { color: var(--text-bright); }
+
+    .pkg-modal-body {
+      padding: 1.5rem;
+      flex: 1;
+    }
+
+    .pkg-modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .8rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .pkg-modal-powered {
+      font-size: .65rem;
+      color: var(--text-dim);
+    }
+
+    .pkg-modal-loading {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+    }
+
+    .pkg-modal-error {
+      text-align: center;
+      padding: 2rem;
+      color: var(--orange);
+    }
+
+    .modal-banner-danger {
+      background: rgba(255, 77, 106, 0.12);
+      color: var(--red);
+      font-weight: 700;
+      font-size: .8rem;
+      padding: .8rem 1rem;
+      border-radius: var(--radius);
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: .03em;
+    }
+
+    .modal-score-section {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-score-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .modal-score-bar {
+      flex: 1;
+      height: 10px;
+      background: var(--bg-surface);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .modal-score-fill {
+      height: 100%;
+      border-radius: 5px;
+      transition: width .6s cubic-bezier(.4,0,.2,1);
+    }
+
+    .modal-score-label {
+      font-size: .85rem;
+      color: var(--text-dim);
+    }
+
+    .modal-grid {
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+    }
+
+    .modal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .8rem;
+    }
+
+    .modal-label {
+      color: var(--text-muted);
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .modal-vuln-badge {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 700;
+      color: #fff;
+      padding: .15rem .5rem;
+      border-radius: 4px;
+    }
+
+    .modal-warning {
+      font-size: .75rem;
+      color: var(--orange);
+      padding: .4rem 0;
+    }
+
+    .modal-cli-hint {
+      margin-top: 1.2rem;
+      padding: .6rem .8rem;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: .75rem;
+      color: var(--text-dim);
+    }
+    .modal-cli-hint code {
+      color: var(--accent);
     }
 
     .ranking-pagination {

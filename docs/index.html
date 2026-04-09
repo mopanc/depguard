@@ -1032,6 +1032,23 @@
   </p>
 </section>
 
+<!-- Package detail modal -->
+<div class="pkg-modal-overlay" id="pkg-modal-overlay" hidden onclick="closePkgModal(event)">
+  <div class="pkg-modal" onclick="event.stopPropagation()">
+    <div class="pkg-modal-header">
+      <h3 id="pkg-modal-title">Package Details</h3>
+      <button class="pkg-modal-close" onclick="closePkgModal()" aria-label="Close">&times;</button>
+    </div>
+    <div class="pkg-modal-body" id="pkg-modal-body">
+      <div class="pkg-modal-loading">Loading audit data...</div>
+    </div>
+    <div class="pkg-modal-footer">
+      <button class="btn-ghost" id="pkg-modal-share" onclick="sharePkgModal()">Copy link</button>
+      <span class="pkg-modal-powered">Powered by depguard live audit</span>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <!-- ================================================================
@@ -1482,7 +1499,7 @@ function renderRankingRows(pageItems) {
     return `<tr class="${rowClass}">
       <td style="color:var(--text-dim)">${p.rank}</td>
       <td>
-        <div class="ranking-pkg-name">${escapeHtml(p.name)}<span class="ranking-pkg-version">${escapeHtml(p.version)}</span></div>
+        <div class="ranking-pkg-name"><a href="#" onclick="openPkgModal('${escapeHtml(p.name)}');return false">${escapeHtml(p.name)}</a><span class="ranking-pkg-version">${escapeHtml(p.version)}</span></div>
         ${p.compromised ? '<span class="ranking-badge-danger">COMPROMISED</span>' : ''}
         ${p.deprecated ? '<span class="ranking-badge-warn">DEPRECATED</span>' : ''}
         ${note}
@@ -1509,14 +1526,180 @@ function filterRanking() {
   renderRankingPage();
 }
 
+// ============ PACKAGE DETAIL MODAL ============
+let currentModalPkg = null;
+
+function openPkgModal(name) {
+  currentModalPkg = name;
+  const overlay = document.getElementById('pkg-modal-overlay');
+  const title = document.getElementById('pkg-modal-title');
+  const body = document.getElementById('pkg-modal-body');
+
+  title.textContent = name;
+  body.innerHTML = '<div class="pkg-modal-loading"><span class="spinner"></span> Fetching live audit data...</div>';
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+
+  // Update URL for sharing
+  history.replaceState(null, '', `#/ranking?pkg=${encodeURIComponent(name)}`);
+
+  fetch(`/api/audit?package=${encodeURIComponent(name)}`)
+    .then(r => { if (!r.ok) throw new Error('API error'); return r.json(); })
+    .then(d => renderPkgModal(name, d))
+    .catch(() => {
+      body.innerHTML = `<div class="pkg-modal-error">Could not fetch live data for <strong>${escapeHtml(name)}</strong>. Try: <code>npx depguard-cli audit ${escapeHtml(name)}</code></div>`;
+    });
+}
+
+function closePkgModal(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('pkg-modal-overlay').hidden = true;
+  document.body.style.overflow = '';
+  currentModalPkg = null;
+  history.replaceState(null, '', '#/ranking');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePkgModal(); });
+
+function sharePkgModal() {
+  if (!currentModalPkg) return;
+  const url = `${location.origin}/#/ranking?pkg=${encodeURIComponent(currentModalPkg)}`;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('pkg-modal-share');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy link', 2000);
+  });
+}
+
+function renderPkgModal(name, d) {
+  const safe = escapeHtml;
+  const body = document.getElementById('pkg-modal-body');
+
+  const score = d.score ?? 0;
+  const scoreColor = score >= 60 ? 'var(--accent)' : score >= 40 ? 'var(--orange)' : 'var(--red)';
+  const barPct = Math.min(score, 100);
+
+  // Vulnerabilities detail
+  const v = d.vulns || {};
+  const totalVulns = (v.critical||0) + (v.high||0) + (v.moderate||0) + (v.low||0);
+  let vulnHtml = '<span style="color:var(--accent)">No known vulnerabilities</span>';
+  if (totalVulns > 0) {
+    const parts = [];
+    if (v.critical) parts.push(`<span class="modal-vuln-badge" style="background:var(--red)">${v.critical} Critical</span>`);
+    if (v.high) parts.push(`<span class="modal-vuln-badge" style="background:var(--orange)">${v.high} High</span>`);
+    if (v.moderate) parts.push(`<span class="modal-vuln-badge" style="background:var(--yellow);color:var(--bg)">${v.moderate} Moderate</span>`);
+    if (v.low) parts.push(`<span class="modal-vuln-badge" style="background:var(--text-dim)">${v.low} Low</span>`);
+    vulnHtml = parts.join(' ');
+  }
+
+  // License
+  const licCompat = d.licenseCompatible === true ? '<span style="color:var(--accent)">Compatible with MIT</span>'
+    : d.licenseCompatible === false ? '<span style="color:var(--orange)">Incompatible with MIT</span>'
+    : '<span style="color:var(--text-dim)">Unknown compatibility</span>';
+
+  // Maintenance
+  const maint = d.deprecated ? '<span style="color:var(--orange)">Deprecated</span>'
+    : d.lastPublish ? (daysSince(d.lastPublish) < 365 ? '<span style="color:var(--accent)">Active</span>' : '<span style="color:var(--orange)">Stale</span>')
+    : '<span style="color:var(--text-dim)">Unknown</span>';
+
+  // Scripts
+  const scripts = d.scripts?.hasInstallScripts
+    ? `<span style="color:var(--orange)">${d.scripts.risks?.length || 0} risk(s) detected</span>`
+    : '<span style="color:var(--accent)">No install scripts</span>';
+
+  // Code analysis
+  const code = d.codeAnalysis
+    ? (d.codeAnalysis.skipped ? '<span style="color:var(--text-dim)">Skipped (package too large)</span>'
+      : d.codeAnalysis.findings > 0 ? `<span style="color:var(--orange)">${d.codeAnalysis.findings} finding(s)</span>`
+      : '<span style="color:var(--accent)">Clean — 0 findings</span>')
+    : '<span style="color:var(--text-dim)">N/A</span>';
+
+  // Maintainers
+  let maintainerHtml = '';
+  if (d.maintainers) {
+    const risk = d.maintainers.risk || d.maintainers.riskLevel || 'none';
+    const flags = d.maintainers.flags || [];
+    if (risk !== 'none' || flags.length > 0) {
+      const riskColor = risk === 'high' ? 'var(--red)' : 'var(--orange)';
+      maintainerHtml = `<div class="modal-row">
+        <span class="modal-label">Maintainers</span>
+        <span style="color:${riskColor}">${safe(flags.join(', ') || risk)}</span>
+      </div>`;
+    }
+  }
+
+  // Compromised
+  let compromisedHtml = '';
+  if (d.compromised) {
+    compromisedHtml = `<div class="modal-banner-danger">KNOWN COMPROMISED PACKAGE — Do not install</div>`;
+  }
+
+  // Warnings
+  let warningsHtml = '';
+  if (d.warnings?.length) {
+    warningsHtml = d.warnings.map(w => `<div class="modal-warning">${safe(w)}</div>`).join('');
+  }
+
+  body.innerHTML = `
+    ${compromisedHtml}
+    <div class="modal-score-section">
+      <div class="modal-score-number" style="color:${scoreColor}">${score}</div>
+      <div class="modal-score-bar"><div class="modal-score-fill" style="width:${barPct}%;background:${scoreColor}"></div></div>
+      <div class="modal-score-label">/100</div>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-row">
+        <span class="modal-label">Version</span>
+        <span>${safe(d.version || '?')}</span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">License</span>
+        <span>${safe(d.license || 'Unknown')} &mdash; ${licCompat}</span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">Downloads</span>
+        <span>${formatNumber(d.downloads || 0)}/week</span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">Maintenance</span>
+        ${maint}
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">Vulnerabilities</span>
+        <span>${vulnHtml}</span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">Install Scripts</span>
+        ${scripts}
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">Code Analysis</span>
+        ${code}
+      </div>
+      ${maintainerHtml}
+    </div>
+    ${warningsHtml}
+    <div class="modal-cli-hint">
+      <code>npx depguard-cli audit ${safe(name)}</code>
+    </div>
+  `;
+}
+
+// Check for ?pkg= param on ranking page load
+function checkModalParam() {
+  const hash = location.hash;
+  if (!hash.startsWith('#/ranking')) return;
+  const match = hash.match(/[?&]pkg=([^&]+)/);
+  if (match) openPkgModal(decodeURIComponent(match[1]));
+}
+
 // ============ INIT ============
 route();
 
 // Load ranking data when navigating to that page
 window.addEventListener('hashchange', () => {
-  if (location.hash === '#/ranking') loadRanking();
+  if (location.hash.startsWith('#/ranking')) { loadRanking(); checkModalParam(); }
 });
-if (location.hash === '#/ranking') loadRanking();
+if (location.hash.startsWith('#/ranking')) { loadRanking(); checkModalParam(); }
 </script>
 
 </body>
