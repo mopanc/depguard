@@ -19,6 +19,29 @@ export { analyzePublicationTimeline } from './publication-analysis.js'
 export { checkLicenseCompatibility, knownLicenses } from './license.js'
 export { clearCache, fetchBulkAdvisories, fetchGitHubAdvisories, isGitHubRateLimited, getGitHubRateLimit } from './registry.js'
 export { calculateSavings, estimateTokens } from './tokens.js'
+export { generateSBOM, makePurl, parseIntegrity } from './sbom.js'
+export type { SBOMOptions } from './sbom.js'
+export type {
+  CycloneDXBom,
+  CycloneDXSpecVersion,
+  BomMetadata,
+  ToolComponent,
+  Component,
+  ComponentType,
+  ComponentScope,
+  Hash,
+  HashAlgorithm,
+  License,
+  ExternalReference,
+  Dependency,
+  Vulnerability,
+  VulnerabilityRating,
+  VulnerabilityAffect,
+  VulnerabilitySeverity,
+  VulnerabilityMethod,
+  AffectedStatus,
+} from './sbom-types.js'
+export { DEPGUARD_VERSION } from './version.js'
 export type {
   AdvisorOptions,
   AuditReport,

@@ -9,7 +9,9 @@ import { guard } from './guard.js'
 import { sweep } from './sweep.js'
 import { auditTransitive } from './transitive.js'
 import { review } from './review.js'
+import { generateSBOM } from './sbom.js'
 import { loadStats, recordCall } from './stats.js'
+import { writeFileSync } from 'node:fs'
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -22,6 +24,8 @@ const { values, positionals } = parseArgs({
     'block': { type: 'boolean', default: false },
     'include-dev': { type: 'boolean', default: false },
     'full': { type: 'boolean', default: false },
+    'include-vex': { type: 'boolean', default: false },
+    'output': { type: 'string', short: 'o' },
     'help': { type: 'boolean', short: 'h', default: false },
   },
 })
@@ -49,6 +53,7 @@ Commands:
   sweep [path]             Detect unused dependencies in a project
   audit-deep <package>     Deep transitive dependency tree audit
   review [path]            AI code review (detect debris left by AI agents)
+  sbom <path/package.json> Generate CycloneDX 1.6 SBOM for a project
   stats                    Show local usage statistics
 
 Options:
@@ -58,7 +63,9 @@ Options:
   --json                   Output as JSON
   --mcp                    Start MCP server (JSON-RPC over stdio)
   --block                  Guard: escalate warnings to blocks
-  --include-dev            Sweep: include devDependencies
+  --include-dev            Sweep/sbom: include devDependencies
+  --include-vex            Sbom: include VEX vulnerability data (runs audit)
+  -o, --output <file>      Sbom: write to file instead of stdout
   -h, --help               Show this help
 `)
   process.exit(0)
@@ -285,6 +292,28 @@ async function main() {
       break
     }
 
+    case 'sbom': {
+      const pkgPath = positionals[1]
+      if (!pkgPath) {
+        console.error('Usage: depguard-cli sbom <path-to-package.json> [--include-vex] [--include-dev] [--output <file>]')
+        process.exit(1)
+      }
+      const bom = await generateSBOM(pkgPath, {
+        includeVex: values['include-vex'] ?? false,
+        includeDevDependencies: values['include-dev'] ?? false,
+        targetLicense,
+      })
+      recordCall('depguard_sbom', { packagesAudited: bom.components?.length ?? 0 })
+      const serialized = JSON.stringify(bom, null, 2)
+      if (values.output) {
+        writeFileSync(values.output, serialized + '\n')
+        console.error(`Wrote CycloneDX 1.6 SBOM to ${values.output} (${bom.components?.length ?? 0} components)`)
+      } else {
+        process.stdout.write(serialized + '\n')
+      }
+      break
+    }
+
     case 'stats': {
       const stats = loadStats()
       if (json) {
@@ -313,7 +342,7 @@ async function main() {
     }
 
     default:
-      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep, audit-deep, review, stats`)
+      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep, audit-deep, review, sbom, stats`)
       process.exit(1)
   }
 }

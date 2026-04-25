@@ -1,6 +1,6 @@
 # depguard-cli
 
-MCP security server for AI coding agents. 11 tools: **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, and smart recommendations.
+MCP security server for AI coding agents. 12 tools: **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, smart recommendations, and **CycloneDX 1.6 SBOM generation**.
 
 Your AI agent verifies every `npm install` before it happens. Tarball download and source code scanning detects malware patterns, obfuscation, and behavioral mismatches. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
 
@@ -43,6 +43,9 @@ depguard-cli audit-deep <package> [--json]
 # AI code review (detect debris left by AI agents)
 depguard-cli review [path] [--full] [--json]
 
+# Generate a CycloneDX 1.6 SBOM (Software Bill of Materials)
+depguard-cli sbom <path/package.json> [--include-vex] [--include-dev] [-o out.json]
+
 # Local usage statistics (calls, tokens saved, threats blocked)
 depguard-cli stats [--json]
 ```
@@ -77,7 +80,7 @@ depguard-cli sweep . --include-dev
 ## API
 
 ```typescript
-import { audit, search, score, scoreFromReport, shouldUse, guard, verify, sweep, auditBulk, auditProject } from 'depguard-cli'
+import { audit, search, score, scoreFromReport, shouldUse, guard, verify, sweep, auditBulk, auditProject, generateSBOM } from 'depguard-cli'
 
 // Full audit report (now includes static code analysis)
 const report = await audit('express', 'MIT')
@@ -230,6 +233,7 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 | `depguard_sweep` | Dead dependency detection: find unused packages in a project |
 | `depguard_audit_deep` | Deep transitive dependency tree audit with vulnerability aggregation |
 | `depguard_review` | AI Code Review: detect debris left by AI agents (console.logs, empty catch, broken imports, orphan files) |
+| `depguard_sbom` | Generate a CycloneDX 1.6 SBOM (with optional VEX vulnerability data) for compliance, supply-chain, and EU CRA / US EO 14028 use cases |
 
 **Which tool should I use?**
 
@@ -243,6 +247,7 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 | "Find a library for X" | `depguard_search` |
 | "Clean up unused deps" | `depguard_sweep` |
 | "Review my code" | `depguard_review` |
+| "Generate an SBOM" / "I need a CycloneDX file" | `depguard_sbom` |
 
 ### Bulk audit
 
@@ -282,6 +287,34 @@ console.log(report.packageManagerAudit?.vulnerabilities)
 ```
 
 Via MCP, the agent just passes the file path — depguard reads it, detects the project license, scans the lock file for transitive deps, and audits everything.
+
+### SBOM generation (CycloneDX 1.6)
+
+Generate a Software Bill of Materials in CycloneDX 1.6 format for compliance with the **EU Cyber Resilience Act**, **US Executive Order 14028 / OMB M-22-18**, SOC 2, FedRAMP, and any enterprise procurement process that requires SBOMs from suppliers. The output is consumed unchanged by downstream tools like Dependency-Track, Trivy, Grype, and OWASP DT.
+
+```bash
+# Write SBOM to disk (109 components for the depguard repo itself)
+depguard-cli sbom ./package.json -o sbom.cdx.json
+
+# Include VEX vulnerability data (CVEs/GHSAs inline, with CVSS + patched versions)
+depguard-cli sbom ./package.json --include-vex --include-dev -o sbom.cdx.json
+```
+
+```typescript
+import { generateSBOM } from 'depguard-cli'
+
+const bom = await generateSBOM('./package.json', {
+  includeVex: true,
+  includeDevDependencies: true,
+})
+console.log(bom.specVersion)         // '1.6'
+console.log(bom.components?.length)  // 109
+console.log(bom.vulnerabilities)     // [{ id: 'GHSA-...', ratings: [...], affects: [...] }, ...]
+```
+
+The CycloneDX serialization is implemented natively in TypeScript against the public CycloneDX 1.6 JSON Schema — depguard does **not** depend on `@cyclonedx/cyclonedx-library` or any other runtime package, preserving the zero-runtime-dependencies guarantee. Output validity is verified against the official CycloneDX validator.
+
+PURLs follow the [Package URL spec](https://github.com/package-url/purl-spec/blob/main/PURL-TYPES.rst#npm) (`pkg:npm/lodash@4.17.21`, `pkg:npm/%40types/node@20.0.0`). Integrity hashes (SHA-512) are extracted from `package-lock.json` and converted from base64 to hex per the CycloneDX schema.
 
 ## Pre-Install Guardian
 

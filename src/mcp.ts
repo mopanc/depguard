@@ -19,13 +19,15 @@ import { guard, verify } from './guard.js'
 import { sweep } from './sweep.js'
 import { auditTransitive } from './transitive.js'
 import { review } from './review.js'
+import { generateSBOM } from './sbom.js'
 import { scoreFromReport } from './scorer.js'
 import { calculateSavings } from './tokens.js'
 import { printStatsBanner, recordCall, setVersion } from './stats.js'
+import { DEPGUARD_VERSION } from './version.js'
 
 const SERVER_INFO = {
   name: 'depguard',
-  version: '1.8.4',
+  version: DEPGUARD_VERSION,
 }
 
 const TOOLS = [
@@ -176,6 +178,20 @@ const TOOLS = [
       required: ['packages'],
     },
   },
+  {
+    name: 'depguard_sbom',
+    description: 'Generate a CycloneDX 1.6 Software Bill of Materials (SBOM) for an npm project. Reads package.json + lock file to enumerate direct + transitive components with PURLs and integrity hashes. Set includeVex=true to embed vulnerability data (VEX) from the audit pipeline. Use this when the user asks for an SBOM, a compliance report, or to comply with EU CRA / US EO 14028 requirements.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        path: { type: 'string', description: 'Absolute path to package.json file' },
+        includeVex: { type: 'boolean', description: 'Include vulnerability data (VEX section). Default: false. Slower because it runs auditProject under the hood.' },
+        includeDevDependencies: { type: 'boolean', description: 'Include devDependencies in the dependency graph (default: false)' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check when includeVex is true (default: MIT)' },
+      },
+      required: ['path'],
+    },
+  },
 ]
 
 interface JsonRpcRequest {
@@ -276,6 +292,22 @@ function condenseResult(data: Record<string, unknown>, toolName: string): Record
       phantomDeps: phantomDeps?.slice(0, 20),
       _condensed: true,
       _note: `Response condensed. Showing first 20 of each category. Full counts: ${unused?.length ?? 0} unused, ${maybeUnused?.length ?? 0} maybe-unused, ${phantomDeps?.length ?? 0} phantom.`,
+    }
+  }
+
+  // For SBOM: keep envelope + counts, drop the per-component list when too large
+  if (toolName === 'depguard_sbom') {
+    const components = data.components as unknown[] | undefined
+    const vulns = data.vulnerabilities as unknown[] | undefined
+    return {
+      bomFormat: data.bomFormat,
+      specVersion: data.specVersion,
+      serialNumber: data.serialNumber,
+      version: data.version,
+      metadata: data.metadata,
+      _condensed: true,
+      _note: `SBOM condensed for MCP transport. Components: ${components?.length ?? 0}. Vulnerabilities: ${vulns?.length ?? 0}. Use the depguard-cli sbom command (or pass --output) to write the full document to disk.`,
+      tokenSavings: data.tokenSavings,
     }
   }
 
@@ -441,6 +473,25 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
               includeDevDependencies: (args.includeDevDependencies as boolean) ?? false,
             })
             return success(req.id, toolResult('depguard_sweep', result))
+          }
+
+          case 'depguard_sbom': {
+            const filePath = args.path as string
+            if (!filePath) return error(req.id, -32602, 'path is required')
+            try {
+              const result = await generateSBOM(filePath, {
+                includeVex: (args.includeVex as boolean) ?? false,
+                includeDevDependencies: (args.includeDevDependencies as boolean) ?? false,
+                targetLicense: args.targetLicense as string | undefined,
+              })
+              return success(req.id, toolResult('depguard_sbom', result, result.components?.length ?? 0))
+            } catch (err) {
+              const msg = err instanceof Error ? err.message : 'Failed to generate SBOM'
+              return success(req.id, {
+                content: [{ type: 'text', text: `Error: ${msg}` }],
+                isError: true,
+              })
+            }
           }
 
           default:

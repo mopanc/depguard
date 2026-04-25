@@ -1,7 +1,7 @@
 {
   "name": "depguard-cli",
-  "version": "1.8.4",
-  "description": "MCP security server for AI coding agents. Static code analysis, behavioral detection, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit. 11 tools. Zero dependencies.",
+  "version": "1.9.0",
+  "description": "MCP security server for AI coding agents. Static code analysis, behavioral detection, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, CycloneDX SBOM generation. 12 tools. Zero dependencies.",
   "author": "Jorge Morais",
   "license": "Apache-2.0",
   "type": "module",
@@ -46,7 +46,10 @@
     "package",
     "vulnerability",
     "maintenance",
-    "advisor"
+    "advisor",
+    "sbom",
+    "cyclonedx",
+    "supply-chain"
   ],
   "repository": {
     "type": "git",

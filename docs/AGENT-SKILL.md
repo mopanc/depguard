@@ -6,7 +6,7 @@
 
 ## What is depguard?
 
-depguard is an MCP server that provides real-time npm security auditing. It gives you 11 tools to check vulnerabilities, supply chain attacks, license compliance, maintenance health, and package quality — before installing any dependency.
+depguard is an MCP server that provides real-time npm security auditing. It gives you 12 tools to check vulnerabilities, supply chain attacks, license compliance, maintenance health, package quality, and to generate CycloneDX 1.6 SBOMs — before installing any dependency.
 
 ## When to use depguard
 
@@ -81,6 +81,15 @@ Call this to audit a list of packages in parallel.
 
 **Use when:** Comparing a shortlist of candidates, auditing a subset of dependencies.
 
+### 7. `depguard_sbom` — Generate a CycloneDX 1.6 SBOM.
+
+Call this when the user asks for an SBOM, a Software Bill of Materials, a CycloneDX file, or mentions a compliance requirement (EU CRA, US EO 14028, OMB M-22-18, SOC 2, FedRAMP, supplier security questionnaire).
+
+**Input:** `{ "path": "./package.json", "includeVex": true, "includeDevDependencies": false }`
+**Returns:** A CycloneDX 1.6 BOM document with components (PURLs + integrity hashes), the dependency graph, and (when `includeVex` is true) inline vulnerability data with CVE/GHSA IDs, CVSS ratings, and patched-version recommendations.
+
+**Use when:** "Generate an SBOM", "I need a CycloneDX file for X", "We need to ship an SBOM with our release", "The customer is asking for a Bill of Materials".
+
 ## Quick Decision Flow
 
 | Situation | Tool to use |
@@ -93,6 +102,7 @@ Call this to audit a list of packages in parallel.
 | "Find a library for X" | `depguard_search` |
 | "Clean up unused deps" | `depguard_sweep` |
 | "Review my code" | `depguard_review` |
+| "Generate an SBOM" / "I need CycloneDX" | `depguard_sbom` |
 
 ## Detailed Decision Flow
 

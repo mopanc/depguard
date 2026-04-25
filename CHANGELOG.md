@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] - 2026-04-25
+
+### Added
+
+- **CycloneDX 1.6 SBOM generation** — new `depguard_sbom` MCP tool and `depguard-cli sbom` command produce Software Bill of Materials documents in CycloneDX 1.6 format. Reads `package.json` and lock file to enumerate direct + transitive components with PURLs (Package URLs) and integrity hashes (SHA-512 from `package-lock.json`). Output validates cleanly against the official CycloneDX 1.6 JSON Schema. ([#10](https://github.com/mopanc/depguard/issues/10))
+- **VEX (Vulnerability Exploitability eXchange) support** — pass `--include-vex` (CLI) or `includeVex: true` (MCP) to embed vulnerabilities detected by the existing audit pipeline directly into the SBOM, with GHSA/CVE IDs, CVSS ratings, CWEs, and patched-version recommendations.
+- **SBOM CLI flags** — `-o, --output <file>` writes the BOM to disk; `--include-dev` includes devDependencies in the dependency graph; `--include-vex` enriches with vulnerability data.
+- **Programmatic SBOM API** — `generateSBOM`, `makePurl`, and `parseIntegrity` exported for embedding in other tools, alongside the full CycloneDX 1.6 type definitions.
+- **Centralised version constant** — new `src/version.ts` with `DEPGUARD_VERSION` is now the single source of truth, consumed by both the MCP server identifier and the SBOM tools metadata.
+
+### Changed
+
+- 12 MCP tools (up from 11). 293 tests (up from 270).
+
+### Notes
+
+- The CycloneDX serialization is implemented natively in TypeScript against the public CycloneDX 1.6 JSON Schema, with no dependency on `@cyclonedx/cyclonedx-library` — preserving the project's zero-runtime-dependencies guarantee. Output validity is verified against the official validator.
+
 ## [1.8.4] - 2026-04-08
 
 ### Fixed
