@@ -1,8 +1,8 @@
 import { describe, it, beforeEach } from 'node:test'
 import assert from 'node:assert/strict'
-import { audit } from '../src/audit.js'
+import { audit, mergeAdvisories } from '../src/audit.js'
 import { clearCache, disableDiskCache } from '../src/registry.js'
-import type { FetchFn } from '../src/types.js'
+import type { FetchFn, GitHubAdvisory } from '../src/types.js'
 
 const FIXTURE_PKG = {
   name: 'test-lib',
@@ -149,5 +149,96 @@ describe('audit', () => {
   it('uses latest when version not provided', async () => {
     const report = await audit('test-lib', 'MIT', createMockFetch())
     assert.strictEqual(report.version, '2.5.0') // latest
+  })
+})
+
+// ───────────────────────────────────────────────────────────────────────────
+// Regression tests for the multi-package GHSA bug (CVE-2023-22578 false
+// positive on sequelize@6.37.8). When a GHSA spans multiple npm packages
+// with different vulnerable_version_ranges, mergeAdvisories must pick the
+// entry matching the package being audited — not blindly use [0].
+// ───────────────────────────────────────────────────────────────────────────
+
+function buildSequelizeStyleGhsa(): GitHubAdvisory {
+  return {
+    ghsa_id: 'GHSA-f598-mfpv-gmfx',
+    cve_id: 'CVE-2023-22578',
+    summary: 'Sequelize - Default support for raw attributes when using parentheses',
+    severity: 'critical',
+    html_url: 'https://github.com/advisories/GHSA-f598-mfpv-gmfx',
+    vulnerabilities: [
+      {
+        // Note: @sequelize/core is intentionally first so that vulnerabilities[0]
+        // would yield the wrong range for the `sequelize` package — exactly the
+        // ordering observed in the real GitHub Advisory API response.
+        package: { ecosystem: 'npm', name: '@sequelize/core' },
+        vulnerable_version_range: '< 7.0.0-alpha.20',
+        first_patched_version: '7.0.0-alpha.20',
+      },
+      {
+        package: { ecosystem: 'npm', name: 'sequelize' },
+        vulnerable_version_range: '< 6.29.0',
+        first_patched_version: '6.29.0',
+      },
+    ],
+    cwes: [{ cwe_id: 'CWE-89' }],
+    cvss: { score: 10.0, vector_string: 'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H' },
+  }
+}
+
+describe('mergeAdvisories — multi-package GHSA handling', () => {
+  it('uses the matching package entry, not [0], when auditing sequelize at a patched version', () => {
+    const gh = [buildSequelizeStyleGhsa()]
+    // sequelize@6.37.8 is patched (>= 6.29.0). The advisory should be filtered out.
+    const merged = mergeAdvisories([], gh, '6.37.8', 'sequelize')
+    assert.strictEqual(merged.length, 0, 'sequelize@6.37.8 must not be flagged — patched in 6.29.0')
+  })
+
+  it('flags sequelize at a vulnerable v6 version using the sequelize-specific range', () => {
+    const gh = [buildSequelizeStyleGhsa()]
+    // sequelize@6.20.0 is < 6.29.0, so vulnerable per the npm/sequelize entry.
+    const merged = mergeAdvisories([], gh, '6.20.0', 'sequelize')
+    assert.strictEqual(merged.length, 1)
+    // The captured range and patch must come from the sequelize entry, not @sequelize/core.
+    assert.strictEqual(merged[0].vulnerable_versions, '< 6.29.0')
+    assert.strictEqual(merged[0].patched_versions, '6.29.0')
+    assert.strictEqual(merged[0].severity, 'critical')
+  })
+
+  it('flags @sequelize/core at a vulnerable version using the @sequelize/core-specific range', () => {
+    const gh = [buildSequelizeStyleGhsa()]
+    const merged = mergeAdvisories([], gh, '6.5.0', '@sequelize/core')
+    assert.strictEqual(merged.length, 1)
+    assert.strictEqual(merged[0].vulnerable_versions, '< 7.0.0-alpha.20')
+    assert.strictEqual(merged[0].patched_versions, '7.0.0-alpha.20')
+  })
+
+  it('does not regress single-package advisories', () => {
+    const gh: GitHubAdvisory[] = [{
+      ghsa_id: 'GHSA-xxxx-yyyy-zzzz',
+      cve_id: null,
+      summary: 'Some bug',
+      severity: 'high',
+      html_url: 'https://github.com/advisories/GHSA-xxxx-yyyy-zzzz',
+      vulnerabilities: [{
+        package: { ecosystem: 'npm', name: 'lodash' },
+        vulnerable_version_range: '< 4.17.21',
+        first_patched_version: '4.17.21',
+      }],
+      cwes: [],
+      cvss: null,
+    }]
+    assert.strictEqual(mergeAdvisories([], gh, '4.17.20', 'lodash').length, 1)
+    assert.strictEqual(mergeAdvisories([], gh, '4.17.21', 'lodash').length, 0)
+  })
+
+  it('falls back to [0] defensively when no entry matches the audited name', () => {
+    // This shouldn't happen in practice (GH API only returns advisories matching
+    // our package query), but the fallback preserves prior single-entry behaviour.
+    const gh = [buildSequelizeStyleGhsa()]
+    const merged = mergeAdvisories([], gh, '6.5.0', 'unrelated-pkg')
+    // Falls back to vulnerabilities[0] = @sequelize/core, range matches 6.5.0
+    assert.strictEqual(merged.length, 1)
+    assert.strictEqual(merged[0].vulnerable_versions, '< 7.0.0-alpha.20')
   })
 })

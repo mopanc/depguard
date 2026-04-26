@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.1] - 2026-04-26
+
+### Fixed
+
+- **Critical false positive on packages affected by multi-package GHSAs** — when a single GitHub Security Advisory listed multiple npm packages with different vulnerable version ranges (e.g. `CVE-2023-22578` affects `sequelize` and `@sequelize/core` with patches in `6.29.0` and `7.0.0-alpha.20` respectively), `mergeAdvisories` was always picking the first `vulnerabilities[]` entry's range — causing already-patched packages to be flagged as vulnerable. Now picks the entry matching the audited package by `(ecosystem, name)`, falling back to `[0]` only when no entry matches. Concretely: `sequelize@6.37.8` no longer reports the two phantom CVE-2023-22578 criticals (score moves from a capped 30/100 back to a correct 90/100).
+- Same fix applied to the transitive audit path (`auditTransitive` calls `mergeAdvisories`).
+
+### Tests
+
+- 5 new regression tests in `tests/audit.test.ts` covering the multi-package GHSA scenario, including the exact `sequelize` / `@sequelize/core` case. 298 tests total (up from 293).
+
 ## [1.9.0] - 2026-04-25
 
 ### Added

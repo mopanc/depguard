@@ -165,7 +165,7 @@ export async function auditTransitive(
           fetchAdvisories(item.name, version, fetcher).catch(() => [] as NpmAdvisory[]),
           fetchGitHubAdvisories(item.name, fetcher).catch(() => []),
         ])
-        advisories = mergeAdvisories(npmAdv, ghAdv, version)
+        advisories = mergeAdvisories(npmAdv, ghAdv, version, item.name)
       } catch {
         warnings.push(`Could not fetch advisories for "${item.name}"`)
       }

@@ -23,11 +23,20 @@ function mapGitHubSeverity(severity: string): NpmAdvisory['severity'] {
 /**
  * Merge npm and GitHub advisories, deduplicating by URL.
  * GitHub advisories are converted to NpmAdvisory format.
+ *
+ * `name` is the npm package being audited. It's used to pick the correct
+ * `vulnerabilities[]` entry when a GHSA spans multiple npm packages
+ * (e.g. CVE-2023-22578 affects both `sequelize` and `@sequelize/core`,
+ * with different vulnerable ranges per package). Without this, the [0]
+ * entry's range would be applied regardless of which package we're auditing,
+ * causing false positives like flagging `sequelize@6.37.8` (patched in 6.29.0)
+ * because the `@sequelize/core` range (`< 7.0.0-alpha.20`) still matches.
  */
 export function mergeAdvisories(
   npmAdvisories: NpmAdvisory[],
   ghAdvisories: Awaited<ReturnType<typeof fetchGitHubAdvisories>>,
   currentVersion: string,
+  name: string,
 ): NpmAdvisory[] {
   const seenUrls = new Set<string>()
   const seenCves = new Set<string>()
@@ -57,8 +66,13 @@ export function mergeAdvisories(
       seenCves.add(gh.cve_id)
     }
 
-    // Filter: only include if current version is actually affected
-    const vuln = gh.vulnerabilities?.[0]
+    // Pick the vulnerabilities[] entry that matches the audited package.
+    // Falls back to [0] only if no entry matches (defensive — the GH API
+    // shouldn't return advisories that don't list our package, but if it
+    // does, [0] preserves prior behaviour for single-entry advisories).
+    const vuln = gh.vulnerabilities?.find(
+      v => v.package?.ecosystem === 'npm' && v.package?.name === name,
+    ) ?? gh.vulnerabilities?.[0]
     const range = vuln?.vulnerable_version_range
     if (range && !satisfiesRange(currentVersion, range)) {
       continue // Current version is NOT in the vulnerable range — skip
@@ -140,7 +154,7 @@ export async function audit(
     }),
   ])
 
-  const advisories = mergeAdvisories(npmAdvisories, ghAdvisories, auditVersion)
+  const advisories = mergeAdvisories(npmAdvisories, ghAdvisories, auditVersion, name)
 
   const license = versionData?.license ?? pkg.license ?? null
   const deps = versionData?.dependencies ?? {}
