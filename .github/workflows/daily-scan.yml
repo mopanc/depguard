@@ -14,6 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # PAT for an admin user — main is protected and the default GITHUB_TOKEN
+          # cannot bypass the "require pull request" rule. Admins can (enforce_admins
+          # is false), so we push as the admin via this fine-grained token.
+          token: ${{ secrets.DAILY_SCAN_PAT }}
 
       - uses: actions/setup-node@v4
         with:
@@ -29,36 +34,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Process alerts (dedup, rolling issue)
+        run: npx tsx scripts/daily-scan-alert.ts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
       - name: Commit and push results
         run: |
           git config user.name "depguard-bot"
           git config user.email "depguard-bot@users.noreply.github.com"
-          git add docs/data/daily-scan.json
+          git add docs/data/daily-scan.json .github/state/daily-scan-state.json
           git diff --staged --quiet || git commit -m "data: daily security scan $(date -u +%Y-%m-%d)"
           git push
-
-      - name: Create alert issue if threats detected
-        if: always()
-        run: |
-          ALERTS=$(node -e "
-            const d = require('./docs/data/daily-scan.json');
-            const critical = d.alerts.filter(a => a.severity === 'critical' || a.severity === 'high');
-            if (critical.length === 0) process.exit(0);
-            const body = '## Daily Scan Alert — ' + d.date + '\n\n' +
-              critical.map(a => '- **[' + a.severity.toUpperCase() + ']** ' + a.message).join('\n') +
-              '\n\n---\n' +
-              'Packages scanned: ' + d.totalPackages + '\n' +
-              'Full report: https://depguard.dev/#/ranking\n\n' +
-              '_Automated by depguard daily scan_';
-            console.log(body);
-          " 2>/dev/null) || true
-
-          if [ -n "$ALERTS" ]; then
-            gh issue create \
-              --title "🚨 Security Alert — $(date -u +%Y-%m-%d)" \
-              --body "$ALERTS" \
-              --label "security,automated" \
-              --repo ${{ github.repository }}
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
