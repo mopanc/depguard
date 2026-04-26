@@ -547,7 +547,7 @@ npm run check    # build + lint + test + audit
 
 ## About the author
 
-depguard is built and maintained by **Jorge Morais** — an industrial software engineer based in Braga, Portugal, working on edge-to-cloud systems for industrial operations. More on what I work on at [jorgemopanc.com](https://jorgemopanc.com) and [LinkedIn](https://www.linkedin.com/in/jorge-mopanc/).
+depguard is built and maintained by **Jorge Morais** — Tech Lead at Balanças Marques in Braga, Portugal, working on edge-to-cloud systems for industrial operations. More on what I work on at [jorgemopanc.com](https://jorgemopanc.com) and [LinkedIn](https://www.linkedin.com/in/jorge-mopanc/).
 
 If depguard saves you from installing a malicious package, catches a missed CVE, or unblocks a compliance audit, and you'd like to support the project, [GitHub Sponsors](https://github.com/sponsors/mopanc) is the cleanest way. No expectations — the tool is free and will stay so. Issues, PRs, and bug reports are equally welcome.
 
