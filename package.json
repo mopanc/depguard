@@ -3,6 +3,10 @@
   "version": "1.9.1",
   "description": "MCP security server for AI coding agents. Static code analysis, behavioral detection, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, CycloneDX SBOM generation. 12 tools. Zero dependencies.",
   "author": "Jorge Morais",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/mopanc"
+  },
   "license": "Apache-2.0",
   "type": "module",
   "main": "./dist/index.js",

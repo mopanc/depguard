@@ -4,6 +4,14 @@ MCP security server for AI coding agents. 12 tools: **static code analysis**, pr
 
 Your AI agent verifies every `npm install` before it happens. Tarball download and source code scanning detects malware patterns, obfuscation, and behavioral mismatches. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
 
+## Why this exists
+
+I work on industrial software where every event has to be logged and recoverable. Customers trust the system because the audit trail makes the system trustworthy.
+
+When I started wiring AI coding agents into our internal stack, I realised the npm ecosystem treats supply-chain integrity as someone else's problem — install 1,000 packages, hope for the best. depguard is my attempt to bring the same auditability mindset to the JavaScript dependencies we depend on every day: verify before installing, audit what's already there, generate an SBOM your security team can actually use.
+
+Zero runtime dependencies — because a security tool that pulls in 200 transitive packages is the joke that writes itself.
+
 ## Install
 
 ```bash
@@ -536,6 +544,12 @@ npm run lint     # ESLint (strict)
 npm test         # 270 tests (all offline)
 npm run check    # build + lint + test + audit
 ```
+
+## About the author
+
+depguard is built and maintained by **Jorge Morais** — an industrial software engineer based in Braga, Portugal, working on edge-to-cloud systems for industrial operations. More on what I work on at [jorgemopanc.com](https://jorgemopanc.com) and [LinkedIn](https://www.linkedin.com/in/jorge-mopanc/).
+
+If depguard saves you from installing a malicious package, catches a missed CVE, or unblocks a compliance audit, and you'd like to support the project, [GitHub Sponsors](https://github.com/sponsors/mopanc) is the cleanest way. No expectations — the tool is free and will stay so. Issues, PRs, and bug reports are equally welcome.
 
 ## License
 
