@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { parseArgs } from 'node:util'
+import { DEPGUARD_VERSION } from './version.js'
 import { audit } from './audit.js'
 import { search } from './search.js'
 import { score } from './scorer.js'
@@ -27,8 +28,14 @@ const { values, positionals } = parseArgs({
     'include-vex': { type: 'boolean', default: false },
     'output': { type: 'string', short: 'o' },
     'help': { type: 'boolean', short: 'h', default: false },
+    'version': { type: 'boolean', short: 'v', default: false },
   },
 })
+
+if (values.version) {
+  console.log(DEPGUARD_VERSION)
+  process.exit(0)
+}
 
 // Launch MCP server when --mcp flag is passed
 if (values.mcp) {
@@ -67,6 +74,7 @@ Options:
   --include-vex            Sbom: include VEX vulnerability data (runs audit)
   -o, --output <file>      Sbom: write to file instead of stdout
   -h, --help               Show this help
+  -v, --version            Show version
 `)
   process.exit(0)
 }
