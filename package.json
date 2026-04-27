@@ -26,11 +26,12 @@
     "README.md"
   ],
   "scripts": {
+    "check-version": "node --import tsx scripts/check-version.ts",
     "build": "tsc && cp -r src/data dist/data",
     "test": "node --import tsx --test tests/*.test.ts",
     "lint": "eslint src/ tests/",
     "audit:security": "npm audit --audit-level=high --omit=dev",
-    "check": "npm run build && npm run lint && npm test && npm run audit:security",
+    "check": "npm run check-version && npm run build && npm run lint && npm test && npm run audit:security",
     "prepublishOnly": "npm run check"
   },
   "devDependencies": {
