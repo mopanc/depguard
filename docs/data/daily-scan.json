@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-27",
-  "scannedAt": "2026-04-27T08:14:46.142Z",
+  "date": "2026-04-28",
+  "scannedAt": "2026-04-28T08:18:36.330Z",
   "totalPackages": 173,
   "totalAlerts": 0,
   "packages": [
@@ -222,7 +222,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 5,
-      "lastPublish": "2026-04-27T06:09:40.716Z"
+      "lastPublish": "2026-04-28T06:12:52.384Z"
     },
     {
       "name": "jest",
@@ -332,7 +332,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-04-18T23:43:20.230Z"
+      "lastPublish": "2026-04-27T17:29:13.687Z"
     },
     {
       "name": "turbo",
@@ -1234,7 +1234,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-04-22T14:16:21.011Z"
+      "lastPublish": "2026-04-27T17:22:28.737Z"
     },
     {
       "name": "redis",
@@ -1524,7 +1524,7 @@
     },
     {
       "name": "jose",
-      "version": "6.2.2",
+      "version": "6.2.3",
       "score": 80,
       "prevScore": 80,
       "rank": 70,
@@ -1542,7 +1542,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-03-18T21:27:57.662Z"
+      "lastPublish": "2026-04-27T15:23:35.019Z"
     },
     {
       "name": "node-forge",
@@ -2180,7 +2180,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-04-27T03:11:29.601Z"
+      "lastPublish": "2026-04-28T03:11:51.644Z"
     },
     {
       "name": "knex",
@@ -2448,7 +2448,7 @@
     },
     {
       "name": "engine.io",
-      "version": "6.6.6",
+      "version": "6.6.7",
       "score": 79,
       "prevScore": 79,
       "rank": 112,
@@ -2466,7 +2466,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-03-10T09:54:25.586Z"
+      "lastPublish": "2026-04-27T09:22:33.489Z"
     },
     {
       "name": "nodemon",
@@ -2672,7 +2672,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 122,
-      "prevRank": 123,
+      "prevRank": 122,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2694,7 +2694,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 123,
-      "prevRank": 124,
+      "prevRank": 123,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2716,7 +2716,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 124,
-      "prevRank": 125,
+      "prevRank": 124,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2730,7 +2730,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-04-22T14:16:58.268Z"
+      "lastPublish": "2026-04-27T17:23:06.728Z"
     },
     {
       "name": "eslint",
@@ -2738,7 +2738,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 125,
-      "prevRank": 126,
+      "prevRank": 125,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2760,7 +2760,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 126,
-      "prevRank": 127,
+      "prevRank": 126,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2782,7 +2782,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 127,
-      "prevRank": 128,
+      "prevRank": 127,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2804,7 +2804,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 128,
-      "prevRank": 129,
+      "prevRank": 128,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2826,7 +2826,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 129,
-      "prevRank": 130,
+      "prevRank": 129,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2846,9 +2846,9 @@
       "name": "ms",
       "version": "2.1.3",
       "score": 78,
-      "prevScore": 79,
+      "prevScore": 78,
       "rank": 130,
-      "prevRank": 122,
+      "prevRank": 130,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2910,7 +2910,7 @@
     },
     {
       "name": "stylelint",
-      "version": "17.9.0",
+      "version": "17.9.1",
       "score": 75,
       "prevScore": 75,
       "rank": 133,
@@ -2928,7 +2928,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-04-23T06:52:29.896Z"
+      "lastPublish": "2026-04-27T13:06:06.544Z"
     },
     {
       "name": "cliui",
@@ -2976,7 +2976,7 @@
     },
     {
       "name": "@aws-sdk/client-s3",
-      "version": "3.1037.0",
+      "version": "3.1038.0",
       "score": 73,
       "prevScore": 73,
       "rank": 136,
@@ -2994,7 +2994,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-04-24T19:13:52.890Z"
+      "lastPublish": "2026-04-27T20:11:00.632Z"
     },
     {
       "name": "@emotion/react",
@@ -3262,7 +3262,7 @@
     },
     {
       "name": "nodemailer",
-      "version": "8.0.6",
+      "version": "8.0.7",
       "score": 65,
       "prevScore": 65,
       "rank": 149,
@@ -3280,7 +3280,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-04-24T12:02:12.141Z"
+      "lastPublish": "2026-04-27T10:23:59.416Z"
     },
     {
       "name": "lru-cache",
