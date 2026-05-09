@@ -297,6 +297,30 @@
       flex-wrap: wrap;
     }
 
+    .hero-badges-live {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: 1.25rem;
+      align-items: center;
+    }
+
+    .hero-badges-live a {
+      display: inline-flex;
+      transition: transform .15s ease, opacity .15s ease;
+      opacity: .85;
+    }
+
+    .hero-badges-live a:hover {
+      transform: translateY(-1px);
+      opacity: 1;
+    }
+
+    .hero-badges-live img {
+      display: block;
+      border-radius: 3px;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
