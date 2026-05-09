@@ -267,6 +267,7 @@ export type DepUsageReason =
   | 'types-only'
   | 'peer-dep'
   | 'bin-usage'
+  | 'framework-companion'
 
 /** Result for a single dependency in sweep */
 export interface SweepDepResult {

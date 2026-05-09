@@ -79,6 +79,67 @@ const CONFIG_FILE_DEPS: Record<string, string[]> = {
 }
 
 /**
+ * Frameworks that resolve runtime companions dynamically (via require/import
+ * inside framework code) without declaring them as peer dependencies. The
+ * canonical case is `@nestjs/swagger` requiring `swagger-ui-express` at
+ * runtime when running on Express, but never listing it under
+ * `peerDependencies`. Users follow the framework docs and add the companion
+ * to their own package.json — at which point sweep would flag it as unused
+ * because no source file imports it directly.
+ *
+ * Keys are framework packages declared in the user's package.json. Values
+ * are companion packages the framework requires at runtime. A companion is
+ * only treated as used when the project also depends on it directly AND
+ * declares the parent framework. Adding a companion here never installs
+ * anything; it just suppresses the false-positive "unused" classification.
+ *
+ * Closes #62.
+ */
+const FRAMEWORK_COMPANIONS: Record<string, string[]> = {
+  // NestJS — core platform adapters
+  '@nestjs/platform-express': ['express', 'body-parser'],
+  '@nestjs/platform-fastify': ['fastify', '@fastify/static'],
+  '@nestjs/platform-socket.io': ['socket.io'],
+  '@nestjs/platform-ws': ['ws'],
+  // NestJS — feature modules with framework-coupled companions
+  '@nestjs/swagger': ['swagger-ui-express', '@fastify/swagger-ui'],
+  '@nestjs/typeorm': ['typeorm'],
+  '@nestjs/mongoose': ['mongoose'],
+  '@nestjs/sequelize': ['sequelize'],
+  '@nestjs/graphql': ['graphql', '@apollo/server', 'apollo-server-express'],
+  '@nestjs/apollo': ['@apollo/server', 'graphql'],
+  '@nestjs/bull': ['bull'],
+  '@nestjs/bullmq': ['bullmq'],
+  '@nestjs/cache-manager': ['cache-manager'],
+  '@nestjs/passport': ['passport'],
+  '@nestjs/jwt': ['jsonwebtoken'],
+  '@nestjs/schedule': ['cron'],
+  '@nestjs/event-emitter': ['eventemitter2'],
+  // Apollo
+  '@apollo/server': ['graphql'],
+  // Vite ecosystem
+  '@vitejs/plugin-react': ['vite', 'react'],
+  '@vitejs/plugin-vue': ['vite', 'vue'],
+}
+
+/**
+ * Find direct deps that are required by other declared deps as runtime
+ * companions of a known framework. See FRAMEWORK_COMPANIONS.
+ */
+function findFrameworkCompanions(depNames: string[]): Set<string> {
+  const companions = new Set<string>()
+  const depSet = new Set(depNames)
+  for (const dep of depNames) {
+    const known = FRAMEWORK_COMPANIONS[dep]
+    if (!known) continue
+    for (const companion of known) {
+      if (depSet.has(companion)) companions.add(companion)
+    }
+  }
+  return companions
+}
+
+/**
  * Normalize a module specifier to a package name.
  * `@scope/pkg/sub/path` → `@scope/pkg`
  * `pkg/sub/path` → `pkg`
@@ -630,6 +691,10 @@ export async function sweep(
   // Step 5: Check peer dependencies — if package A needs B as peerDep, B is "used"
   const peerDepUsers = findPeerDependencyUsers(absPath, depNames)
 
+  // Step 5b: Framework runtime companions (e.g. @nestjs/swagger needs
+  // swagger-ui-express but never declares it as a peer dep). Closes #62.
+  const frameworkCompanions = findFrameworkCompanions(depNames)
+
   // Step 6: Scan workspace siblings if monorepo detected (npm/yarn workspaces or pnpm)
   let workspaceImports = new Set<string>()
   if (pkgJson.workspaces) {
@@ -690,6 +755,11 @@ export async function sweep(
     // Check peer dependencies — if another installed package needs this as peerDep
     if (peerDepUsers.has(name)) {
       reasons.push('peer-dep')
+    }
+
+    // Framework runtime companions — known parent declared, this is its runtime helper
+    if (frameworkCompanions.has(name)) {
+      reasons.push('framework-companion')
     }
 
     // Check workspace imports — if another workspace package imports this

@@ -306,6 +306,59 @@ describe('sweep', () => {
     assert.strictEqual(result.used, 2)
   })
 
+  it('does not flag swagger-ui-express as unused when @nestjs/swagger is a direct dep (#62)', async () => {
+    // Reproduces the qscope-v3 backend dogfood: NestJS docs require the user
+    // to add swagger-ui-express directly even though @nestjs/swagger never
+    // declares it as a peerDep, only requires it dynamically at runtime.
+    writeFileSync(join(testDir, 'package.json'), JSON.stringify({
+      dependencies: {
+        '@nestjs/core': '^11.0.0',
+        '@nestjs/swagger': '^8.0.0',
+        'swagger-ui-express': '^5.0.0',
+      },
+    }))
+    mkdirSync(join(testDir, 'src'), { recursive: true })
+    writeFileSync(join(testDir, 'src', 'main.ts'), `
+      import { NestFactory } from '@nestjs/core'
+      import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
+    `)
+
+    const result = await sweep(testDir)
+    const swagger = [...result.unused, ...result.maybeUnused].find(d => d.name === 'swagger-ui-express')
+    assert.strictEqual(swagger, undefined,
+      `swagger-ui-express should not be flagged as unused when @nestjs/swagger is present. Got: ${JSON.stringify(swagger)}`)
+  })
+
+  it('does not flag known framework companions as unused', async () => {
+    writeFileSync(join(testDir, 'package.json'), JSON.stringify({
+      dependencies: {
+        '@nestjs/typeorm': '^10.0.0',
+        'typeorm': '^0.3.0',
+      },
+    }))
+    mkdirSync(join(testDir, 'src'), { recursive: true })
+    writeFileSync(join(testDir, 'src', 'main.ts'), `import { TypeOrmModule } from '@nestjs/typeorm'`)
+
+    const result = await sweep(testDir)
+    const typeorm = [...result.unused, ...result.maybeUnused].find(d => d.name === 'typeorm')
+    assert.strictEqual(typeorm, undefined)
+  })
+
+  it('still flags companion-named package as unused when parent framework is absent', async () => {
+    // typeorm without @nestjs/typeorm and never imported should still be flagged.
+    writeFileSync(join(testDir, 'package.json'), JSON.stringify({
+      dependencies: { 'typeorm': '^0.3.0', 'used-thing': '^1.0.0' },
+    }))
+    mkdirSync(join(testDir, 'src'), { recursive: true })
+    writeFileSync(join(testDir, 'src', 'main.ts'), `import x from 'used-thing'`)
+
+    const result = await sweep(testDir)
+    assert.ok(
+      result.unused.some(d => d.name === 'typeorm') || result.maybeUnused.some(d => d.name === 'typeorm'),
+      'typeorm should be flagged when the parent NestJS module is not declared',
+    )
+  })
+
   it('detects require.resolve as usage', async () => {
     writeFileSync(join(testDir, 'package.json'), JSON.stringify({
       dependencies: { 'prettier': '^3.0.0' },
