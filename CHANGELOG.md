@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.1] - 2026-05-09
+
+### Fixed
+
+- **Published tarball missing exec bit on `dist/cli.js`** — global installs of v1.11.0 (`npm install -g depguard-cli`) failed with `Permission denied` when invoking `depguard-cli` directly via the PATH. Cause: the CI runner's `tsc` produced `dist/cli.js` with mode `0o644` (default umask) and npm packed it without the executable bit, so the `bin` shim couldn't `exec` it. `npx depguard-cli` masked the issue because npx invokes via `node`, bypassing the exec bit. Fix: build script now explicitly `chmod 755 dist/cli.js` after `tsc`. Three regression tests guard against this returning: filesystem mode after build, `npm pack --dry-run` mode in the publishable tarball, and an end-to-end invocation via node. ([#64](https://github.com/mopanc/depguard/issues/64))
+
 ## [1.11.0] - 2026-05-09
 
 ### Added

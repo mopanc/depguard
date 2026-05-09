@@ -1,6 +1,6 @@
 {
   "name": "depguard-cli",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "MCP security server for AI coding agents. Static code analysis, behavioral detection, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, remediation planner, CycloneDX SBOM generation. 13 tools. Zero dependencies.",
   "author": "Jorge Morais",
   "funding": {
@@ -27,7 +27,7 @@
   ],
   "scripts": {
     "check-version": "node --import tsx scripts/check-version.ts",
-    "build": "tsc && cp -r src/data dist/data",
+    "build": "tsc && cp -r src/data dist/data && chmod 755 dist/cli.js",
     "test": "node --import tsx --test tests/*.test.ts",
     "lint": "eslint src/ tests/",
     "audit:security": "npm audit --audit-level=high --omit=dev",
