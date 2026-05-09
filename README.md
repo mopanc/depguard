@@ -1,6 +1,6 @@
 # depguard-cli
 
-MCP security server for AI coding agents. 12 tools: **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, smart recommendations, and **CycloneDX 1.6 SBOM generation**.
+MCP security server for AI coding agents. 13 tools: **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, smart recommendations, **remediation planner**, and **CycloneDX 1.6 SBOM generation**.
 
 Your AI agent verifies every `npm install` before it happens. Tarball download and source code scanning detects malware patterns, obfuscation, and behavioral mismatches. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
 
@@ -233,6 +233,7 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 | `depguard_audit` | Full security audit with static code analysis, vulnerabilities, and install script scanning. Accepts optional `version` to audit a specific installed version. |
 | `depguard_audit_bulk` | Audit multiple packages in a single call |
 | `depguard_audit_project` | Audit all dependencies from a package.json file path. Scans transitive deps via lock file and audits the `packageManager` field. |
+| `depguard_remediate` | Group every vulnerable transitive under the direct dependency that pulls it in, sorted by severity weight. Answers "which 5 direct deps do I bump to fix the most criticals?". Read-only. |
 | `depguard_search` | Search npm for packages by keywords |
 | `depguard_score` | Score a package 0-100 |
 | `depguard_should_use` | Recommend install, use native Node.js, or write from scratch |
@@ -250,6 +251,7 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 | "I need X functionality" | `depguard_should_use` |
 | "Install package Y" | `depguard_guard` |
 | "Audit my project" | `depguard_audit_project` |
+| "100 vulnerabilities, what do I bump?" | `depguard_remediate` |
 | "Compare A vs B vs C" | `depguard_audit_bulk` |
 | "Deep dive on package Y" | `depguard_audit` |
 | "Find a library for X" | `depguard_search` |

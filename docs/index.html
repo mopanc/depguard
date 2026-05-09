@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>depguard — MCP Security Server for AI Coding Agents</title>
-  <meta name="description" content="MCP security server for AI coding agents. 12 tools: known compromised package detection, AI code review, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, CycloneDX 1.6 SBOM generation. Curated advisory database. Zero dependencies. Works with Claude, Cursor, Windsurf.">
+  <meta name="description" content="MCP security server for AI coding agents. 13 tools: known compromised package detection, AI code review, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, CycloneDX 1.6 SBOM generation. Curated advisory database. Zero dependencies. Works with Claude, Cursor, Windsurf.">
   <meta name="keywords" content="MCP server, npm security, AI coding agent, supply chain security, SBOM, CycloneDX, software bill of materials, vibe coding, Model Context Protocol, package auditing, vulnerability detection, Claude MCP, Cursor MCP, AI agent tools, dependency security, npm audit, Node.js security, open source security, typosquatting detection, dead dependencies, unused packages, pre-install check, AI hallucination guard, depguard, package scoring, CVSS, license compliance, SPDX, static code analysis, behavioral analysis, EU Cyber Resilience Act, US EO 14028, VEX">
   <meta name="author" content="Jorge Morais">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -14,19 +14,19 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="depguard — MCP Security Server for AI Coding Agents">
-  <meta property="og:description" content="12 MCP tools for AI agents: AI code review, pre-install guardian, AI hallucination guard, dead dependency sweep, vulnerability audit, static code analysis, CycloneDX 1.6 SBOM generation. Your AI agent's security guardrail and code quality watchdog. Zero dependencies.">
+  <meta property="og:description" content="13 MCP tools for AI agents: AI code review, pre-install guardian, AI hallucination guard, dead dependency sweep, vulnerability audit, static code analysis, CycloneDX 1.6 SBOM generation. Your AI agent's security guardrail and code quality watchdog. Zero dependencies.">
   <meta property="og:url" content="https://depguard.dev">
   <meta property="og:site_name" content="depguard">
   <meta property="og:image" content="https://depguard.dev/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="depguard — MCP Security Server for AI Coding Agents. 12 tools. Zero dependencies.">
+  <meta property="og:image:alt" content="depguard — MCP Security Server for AI Coding Agents. 13 tools. Zero dependencies.">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="depguard — MCP Security Server for AI Coding Agents">
-  <meta name="twitter:description" content="12 MCP tools: AI code review, pre-install guardian, AI hallucination guard, dead dep sweep, vulnerability audit, CycloneDX 1.6 SBOM. Security guardrail + code quality watchdog for AI agents. Zero deps.">
+  <meta name="twitter:description" content="13 MCP tools: AI code review, pre-install guardian, AI hallucination guard, dead dep sweep, vulnerability audit, CycloneDX 1.6 SBOM. Security guardrail + code quality watchdog for AI agents. Zero deps.">
   <meta name="twitter:image" content="https://depguard.dev/og-image.svg">
   <meta name="twitter:image:alt" content="depguard — MCP Security Server for AI Coding Agents">
 
@@ -52,7 +52,7 @@
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "Security Tool",
     "operatingSystem": "Cross-platform (Node.js 18+)",
-    "description": "MCP server that gives AI coding agents real-time npm security auditing. 12 tools for static code analysis, vulnerability triage, supply chain attack detection, package scoring, pre-install guardian, AI hallucination guard, dead dependency detection, smart recommendations, and CycloneDX 1.6 SBOM generation. Zero dependencies.",
+    "description": "MCP server that gives AI coding agents real-time npm security auditing. 13 tools for static code analysis, vulnerability triage, supply chain attack detection, package scoring, pre-install guardian, AI hallucination guard, dead dependency detection, smart recommendations, and CycloneDX 1.6 SBOM generation. Zero dependencies.",
     "url": "https://depguard.dev",
     "downloadUrl": "https://www.npmjs.com/package/depguard-cli",
     "softwareVersion": "1.10.0",
@@ -88,7 +88,7 @@
       "Supply chain attack detection (18+ code patterns, 20+ install script patterns)",
       "Package scoring 0-100 with security ceiling (critical vulns cap at 30)",
       "Native Node.js alternative recommendations (20+)",
-      "MCP server with 12 tools for AI coding agents",
+      "MCP server with 13 tools for AI coding agents",
       "CycloneDX 1.6 SBOM generation with VEX support — compliance-ready output for EU Cyber Resilience Act, US EO 14028, OMB M-22-18, SOC 2, FedRAMP",
       "Dual license support (SPDX OR/AND expressions, 25+ licenses)",
       "Transitive dependency tree audit with circular detection",
@@ -382,7 +382,7 @@
 <!-- MCP TOOLS -->
 <section class="section" aria-labelledby="tools-heading">
   <div class="section-label reveal">MCP Tools</div>
-  <h2 id="tools-heading" class="reveal">12 tools your AI agent calls automatically</h2>
+  <h2 id="tools-heading" class="reveal">13 tools your AI agent calls automatically</h2>
   <p class="section-desc reveal">Organized by workflow: before installing, after coding, project health, and quick lookups. The AI agent knows when to call each one.</p>
 
   <div class="features-grid reveal">
@@ -423,6 +423,12 @@
       <div class="feat-icon" aria-hidden="true">&#x2666;</div>
       <h3>depguard_audit_project</h3>
       <p>Audit all dependencies from a package.json in one call. Auto-detects project license. Use after cloning a repo or reviewing project security.</p>
+      <span class="feat-tag orange">Project Health</span>
+    </article>
+    <article class="feat">
+      <div class="feat-icon" aria-hidden="true">&#x269B;</div>
+      <h3>depguard_remediate</h3>
+      <p>Faced with "100 vulnerabilities found"? This groups every vulnerable transitive under the direct dependency that pulls it in, sorted by severity weight. Tells you which 3 direct deps to bump to fix the most criticals. Read-only.</p>
       <span class="feat-tag orange">Project Health</span>
     </article>
     <article class="feat">
@@ -624,7 +630,7 @@
         <tr><td>Verify license compatibility</td><td class="check" aria-label="Automated">&#10003; 25+ SPDX</td><td>Read LICENSE file, understand copyleft hierarchy</td></tr>
         <tr><td>Evaluate package quality</td><td class="check" aria-label="Automated">&#10003; 0&ndash;100</td><td>Subjective judgement, no consistent scoring</td></tr>
         <tr><td>Find native alternatives</td><td class="check" aria-label="Automated">&#10003; 20+ mapped</td><td>Know Node.js APIs by heart or search docs</td></tr>
-        <tr><td>AI agent integration</td><td class="check" aria-label="Automated">&#10003; 12 MCP tools</td><td>Not possible &mdash; agents install blindly</td></tr>
+        <tr><td>AI agent integration</td><td class="check" aria-label="Automated">&#10003; 13 MCP tools</td><td>Not possible &mdash; agents install blindly</td></tr>
         <tr><td>Time per package</td><td class="check" aria-label="Fast">~2 seconds</td><td>15&ndash;30 minutes of research</td></tr>
       </tbody>
     </table>

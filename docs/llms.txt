@@ -72,6 +72,11 @@ Audit multiple packages in parallel.
 Audit all dependencies from a package.json file path.
 - Input: `{ path: string, includeDevDependencies?: boolean }`
 
+### depguard_remediate
+Build a remediation plan for a project with known vulnerabilities. Reads package.json + lock file, runs the same audit as depguard_audit_project, then groups every vulnerable transitive under the direct dep that pulls it in. Output is sorted by severity weight so the first remediation is the highest-impact bump. Read-only: never modifies package.json, the lock file, or invokes npm.
+- Input: `{ path: string, includeDevDependencies?: boolean, targetLicense?: string }`
+- Output: `{ summary, totalRemediations, totalVulnerableTransitives, remediations: [{ directDep, isDirectVulnerable, directAdvisories, transitives, severityCounts, totalVulns, action }], unattributed, warnings }`. `action` is one of `bump` | `no-fix-available` | `investigate`.
+
 ### depguard_search
 Search npm by keywords, sorted by depguard quality score.
 - Input: `{ keywords: string, limit?: number }`
@@ -93,7 +98,7 @@ Generate a CycloneDX 1.6 Software Bill of Materials for an npm project. Reads pa
 - Security ceiling: critical vulns cap score at 30/100, high at 50/100, compromised = 0
 - 25+ license types including SSPL, Elastic-2.0, BUSL-1.1
 - Intl native alternatives: DateTimeFormat, RelativeTimeFormat, NumberFormat, Collator
-- 238 offline tests
+- 315 offline tests
 - Apache-2.0 license
 
 ## Links

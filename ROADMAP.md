@@ -80,6 +80,31 @@ The plan for depguard-cli — where we are, where we're going, and why.
 - [x] 238 offline tests
 - [x] 237 offline tests
 
+### v1.11.0 — Remediation Planner (Phase 1a)
+- [x] `depguard_remediate` MCP tool and `depguard-cli remediate` CLI command
+- [x] `getDependencyParents` lockfile API tracks the parent chain for each transitive
+- [x] `pulledInBy` field on `TransitiveVulnerability` reports
+- [x] Output sorted by severity weight (critical × 100 + high × 10 + moderate + low × 0.1)
+- [x] Action classifier infers fixes from `vulnerable_versions` upper bounds when `patched_versions` is absent (matches `npm audit fix`)
+- [x] Read-only end-to-end. No filesystem writes, no npm invocation
+- [x] 315 offline tests
+
+---
+
+## Phase 1.5 — Tier-up (in progress)
+
+### Remediation roadmap (Eixo 2)
+- [x] **Phase 1a** — group vulnerabilities by direct dep to bump (this release)
+- [ ] **Phase 1b — constraint solver** — minimum set of direct-dep bumps that resolves max criticals; outputs Plan A (safe) / Plan B (medium) / Plan C (full) with breaking-change cost
+- [ ] **Phase 2 — reachability analysis** — call-graph trace from project entry points to vulnerable functions; marks each vuln reachable / unreachable so 100 vulns becomes 7 actionable
+- [ ] **Phase 3 — L2 codemod suggestions** — IA-translated migration patterns for known breaking changes; diff proposals only, never auto-applied
+
+### Cryptographic provenance (Eixo 1)
+- [ ] **Sigstore verification** — validate package signatures against the Sigstore transparency log
+- [ ] **SLSA build provenance** — verify packages meet SLSA build provenance levels
+- [ ] **npm provenance attestations** — verify packages use keyless signing (npm provenance)
+- [ ] **GitHub attestations API** — end-to-end chain: source → CI → published artifact
+
 ---
 
 ## Phase 2 — Production Hardening (Q2 2026)

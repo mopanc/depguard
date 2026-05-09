@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Remediation planner** — new `depguard_remediate` MCP tool and `depguard-cli remediate` command. Reads `package.json` plus the lock file, runs the same audit as `depguard_audit_project`, then groups every vulnerable transitive under the direct dependency that pulls it into the install tree. Output is sorted by severity weight (critical × 100 + high × 10 + moderate + low × 0.1) so the first remediation is the highest-impact bump. Each item lists the direct dep, its own advisories (if any), the vulnerable transitives it owns, severity counts, and an action: `bump` | `no-fix-available` | `investigate`. Read-only end-to-end: never modifies `package.json`, the lock file, or invokes npm.
+- **`getDependencyParents` API** — new export from `src/lockfile.ts`. For each installed package, returns the set of direct dependencies declared in `package.json` that ultimately pull it into the install tree via the lockfile graph. Cycle-safe, handles `dependencies` + `devDependencies` + `optionalDependencies`, collapses nested `node_modules/A/node_modules/B` entries onto the same package name. Currently supports npm `package-lock.json` v2/v3; pnpm/yarn/bun parent tracking will land separately when the API stabilises.
+- **`pulledInBy` on `TransitiveVulnerability`** — `auditProject` reports now attribute each transitive vuln to its direct-dep parent(s) when the lockfile format is supported. Empty array when the parent chain cannot be resolved.
+
+### Fixed
+
+- **Action classification on transitive advisories** — when the npm bulk advisory endpoint omits `patched_versions` (which it commonly does), `actionFor()` previously fell through to `no-fix-available` for every transitive, contradicting `npm audit`'s "fix available". The classifier now infers a fix exists when `vulnerable_versions` carries an upper bound (`<X` or `<=X`), matching what `npm audit fix` actually does. Verified end-to-end against the depguard lockfile (3 known transitives now correctly classified as `bump`).
+
+### Changed
+
+- 13 MCP tools (up from 12). 315 tests (up from 298).
+
 ## [1.9.1] - 2026-04-26
 
 ### Fixed
