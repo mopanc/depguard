@@ -11,6 +11,7 @@ import { sweep } from './sweep.js'
 import { auditTransitive } from './transitive.js'
 import { review } from './review.js'
 import { generateSBOM } from './sbom.js'
+import { remediate } from './remediate.js'
 import { loadStats, recordCall } from './stats.js'
 import { writeFileSync } from 'node:fs'
 
@@ -61,6 +62,7 @@ Commands:
   audit-deep <package>     Deep transitive dependency tree audit
   review [path]            AI code review (detect debris left by AI agents)
   sbom <path/package.json> Generate CycloneDX 1.6 SBOM for a project
+  remediate <path/package.json> Group vulnerabilities by direct dep to bump
   stats                    Show local usage statistics
 
 Options:
@@ -322,6 +324,47 @@ async function main() {
       break
     }
 
+    case 'remediate': {
+      const pkgPath = positionals[1]
+      if (!pkgPath) {
+        console.error('Usage: depguard-cli remediate <path-to-package.json> [--include-dev] [--json]')
+        process.exit(1)
+      }
+      const report = await remediate(pkgPath, {
+        includeDevDependencies: values['include-dev'] ?? false,
+        targetLicense,
+      })
+      recordCall('depguard_remediate', { packagesAudited: report.totalRemediations })
+      if (json) {
+        output(report, true)
+      } else {
+        const sev = report.summary
+        console.log('')
+        console.log(`Project: ${pkgPath}`)
+        console.log(`Total remediations: ${report.totalRemediations}`)
+        console.log(`Vulnerable transitives: ${report.totalVulnerableTransitives}`)
+        console.log(`Severity: ${sev.critical} critical, ${sev.high} high, ${sev.moderate} moderate, ${sev.low} low`)
+        if (report.unattributed.length > 0) {
+          console.log(`Unattributed (parent chain unresolved): ${report.unattributed.length}`)
+        }
+        console.log('')
+        for (const r of report.remediations) {
+          const tag = r.isDirectVulnerable ? 'DIRECT' : 'TRANSITIVE'
+          console.log(`[${tag}] bump ${r.directDep}  (action: ${r.action})`)
+          console.log(`  Severity: ${r.severityCounts.critical}c ${r.severityCounts.high}h ${r.severityCounts.moderate}m ${r.severityCounts.low}l   Total vulns: ${r.totalVulns}`)
+          if (r.transitives.length > 0) {
+            console.log(`  Pulls in: ${r.transitives.map(t => `${t.name}@${t.version}`).join(', ')}`)
+          }
+          console.log('')
+        }
+        if (report.warnings.length > 0) {
+          console.log('Warnings:')
+          for (const w of report.warnings) console.log(`  - ${w}`)
+        }
+      }
+      break
+    }
+
     case 'stats': {
       const stats = loadStats()
       if (json) {
@@ -350,7 +393,7 @@ async function main() {
     }
 
     default:
-      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep, audit-deep, review, sbom, stats`)
+      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep, audit-deep, review, sbom, remediate, stats`)
       process.exit(1)
   }
 }

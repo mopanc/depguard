@@ -12,6 +12,7 @@
 import { cleanupDiskCache } from './disk-cache.js'
 import { audit } from './audit.js'
 import { auditBulk, auditProject } from './bulk.js'
+import { remediate } from './remediate.js'
 import { search } from './search.js'
 import { score } from './scorer.js'
 import { shouldUse } from './advisor.js'
@@ -88,6 +89,19 @@ const TOOLS = [
   {
     name: 'depguard_audit_project',
     description: 'Audit ALL dependencies in a project at once. Scans direct deps (full audit), transitive deps from lock file (vulnerability check), and the packageManager field. Pass the path to package.json and get a consolidated security report. Use this when the user asks to review project security or after cloning a new repo.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        path: { type: 'string', description: 'Absolute path to package.json file' },
+        includeDevDependencies: { type: 'boolean', description: 'Include devDependencies in audit (default: false)' },
+        targetLicense: { type: 'string', description: 'Project license for compatibility check (auto-detected from package.json if not set)' },
+      },
+      required: ['path'],
+    },
+  },
+  {
+    name: 'depguard_remediate',
+    description: 'Build a remediation plan for a project with known vulnerabilities. Reads package.json + lock file, runs the same audit as depguard_audit_project, then groups every vulnerable transitive under the direct dep that pulls it in. Output is sorted by severity weight so the first remediation is the highest-impact bump. Use this when the user is staring at "100 vulnerabilities found" from npm install and needs to know which 5 direct deps to upgrade. Read-only: never modifies package.json, lockfile, or runs npm.',
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -412,6 +426,26 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
                 targetLicense: args.targetLicense as string | undefined,
               })
               return success(req.id, toolResult('depguard_audit_bulk', result, result.total))
+            } catch (err) {
+              const msg = err instanceof Error ? err.message : 'Failed to read package.json'
+              return success(req.id, {
+                content: [{ type: 'text', text: `Error: ${msg}` }],
+                isError: true,
+              })
+            }
+          }
+
+          case 'depguard_remediate': {
+            const filePath = args.path as string
+            if (!filePath) {
+              return error(req.id, -32602, 'path is required')
+            }
+            try {
+              const result = await remediate(filePath, {
+                includeDevDependencies: (args.includeDevDependencies as boolean) ?? false,
+                targetLicense: args.targetLicense as string | undefined,
+              })
+              return success(req.id, toolResult('depguard_remediate', result, result.totalRemediations))
             } catch (err) {
               const msg = err instanceof Error ? err.message : 'Failed to read package.json'
               return success(req.id, {
