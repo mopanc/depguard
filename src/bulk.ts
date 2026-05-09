@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { dirname } from 'node:path'
 import type { AuditReport, FetchFn, NpmAdvisory } from './types.js'
 import { audit } from './audit.js'
-import { getAllInstalledVersions } from './lockfile.js'
+import { getAllInstalledVersions, getDependencyParents } from './lockfile.js'
 import { fetchBulkAdvisories } from './registry.js'
 
 /** Options for bulk audit */
@@ -17,6 +17,13 @@ export interface TransitiveVulnerability {
   name: string
   version: string
   advisories: NpmAdvisory[]
+  /**
+   * Direct deps (declared in package.json) that pull this transitive
+   * into the install tree. Empty array means the parent chain could not
+   * be resolved (older lockfile format, parse error, or the lockfile
+   * format is not yet supported by getDependencyParents).
+   */
+  pulledInBy: string[]
 }
 
 /** Bulk audit result */
@@ -191,13 +198,18 @@ export async function auditProject(
   const fetcher = bulkOptions.fetcher ?? globalThis.fetch
   const transitiveAdvisories = await fetchBulkAdvisories(transitiveDeps, fetcher)
 
+  // Resolve which direct dep(s) pull each transitive in. Empty if the
+  // lockfile format isn't supported yet or the file is malformed.
+  const parentMap = getDependencyParents(projectDir)
+
   // Build transitive summary
   const transitiveDetails: TransitiveVulnerability[] = []
   let tCritical = 0, tHigh = 0, tModerate = 0, tLow = 0
 
   for (const [name, advisories] of transitiveAdvisories) {
     const version = transitiveDeps.get(name) ?? 'unknown'
-    transitiveDetails.push({ name, version, advisories })
+    const pulledInBy = [...(parentMap.get(name) ?? [])].sort()
+    transitiveDetails.push({ name, version, advisories, pulledInBy })
     for (const adv of advisories) {
       switch (adv.severity) {
         case 'critical': tCritical++; break

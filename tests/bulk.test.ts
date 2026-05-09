@@ -300,6 +300,61 @@ describe('auditProject', () => {
     assert.strictEqual(ts.high, 0)
   })
 
+  it('records pulledInBy for transitive vulnerabilities', async () => {
+    const pkg = {
+      name: 'test-project',
+      license: 'MIT',
+      dependencies: { 'pkg-a': '^1.0.0' },
+    }
+    writeFileSync(join(tmpDir, 'package.json'), JSON.stringify(pkg))
+
+    // pkg-a explicitly pulls vuln-leaf as a transitive
+    const lockFile = {
+      name: 'test-project',
+      lockfileVersion: 3,
+      packages: {
+        '': { name: 'test-project', dependencies: { 'pkg-a': '^1.0.0' } },
+        'node_modules/pkg-a': {
+          version: '1.0.0',
+          dependencies: { 'vuln-leaf': '^2.0.0' },
+        },
+        'node_modules/vuln-leaf': { version: '2.3.0' },
+      },
+    }
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify(lockFile))
+
+    const advisoryResp = {
+      'vuln-leaf': [{
+        id: 9001,
+        title: 'Test vuln in vuln-leaf',
+        severity: 'high',
+        url: 'https://github.com/advisories/GHSA-vl',
+        vulnerable_versions: '<=2.5.0',
+        patched_versions: '>=2.6.0',
+      }],
+    }
+
+    const baseFetcher = createMockFetch(['pkg-a'])
+    const fetcher = ((input: string | URL | Request, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url
+      if (url.includes('security/advisories/bulk') && init?.body) {
+        const body = JSON.parse(init.body as string)
+        if ('vuln-leaf' in body) {
+          return Promise.resolve({ ok: true, json: async () => advisoryResp } as Response)
+        }
+      }
+      return baseFetcher(input, init)
+    }) as FetchFn
+
+    const report = await auditProject(join(tmpDir, 'package.json'), { fetcher })
+
+    const ts = report.transitiveSummary
+    assert.ok(ts, 'Expected transitiveSummary')
+    const leaf = ts.details.find(d => d.name === 'vuln-leaf')
+    assert.ok(leaf, 'Expected vuln-leaf in details')
+    assert.deepStrictEqual(leaf.pulledInBy, ['pkg-a'])
+  })
+
   it('audits packageManager field from package.json', async () => {
     const pkg = {
       name: 'test-project',
