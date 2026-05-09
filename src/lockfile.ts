@@ -71,6 +71,112 @@ export function getAllInstalledVersions(projectPath: string): Map<string, string
 }
 
 /**
+ * Build a parent map for the project: for each installed package
+ * (direct or transitive), the set of direct dependencies declared in
+ * package.json that ultimately pull it into the install tree via the
+ * lockfile graph.
+ *
+ * A direct dep maps to a singleton set containing itself. A transitive
+ * pulled by multiple direct deps appears with all of them as parents.
+ *
+ * Currently supports npm package-lock.json v2/v3. Other lockfile
+ * formats return an empty map. Returns an empty map on parse error or
+ * when the lockfile is missing.
+ *
+ * Used by remediate to answer "which direct dep should I bump to fix
+ * this transitive vuln?" — the most common practical question when an
+ * `npm install` reports dozens of transitive vulnerabilities.
+ */
+export function getDependencyParents(projectPath: string): Map<string, Set<string>> {
+  const npmLock = join(projectPath, 'package-lock.json')
+  if (!existsSync(npmLock)) return new Map()
+
+  try {
+    const raw = readFileSync(npmLock, 'utf-8')
+    const lock = JSON.parse(raw) as {
+      packages?: Record<string, {
+        version?: string
+        dependencies?: Record<string, string>
+        devDependencies?: Record<string, string>
+        optionalDependencies?: Record<string, string>
+        peerDependencies?: Record<string, string>
+      }>
+    }
+
+    if (!lock.packages) return new Map()
+
+    // Build a name -> declared-children map from the deduped `packages`
+    // entries. Every node_modules/X entry's dependencies field lists the
+    // direct children of X. Nested node_modules/X/node_modules/Y entries
+    // exist when npm cannot dedupe; treat their dependencies as if they
+    // belong to Y at the top of node_modules.
+    const childrenOf = new Map<string, Set<string>>()
+    for (const [key, entry] of Object.entries(lock.packages)) {
+      if (!key) continue // skip the root entry; we read it separately
+
+      // Take the last path segment as the package name (handles nested
+      // node_modules/A/node_modules/B → "B").
+      const segments = key.split('node_modules/').filter(Boolean)
+      const name = segments[segments.length - 1]
+      if (!name) continue
+
+      const children = new Set<string>([
+        ...Object.keys(entry.dependencies ?? {}),
+        ...Object.keys(entry.optionalDependencies ?? {}),
+      ])
+
+      const existing = childrenOf.get(name)
+      if (existing) {
+        for (const c of children) existing.add(c)
+      } else {
+        childrenOf.set(name, children)
+      }
+    }
+
+    // Direct deps come from the root entry. devDependencies and
+    // optionalDependencies are included so a vuln pulled in only via a
+    // dev tool (eslint plugins, etc) is still attributed to its direct
+    // dep instead of looking like an orphan.
+    const root = lock.packages['']
+    if (!root) return new Map()
+    const directDeps = new Set<string>([
+      ...Object.keys(root.dependencies ?? {}),
+      ...Object.keys(root.devDependencies ?? {}),
+      ...Object.keys(root.optionalDependencies ?? {}),
+    ])
+
+    const parents = new Map<string, Set<string>>()
+
+    // BFS from each direct dep, recording it as a parent of every node
+    // reachable from it. A `visited` per-direct guards against cycles.
+    for (const direct of directDeps) {
+      const queue: string[] = [direct]
+      const visitedFromThisRoot = new Set<string>()
+      while (queue.length > 0) {
+        const node = queue.shift() as string
+        if (visitedFromThisRoot.has(node)) continue
+        visitedFromThisRoot.add(node)
+
+        const parentSet = parents.get(node) ?? new Set<string>()
+        parentSet.add(direct)
+        parents.set(node, parentSet)
+
+        const children = childrenOf.get(node)
+        if (children) {
+          for (const child of children) {
+            if (!visitedFromThisRoot.has(child)) queue.push(child)
+          }
+        }
+      }
+    }
+
+    return parents
+  } catch {
+    return new Map()
+  }
+}
+
+/**
  * Parse npm's package-lock.json (v2/v3 format) — names + resolved versions.
  */
 function parsePackageLockVersions(lockPath: string): Map<string, string> {

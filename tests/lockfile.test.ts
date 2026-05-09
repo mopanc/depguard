@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { writeFileSync, mkdirSync, rmSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { getAllInstalledDeps, getAllInstalledVersions } from '../src/lockfile.js'
+import { getAllInstalledDeps, getAllInstalledVersions, getDependencyParents } from '../src/lockfile.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const tmpDir = join(__dirname, '.tmp-lockfile-test')
@@ -300,6 +300,161 @@ describe('bun.lock', () => {
     assert.strictEqual(versions.get('@babel/core'), '7.26.0')
     assert.strictEqual(versions.get('@types/express'), '4.17.21')
     assert.strictEqual(versions.get('lodash'), '4.17.21')
+  })
+})
+
+// ─── getDependencyParents (npm v2/v3) ────────────────────────────────────────
+
+describe('getDependencyParents', () => {
+  it('attributes a single direct dep as parent of itself', () => {
+    setup()
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        '': { dependencies: { express: '^4.18.0' } },
+        'node_modules/express': { version: '4.21.2' },
+      },
+    }))
+
+    const parents = getDependencyParents(tmpDir)
+    assert.deepStrictEqual([...(parents.get('express') ?? [])], ['express'])
+  })
+
+  it('attributes a transitive to its single direct ancestor', () => {
+    setup()
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        '': { dependencies: { express: '^4.18.0' } },
+        'node_modules/express': {
+          version: '4.21.2',
+          dependencies: { 'body-parser': '1.20.3' },
+        },
+        'node_modules/body-parser': {
+          version: '1.20.3',
+          dependencies: { qs: '6.13.0' },
+        },
+        'node_modules/qs': { version: '6.13.0' },
+      },
+    }))
+
+    const parents = getDependencyParents(tmpDir)
+    assert.deepStrictEqual([...(parents.get('body-parser') ?? [])], ['express'])
+    assert.deepStrictEqual([...(parents.get('qs') ?? [])], ['express'])
+  })
+
+  it('records multiple parents when a transitive is pulled by several direct deps', () => {
+    setup()
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        '': { dependencies: { 'pkg-a': '^1.0.0', 'pkg-b': '^1.0.0' } },
+        'node_modules/pkg-a': {
+          version: '1.0.0',
+          dependencies: { lodash: '^4.17.21' },
+        },
+        'node_modules/pkg-b': {
+          version: '1.0.0',
+          dependencies: { lodash: '^4.17.21' },
+        },
+        'node_modules/lodash': { version: '4.17.21' },
+      },
+    }))
+
+    const parents = getDependencyParents(tmpDir)
+    const lodashParents = [...(parents.get('lodash') ?? [])].sort()
+    assert.deepStrictEqual(lodashParents, ['pkg-a', 'pkg-b'])
+  })
+
+  it('attributes devDependencies as parents too', () => {
+    setup()
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        '': {
+          dependencies: { express: '^4.18.0' },
+          devDependencies: { eslint: '^9.0.0' },
+        },
+        'node_modules/express': { version: '4.21.2' },
+        'node_modules/eslint': {
+          version: '9.0.0',
+          dependencies: { chalk: '^4.0.0' },
+        },
+        'node_modules/chalk': { version: '4.1.2' },
+      },
+    }))
+
+    const parents = getDependencyParents(tmpDir)
+    assert.deepStrictEqual([...(parents.get('chalk') ?? [])], ['eslint'])
+  })
+
+  it('handles dependency cycles without infinite loop', () => {
+    setup()
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        '': { dependencies: { 'pkg-a': '^1.0.0' } },
+        'node_modules/pkg-a': {
+          version: '1.0.0',
+          dependencies: { 'pkg-b': '^1.0.0' },
+        },
+        'node_modules/pkg-b': {
+          version: '1.0.0',
+          dependencies: { 'pkg-a': '^1.0.0' }, // cycle
+        },
+      },
+    }))
+
+    const parents = getDependencyParents(tmpDir)
+    assert.deepStrictEqual([...(parents.get('pkg-a') ?? [])], ['pkg-a'])
+    assert.deepStrictEqual([...(parents.get('pkg-b') ?? [])], ['pkg-a'])
+  })
+
+  it('uses the last node_modules segment as the package name for nested entries', () => {
+    setup()
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        '': { dependencies: { 'pkg-a': '^1.0.0' } },
+        'node_modules/pkg-a': {
+          version: '1.0.0',
+          dependencies: { 'pkg-b': '^1.0.0' },
+        },
+        // pkg-b cannot be deduped at top level → nested copy
+        'node_modules/pkg-a/node_modules/pkg-b': {
+          version: '2.0.0',
+          dependencies: { 'pkg-c': '^1.0.0' },
+        },
+        'node_modules/pkg-c': { version: '1.0.0' },
+      },
+    }))
+
+    const parents = getDependencyParents(tmpDir)
+    assert.deepStrictEqual([...(parents.get('pkg-b') ?? [])], ['pkg-a'])
+    assert.deepStrictEqual([...(parents.get('pkg-c') ?? [])], ['pkg-a'])
+  })
+
+  it('returns empty map when no package-lock.json exists', () => {
+    setup()
+    const parents = getDependencyParents(tmpDir)
+    assert.strictEqual(parents.size, 0)
+  })
+
+  it('returns empty map for malformed JSON', () => {
+    setup()
+    writeFileSync(join(tmpDir, 'package-lock.json'), 'not json {{{')
+    const parents = getDependencyParents(tmpDir)
+    assert.strictEqual(parents.size, 0)
+  })
+
+  it('returns empty map when packages key is missing (v1 fallback not yet supported here)', () => {
+    setup()
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 1,
+      dependencies: { express: { version: '4.21.2' } },
+    }))
+    const parents = getDependencyParents(tmpDir)
+    assert.strictEqual(parents.size, 0)
   })
 })
 

@@ -11,7 +11,7 @@ export { sweep, extractImports, collectSourceFiles, detectPhantomDeps } from './
 export { auditTransitive } from './transitive.js'
 export { review } from './review.js'
 export { lookupCompromised, getIncidents, getDBVersion, getDBSize } from './advisory-db.js'
-export { getAllInstalledDeps, getAllInstalledVersions } from './lockfile.js'
+export { getAllInstalledDeps, getAllInstalledVersions, getDependencyParents } from './lockfile.js'
 export { loadStats, recordCall } from './stats.js'
 export type { DepguardStats } from './stats.js'
 export { analyzeMaintainers } from './maintainer-analysis.js'
