@@ -5,21 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.11.0] - 2026-05-09
 
 ### Added
 
 - **Remediation planner** — new `depguard_remediate` MCP tool and `depguard-cli remediate` command. Reads `package.json` plus the lock file, runs the same audit as `depguard_audit_project`, then groups every vulnerable transitive under the direct dependency that pulls it into the install tree. Output is sorted by severity weight (critical × 100 + high × 10 + moderate + low × 0.1) so the first remediation is the highest-impact bump. Each item lists the direct dep, its own advisories (if any), the vulnerable transitives it owns, severity counts, and an action: `bump` | `no-fix-available` | `investigate`. Read-only end-to-end: never modifies `package.json`, the lock file, or invokes npm.
 - **`getDependencyParents` API** — new export from `src/lockfile.ts`. For each installed package, returns the set of direct dependencies declared in `package.json` that ultimately pull it into the install tree via the lockfile graph. Cycle-safe, handles `dependencies` + `devDependencies` + `optionalDependencies`, collapses nested `node_modules/A/node_modules/B` entries onto the same package name. Currently supports npm `package-lock.json` v2/v3; pnpm/yarn/bun parent tracking will land separately when the API stabilises.
 - **`pulledInBy` on `TransitiveVulnerability`** — `auditProject` reports now attribute each transitive vuln to its direct-dep parent(s) when the lockfile format is supported. Empty array when the parent chain cannot be resolved.
+- **Trust badges row on the landing hero** — npm version, weekly downloads, CI tests, GitHub stars, and awesome-mcp-servers badges fetched live from shields.io; uniform dark-pill styling matching the site theme.
+- **`DEPGUARD_CACHE_DIR` env override** — `src/disk-cache.ts` now respects `process.env.DEPGUARD_CACHE_DIR` so serverless functions can persist cache to a writable path (`/tmp/...`) instead of falling back to a no-op when `homedir()` is read-only.
 
 ### Fixed
 
+- **`/api/audit` score divergence** — the live Netlify audit produced different scores than the daily-scan snapshot for the same package. Two causes: (1) the Netlify function ran without a GitHub token (60 GHSA req/h, silenced advisories past the limit) while the daily-scan cron uses one (5000 req/h); (2) disk cache was pinned to `~/.depguard/cache/` which Netlify cannot write, so each cold start re-fetched and could miss the same advisories. Fix: `netlify.toml` points cache at `/tmp/.depguard-cache` and documents the `DEPGUARD_GITHUB_TOKEN` secret (set via the Netlify dashboard).
+- **Sweep false positive on framework runtime companions** — sweep flagged `swagger-ui-express` as unused in NestJS projects even though `@nestjs/swagger` requires it at runtime via dynamic `require`, never declaring it as a `peerDependency`. Now suppresses the unused classification when both a known framework parent (NestJS family, Apollo, Vite plugins) and its companion are declared. New `framework-companion` `DepUsageReason`. ([#62](https://github.com/mopanc/depguard/issues/62))
+- **SBOM missing per-component `licenses`** — every child component in the generated CycloneDX 1.6 BOM was missing the `licenses` field, breaking license compliance scanning (the primary SBOM use case for FOSSA, ScanCode, Syft). Now reads each `node_modules/<pkg>/package.json` and emits the right CycloneDX shape: SPDX expression for compound licenses (`MIT OR Apache-2.0`), `license.id` for valid SPDX, `license.name` for free-form. Components with no license metadata get an explicit `UNKNOWN` so downstream tools can detect the gap. Smoke-tested on the depguard tree: 109/109 components populated. ([#63](https://github.com/mopanc/depguard/issues/63))
 - **Action classification on transitive advisories** — when the npm bulk advisory endpoint omits `patched_versions` (which it commonly does), `actionFor()` previously fell through to `no-fix-available` for every transitive, contradicting `npm audit`'s "fix available". The classifier now infers a fix exists when `vulnerable_versions` carries an upper bound (`<X` or `<=X`), matching what `npm audit fix` actually does. Verified end-to-end against the depguard lockfile (3 known transitives now correctly classified as `bump`).
+- **Stale hardcoded version strings on landing.html / index.html** — JSON-LD `softwareVersion` was `1.9.1` (index) / `1.8.2` (landing) and the hero badge text was `v1.9.1`, all now reflect the published version.
+- **Glama badge linked to a slug that 301-redirects** — removed until the listing is confirmed on Glama.
 
 ### Changed
 
-- 13 MCP tools (up from 12). 315 tests (up from 298).
+- 13 MCP tools (up from 12). 325 tests (up from 298).
+- Ranking page description count is now populated from `data.totalPackages` at render time instead of hardcoded `150`.
+
+## [1.10.0] - 2026-04-29
+
+### Added
+
+- **`--version` flag and publish-time version check** — new `src/version.ts` is the single source of truth for `DEPGUARD_VERSION`, consumed by both the CLI flag and the SBOM `metadata.tools` entry. New `scripts/check-version.ts` (wired into `prepublishOnly`) guards against `package.json` and `version.ts` drifting apart. ([#59](https://github.com/mopanc/depguard/pull/59))
+- **Glama metadata** — `glama.json` declares maintainers and project info for the Glama MCP directory listing.
+- **Dockerfile for MCP introspection** — minimal image used by directories like Glama to introspect the server's tool list.
+
+### Changed
+
+- README — new "Why this exists" and "About the author" sections; "engineer" replaced with role-based phrasing throughout to match positioning. GitHub Sponsors funding link added.
 
 ## [1.9.1] - 2026-04-26
 
