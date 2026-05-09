@@ -3,7 +3,7 @@ import { join } from 'node:path'
 import { homedir } from 'node:os'
 import { createHash } from 'node:crypto'
 
-const CACHE_DIR = join(homedir(), '.depguard', 'cache')
+const CACHE_DIR = process.env.DEPGUARD_CACHE_DIR || join(homedir(), '.depguard', 'cache')
 const DEFAULT_TTL = 24 * 60 * 60 * 1000 // 24 hours
 
 let diskCacheEnabled = true

@@ -11,6 +11,13 @@
   included_files = ["src/data/**", "dist/**"]
   node_bundler = "esbuild"
 
+# Function runtime env. DEPGUARD_GITHUB_TOKEN must be set via the Netlify
+# dashboard (Site settings → Environment variables) — never commit a token.
+# Without it, GitHub Advisory queries are capped at 60 req/h and the live
+# /api/audit score can drift from the daily-scan snapshot for the same package.
+[functions.environment]
+  DEPGUARD_CACHE_DIR = "/tmp/.depguard-cache"
+
 # Redirect /api/audit → Netlify Function
 [[redirects]]
   from = "/api/audit"
