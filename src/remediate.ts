@@ -68,12 +68,40 @@ function severityScore(counts: RemediationItem['severityCounts']): number {
     + counts.low * SEVERITY_WEIGHT.low
 }
 
+/**
+ * True if the advisory has an explicit, usable patched_versions range.
+ * Empty strings, null, undefined, and the sentinel "<0.0.0" all count
+ * as "no explicit patched range".
+ */
+function hasExplicitPatch(a: NpmAdvisory): boolean {
+  const p = a.patched_versions
+  if (!p) return false
+  const trimmed = p.trim()
+  return trimmed !== '' && trimmed !== '<0.0.0'
+}
+
+/**
+ * True if the vulnerable_versions range carries an upper bound (`<X` or
+ * `<=X`), which implies a patched version exists at or above that bound.
+ *
+ * The npm bulk advisory endpoint commonly omits patched_versions and
+ * only returns vulnerable_versions like "<1.1.13" or
+ * ">=4.0.0 <5.0.5 || <1.1.13". Treating any clause with an upper bound
+ * as evidence of a fix matches what `npm audit fix` actually does — it
+ * resolves to the next non-vulnerable version above the upper bound.
+ */
+function hasImpliedPatchFromVulnRange(a: NpmAdvisory): boolean {
+  const r = a.vulnerable_versions
+  if (!r) return false
+  return /<=?\s*[0-9*v]/.test(r)
+}
+
 function actionFor(advisories: NpmAdvisory[]): RemediationItem['action'] {
   if (advisories.length === 0) return 'bump'
   let withFix = 0
   let withoutFix = 0
   for (const a of advisories) {
-    if (a.patched_versions && a.patched_versions.trim() !== '' && a.patched_versions !== '<0.0.0') {
+    if (hasExplicitPatch(a) || hasImpliedPatchFromVulnRange(a)) {
       withFix++
     } else {
       withoutFix++

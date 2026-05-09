@@ -199,6 +199,40 @@ describe('remediate', () => {
     }
   })
 
+  it('infers a fix exists when patched_versions is missing but vulnerable_versions has an upper bound', async () => {
+    // Mirrors the real npm bulk advisory response, which omits
+    // patched_versions and only returns vulnerable_versions like "<1.1.13".
+    writeFileSync(join(tmpDir, 'package.json'), JSON.stringify({
+      name: 'app',
+      license: 'MIT',
+      dependencies: { 'pkg-a': '^1.0.0' },
+    }))
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        '': { dependencies: { 'pkg-a': '^1.0.0' } },
+        'node_modules/pkg-a': { version: '1.0.0', dependencies: { 'bounded-leaf': '^1.0.0' } },
+        'node_modules/bounded-leaf': { version: '1.1.10' },
+      },
+    }))
+
+    const fetcher = createFetch({
+      'registry.npmjs.org/pkg-a': makePkg('pkg-a'),
+    }, {
+      'bounded-leaf': {
+        id: 88,
+        title: 'ReDoS in bounded-leaf',
+        severity: 'moderate',
+        url: 'https://x/88',
+        vulnerable_versions: '<1.1.13',
+        // patched_versions intentionally absent — matches real npm bulk payload
+      },
+    })
+
+    const report = await remediate(join(tmpDir, 'package.json'), { fetcher })
+    assert.strictEqual(report.remediations[0].action, 'bump')
+  })
+
   it('marks action as no-fix-available when patched_versions is empty', async () => {
     writeFileSync(join(tmpDir, 'package.json'), JSON.stringify({
       name: 'app',
