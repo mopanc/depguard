@@ -18,12 +18,14 @@ import { auditProject } from './bulk.js'
 import type { BulkAuditReport, ProjectAuditOptions } from './bulk.js'
 import type { NpmAdvisory } from './types.js'
 import { DEPGUARD_VERSION } from './version.js'
+import { knownLicenses } from './license.js'
 import type {
   Component,
   CycloneDXBom,
   Dependency,
   Hash,
   HashAlgorithm,
+  License,
   Vulnerability,
   VulnerabilityAffect,
   VulnerabilityRating,
@@ -80,8 +82,14 @@ export async function generateSBOM(
   if (typeof projectPkg.description === 'string' && projectPkg.description.length > 0) {
     rootComponent.description = projectPkg.description
   }
+  // SPDX id set used to classify license strings into license.id vs name.
+  const spdxIds = new Set(knownLicenses())
+
   if (typeof projectPkg.license === 'string' && projectPkg.license.length > 0) {
-    rootComponent.licenses = [{ license: { id: projectPkg.license } }]
+    rootComponent.licenses = [licenseStringToCycloneDX(projectPkg.license, spdxIds)]
+  } else {
+    const fromLegacy = extractLegacyLicenseFields(projectPkg, spdxIds)
+    if (fromLegacy) rootComponent.licenses = fromLegacy
   }
 
   // Component map (name -> bom-ref) for dependency graph + VEX wiring
@@ -102,6 +110,13 @@ export async function generateSBOM(
     }
     const hash = integrityMap.get(`${name}@${version}`)
     if (hash) comp.hashes = [hash]
+    // Closes #63: populate per-component licenses by reading
+    // node_modules/<name>/package.json. Falls back to an explicit UNKNOWN
+    // entry so downstream license-compliance scanners (FOSSA, ScanCode,
+    // Syft) can detect missing license data instead of treating absence
+    // as compatibility.
+    const licenses = extractLicensesFromInstalledPkg(name, projectDir, spdxIds)
+    comp.licenses = licenses ?? [{ license: { name: 'UNKNOWN' } }]
     components.push(comp)
     refByName.set(name, purl)
   }
@@ -345,4 +360,95 @@ function readJsonOrThrow(path: string, name: string): Record<string, unknown> {
   } catch (err) {
     throw new Error(`Failed to parse ${name}: ${(err as Error).message}`)
   }
+}
+
+/**
+ * Convert a raw license string (from package.json `license` field) into a
+ * CycloneDX 1.6 License entry. Picks the right shape:
+ *
+ * - SPDX expression (contains OR/AND/WITH or wrapped in parens) → `expression`
+ * - Valid SPDX identifier → `license.id`
+ * - Anything else (free-form text, e.g. "SEE LICENSE IN LICENSE.txt",
+ *   "UNLICENSED") → `license.name`
+ */
+function licenseStringToCycloneDX(raw: string, spdxIds: Set<string>): License {
+  const trimmed = raw.trim()
+  if (!trimmed) return { license: { name: 'UNKNOWN' } }
+  if (/\s+(OR|AND|WITH)\s+/i.test(trimmed) || trimmed.startsWith('(')) {
+    return { expression: trimmed }
+  }
+  if (spdxIds.has(trimmed)) return { license: { id: trimmed } }
+  return { license: { name: trimmed } }
+}
+
+/**
+ * Read `node_modules/<name>/package.json` and produce CycloneDX `licenses[]`.
+ * Returns undefined when the package is not installed, the file is unreadable,
+ * or no license fields are present. The caller decides the fallback (typically
+ * an explicit UNKNOWN entry).
+ *
+ * Handles three formats found in the wild:
+ *   - `license: "MIT"` (modern, npm-recommended)
+ *   - `license: { type, url }` (early npm convention, still found)
+ *   - `licenses: [{ type, url }, ...]` (legacy array form, deprecated but
+ *     present in older packages)
+ *
+ * Closes #63.
+ */
+function extractLicensesFromInstalledPkg(
+  name: string,
+  projectDir: string,
+  spdxIds: Set<string>,
+): License[] | undefined {
+  const pkgPath = join(projectDir, 'node_modules', ...name.split('/'), 'package.json')
+  if (!existsSync(pkgPath)) return undefined
+
+  let pkg: Record<string, unknown>
+  try {
+    pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'))
+  } catch {
+    return undefined
+  }
+
+  return extractLegacyLicenseFields(pkg, spdxIds)
+}
+
+/**
+ * Pull a CycloneDX `licenses[]` array out of a parsed package.json object,
+ * trying the three license shapes in order. Used both by per-component
+ * extraction and by the root component fallback.
+ */
+function extractLegacyLicenseFields(
+  pkg: Record<string, unknown>,
+  spdxIds: Set<string>,
+): License[] | undefined {
+  // Modern: license as string
+  if (typeof pkg.license === 'string' && pkg.license.length > 0) {
+    return [licenseStringToCycloneDX(pkg.license, spdxIds)]
+  }
+
+  // Early-npm: license as object
+  if (pkg.license && typeof pkg.license === 'object') {
+    const obj = pkg.license as { type?: unknown; name?: unknown }
+    const id = typeof obj.type === 'string' ? obj.type
+      : typeof obj.name === 'string' ? obj.name
+      : null
+    if (id && id.length > 0) return [licenseStringToCycloneDX(id, spdxIds)]
+  }
+
+  // Legacy: licenses as array
+  if (Array.isArray(pkg.licenses)) {
+    const out: License[] = []
+    for (const item of pkg.licenses) {
+      if (!item || typeof item !== 'object') continue
+      const obj = item as { type?: unknown; name?: unknown }
+      const id = typeof obj.type === 'string' ? obj.type
+        : typeof obj.name === 'string' ? obj.name
+        : null
+      if (id && id.length > 0) out.push(licenseStringToCycloneDX(id, spdxIds))
+    }
+    if (out.length > 0) return out
+  }
+
+  return undefined
 }

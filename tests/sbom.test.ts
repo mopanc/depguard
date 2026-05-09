@@ -247,4 +247,166 @@ describe('generateSBOM', () => {
     assert.strictEqual(parsed.bomFormat, 'CycloneDX')
     assert.strictEqual(parsed.specVersion, '1.6')
   })
+
+  // ─── per-component licenses (#63) ──────────────────────────────────────
+
+  it('reads license from node_modules/<pkg>/package.json for each component (#63)', async () => {
+    const dir = makeProject({
+      'package.json': JSON.stringify({
+        name: 'app',
+        version: '1.0.0',
+        dependencies: { axios: '^1.0.0' },
+      }),
+      'package-lock.json': JSON.stringify({
+        lockfileVersion: 3,
+        packages: {
+          '': { name: 'app', version: '1.0.0' },
+          'node_modules/axios': { version: '1.14.0' },
+        },
+      }),
+      'node_modules/axios/package.json': JSON.stringify({
+        name: 'axios',
+        version: '1.14.0',
+        license: 'MIT',
+      }),
+    })
+
+    const bom = await generateSBOM(join(dir, 'package.json'))
+    const axios = bom.components?.find(c => c.name === 'axios')
+    assert.deepStrictEqual(axios?.licenses, [{ license: { id: 'MIT' } }])
+  })
+
+  it('emits SPDX expression for compound licenses like "MIT OR Apache-2.0"', async () => {
+    const dir = makeProject({
+      'package.json': JSON.stringify({ name: 'app', dependencies: { 'pkg-a': '^1' } }),
+      'package-lock.json': JSON.stringify({
+        lockfileVersion: 3,
+        packages: {
+          '': { name: 'app' },
+          'node_modules/pkg-a': { version: '1.0.0' },
+        },
+      }),
+      'node_modules/pkg-a/package.json': JSON.stringify({
+        name: 'pkg-a',
+        version: '1.0.0',
+        license: 'MIT OR Apache-2.0',
+      }),
+    })
+
+    const bom = await generateSBOM(join(dir, 'package.json'))
+    const pkg = bom.components?.find(c => c.name === 'pkg-a')
+    assert.deepStrictEqual(pkg?.licenses, [{ expression: 'MIT OR Apache-2.0' }])
+  })
+
+  it('handles legacy license object form { type, url }', async () => {
+    const dir = makeProject({
+      'package.json': JSON.stringify({ name: 'app', dependencies: { 'old-pkg': '^1' } }),
+      'package-lock.json': JSON.stringify({
+        lockfileVersion: 3,
+        packages: {
+          '': { name: 'app' },
+          'node_modules/old-pkg': { version: '1.0.0' },
+        },
+      }),
+      'node_modules/old-pkg/package.json': JSON.stringify({
+        name: 'old-pkg',
+        version: '1.0.0',
+        license: { type: 'ISC', url: 'https://opensource.org/licenses/ISC' },
+      }),
+    })
+
+    const bom = await generateSBOM(join(dir, 'package.json'))
+    const pkg = bom.components?.find(c => c.name === 'old-pkg')
+    assert.deepStrictEqual(pkg?.licenses, [{ license: { id: 'ISC' } }])
+  })
+
+  it('handles legacy licenses array form [{ type, url }, ...]', async () => {
+    const dir = makeProject({
+      'package.json': JSON.stringify({ name: 'app', dependencies: { 'multi-lic': '^1' } }),
+      'package-lock.json': JSON.stringify({
+        lockfileVersion: 3,
+        packages: {
+          '': { name: 'app' },
+          'node_modules/multi-lic': { version: '1.0.0' },
+        },
+      }),
+      'node_modules/multi-lic/package.json': JSON.stringify({
+        name: 'multi-lic',
+        version: '1.0.0',
+        licenses: [
+          { type: 'MIT', url: 'https://opensource.org/licenses/MIT' },
+          { type: 'BSD-3-Clause', url: 'https://opensource.org/licenses/BSD-3-Clause' },
+        ],
+      }),
+    })
+
+    const bom = await generateSBOM(join(dir, 'package.json'))
+    const pkg = bom.components?.find(c => c.name === 'multi-lic')
+    assert.deepStrictEqual(pkg?.licenses, [
+      { license: { id: 'MIT' } },
+      { license: { id: 'BSD-3-Clause' } },
+    ])
+  })
+
+  it('falls back to explicit UNKNOWN when no license metadata can be found', async () => {
+    const dir = makeProject({
+      'package.json': JSON.stringify({ name: 'app', dependencies: { 'no-lic': '^1' } }),
+      'package-lock.json': JSON.stringify({
+        lockfileVersion: 3,
+        packages: {
+          '': { name: 'app' },
+          'node_modules/no-lic': { version: '1.0.0' },
+        },
+      }),
+      'node_modules/no-lic/package.json': JSON.stringify({
+        name: 'no-lic',
+        version: '1.0.0',
+        // no license, no licenses
+      }),
+    })
+
+    const bom = await generateSBOM(join(dir, 'package.json'))
+    const pkg = bom.components?.find(c => c.name === 'no-lic')
+    assert.deepStrictEqual(pkg?.licenses, [{ license: { name: 'UNKNOWN' } }])
+  })
+
+  it('uses license.name for non-SPDX strings like "SEE LICENSE IN LICENSE.txt"', async () => {
+    const dir = makeProject({
+      'package.json': JSON.stringify({ name: 'app', dependencies: { 'custom-lic': '^1' } }),
+      'package-lock.json': JSON.stringify({
+        lockfileVersion: 3,
+        packages: {
+          '': { name: 'app' },
+          'node_modules/custom-lic': { version: '1.0.0' },
+        },
+      }),
+      'node_modules/custom-lic/package.json': JSON.stringify({
+        name: 'custom-lic',
+        version: '1.0.0',
+        license: 'SEE LICENSE IN LICENSE.txt',
+      }),
+    })
+
+    const bom = await generateSBOM(join(dir, 'package.json'))
+    const pkg = bom.components?.find(c => c.name === 'custom-lic')
+    assert.deepStrictEqual(pkg?.licenses, [{ license: { name: 'SEE LICENSE IN LICENSE.txt' } }])
+  })
+
+  it('falls back to UNKNOWN when node_modules/<pkg> is not installed', async () => {
+    const dir = makeProject({
+      'package.json': JSON.stringify({ name: 'app', dependencies: { ghost: '^1' } }),
+      'package-lock.json': JSON.stringify({
+        lockfileVersion: 3,
+        packages: {
+          '': { name: 'app' },
+          'node_modules/ghost': { version: '1.0.0' },
+        },
+      }),
+      // No node_modules/ghost on disk
+    })
+
+    const bom = await generateSBOM(join(dir, 'package.json'))
+    const pkg = bom.components?.find(c => c.name === 'ghost')
+    assert.deepStrictEqual(pkg?.licenses, [{ license: { name: 'UNKNOWN' } }])
+  })
 })
