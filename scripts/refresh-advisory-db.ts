@@ -28,6 +28,7 @@ interface Incident {
   date: string
   cve: string | null
   description: string
+  origin?: 'curated' | 'ghsa' | 'osv'
 }
 
 interface CompromisedPackage {
@@ -120,6 +121,7 @@ async function refresh(): Promise<void> {
   let addedPkgs = 0
   let addedIncidents = 0
   let skippedDup = 0
+  const sampleAdditions: Array<{ name: string; ghsa: string; range: string; summary: string }> = []
 
   while (url) {
     pages++
@@ -139,9 +141,17 @@ async function refresh(): Promise<void> {
         date: adv.published_at.split('T')[0],
         cve: pickIncidentId(adv),
         description: adv.summary || `Malware advisory ${adv.ghsa_id}`,
+        origin: 'ghsa',
       }
 
       const existing = db.packages[name]
+      const sampleEntry = {
+        name,
+        ghsa: adv.ghsa_id,
+        range: incident.version,
+        summary: incident.description.slice(0, 80),
+      }
+
       if (!existing) {
         db.packages[name] = {
           compromised: true,
@@ -149,6 +159,7 @@ async function refresh(): Promise<void> {
           incidents: [incident],
         }
         addedPkgs++
+        if (sampleAdditions.length < 5) sampleAdditions.push(sampleEntry)
         continue
       }
 
@@ -161,6 +172,7 @@ async function refresh(): Promise<void> {
       const newSev = mapSeverity(adv.severity)
       if (SEV_RANK[newSev] > SEV_RANK[existing.severity]) existing.severity = newSev
       addedIncidents++
+      if (sampleAdditions.length < 5) sampleAdditions.push(sampleEntry)
     }
 
     url = next
@@ -182,6 +194,12 @@ async function refresh(): Promise<void> {
   console.log(`  new incidents on existing packages: ${addedIncidents}`)
   console.log(`  skipped (already imported): ${skippedDup}`)
   console.log(`  DB now contains ${Object.keys(db.packages).length} packages`)
+  if (sampleAdditions.length > 0) {
+    console.log('  sample of new entries (spot-check for false positives):')
+    for (const s of sampleAdditions) {
+      console.log(`    - ${s.name} (${s.ghsa}) versions=${s.range} — ${s.summary}`)
+    }
+  }
   console.log(`  wrote: ${DB_PATH}`)
 }
 

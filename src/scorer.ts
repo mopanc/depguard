@@ -1,6 +1,6 @@
 import type { AuditReport, FetchFn, ScoreResult, ScoreWeights } from './types.js'
 import { audit } from './audit.js'
-import { lookupCompromised } from './advisory-db.js'
+import { isVersionCompromised } from './advisory-db.js'
 
 const DEFAULT_WEIGHTS: ScoreWeights = {
   security: 30,
@@ -50,8 +50,12 @@ export async function score(
       breakdown.dependencies * weights.dependencies) / totalWeight,
   )
 
-  // Known compromised packages = total score 0, no exceptions
-  if (lookupCompromised(name)) return { name, total: 0, breakdown, warnings: report.warnings }
+  // Compromise check is version-aware: only score 0 if the audited version is
+  // actually in a known-malicious range. Avoids flagging clean post-incident
+  // versions of historically compromised packages.
+  if (isVersionCompromised(name, report.version)) {
+    return { name, total: 0, breakdown, warnings: report.warnings }
+  }
 
   // Hard ceiling: packages with critical/high security scores cannot score above thresholds
   if (breakdown.security <= 15) total = Math.min(total, 30)  // Critical vulns → max 30
@@ -104,9 +108,8 @@ export function scoreFromReport(report: AuditReport): number {
  * but do NOT reduce the security score. Only CVEs and advisory DB affect scoring.
  */
 function computeSecurityScore(report: AuditReport): number {
-  // Known compromised package = score 0 (advisory database)
-  const compromised = lookupCompromised(report.name)
-  if (compromised) return 0
+  // Version-aware compromise check (see policy: false-positive aversion).
+  if (isVersionCompromised(report.name, report.version)) return 0
 
   const v = report.vulnerabilities
 

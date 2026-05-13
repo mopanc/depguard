@@ -48,6 +48,68 @@ function matchComparator(version: SemVer, op: string, target: SemVer): boolean {
 }
 
 /**
+ * Strict, FP-averse range membership check — used for malware/compromised
+ * package matching where false positives are worse than misses.
+ *
+ * Differences from satisfiesRange (which is recall-biased for CVE matching):
+ *   - "all", "*", "", ">= 0" → matches any parseable version
+ *   - exact-version list ("1.2.3,1.2.4") fully supported
+ *   - unparseable input → returns false (FP-averse default)
+ *
+ * See policy `depguard-false-positive-aversion-policy`.
+ */
+export function matchesCompromisedRange(version: string, range: string): boolean {
+  if (!version) return false
+  const ver = parse(version)
+  if (!ver) return false  // FP-averse: unparseable version → don't flag
+
+  const r = (range ?? '').trim()
+  if (r === '' || r === 'all' || r === '*' || r === '>= 0' || r === '>=0') {
+    return true  // universal-match sentinels
+  }
+
+  // Special case: comma-separated list of exact versions with NO operators
+  // (e.g., the curated "0.7.29,0.8.0,1.0.0" ua-parser-js incident format).
+  // Treat each as a standalone exact-match OR clause.
+  if (/^[\dv][\d.\-+a-zA-Z]*(?:\s*,\s*[\dv][\d.\-+a-zA-Z]*)+$/.test(r)) {
+    const exacts = r.split(',').map(s => s.trim())
+    return exacts.some(e => {
+      const t = parse(e)
+      return t !== null && compare(ver, t) === 0
+    })
+  }
+
+  const orClauses = r.split('||').map(s => s.trim()).filter(Boolean)
+  for (const clause of orClauses) {
+    if (matchesCompromisedAndClause(ver, clause)) return true
+  }
+  return false
+}
+
+function matchesCompromisedAndClause(ver: SemVer, clause: string): boolean {
+  const parts = clause.split(',').map(s => s.trim()).filter(Boolean)
+  if (parts.length === 0) return false
+
+  let usableComparators = 0
+  for (const part of parts) {
+    const m = part.match(/^(>=|<=|>|<|=)\s*(.+)$/)
+    if (m) {
+      const target = parse(m[2])
+      if (!target) return false  // FP-averse: unparseable target → don't flag
+      if (!matchComparator(ver, m[1], target)) return false
+      usableComparators++
+      continue
+    }
+    // No operator → treat as exact version match
+    const target = parse(part)
+    if (!target) return false  // FP-averse
+    if (compare(ver, target) !== 0) return false
+    usableComparators++
+  }
+  return usableComparators > 0  // FP-averse: empty clause → don't flag
+}
+
+/**
  * Check if a version satisfies a vulnerability range string.
  * Returns true if the version IS vulnerable (falls within the range).
  *

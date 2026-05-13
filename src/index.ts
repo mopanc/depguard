@@ -12,7 +12,14 @@ export { guard, verify, levenshtein } from './guard.js'
 export { sweep, extractImports, collectSourceFiles, detectPhantomDeps } from './sweep.js'
 export { auditTransitive } from './transitive.js'
 export { review } from './review.js'
-export { lookupCompromised, getIncidents, getDBVersion, getDBSize } from './advisory-db.js'
+export {
+  lookupCompromised,
+  getCompromisedIncidents,
+  isVersionCompromised,
+  getIncidents,
+  getDBVersion,
+  getDBSize,
+} from './advisory-db.js'
 export { getAllInstalledDeps, getAllInstalledVersions, getDependencyParents } from './lockfile.js'
 export { loadStats, recordCall } from './stats.js'
 export type { DepguardStats } from './stats.js'

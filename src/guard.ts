@@ -11,7 +11,7 @@ import type { GuardResult, GuardOptions, VerifyResult, VerifyOptions } from './t
 import { fetchPackage } from './registry.js'
 import { audit } from './audit.js'
 import { score } from './scorer.js'
-import { lookupCompromised } from './advisory-db.js'
+import { getCompromisedIncidents } from './advisory-db.js'
 
 /**
  * Top ~100 popular npm packages for typosquatting detection.
@@ -179,10 +179,16 @@ export async function guard(
     }
   }
 
-  // Step 2: Check advisory database for known compromised packages
-  const compromised = lookupCompromised(packageName)
-  if (compromised) {
-    const incident = compromised.incidents[0]
+  // Step 2: Check advisory database for known compromised packages — block only
+  // if the LATEST version (what would actually get installed) falls inside a
+  // known-malicious range. Historical incidents on different versions are not
+  // grounds to block; see policy `depguard-false-positive-aversion-policy`.
+  const targetVersion = verifyResult.version
+  const matchingIncidents = targetVersion
+    ? getCompromisedIncidents(packageName, targetVersion)
+    : []
+  if (matchingIncidents.length > 0) {
+    const incident = matchingIncidents[0]
     reasons.push(`KNOWN COMPROMISED: ${incident.description}`)
     reasons.push(`Incident type: ${incident.type}, date: ${incident.date}`)
     if (incident.cve) reasons.push(`CVE: ${incident.cve}`)

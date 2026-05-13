@@ -1,0 +1,5 @@
+{
+  "version": "2026-05-13",
+  "description": "Manual quarantine list — package+id pairs whose advisory we explicitly trust, despite being flagged by GHSA/OSV. Each exception suppresses the matching incident from compromise checks. Use sparingly; document the reason.",
+  "exceptions": []
+}

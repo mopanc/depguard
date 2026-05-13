@@ -12,7 +12,7 @@ import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { audit } from '../src/audit.js'
 import { scoreFromReport } from '../src/scorer.js'
-import { lookupCompromised } from '../src/advisory-db.js'
+import { isVersionCompromised } from '../src/advisory-db.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -128,7 +128,7 @@ function loadPreviousScan(): DailyScan | null {
 async function auditPackage(name: string): Promise<PackageResult | null> {
   try {
     const report = await audit(name, 'MIT')
-    const compromised = lookupCompromised(name)
+    const compromised = isVersionCompromised(name, report.version)
     const totalScore = compromised ? 0 : scoreFromReport(report)
 
     return {
@@ -142,7 +142,7 @@ async function auditPackage(name: string): Promise<PackageResult | null> {
       license: report.license,
       downloads: report.weeklyDownloads,
       deprecated: report.deprecated,
-      compromised: !!compromised,
+      compromised,
       codeFindings: report.codeAnalysis?.findings.length ?? 0,
       lastPublish: report.lastPublish,
     }
