@@ -28,6 +28,12 @@ jobs:
 
       - run: npm run build
 
+      - name: Refresh advisory-db from GHSA
+        run: npx tsx scripts/refresh-advisory-db.ts
+        timeout-minutes: 10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Run daily scan
         run: npx tsx scripts/daily-scan.ts
         timeout-minutes: 30
@@ -44,6 +50,6 @@ jobs:
         run: |
           git config user.name "depguard-bot"
           git config user.email "depguard-bot@users.noreply.github.com"
-          git add docs/data/daily-scan.json .github/state/daily-scan-state.json
+          git add src/data/advisory-db.json docs/data/daily-scan.json .github/state/daily-scan-state.json
           git diff --staged --quiet || git commit -m "data: daily security scan $(date -u +%Y-%m-%d)"
           git push
