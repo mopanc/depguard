@@ -160,6 +160,34 @@ The plan for depguard-cli — where we are, where we're going, and why.
 
 ---
 
+## AI Agent Surface — Skills & MCP marketplace audit (proposed)
+
+Adjacent surface to npm: Claude Code Skills and MCP-server packages ship
+third-party code that an AI agent installs and executes. Same trust model as
+npm packages, same attack vectors (account hijack, prompt-injection via
+manifest, env-var exfiltration, hidden subprocess), no equivalent audit tooling
+yet. Suggested as a roadmap item by a depguard user pointing at Greg Pstrucha's
+"Claude Code Skills Are a Massive Security Threat" talk (Sentry / Mastra, 2026).
+
+Not date-committed — to be sequenced after the npm-side tier-up (broader scan,
+runtime DB fetch) ships.
+
+- [ ] **Skill SBOM (CycloneDX 1.6)** — extend the existing SBOM pipeline to
+      consume skill bundles (`SKILL.md`, manifest, scripts, bundled binaries)
+      and emit a CycloneDX component graph. Compliance hook for orgs running
+      Claude Code under EU CRA / OMB M-22-18.
+- [ ] **Skill advisory database** — mirror the npm `advisory-db.json` model
+      with known-malicious skills (e.g., the ClawHavoc campaign), auto-refresh
+      from a community feed.
+- [ ] **`depguard skill-guard <skill-url>`** — pre-install guardian for skills.
+      Static analysis of the manifest + bundled files; detect prompt-injection
+      patterns, env-var access, subprocess execution; allow / warn / block
+      decision mirroring the npm `guard` command.
+- [ ] **MCP tool `depguard_audit_skill`** — expose the auditor as an MCP tool
+      so a running agent can self-audit a skill *before* installing it, not
+      after. Meta-defensive: the agent asks depguard to vet the skill it is
+      about to absorb.
+
 ## Phase 5 — OpenSSF Alignment (2027)
 
 ### Strategic Goals
