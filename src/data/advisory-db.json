@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-17",
+  "version": "2026-05-18",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -29205,6 +29205,34 @@
         }
       ]
     },
+    "parse-escape-regex-string": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-18",
+          "cve": "GHSA-7539-9rfq-wvx7",
+          "description": "Malware in parse-escape-regex-string",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "parse-regex-string": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-18",
+          "cve": "GHSA-qr8m-9gqh-9r3f",
+          "description": "Malware in parse-regex-string",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "parse-session": {
       "compromised": true,
       "severity": "critical",
@@ -32873,6 +32901,20 @@
         }
       ]
     },
+    "safe-env-reader": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-18",
+          "cve": "GHSA-h48h-6qwg-6fwg",
+          "description": "Malware in safe-env-reader",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "safe-json-parsex": {
       "compromised": true,
       "severity": "critical",
@@ -33373,6 +33415,20 @@
           "date": "2026-05-05",
           "cve": "GHSA-fmm2-56pg-g4g7",
           "description": "Malware in secrets-manager-wrapper",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "secure-env-loader": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-18",
+          "cve": "GHSA-qv2f-j4wq-jrvg",
+          "description": "Malware in secure-env-loader",
           "origin": "ghsa"
         }
       ]
@@ -35263,6 +35319,20 @@
           "date": "2026-02-03",
           "cve": "GHSA-5wwj-79v9-g888",
           "description": "Malware in strengthifys",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "string-manipulation-typescript": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-18",
+          "cve": "GHSA-hg9f-779j-m788",
+          "description": "Malware in string-manipulation-typescript",
           "origin": "ghsa"
         }
       ]
@@ -39355,6 +39425,20 @@
         }
       ]
     },
+    "validate-api-key": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-18",
+          "cve": "GHSA-v2g5-p8g8-3q37",
+          "description": "Malware in validate-api-key",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "validator-lut-sdk": {
       "compromised": true,
       "severity": "critical",
@@ -41750,5 +41834,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-05-17T08:14:52.739Z"
+  "lastRefresh": "2026-05-18T09:53:17.633Z"
 }
