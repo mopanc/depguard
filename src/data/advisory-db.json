@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-20",
+  "version": "2026-05-21",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -14123,6 +14123,20 @@
           "date": "2026-03-02",
           "cve": "GHSA-29c7-mqr6-w382",
           "description": "Malware in argonist",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "art-template": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 4.13.5",
+          "type": "supply-chain",
+          "date": "2026-05-21",
+          "cve": "GHSA-2jwj-r853-cwhh",
+          "description": "Malware in art-template",
           "origin": "ghsa"
         }
       ]
@@ -42814,5 +42828,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-05-20T08:59:17.920Z"
+  "lastRefresh": "2026-05-21T09:31:28.865Z"
 }
