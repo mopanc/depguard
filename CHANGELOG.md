@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2026-05-24
+
+### Added
+
+- **Workspace auto-exec surface audit** — new `depguard_workspace_audit` MCP tool and `depguard-cli workspace-audit [path]` command. Scans a freshly-cloned repo for files that execute automatically when the developer opens it in an IDE, runs `direnv allow`, or builds. This is the technical defense against the *fake-interview / take-home-test* malware campaigns (publicly reported as Contagious Interview / DEV#POPPER and adjacent activity through 2024–2026): a recruiter sends a coding-test repo, the victim clones and opens it, and the payload exfiltrates browser sessions, SSH keys, and password-manager state before the IDE finishes loading. Eight detectors in a single scan: `.vscode/tasks.json` (`runOptions.runOn: folderOpen`), `.vscode/settings.json` (terminal automation profiles, custom shell args, `git.path`, interpreter/Node overrides, `npm.packageManager`), `.devcontainer/devcontainer.json` (all six lifecycle commands, with explicit note that `initializeCommand` runs on the host before container build), `.envrc` (direnv stdlib-only is INFO, arbitrary shell is WARN, attack patterns are HIGH), JetBrains `.idea/runConfigurations/*.xml` (extracts SCRIPT_TEXT/SCRIPT_PATH/INTERPRETER_PATH), `Makefile`/`makefile`/`GNUmakefile` default target (only reported when classifier produces WARN/HIGH — benign `all: build test` produces no finding), `.gitattributes` custom filter drivers (ignores `filter=lfs`), and committed git hooks under `.githooks/` (with explicit caveat that hooks only fire after the user sets `core.hooksPath`). Classification is FP-averse — precision over recall — with three tiers: INFO (auto-exec surface exists but the command is legible and benign), WARN (network call, credential-path access, secret-named env vars, custom shell beyond direnv stdlib), HIGH (pipe-to-shell / `iex` patterns, base64 decode chains, hex obfuscation, `eval` / dynamic execution, `/dev/tcp` reverse shells, netcat with execute flag, inline interpreter one-liners). CLI exits with code 2 on HIGH and 1 on WARN, so it slots straight into CI without further wiring. 41 new tests, dogfooded clean on the depguard repo itself.
+
+### Changed
+
+- 14 MCP tools (up from 13). 385 tests (up from 325).
+
 ## [1.11.1] - 2026-05-09
 
 ### Fixed

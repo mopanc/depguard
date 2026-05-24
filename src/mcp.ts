@@ -21,6 +21,7 @@ import { sweep } from './sweep.js'
 import { auditTransitive } from './transitive.js'
 import { review } from './review.js'
 import { generateSBOM } from './sbom.js'
+import { auditWorkspace } from './workspace-audit.js'
 import { scoreFromReport } from './scorer.js'
 import { calculateSavings } from './tokens.js'
 import { printStatsBanner, recordCall, setVersion } from './stats.js'
@@ -206,6 +207,18 @@ const TOOLS = [
       required: ['path'],
     },
   },
+  // === BEFORE OPENING A REPO — call this on a freshly cloned repo BEFORE the user opens it in an IDE ===
+  {
+    name: 'depguard_workspace_audit',
+    description: 'MANDATORY: call this AFTER cloning a repository and BEFORE opening it in any IDE (VS Code, Cursor, JetBrains, etc.) or running `direnv allow`. Enumerates every file in the repo that auto-executes when the workspace opens: .vscode/tasks.json runOn:folderOpen, .vscode/settings.json shell overrides, .devcontainer lifecycle commands, .envrc, JetBrains run configurations, Makefile default targets, .gitattributes custom filter drivers, and committed git hooks. Classifies each as INFO / WARN / HIGH using FP-averse heuristics (benign `npm run watch` stays INFO; only curl|sh, base64 decode chains, credential paths, and obfuscation escalate). This is the technical defense against fake-interview / take-home-test malware campaigns where a coding-test repo compromises the developer\'s session before the IDE finishes loading.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        path: { type: 'string', description: 'Absolute path to the repository root to audit' },
+      },
+      required: ['path'],
+    },
+  },
 ]
 
 interface JsonRpcRequest {
@@ -240,10 +253,15 @@ function toolResult(toolName: string, content: unknown, argCount?: number): unkn
 
   // Record local stats (never sent anywhere)
   const contentObj = content as Record<string, unknown>
+  const workspaceSummary = toolName === 'depguard_workspace_audit'
+    ? (contentObj.summary as { high?: number } | undefined)
+    : undefined
   recordCall(toolName, {
     tokensSaved: savings.saved,
-    packagesAudited: toolName.includes('audit') ? (argCount ?? 1) : 0,
-    threatsBlocked: toolName === 'depguard_guard' && contentObj.decision === 'block' ? 1 : 0,
+    packagesAudited: toolName.includes('audit') && toolName !== 'depguard_workspace_audit' ? (argCount ?? 1) : 0,
+    threatsBlocked: toolName === 'depguard_guard' && contentObj.decision === 'block'
+      ? 1
+      : workspaceSummary?.high ?? 0,
     reviewFindings: toolName === 'depguard_review' ? (contentObj.totalFindings as number ?? 0) : 0,
   })
 
@@ -526,6 +544,13 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
                 isError: true,
               })
             }
+          }
+
+          case 'depguard_workspace_audit': {
+            const repoPath = args.path as string
+            if (!repoPath) return error(req.id, -32602, 'path is required')
+            const result = auditWorkspace(repoPath)
+            return success(req.id, toolResult('depguard_workspace_audit', result))
           }
 
           default:

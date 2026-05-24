@@ -1,6 +1,6 @@
 # depguard-cli
 
-MCP security server for AI coding agents. 13 tools: **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, smart recommendations, **remediation planner**, and **CycloneDX 1.6 SBOM generation**.
+MCP security server for AI coding agents. 14 tools: **workspace auto-exec audit** (pre-open repo scan that defends against fake-interview / take-home-test malware), **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, smart recommendations, **remediation planner**, and **CycloneDX 1.6 SBOM generation**.
 
 Your AI agent verifies every `npm install` before it happens. Tarball download and source code scanning detects malware patterns, obfuscation, and behavioral mismatches. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
 
@@ -53,6 +53,14 @@ depguard-cli review [path] [--full] [--json]
 
 # Generate a CycloneDX 1.6 SBOM (Software Bill of Materials)
 depguard-cli sbom <path/package.json> [--include-vex] [--include-dev] [-o out.json]
+
+# Workspace auto-exec audit — pre-open repo scan
+# Run BETWEEN `git clone` and opening the folder in your IDE. Lists every
+# file that auto-executes when the workspace opens (VS Code tasks runOn:
+# folderOpen, devcontainer lifecycle commands, direnv .envrc, JetBrains
+# run configs, Makefile default targets, .gitattributes filter drivers,
+# committed git hooks). Exit code 2 on HIGH, 1 on WARN — CI-ready.
+depguard-cli workspace-audit [path] [--json]
 
 # Local usage statistics (calls, tokens saved, threats blocked)
 depguard-cli stats [--json]

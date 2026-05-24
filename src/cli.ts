@@ -12,6 +12,8 @@ import { auditTransitive } from './transitive.js'
 import { review } from './review.js'
 import { generateSBOM } from './sbom.js'
 import { remediate } from './remediate.js'
+import { auditWorkspace } from './workspace-audit.js'
+import type { AutoExecFinding, AutoExecSeverity, WorkspaceAuditResult } from './workspace-audit.js'
 import { loadStats, recordCall } from './stats.js'
 import { writeFileSync } from 'node:fs'
 
@@ -63,6 +65,7 @@ Commands:
   review [path]            AI code review (detect debris left by AI agents)
   sbom <path/package.json> Generate CycloneDX 1.6 SBOM for a project
   remediate <path/package.json> Group vulnerabilities by direct dep to bump
+  workspace-audit [path]   Pre-open audit: list files that auto-execute when the repo is opened
   stats                    Show local usage statistics
 
 Options:
@@ -113,6 +116,45 @@ function printFormatted(obj: Record<string, unknown>, indent = 0): void {
       console.log(`${pad}${key}: ${val}`)
     }
   }
+}
+
+function severityTag(s: AutoExecSeverity): string {
+  return s === 'HIGH' ? '[HIGH]' : s === 'WARN' ? '[WARN]' : '[INFO]'
+}
+
+function printWorkspaceAudit(result: WorkspaceAuditResult): void {
+  console.log('')
+  console.log(`Workspace auto-exec surface audit — ${result.scannedPath}`)
+  console.log(`  Surfaces checked: ${result.surfacesChecked.length}${result.surfacesChecked.length > 0 ? ` (${result.surfacesChecked.join(', ')})` : ''}`)
+  console.log('')
+
+  if (result.findings.length === 0) {
+    if (result.surfacesChecked.length === 0) {
+      console.log('  No auto-execution surfaces present in this repo.')
+    } else {
+      console.log('  No actionable findings. All surfaces above look benign.')
+    }
+    console.log('')
+    console.log(`  Note: ${result.note}`)
+    console.log('')
+    return
+  }
+
+  for (const f of result.findings as AutoExecFinding[]) {
+    console.log(`  ${severityTag(f.severity)} ${f.source} — ${f.file}`)
+    console.log(`         Trigger: ${f.trigger}`)
+    console.log(`         Command: ${f.command}`)
+    for (const reason of f.reasons) {
+      console.log(`         - ${reason}`)
+    }
+    console.log('')
+  }
+
+  const { high, warn, info } = result.summary
+  console.log(`  Summary: ${high} HIGH, ${warn} WARN, ${info} INFO  (${result.findings.length} findings across ${result.surfacesChecked.length} surfaces)`)
+  console.log('')
+  console.log(`  Note: ${result.note}`)
+  console.log('')
 }
 
 async function main() {
@@ -362,6 +404,22 @@ async function main() {
           for (const w of report.warnings) console.log(`  - ${w}`)
         }
       }
+      break
+    }
+
+    case 'workspace-audit': {
+      const repoPath = positionals[1] ?? process.cwd()
+      const result = auditWorkspace(repoPath)
+      recordCall('depguard_workspace_audit', {
+        threatsBlocked: result.summary.high,
+      })
+      if (json) {
+        output(result, true)
+      } else {
+        printWorkspaceAudit(result)
+      }
+      if (result.summary.high > 0) process.exit(2)
+      if (result.summary.warn > 0) process.exit(1)
       break
     }
 

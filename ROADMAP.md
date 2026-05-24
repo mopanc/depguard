@@ -188,6 +188,112 @@ runtime DB fetch) ships.
       after. Meta-defensive: the agent asks depguard to vet the skill it is
       about to absorb.
 
+## Workspace Auto-Exec Surface — pre-open repo audit (proposed, priority)
+
+A class of attack adjacent to supply-chain-via-package: **supply-chain-via-repo**.
+Files committed to a repo can execute automatically the moment a developer opens
+it in an IDE, runs `direnv allow`, or builds. No `npm install` required. No
+"Trust Workspace" prompt — VS Code inherits workspace trust from parent folders
+by default, and most devs trust their entire code directory.
+
+This vector is the technical core of the rising "fake interview / take-home
+test" social-engineering campaigns (publicly reported as *Contagious Interview*,
+*DEV#POPPER*, and adjacent activity through 2024–2026): a recruiter — often
+impersonating a real company on LinkedIn or a freelance platform — sends a
+coding-test repo, the victim clones and opens it, and the payload exfiltrates
+browser session tokens, SSH keys, password-manager state, cloud CLI tokens, and
+crypto wallets before the IDE finishes loading. The same technique applies to
+*"please review my PR"*, *"help me debug this OSS repo"*, or any pretext that
+gets a target to clone-and-open.
+
+Goal: a unified **pre-open audit** that runs between `git clone` and opening
+the folder, enumerates every auto-execution surface in the repo, and classifies
+each by risk. False-positive aversion is non-negotiable (see
+`docs/policies/false-positive-aversion.md` if extracted, or the rule encoded in
+the advisory-db work): a `tasks.json` with `runOn: folderOpen` running
+`npm run watch` is INFO, not WARN. The output answers a single question:
+*"if I open this repo right now, what runs without me clicking anything?"*
+
+### Detector scope (single scan, exhaustive)
+- [ ] **VS Code** — `.vscode/tasks.json` (`runOn: folderOpen`),
+      `.vscode/settings.json` (`terminal.integrated.automationProfile.*`,
+      `terminal.integrated.shellArgs.*`, `git.path`,
+      `python.defaultInterpreterPath`, `eslint.nodePath`,
+      `npm.packageManager` override), `.vscode/launch.json` (`preLaunchTask`,
+      arbitrary `program` paths inside the repo),
+      `.vscode/extensions.json` (recommended-extension surface)
+- [ ] **Dev containers** — `.devcontainer/devcontainer.json`
+      (`initializeCommand`, `onCreateCommand`, `postCreateCommand`,
+      `postStartCommand`, `postAttachCommand`), referenced `Dockerfile` `RUN`
+      lines, `features.*` that pull remote install scripts
+- [ ] **JetBrains** — `.idea/runConfigurations/*.xml`, `.idea/workspace.xml`
+      run configs, `.idea/externalDependencies.xml`, external-tool definitions
+- [ ] **Cursor / Windsurf / Zed / Neovim / Helix** — IDE-specific equivalents:
+      `.cursorrules` exec surface, `.zed/tasks.json`, `.nvim.lua` /
+      `.exrc` / `.editorconfig` autoload paths the editor honours by default
+- [ ] **Shell auto-eval** — `.envrc` (direnv — executes arbitrary shell on
+      `cd`/folder open in many IDEs), `.tool-versions` + asdf/mise plugin
+      hooks, `.python-version` + pyenv shims
+- [ ] **Git surface in the cloned tree** — committed hooks (`.githooks/` +
+      any tracked file that sets `core.hooksPath`), `.gitattributes` filter
+      drivers (`filter.*.smudge`/`clean`) that invoke external commands on
+      checkout, `.gitconfig` includes
+- [ ] **Build systems** — `Makefile` default target invoked by IDE build
+      shortcuts, `build.gradle(.kts)` init scripts and `apply from:` remote
+      URLs, `pom.xml` profile auto-activation, `CMakeLists.txt`
+      `execute_process` / `file(DOWNLOAD)`, `Justfile`, `Taskfile.yml`,
+      `BUILD.bazel` `repository_rule` HTTP fetches, `meson.build` `run_command`
+- [ ] **Package lifecycle** (already partially covered — link from unified
+      report) — `package.json` `pre/postinstall`/`prepare`, `pyproject.toml`
+      build backends + `setup.py`, `Cargo.toml` `build.rs`,
+      `Gemfile` post-install hooks
+- [ ] **MCP / AI agent configs** — `.mcp.json`, `.claude/settings.json`
+      permissions and hooks, `.cursor/mcp.json`, agent-config files that
+      pre-authorize tools or auto-start servers
+- [ ] **Editor/runtime hidden paths** — `.vim/`, `.nvim/`,
+      `.emacs.d/init.el`, `.ipython/profile_default/startup/` if cloned into
+      a path the editor/runtime reads from
+
+### Classification (FP-averse — precision > recall, always)
+- **INFO** — auto-exec exists, command is legible and matches a known-benign
+  pattern (`npm/cargo/tsc/ruff watch`, `prettier --check`, formatter daemons,
+  language servers)
+- **WARN** — shell pipe to remote (`curl … | sh`, `iwr … | iex`,
+  `wget … | bash`), `eval`/`base64 -d`/`hex2bin` chains, write outside repo
+  root, access patterns touching `~/.aws`, `~/.ssh`, `~/.config/gh`, browser
+  profile paths, env-var exfil patterns, network-then-write sequences
+- **HIGH** — obfuscation (long base64/hex blobs, multi-stage decode), explicit
+  network-then-exec chain, IoC matches from the depguard advisory DB,
+  cross-platform payload dispatch (Windows + macOS + Linux branches in a
+  single auto-exec config — strong campaign signal)
+
+### UX
+- [ ] **`depguard scan`** — new *"Workspace auto-exec surface"* section in the
+      standard report, even when no package issues are present
+- [ ] **`depguard scan --workspace-only`** — fast pre-IDE check (sub-second
+      target), exits non-zero on any HIGH
+- [ ] **`depguard clone <url> [<dir>]`** — wrapper that runs `git clone`
+      followed by `--workspace-only`; refuses to leave the working tree
+      checked out (or quarantines it) on HIGH unless `--force`
+- [ ] **Per-repo allowlist** — `.depguard-allow` to silence known-benign
+      INFO/WARN entries (committed by maintainers, visible to reviewers; never
+      auto-generated)
+- [ ] **Hook recipe (opt-in, documented)** — `post-checkout` / `post-clone`
+      integration so the scan fires automatically; the tool MUST NOT install
+      this silently
+- [ ] **MCP tool `depguard_workspace_audit`** — so an AI agent asked to "open
+      and review this repo" runs the audit *before* the editor instance does
+
+### Why this is escalated to priority
+Fake-recruiter and fake-take-home-test campaigns delivering payloads via
+cloneable repos are documented and growing through 2025–2026, with credible
+reports from the developer community appearing weekly. The blast radius is the
+developer's entire active session: browser cookies, password managers, SSH
+keys, signing keys, cloud CLI tokens, crypto wallets, source-code access.
+A pre-open scan is the only intervention point that doesn't require the
+developer to already be skeptical — by the time the IDE shows the file tree,
+the payload has already run.
+
 ## Phase 5 — OpenSSF Alignment (2027)
 
 ### Strategic Goals
