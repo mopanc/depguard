@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-25",
+  "version": "2026-05-26",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -21267,6 +21267,20 @@
         }
       ]
     },
+    "eo-terminal": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-26",
+          "cve": "GHSA-29rh-48q6-xhpc",
+          "description": "Malware in eo-terminal",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "epic-admin-ui": {
       "compromised": true,
       "severity": "critical",
@@ -38109,6 +38123,20 @@
         }
       ]
     },
+    "tailwind-style-typography": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-26",
+          "cve": "GHSA-pv74-wmjg-4gp8",
+          "description": "Malware in tailwind-style-typography",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tailwind-stylecss": {
       "compromised": true,
       "severity": "critical",
@@ -44116,5 +44144,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-05-25T09:57:00.778Z"
+  "lastRefresh": "2026-05-26T09:43:49.564Z"
 }
