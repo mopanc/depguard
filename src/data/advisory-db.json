@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-26",
+  "version": "2026-05-27",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -16573,6 +16573,20 @@
           "date": "2026-04-14",
           "cve": "GHSA-4jgh-4hh7-rpfj",
           "description": "Malware in chai-as-refined",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "chai-as-repaired": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-27",
+          "cve": "GHSA-fpr5-4jhx-2qw9",
+          "description": "Malware in chai-as-repaired",
           "origin": "ghsa"
         }
       ]
@@ -44144,5 +44158,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-05-26T09:43:49.564Z"
+  "lastRefresh": "2026-05-27T09:37:42.001Z"
 }
