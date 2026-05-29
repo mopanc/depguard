@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-28",
+  "version": "2026-05-29",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -39229,6 +39229,20 @@
         }
       ]
     },
+    "tiny-naturalsort": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-05-29",
+          "cve": "GHSA-mqp5-9r9w-8hg4",
+          "description": "Malware in tiny-naturalsort",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tiptap-shadcn-vue": {
       "compromised": true,
       "severity": "critical",
@@ -44158,5 +44172,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-05-28T09:54:33.053Z"
+  "lastRefresh": "2026-05-29T09:44:27.228Z"
 }
