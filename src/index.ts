@@ -30,6 +30,8 @@ export { clearCache, fetchBulkAdvisories, fetchGitHubAdvisories, isGitHubRateLim
 export { calculateSavings, estimateTokens } from './tokens.js'
 export { generateSBOM, makePurl, parseIntegrity } from './sbom.js'
 export type { SBOMOptions } from './sbom.js'
+export { auditToSarif, auditProjectToSarif, workspaceToSarif } from './sarif.js'
+export type { SarifLog, SarifRun, SarifResult, SarifRule, SarifLevel } from './sarif.js'
 export type {
   CycloneDXBom,
   CycloneDXSpecVersion,

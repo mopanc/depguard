@@ -14,6 +14,9 @@ import { generateSBOM } from './sbom.js'
 import { remediate } from './remediate.js'
 import { auditWorkspace } from './workspace-audit.js'
 import type { AutoExecFinding, AutoExecSeverity, WorkspaceAuditResult } from './workspace-audit.js'
+import { auditProject } from './bulk.js'
+import { auditToSarif, auditProjectToSarif, workspaceToSarif } from './sarif.js'
+import type { SarifLog } from './sarif.js'
 import { loadStats, recordCall } from './stats.js'
 import { writeFileSync } from 'node:fs'
 
@@ -24,6 +27,7 @@ const { values, positionals } = parseArgs({
     'threshold': { type: 'string', default: '60' },
     'limit': { type: 'string', default: '10' },
     'json': { type: 'boolean', default: false },
+    'format': { type: 'string' },
     'mcp': { type: 'boolean', default: false },
     'block': { type: 'boolean', default: false },
     'include-dev': { type: 'boolean', default: false },
@@ -65,6 +69,7 @@ Commands:
   review [path]            AI code review (detect debris left by AI agents)
   sbom <path/package.json> Generate CycloneDX 1.6 SBOM for a project
   remediate <path/package.json> Group vulnerabilities by direct dep to bump
+  audit-project <path/package.json> Audit all deps (direct, transitive via lockfile, packageManager)
   audit-workspace [path]   Pre-open audit: list files that auto-execute when the repo is opened
   stats                    Show local usage statistics
 
@@ -73,11 +78,12 @@ Options:
   --threshold <n>          Score threshold for should-use/guard (default: 60)
   --limit <n>              Max results for search (default: 10)
   --json                   Output as JSON
+  --format <fmt>           audit | audit-project | audit-workspace: 'sarif' emits SARIF v2.1.0 (uploadable to GitHub Code Scanning)
   --mcp                    Start MCP server (JSON-RPC over stdio)
   --block                  Guard: escalate warnings to blocks
-  --include-dev            Sweep/sbom: include devDependencies
+  --include-dev            Sweep/sbom/audit-project: include devDependencies
   --include-vex            Sbom: include VEX vulnerability data (runs audit)
-  -o, --output <file>      Sbom: write to file instead of stdout
+  -o, --output <file>      Sbom/SARIF: write to file instead of stdout
   -h, --help               Show this help
   -v, --version            Show version
 `)
@@ -157,11 +163,27 @@ function printWorkspaceAudit(result: WorkspaceAuditResult): void {
   console.log('')
 }
 
+function emitSarif(log: SarifLog): void {
+  const text = JSON.stringify(log, null, 2)
+  const outFile = values.output
+  if (outFile) {
+    writeFileSync(outFile, text)
+  } else {
+    console.log(text)
+  }
+}
+
 async function main() {
   const targetLicense = values['target-license'] ?? 'MIT'
   const json = values.json ?? false
+  const format = values.format
   const limit = parseInt(values.limit ?? '10', 10)
   const threshold = parseInt(values.threshold ?? '60', 10)
+
+  if (format && format !== 'sarif' && format !== 'json') {
+    console.error(`Unknown --format '${format}'. Supported: sarif, json.`)
+    process.exit(2)
+  }
 
   switch (command) {
     case 'audit': {
@@ -177,7 +199,11 @@ async function main() {
       const version = hasVersion ? rawName.slice(atIdx + 1) : undefined
       const report = await audit(name, targetLicense, undefined, version)
       recordCall('depguard_audit', { packagesAudited: 1 })
-      output(report, json)
+      if (format === 'sarif') {
+        emitSarif(auditToSarif(report))
+      } else {
+        output(report, json)
+      }
       break
     }
 
@@ -407,6 +433,28 @@ async function main() {
       break
     }
 
+    case 'audit-project': {
+      const filePath = positionals[1]
+      if (!filePath) {
+        console.error('Usage: depguard-cli audit-project <path/package.json>')
+        process.exit(1)
+      }
+      const report = await auditProject(filePath, {
+        includeDevDependencies: values['include-dev'] ?? false,
+        targetLicense,
+      })
+      recordCall('depguard_audit_project', { packagesAudited: report.total })
+      if (format === 'sarif') {
+        emitSarif(auditProjectToSarif(report, filePath))
+      } else {
+        output(report, json)
+      }
+      // Exit code matches severity so CI fails on high/critical findings.
+      if (report.summary.critical > 0 || report.summary.high > 0) process.exit(2)
+      if (report.summary.moderate > 0 || report.summary.low > 0) process.exit(1)
+      break
+    }
+
     case 'workspace-audit':
     case 'audit-workspace': {
       if (command === 'workspace-audit') {
@@ -417,7 +465,9 @@ async function main() {
       recordCall('depguard_audit_workspace', {
         threatsBlocked: result.summary.high,
       })
-      if (json) {
+      if (format === 'sarif') {
+        emitSarif(workspaceToSarif(result))
+      } else if (json) {
         output(result, true)
       } else {
         printWorkspaceAudit(result)

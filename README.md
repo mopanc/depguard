@@ -28,7 +28,10 @@ npx depguard-cli audit express
 
 ```bash
 # Full audit report (optionally pin a version)
-depguard-cli audit <package[@version]> [--target-license MIT] [--json]
+depguard-cli audit <package[@version]> [--target-license MIT] [--json|--format sarif]
+
+# Project audit — direct deps, transitive (via lockfile), and packageManager
+depguard-cli audit-project <path/package.json> [--include-dev] [--target-license MIT] [--json|--format sarif]
 
 # Search npm for packages
 depguard-cli search <keywords...> [--limit 10] [--json]
@@ -60,7 +63,7 @@ depguard-cli sbom <path/package.json> [--include-vex] [--include-dev] [-o out.js
 # folderOpen, devcontainer lifecycle commands, direnv .envrc, JetBrains
 # run configs, Makefile default targets, .gitattributes filter drivers,
 # committed git hooks). Exit code 2 on HIGH, 1 on WARN — CI-ready.
-depguard-cli audit-workspace [path] [--json]
+depguard-cli audit-workspace [path] [--json|--format sarif]
 
 # Local usage statistics (calls, tokens saved, threats blocked)
 depguard-cli stats [--json]
@@ -92,6 +95,37 @@ depguard-cli guard expresss
 # Find unused dependencies in your project
 depguard-cli sweep . --include-dev
 ```
+
+### GitHub Code Scanning (SARIF)
+
+`audit`, `audit-project`, and `audit-workspace` can emit SARIF v2.1.0 with `--format sarif`. The output uploads cleanly to the GitHub Security tab — rule IDs are GHSA-stable so alerts dedupe across runs.
+
+```yaml
+# .github/workflows/depguard.yml
+name: depguard
+on: [push, pull_request]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write   # required to upload SARIF
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Pre-open workspace audit
+        run: npx -y depguard-cli audit-workspace . --format sarif -o workspace.sarif || true
+      - name: Project dependency audit
+        run: npx -y depguard-cli audit-project ./package.json --format sarif -o project.sarif || true
+      - uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: |
+            workspace.sarif
+            project.sarif
+```
+
+The `|| true` lets you keep uploading SARIF even when depguard exits non-zero on HIGH findings — the alerts still appear in the Security tab.
 
 ## API
 

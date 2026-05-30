@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.0] - 2026-05-30
+
+### Added
+
+- **SARIF v2.1.0 output** — `audit`, `audit-project`, and `audit-workspace` now accept `--format sarif` and emit a SARIF v2.1.0 log that uploads cleanly to the GitHub Security tab via `github/codeql-action/upload-sarif@v3`. Rule IDs are stable and GHSA-prefixed (`depguard/vuln/GHSA-…`) so the Security tab dedupes the same advisory across runs and across packages, and CVSS scores propagate as the `security-severity` rule property so GitHub renders accurate severity badges. Conservative level mapping — critical/high → `error`, moderate → `warning`, low/info → `note`; workspace HIGH/WARN/INFO → `error`/`warning`/`note`. Locations are never invented: single-package audits emit logical PURL locations (`pkg:npm/<name>@<version>`), project audits point at the user's `package.json`, and workspace audits emit repo-relative artifact paths to the real file (`.vscode/tasks.json`, `.envrc`, etc.). `partialFingerprints` makes issue identity stable across re-scans. 24 new tests covering envelope shape, severity mapping, rule dedup, fingerprint stability, and required-field SARIF v2.1.0 conformance. README ships a copy-paste GitHub Actions workflow. Implements [#14](https://github.com/mopanc/depguard/issues/14).
+- **`depguard-cli audit-project` CLI subcommand** — the same project-level audit that has been available via MCP since 1.10 is now a first-class CLI command. Reads `package.json`, audits direct dependencies, scans transitive vulnerabilities via the lockfile, and audits the `packageManager` field. Supports `--include-dev`, `--target-license`, `--json`, and `--format sarif`. Exits 2 on any critical/high finding, 1 on moderate/low — CI-ready.
+- **`.coderabbit.yaml`** — CodeRabbit config tuned for a security tool (chill profile, FP-averse instructions, advisory data files excluded from review). Resolves [#60](https://github.com/mopanc/depguard/issues/60).
+
+### Changed
+
+- 14 MCP tools, 409 tests (up from 385).
+
 ## [1.13.0] - 2026-05-30
 
 ### Changed
