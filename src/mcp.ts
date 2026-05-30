@@ -209,7 +209,7 @@ const TOOLS = [
   },
   // === BEFORE OPENING A REPO — call this on a freshly cloned repo BEFORE the user opens it in an IDE ===
   {
-    name: 'depguard_workspace_audit',
+    name: 'depguard_audit_workspace',
     description: 'MANDATORY: call this AFTER cloning a repository and BEFORE opening it in any IDE (VS Code, Cursor, JetBrains, etc.) or running `direnv allow`. Enumerates every file in the repo that auto-executes when the workspace opens: .vscode/tasks.json runOn:folderOpen, .vscode/settings.json shell overrides, .devcontainer lifecycle commands, .envrc, JetBrains run configurations, Makefile default targets, .gitattributes custom filter drivers, and committed git hooks. Classifies each as INFO / WARN / HIGH using FP-averse heuristics (benign `npm run watch` stays INFO; only curl|sh, base64 decode chains, credential paths, and obfuscation escalate). This is the technical defense against fake-interview / take-home-test malware campaigns where a coding-test repo compromises the developer\'s session before the IDE finishes loading.',
     inputSchema: {
       type: 'object' as const,
@@ -220,6 +220,25 @@ const TOOLS = [
     },
   },
 ]
+
+/**
+ * Deprecated MCP tool names kept alive as aliases so existing agent wiring keeps
+ * working after the 1.13 rename. Maps old name → canonical name. Removal target:
+ * next major (2.0). Not exposed via tools/list — agents see only the canonical
+ * names — but tools/call dispatches them and emits a one-line stderr notice.
+ */
+const TOOL_ALIASES: Record<string, string> = {
+  depguard_workspace_audit: 'depguard_audit_workspace',
+}
+const warnedAliases = new Set<string>()
+function resolveToolName(name: string): string {
+  const canonical = TOOL_ALIASES[name]
+  if (canonical && !warnedAliases.has(name)) {
+    warnedAliases.add(name)
+    process.stderr.write(`depguard: MCP tool '${name}' is deprecated and will be removed in a future major release. Use '${canonical}' instead.\n`)
+  }
+  return canonical ?? name
+}
 
 interface JsonRpcRequest {
   jsonrpc: '2.0'
@@ -253,12 +272,12 @@ function toolResult(toolName: string, content: unknown, argCount?: number): unkn
 
   // Record local stats (never sent anywhere)
   const contentObj = content as Record<string, unknown>
-  const workspaceSummary = toolName === 'depguard_workspace_audit'
+  const workspaceSummary = toolName === 'depguard_audit_workspace'
     ? (contentObj.summary as { high?: number } | undefined)
     : undefined
   recordCall(toolName, {
     tokensSaved: savings.saved,
-    packagesAudited: toolName.includes('audit') && toolName !== 'depguard_workspace_audit' ? (argCount ?? 1) : 0,
+    packagesAudited: toolName.includes('audit') && toolName !== 'depguard_audit_workspace' ? (argCount ?? 1) : 0,
     threatsBlocked: toolName === 'depguard_guard' && contentObj.decision === 'block'
       ? 1
       : workspaceSummary?.high ?? 0,
@@ -386,9 +405,10 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
       }
 
       const args = params.arguments ?? {}
+      const toolName = resolveToolName(params.name)
 
       try {
-        switch (params.name) {
+        switch (toolName) {
           case 'depguard_audit': {
             const result = await audit(
               args.name as string,
@@ -546,11 +566,11 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
             }
           }
 
-          case 'depguard_workspace_audit': {
+          case 'depguard_audit_workspace': {
             const repoPath = args.path as string
             if (!repoPath) return error(req.id, -32602, 'path is required')
             const result = auditWorkspace(repoPath)
-            return success(req.id, toolResult('depguard_workspace_audit', result))
+            return success(req.id, toolResult('depguard_audit_workspace', result))
           }
 
           default:

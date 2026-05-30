@@ -281,7 +281,7 @@ the advisory-db work): a `tasks.json` with `runOn: folderOpen` running
 - [ ] **Hook recipe (opt-in, documented)** — `post-checkout` / `post-clone`
       integration so the scan fires automatically; the tool MUST NOT install
       this silently
-- [ ] **MCP tool `depguard_workspace_audit`** — so an AI agent asked to "open
+- [ ] **MCP tool `depguard_audit_workspace`** — so an AI agent asked to "open
       and review this repo" runs the audit *before* the editor instance does
 
 ### Why this is escalated to priority

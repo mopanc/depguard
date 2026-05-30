@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] - 2026-05-30
+
+### Changed
+
+- **Workspace-audit tool renamed for naming consistency** — the MCP tool is now `depguard_audit_workspace` (matching the `depguard_audit_*` family: `depguard_audit`, `depguard_audit_bulk`, `depguard_audit_project`, `depguard_audit_deep`) and the CLI subcommand is now `audit-workspace` (matching `audit-deep`). The previous names `depguard_workspace_audit` and `workspace-audit` continue to work as deprecated aliases — both emit a one-line deprecation notice to stderr on first use and will be removed in a future major release. The aliases are no longer listed in `tools/list`, the README, or the CLI help, so new users only see the canonical names. Thanks to Konstantin Komelin for catching the inconsistency.
+
 ## [1.12.0] - 2026-05-24
 
 ### Added

@@ -65,7 +65,7 @@ Commands:
   review [path]            AI code review (detect debris left by AI agents)
   sbom <path/package.json> Generate CycloneDX 1.6 SBOM for a project
   remediate <path/package.json> Group vulnerabilities by direct dep to bump
-  workspace-audit [path]   Pre-open audit: list files that auto-execute when the repo is opened
+  audit-workspace [path]   Pre-open audit: list files that auto-execute when the repo is opened
   stats                    Show local usage statistics
 
 Options:
@@ -407,10 +407,14 @@ async function main() {
       break
     }
 
-    case 'workspace-audit': {
+    case 'workspace-audit':
+    case 'audit-workspace': {
+      if (command === 'workspace-audit') {
+        process.stderr.write("depguard: subcommand 'workspace-audit' is deprecated and will be removed in a future major release. Use 'audit-workspace' instead.\n")
+      }
       const repoPath = positionals[1] ?? process.cwd()
       const result = auditWorkspace(repoPath)
-      recordCall('depguard_workspace_audit', {
+      recordCall('depguard_audit_workspace', {
         threatsBlocked: result.summary.high,
       })
       if (json) {

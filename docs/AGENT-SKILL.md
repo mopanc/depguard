@@ -81,7 +81,16 @@ Call this to audit a list of packages in parallel.
 
 **Use when:** Comparing a shortlist of candidates, auditing a subset of dependencies.
 
-### 7. `depguard_sbom` — Generate a CycloneDX 1.6 SBOM.
+### 7. `depguard_audit_workspace` — Pre-open repo audit (auto-exec surface).
+
+Call this BEFORE opening a freshly cloned repository in any IDE, and before running `direnv allow`. Enumerates every file in the repo that auto-executes when the workspace opens (`.vscode/tasks.json` `runOn:folderOpen`, `.vscode/settings.json` shell overrides, `.devcontainer` lifecycle commands, `.envrc`, JetBrains run configurations, Makefile default targets, `.gitattributes` filter drivers, committed git hooks) and classifies each as INFO / WARN / HIGH with FP-averse heuristics.
+
+**Input:** `{ "path": "/absolute/path/to/cloned/repo" }`
+**Returns:** `{ scannedPath, surfacesChecked, findings: [{ source, file, trigger, command, severity, reasons }], summary: { high, warn, info }, note }`
+
+**Use when:** "I just cloned this repo", "is it safe to open this in VS Code?", "audit before I open the workspace", review of any take-home-test / coding-challenge repository, or any repo received from an untrusted source. This is the technical defense against the fake-interview / DEV#POPPER family of attacks.
+
+### 8. `depguard_sbom` — Generate a CycloneDX 1.6 SBOM.
 
 Call this when the user asks for an SBOM, a Software Bill of Materials, a CycloneDX file, or mentions a compliance requirement (EU CRA, US EO 14028, OMB M-22-18, SOC 2, FedRAMP, supplier security questionnaire).
 
@@ -96,6 +105,7 @@ Call this when the user asks for an SBOM, a Software Bill of Materials, a Cyclon
 |-----------|-------------|
 | "I need X functionality" | `depguard_should_use` |
 | "Install package Y" | `depguard_guard` |
+| "I just cloned a repo, safe to open?" | `depguard_audit_workspace` |
 | "Audit my project" | `depguard_audit_project` |
 | "Compare A vs B vs C" | `depguard_audit_bulk` |
 | "Deep dive on package Y" | `depguard_audit` |

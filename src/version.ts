@@ -1,2 +1,2 @@
 /** Single source of truth for depguard's version string. */
-export const DEPGUARD_VERSION = '1.12.0'
+export const DEPGUARD_VERSION = '1.13.0'

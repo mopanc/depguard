@@ -60,7 +60,7 @@ depguard-cli sbom <path/package.json> [--include-vex] [--include-dev] [-o out.js
 # folderOpen, devcontainer lifecycle commands, direnv .envrc, JetBrains
 # run configs, Makefile default targets, .gitattributes filter drivers,
 # committed git hooks). Exit code 2 on HIGH, 1 on WARN — CI-ready.
-depguard-cli workspace-audit [path] [--json]
+depguard-cli audit-workspace [path] [--json]
 
 # Local usage statistics (calls, tokens saved, threats blocked)
 depguard-cli stats [--json]
@@ -241,6 +241,7 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 | `depguard_audit` | Full security audit with static code analysis, vulnerabilities, and install script scanning. Accepts optional `version` to audit a specific installed version. |
 | `depguard_audit_bulk` | Audit multiple packages in a single call |
 | `depguard_audit_project` | Audit all dependencies from a package.json file path. Scans transitive deps via lock file and audits the `packageManager` field. |
+| `depguard_audit_workspace` | Pre-open audit of a freshly cloned repo. Lists files that auto-execute when the workspace opens (`.vscode/tasks.json` `runOn:folderOpen`, `.vscode/settings.json` shell overrides, `.devcontainer` lifecycle commands, `.envrc`, JetBrains run configurations, Makefile default targets, `.gitattributes` filter drivers, committed git hooks). FP-averse INFO/WARN/HIGH classification. Defends against fake-interview / take-home-test malware. |
 | `depguard_remediate` | Group every vulnerable transitive under the direct dependency that pulls it in, sorted by severity weight. Answers "which 5 direct deps do I bump to fix the most criticals?". Read-only. |
 | `depguard_search` | Search npm for packages by keywords |
 | `depguard_score` | Score a package 0-100 |
@@ -258,6 +259,7 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 |-----------|------|
 | "I need X functionality" | `depguard_should_use` |
 | "Install package Y" | `depguard_guard` |
+| "I just cloned a repo, is it safe to open?" | `depguard_audit_workspace` |
 | "Audit my project" | `depguard_audit_project` |
 | "100 vulnerabilities, what do I bump?" | `depguard_remediate` |
 | "Compare A vs B vs C" | `depguard_audit_bulk` |
