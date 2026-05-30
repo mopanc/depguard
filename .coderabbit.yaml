@@ -1,0 +1,42 @@
+language: en
+early_access: false
+tone_instructions: |
+  Be concise. Focus on correctness, security, and false-positive risk
+  (this is a security tool — false positives erode user trust).
+  Skip stylistic nits unless they affect readability. No praise. No poem.
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    - "!dist/**"
+    - "!node_modules/**"
+    - "!**/*.lock"
+    - "!**/*.min.js"
+    - "!src/data/security-status.json"
+    - "!src/data/advisory-db.json"
+    - "!src/data/maintainers-trust.json"
+  path_instructions:
+    - path: "src/**/*.ts"
+      instructions: |
+        depguard is a zero-runtime-dependency security tool. Flag any
+        introduction of a runtime dependency. Flag any detection rule
+        that could produce false positives without an opt-out. Prefer
+        precision over recall.
+    - path: "tests/**/*.test.ts"
+      instructions: |
+        Tests use node:test (no jest/vitest). They run with tsx via
+        `npm test`. Do not suggest test runner changes.
+    - path: "src/data/*.json"
+      instructions: |
+        These are auto-maintained advisory data files. Skip review.
+
+chat:
+  auto_reply: true
