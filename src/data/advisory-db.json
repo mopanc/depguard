@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-07",
+  "version": "2026-06-08",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -17025,6 +17025,20 @@
         }
       ]
     },
+    "chai-mocks": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-08",
+          "cve": "GHSA-5wqh-hxqx-c6j3",
+          "description": "Malware in chai-mocks",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "chai-nerd": {
       "compromised": true,
       "severity": "critical",
@@ -17721,6 +17735,20 @@
           "date": "2026-04-21",
           "cve": "GHSA-49vv-fr4f-qphw",
           "description": "Malware in cktool.internal",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "classwind-utils": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-08",
+          "cve": "GHSA-ghrw-2645-5c47",
+          "description": "Malware in classwind-utils",
           "origin": "ghsa"
         }
       ]
@@ -29905,6 +29933,34 @@
         }
       ]
     },
+    "nodemon-copack": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-08",
+          "cve": "GHSA-pw2c-3h97-j57f",
+          "description": "Malware in nodemon-copack",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "nodemon-lint": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-08",
+          "cve": "GHSA-cjg8-jrqm-2q9r",
+          "description": "Malware in nodemon-lint",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "nodenetbanxsdk": {
       "compromised": true,
       "severity": "critical",
@@ -34283,6 +34339,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-83f2-m5xj-79wx",
           "description": "Malware in redux-router-kit",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "regexp-ts": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-08",
+          "cve": "GHSA-5p9w-932r-cr5f",
+          "description": "Malware in regexp-ts",
           "origin": "ghsa"
         }
       ]
@@ -44382,5 +44452,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-07T08:49:52.203Z"
+  "lastRefresh": "2026-06-08T10:28:16.412Z"
 }
