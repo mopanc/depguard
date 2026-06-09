@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-08",
+  "version": "2026-06-09",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -19475,6 +19475,20 @@
         }
       ]
     },
+    "dbmux": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.2.5",
+          "type": "supply-chain",
+          "date": "2026-06-09",
+          "cve": "GHSA-62wx-5f55-w8g2",
+          "description": "Malware in dbmux",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "dc-extras": {
       "compromised": true,
       "severity": "critical",
@@ -23811,6 +23825,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-r948-2g4j-wcwx",
           "description": "Malware in github-action-for-generator",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "github-archiver": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-06-09",
+          "cve": "GHSA-r6pp-cq9f-9j94",
+          "description": "Malware in github-archiver",
           "origin": "ghsa"
         }
       ]
@@ -42435,6 +42463,20 @@
         }
       ]
     },
+    "void-ulid": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-09",
+          "cve": "GHSA-3697-j84m-hx3g",
+          "description": "Malware in void-ulid",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "vpi-guides": {
       "compromised": true,
       "severity": "critical",
@@ -44452,5 +44494,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-08T10:28:16.412Z"
+  "lastRefresh": "2026-06-09T09:33:47.910Z"
 }
