@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-09",
+  "version": "2026-06-10",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -2783,6 +2783,20 @@
           "date": "2025-12-30",
           "cve": "GHSA-xwx3-8548-fqr3",
           "description": "Malware in @bugdtest/test1",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@builder.io/dev-tools": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.64.2-dev.202606082025.8ce823363",
+          "type": "supply-chain",
+          "date": "2026-06-10",
+          "cve": "GHSA-4fm3-j964-p869",
+          "description": "Malware in @builder.io/dev-tools",
           "origin": "ghsa"
         }
       ]
@@ -43737,6 +43751,34 @@
         }
       ]
     },
+    "xnder-sdk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-10",
+          "cve": "GHSA-5vr8-6v9x-3vxm",
+          "description": "Malware in xnder-sdk",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "xnder-wrapper-module": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-10",
+          "cve": "GHSA-jxcv-3994-r8xf",
+          "description": "Malware in xnder-wrapper-module",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "xnetgpt": {
       "compromised": true,
       "severity": "critical",
@@ -44494,5 +44536,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-09T09:33:47.910Z"
+  "lastRefresh": "2026-06-10T09:50:21.168Z"
 }
