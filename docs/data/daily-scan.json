@@ -1,8 +1,8 @@
 {
-  "date": "2026-06-12",
-  "scannedAt": "2026-06-12T10:03:55.773Z",
+  "date": "2026-06-13",
+  "scannedAt": "2026-06-13T08:52:35.343Z",
   "totalPackages": 173,
-  "totalAlerts": 5,
+  "totalAlerts": 0,
   "packages": [
     {
       "name": "typescript",
@@ -10,7 +10,7 @@
       "score": 97,
       "prevScore": 97,
       "rank": 1,
-      "prevRank": 3,
+      "prevRank": 1,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -20,7 +20,7 @@
         "advisories": []
       },
       "license": "Apache-2.0",
-      "downloads": 205759155,
+      "downloads": 181677789,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -32,7 +32,7 @@
       "score": 96,
       "prevScore": 96,
       "rank": 2,
-      "prevRank": 4,
+      "prevRank": 2,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -42,7 +42,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 233992178,
+      "downloads": 204199566,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 1,
@@ -54,7 +54,7 @@
       "score": 96,
       "prevScore": 96,
       "rank": 3,
-      "prevRank": 5,
+      "prevRank": 3,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -76,7 +76,7 @@
       "score": 96,
       "prevScore": 96,
       "rank": 4,
-      "prevRank": 6,
+      "prevRank": 4,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -90,7 +90,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-12T07:58:26.858Z"
+      "lastPublish": "2026-06-12T17:14:52.133Z"
     },
     {
       "name": "vite",
@@ -98,7 +98,7 @@
       "score": 96,
       "prevScore": 96,
       "rank": 5,
-      "prevRank": 7,
+      "prevRank": 5,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -120,7 +120,7 @@
       "score": 96,
       "prevScore": 96,
       "rank": 6,
-      "prevRank": 8,
+      "prevRank": 6,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -130,19 +130,19 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 126517903,
+      "downloads": 129795699,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-12T07:58:41.411Z"
+      "lastPublish": "2026-06-12T17:15:08.249Z"
     },
     {
       "name": "rollup",
-      "version": "4.61.1",
+      "version": "4.62.0",
       "score": 96,
       "prevScore": 96,
       "rank": 7,
-      "prevRank": 9,
+      "prevRank": 7,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -156,7 +156,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 1,
-      "lastPublish": "2026-06-04T05:23:41.959Z"
+      "lastPublish": "2026-06-13T08:32:24.547Z"
     },
     {
       "name": "date-fns",
@@ -164,7 +164,7 @@
       "score": 96,
       "prevScore": 96,
       "rank": 8,
-      "prevRank": 10,
+      "prevRank": 8,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -174,7 +174,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 86960169,
+      "downloads": 76152088,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -186,7 +186,7 @@
       "score": 96,
       "prevScore": 96,
       "rank": 9,
-      "prevRank": 11,
+      "prevRank": 9,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -208,7 +208,7 @@
       "score": 96,
       "prevScore": 96,
       "rank": 10,
-      "prevRank": 12,
+      "prevRank": 10,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -222,7 +222,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 8,
-      "lastPublish": "2026-06-12T06:46:07.038Z"
+      "lastPublish": "2026-06-13T06:34:42.003Z"
     },
     {
       "name": "@babel/core",
@@ -230,7 +230,7 @@
       "score": 95,
       "prevScore": 95,
       "rank": 11,
-      "prevRank": 13,
+      "prevRank": 11,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -252,7 +252,7 @@
       "score": 95,
       "prevScore": 95,
       "rank": 12,
-      "prevRank": 14,
+      "prevRank": 12,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -274,7 +274,7 @@
       "score": 95,
       "prevScore": 95,
       "rank": 13,
-      "prevRank": 15,
+      "prevRank": 13,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -296,7 +296,7 @@
       "score": 95,
       "prevScore": 95,
       "rank": 14,
-      "prevRank": 16,
+      "prevRank": 14,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -318,7 +318,7 @@
       "score": 94,
       "prevScore": 94,
       "rank": 15,
-      "prevRank": 17,
+      "prevRank": 15,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -340,7 +340,7 @@
       "score": 94,
       "prevScore": 94,
       "rank": 16,
-      "prevRank": 18,
+      "prevRank": 16,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -354,7 +354,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-12T00:19:41.609Z"
+      "lastPublish": "2026-06-13T00:09:28.184Z"
     },
     {
       "name": "turbo",
@@ -362,7 +362,7 @@
       "score": 94,
       "prevScore": 94,
       "rank": 17,
-      "prevRank": 19,
+      "prevRank": 17,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -372,11 +372,11 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 15982191,
+      "downloads": 13814935,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-11T22:02:11.656Z"
+      "lastPublish": "2026-06-13T06:57:11.578Z"
     },
     {
       "name": "vue",
@@ -384,7 +384,7 @@
       "score": 94,
       "prevScore": 94,
       "rank": 18,
-      "prevRank": 21,
+      "prevRank": 18,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -406,7 +406,7 @@
       "score": 94,
       "prevScore": 94,
       "rank": 19,
-      "prevRank": 20,
+      "prevRank": 19,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -428,7 +428,7 @@
       "score": 94,
       "prevScore": 94,
       "rank": 20,
-      "prevRank": 23,
+      "prevRank": 20,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -450,7 +450,7 @@
       "score": 94,
       "prevScore": 94,
       "rank": 21,
-      "prevRank": 22,
+      "prevRank": 21,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -470,9 +470,9 @@
       "name": "@angular/core",
       "version": "22.0.1",
       "score": 94,
-      "prevScore": 93,
+      "prevScore": 94,
       "rank": 22,
-      "prevRank": 27,
+      "prevRank": 22,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -494,7 +494,7 @@
       "score": 93,
       "prevScore": 93,
       "rank": 23,
-      "prevRank": 24,
+      "prevRank": 23,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -504,7 +504,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 64617933,
+      "downloads": 56565939,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -516,7 +516,7 @@
       "score": 93,
       "prevScore": 93,
       "rank": 24,
-      "prevRank": 25,
+      "prevRank": 24,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -538,7 +538,7 @@
       "score": 93,
       "prevScore": 93,
       "rank": 25,
-      "prevRank": 26,
+      "prevRank": 25,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -560,7 +560,7 @@
       "score": 92,
       "prevScore": 92,
       "rank": 26,
-      "prevRank": 28,
+      "prevRank": 26,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -582,7 +582,7 @@
       "score": 92,
       "prevScore": 92,
       "rank": 27,
-      "prevRank": 29,
+      "prevRank": 27,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -604,7 +604,7 @@
       "score": 91,
       "prevScore": 91,
       "rank": 28,
-      "prevRank": 30,
+      "prevRank": 28,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -626,7 +626,7 @@
       "score": 91,
       "prevScore": 91,
       "rank": 29,
-      "prevRank": 31,
+      "prevRank": 29,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -648,7 +648,7 @@
       "score": 91,
       "prevScore": 91,
       "rank": 30,
-      "prevRank": 33,
+      "prevRank": 30,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -670,7 +670,7 @@
       "score": 91,
       "prevScore": 91,
       "rank": 31,
-      "prevRank": 34,
+      "prevRank": 31,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -692,7 +692,7 @@
       "score": 90,
       "prevScore": 90,
       "rank": 32,
-      "prevRank": 35,
+      "prevRank": 32,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -714,7 +714,7 @@
       "score": 88,
       "prevScore": 88,
       "rank": 33,
-      "prevRank": 36,
+      "prevRank": 33,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -736,7 +736,7 @@
       "score": 88,
       "prevScore": 88,
       "rank": 34,
-      "prevRank": 37,
+      "prevRank": 34,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -746,7 +746,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 7320054,
+      "downloads": 6046638,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -758,7 +758,7 @@
       "score": 85,
       "prevScore": 85,
       "rank": 35,
-      "prevRank": 38,
+      "prevRank": 35,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -780,7 +780,7 @@
       "score": 83,
       "prevScore": 83,
       "rank": 36,
-      "prevRank": 39,
+      "prevRank": 36,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -802,7 +802,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 37,
-      "prevRank": 40,
+      "prevRank": 37,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -824,7 +824,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 38,
-      "prevRank": 41,
+      "prevRank": 38,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -846,7 +846,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 39,
-      "prevRank": 42,
+      "prevRank": 39,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -868,7 +868,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 40,
-      "prevRank": 43,
+      "prevRank": 40,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -890,7 +890,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 41,
-      "prevRank": 44,
+      "prevRank": 41,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -912,7 +912,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 42,
-      "prevRank": 45,
+      "prevRank": 42,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -934,7 +934,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 43,
-      "prevRank": 46,
+      "prevRank": 43,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -956,7 +956,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 44,
-      "prevRank": 47,
+      "prevRank": 44,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -978,7 +978,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 45,
-      "prevRank": 48,
+      "prevRank": 45,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1000,7 +1000,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 46,
-      "prevRank": 49,
+      "prevRank": 46,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1022,7 +1022,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 47,
-      "prevRank": 50,
+      "prevRank": 47,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1044,7 +1044,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 48,
-      "prevRank": 51,
+      "prevRank": 48,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1066,7 +1066,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 49,
-      "prevRank": 52,
+      "prevRank": 49,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1088,7 +1088,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 50,
-      "prevRank": 53,
+      "prevRank": 50,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1110,7 +1110,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 51,
-      "prevRank": 54,
+      "prevRank": 51,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1132,7 +1132,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 52,
-      "prevRank": 55,
+      "prevRank": 52,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1154,7 +1154,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 53,
-      "prevRank": 56,
+      "prevRank": 53,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1176,7 +1176,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 54,
-      "prevRank": 57,
+      "prevRank": 54,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1198,7 +1198,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 55,
-      "prevRank": 58,
+      "prevRank": 55,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1220,7 +1220,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 56,
-      "prevRank": 59,
+      "prevRank": 56,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1242,7 +1242,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 57,
-      "prevRank": 60,
+      "prevRank": 57,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1264,7 +1264,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 58,
-      "prevRank": 61,
+      "prevRank": 58,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1286,7 +1286,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 59,
-      "prevRank": 62,
+      "prevRank": 59,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1308,7 +1308,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 60,
-      "prevRank": 63,
+      "prevRank": 60,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1330,7 +1330,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 61,
-      "prevRank": 64,
+      "prevRank": 61,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1348,11 +1348,11 @@
     },
     {
       "name": "tailwindcss",
-      "version": "4.3.0",
+      "version": "4.3.1",
       "score": 80,
       "prevScore": 80,
       "rank": 62,
-      "prevRank": 65,
+      "prevRank": 62,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1366,7 +1366,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 5,
-      "lastPublish": "2026-06-11T22:32:16.270Z"
+      "lastPublish": "2026-06-12T17:59:19.225Z"
     },
     {
       "name": "postcss",
@@ -1374,7 +1374,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 63,
-      "prevRank": 66,
+      "prevRank": 63,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1396,7 +1396,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 64,
-      "prevRank": 67,
+      "prevRank": 64,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1418,7 +1418,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 65,
-      "prevRank": 68,
+      "prevRank": 65,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1440,7 +1440,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 66,
-      "prevRank": 69,
+      "prevRank": 66,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1462,7 +1462,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 67,
-      "prevRank": 70,
+      "prevRank": 67,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1484,7 +1484,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 68,
-      "prevRank": 71,
+      "prevRank": 68,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1506,7 +1506,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 69,
-      "prevRank": 72,
+      "prevRank": 69,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1528,7 +1528,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 70,
-      "prevRank": 73,
+      "prevRank": 70,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1550,7 +1550,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 71,
-      "prevRank": 74,
+      "prevRank": 71,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1572,7 +1572,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 72,
-      "prevRank": 75,
+      "prevRank": 72,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1594,7 +1594,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 73,
-      "prevRank": 76,
+      "prevRank": 73,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1616,7 +1616,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 74,
-      "prevRank": 77,
+      "prevRank": 74,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1638,7 +1638,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 75,
-      "prevRank": 78,
+      "prevRank": 75,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1660,7 +1660,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 76,
-      "prevRank": 79,
+      "prevRank": 76,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1682,7 +1682,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 77,
-      "prevRank": 80,
+      "prevRank": 77,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1704,7 +1704,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 78,
-      "prevRank": 81,
+      "prevRank": 78,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1724,9 +1724,9 @@
       "name": "source-map",
       "version": "0.7.6",
       "score": 80,
-      "prevScore": 97,
+      "prevScore": 80,
       "rank": 79,
-      "prevRank": 1,
+      "prevRank": 79,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1746,9 +1746,9 @@
       "name": "which",
       "version": "7.0.0",
       "score": 80,
-      "prevScore": 97,
+      "prevScore": 80,
       "rank": 80,
-      "prevRank": 2,
+      "prevRank": 80,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1770,7 +1770,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 81,
-      "prevRank": 82,
+      "prevRank": 81,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1792,7 +1792,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 82,
-      "prevRank": 83,
+      "prevRank": 82,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1814,7 +1814,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 83,
-      "prevRank": 84,
+      "prevRank": 83,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1836,7 +1836,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 84,
-      "prevRank": 85,
+      "prevRank": 84,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1858,7 +1858,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 85,
-      "prevRank": 86,
+      "prevRank": 85,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1880,7 +1880,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 86,
-      "prevRank": 89,
+      "prevRank": 86,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1902,7 +1902,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 87,
-      "prevRank": 90,
+      "prevRank": 87,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1924,7 +1924,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 88,
-      "prevRank": 91,
+      "prevRank": 88,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1946,7 +1946,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 89,
-      "prevRank": 92,
+      "prevRank": 89,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1968,7 +1968,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 90,
-      "prevRank": 93,
+      "prevRank": 90,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1990,7 +1990,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 91,
-      "prevRank": 94,
+      "prevRank": 91,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2012,7 +2012,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 92,
-      "prevRank": 95,
+      "prevRank": 92,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2034,7 +2034,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 93,
-      "prevRank": 96,
+      "prevRank": 93,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2056,7 +2056,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 94,
-      "prevRank": 97,
+      "prevRank": 94,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2078,7 +2078,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 95,
-      "prevRank": 98,
+      "prevRank": 95,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2100,7 +2100,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 96,
-      "prevRank": 99,
+      "prevRank": 96,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2122,7 +2122,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 97,
-      "prevRank": 100,
+      "prevRank": 97,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2136,7 +2136,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-12T03:14:52.053Z"
+      "lastPublish": "2026-06-13T03:13:09.354Z"
     },
     {
       "name": "knex",
@@ -2144,7 +2144,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 98,
-      "prevRank": 101,
+      "prevRank": 98,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2166,7 +2166,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 99,
-      "prevRank": 102,
+      "prevRank": 99,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2188,7 +2188,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 100,
-      "prevRank": 103,
+      "prevRank": 100,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2210,7 +2210,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 101,
-      "prevRank": 104,
+      "prevRank": 101,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2232,7 +2232,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 102,
-      "prevRank": 105,
+      "prevRank": 102,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2254,7 +2254,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 103,
-      "prevRank": 106,
+      "prevRank": 103,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2276,7 +2276,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 104,
-      "prevRank": 107,
+      "prevRank": 104,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2298,7 +2298,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 105,
-      "prevRank": 108,
+      "prevRank": 105,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2320,7 +2320,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 106,
-      "prevRank": 109,
+      "prevRank": 106,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2342,7 +2342,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 107,
-      "prevRank": 110,
+      "prevRank": 107,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2364,7 +2364,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 108,
-      "prevRank": 111,
+      "prevRank": 108,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2386,7 +2386,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 109,
-      "prevRank": 112,
+      "prevRank": 109,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2408,7 +2408,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 110,
-      "prevRank": 113,
+      "prevRank": 110,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2430,7 +2430,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 111,
-      "prevRank": 114,
+      "prevRank": 111,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2452,7 +2452,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 112,
-      "prevRank": 115,
+      "prevRank": 112,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2474,7 +2474,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 113,
-      "prevRank": 116,
+      "prevRank": 113,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2496,7 +2496,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 114,
-      "prevRank": 117,
+      "prevRank": 114,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2514,11 +2514,11 @@
     },
     {
       "name": "@aws-sdk/client-s3",
-      "version": "3.1067.0",
+      "version": "3.1068.0",
       "score": 79,
       "prevScore": 79,
       "rank": 115,
-      "prevRank": 118,
+      "prevRank": 115,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2532,7 +2532,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-11T18:54:02.689Z"
+      "lastPublish": "2026-06-12T18:59:02.305Z"
     },
     {
       "name": "@google-cloud/storage",
@@ -2540,7 +2540,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 116,
-      "prevRank": 119,
+      "prevRank": 116,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2562,7 +2562,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 117,
-      "prevRank": 120,
+      "prevRank": 117,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2584,7 +2584,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 118,
-      "prevRank": 121,
+      "prevRank": 118,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2606,7 +2606,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 119,
-      "prevRank": 122,
+      "prevRank": 119,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2628,7 +2628,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 120,
-      "prevRank": 123,
+      "prevRank": 120,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2650,7 +2650,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 121,
-      "prevRank": 124,
+      "prevRank": 121,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2672,7 +2672,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 122,
-      "prevRank": 125,
+      "prevRank": 122,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2690,11 +2690,11 @@
     },
     {
       "name": "eslint",
-      "version": "10.4.1",
+      "version": "10.5.0",
       "score": 78,
       "prevScore": 78,
       "rank": 123,
-      "prevRank": 126,
+      "prevRank": 123,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2708,7 +2708,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-05-29T20:32:32.193Z"
+      "lastPublish": "2026-06-12T17:54:40.577Z"
     },
     {
       "name": "jimp",
@@ -2716,7 +2716,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 124,
-      "prevRank": 127,
+      "prevRank": 124,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2738,7 +2738,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 125,
-      "prevRank": 128,
+      "prevRank": 125,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2758,9 +2758,9 @@
       "name": "firebase",
       "version": "12.14.0",
       "score": 78,
-      "prevScore": 91,
+      "prevScore": 78,
       "rank": 126,
-      "prevRank": 32,
+      "prevRank": 126,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2782,7 +2782,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 127,
-      "prevRank": 129,
+      "prevRank": 127,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2804,7 +2804,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 128,
-      "prevRank": 130,
+      "prevRank": 128,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2826,7 +2826,7 @@
       "score": 78,
       "prevScore": 78,
       "rank": 129,
-      "prevRank": 131,
+      "prevRank": 129,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2848,7 +2848,7 @@
       "score": 77,
       "prevScore": 77,
       "rank": 130,
-      "prevRank": 132,
+      "prevRank": 130,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2870,7 +2870,7 @@
       "score": 77,
       "prevScore": 77,
       "rank": 131,
-      "prevRank": 133,
+      "prevRank": 131,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2892,7 +2892,7 @@
       "score": 76,
       "prevScore": 76,
       "rank": 132,
-      "prevRank": 134,
+      "prevRank": 132,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2902,7 +2902,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 7301526,
+      "downloads": 6442537,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -2914,7 +2914,7 @@
       "score": 76,
       "prevScore": 76,
       "rank": 133,
-      "prevRank": 135,
+      "prevRank": 133,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2936,7 +2936,7 @@
       "score": 75,
       "prevScore": 75,
       "rank": 134,
-      "prevRank": 136,
+      "prevRank": 134,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2958,7 +2958,7 @@
       "score": 74,
       "prevScore": 74,
       "rank": 135,
-      "prevRank": 137,
+      "prevRank": 135,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2980,7 +2980,7 @@
       "score": 73,
       "prevScore": 73,
       "rank": 136,
-      "prevRank": 138,
+      "prevRank": 136,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3002,7 +3002,7 @@
       "score": 71,
       "prevScore": 71,
       "rank": 137,
-      "prevRank": 139,
+      "prevRank": 137,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3024,7 +3024,7 @@
       "score": 71,
       "prevScore": 71,
       "rank": 138,
-      "prevRank": 141,
+      "prevRank": 138,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3046,7 +3046,7 @@
       "score": 70,
       "prevScore": 70,
       "rank": 139,
-      "prevRank": 142,
+      "prevRank": 139,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3066,7 +3066,7 @@
       "name": "@emotion/react",
       "version": "11.14.0",
       "score": 70,
-      "prevScore": 71,
+      "prevScore": 70,
       "rank": 140,
       "prevRank": 140,
       "vulns": {
@@ -3090,7 +3090,7 @@
       "score": 67,
       "prevScore": 67,
       "rank": 141,
-      "prevRank": 143,
+      "prevRank": 141,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3112,7 +3112,7 @@
       "score": 67,
       "prevScore": 67,
       "rank": 142,
-      "prevRank": 144,
+      "prevRank": 142,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3134,7 +3134,7 @@
       "score": 65,
       "prevScore": 65,
       "rank": 143,
-      "prevRank": 146,
+      "prevRank": 143,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3156,7 +3156,7 @@
       "score": 65,
       "prevScore": 65,
       "rank": 144,
-      "prevRank": 147,
+      "prevRank": 144,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3178,7 +3178,7 @@
       "score": 65,
       "prevScore": 65,
       "rank": 145,
-      "prevRank": 148,
+      "prevRank": 145,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3200,7 +3200,7 @@
       "score": 65,
       "prevScore": 65,
       "rank": 146,
-      "prevRank": 149,
+      "prevRank": 146,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3222,7 +3222,7 @@
       "score": 65,
       "prevScore": 65,
       "rank": 147,
-      "prevRank": 150,
+      "prevRank": 147,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3244,7 +3244,7 @@
       "score": 65,
       "prevScore": 65,
       "rank": 148,
-      "prevRank": 151,
+      "prevRank": 148,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3266,7 +3266,7 @@
       "score": 65,
       "prevScore": 65,
       "rank": 149,
-      "prevRank": 152,
+      "prevRank": 149,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3286,9 +3286,9 @@
       "name": "node-fetch",
       "version": "3.3.2",
       "score": 64,
-      "prevScore": 65,
+      "prevScore": 64,
       "rank": 150,
-      "prevRank": 145,
+      "prevRank": 150,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3310,7 +3310,7 @@
       "score": 63,
       "prevScore": 63,
       "rank": 151,
-      "prevRank": 153,
+      "prevRank": 151,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3332,7 +3332,7 @@
       "score": 63,
       "prevScore": 63,
       "rank": 152,
-      "prevRank": 154,
+      "prevRank": 152,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3354,7 +3354,7 @@
       "score": 63,
       "prevScore": 63,
       "rank": 153,
-      "prevRank": 155,
+      "prevRank": 153,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3376,7 +3376,7 @@
       "score": 63,
       "prevScore": 63,
       "rank": 154,
-      "prevRank": 156,
+      "prevRank": 154,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3396,9 +3396,9 @@
       "name": "source-map-support",
       "version": "0.5.21",
       "score": 63,
-      "prevScore": 79,
+      "prevScore": 63,
       "rank": 155,
-      "prevRank": 88,
+      "prevRank": 155,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3418,9 +3418,9 @@
       "name": "graceful-fs",
       "version": "4.2.11",
       "score": 63,
-      "prevScore": 79,
+      "prevScore": 63,
       "rank": 156,
-      "prevRank": 87,
+      "prevRank": 156,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3857,46 +3857,5 @@
       "lastPublish": "2023-11-14T00:17:08.562Z"
     }
   ],
-  "alerts": [
-    {
-      "package": "source-map",
-      "type": "score-drop",
-      "severity": "medium",
-      "message": "source-map score dropped from 97 to 80",
-      "from": 97,
-      "to": 80
-    },
-    {
-      "package": "which",
-      "type": "score-drop",
-      "severity": "medium",
-      "message": "which score dropped from 97 to 80",
-      "from": 97,
-      "to": 80
-    },
-    {
-      "package": "firebase",
-      "type": "score-drop",
-      "severity": "medium",
-      "message": "firebase score dropped from 91 to 78",
-      "from": 91,
-      "to": 78
-    },
-    {
-      "package": "source-map-support",
-      "type": "score-drop",
-      "severity": "medium",
-      "message": "source-map-support score dropped from 79 to 63",
-      "from": 79,
-      "to": 63
-    },
-    {
-      "package": "graceful-fs",
-      "type": "score-drop",
-      "severity": "medium",
-      "message": "graceful-fs score dropped from 79 to 63",
-      "from": 79,
-      "to": 63
-    }
-  ]
+  "alerts": []
 }
