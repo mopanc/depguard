@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-14",
+  "version": "2026-06-15",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -41567,6 +41567,20 @@
         }
       ]
     },
+    "um4r719-baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-15",
+          "cve": "GHSA-cfvv-rh9x-qqvj",
+          "description": "Malware in um4r719-baileys",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "umap-wasm": {
       "compromised": true,
       "severity": "critical",
@@ -44886,5 +44900,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-14T09:26:40.775Z"
+  "lastRefresh": "2026-06-15T11:55:05.006Z"
 }
