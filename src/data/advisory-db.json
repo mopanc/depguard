@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-16",
+  "version": "2026-06-17",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -6143,6 +6143,1126 @@
           "date": "2025-11-24",
           "cve": "GHSA-h8fg-29cr-mrj7",
           "description": "Malware in @markvivanco/app-version-checker",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/agent-browser": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.3.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-ph9v-3f5h-hg6p",
+          "description": "Malware in @mastra/agent-browser",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/agent-builder": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.42",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-hj75-mc88-g6xc",
+          "description": "Malware in @mastra/agent-builder",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/ai-sdk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.4.6",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-qg4v-49f4-6r89",
+          "description": "Malware in @mastra/ai-sdk",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/arize": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-629j-g5wx-hmr8",
+          "description": "Malware in @mastra/arize",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/auth": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-957m-hm9p-jqrv",
+          "description": "Malware in @mastra/auth",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/auth-auth0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-2j96-v5c4-2p56",
+          "description": "Malware in @mastra/auth-auth0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/auth-better-auth": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.4",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-mg8p-hgv4-7rfp",
+          "description": "Malware in @mastra/auth-better-auth",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/auth-clerk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-rgmx-h3wx-g4rj",
+          "description": "Malware in @mastra/auth-clerk",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/auth-supabase": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-3cr8-8w7x-779q",
+          "description": "Malware in @mastra/auth-supabase",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/auth-workos": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.5.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-3pr6-37p3-w7g7",
+          "description": "Malware in @mastra/auth-workos",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/blaxel": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.4.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-jr4h-q66m-r9c7",
+          "description": "Malware in @mastra/blaxel",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/braintrust": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.4",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-64qh-859p-w8cf",
+          "description": "Malware in @mastra/braintrust",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/chroma": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-c69w-m5rg-46fw",
+          "description": "Malware in @mastra/chroma",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/claude": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-jp56-69xj-c3rq",
+          "description": "Malware in @mastra/claude",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/clickhouse": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.10.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-6327-2cw4-7cv9",
+          "description": "Malware in @mastra/clickhouse",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/client-js": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.24.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-4jmq-h62h-xhgh",
+          "description": "Malware in @mastra/client-js",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/cloudflare": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.4.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-fx8h-6h58-674x",
+          "description": "Malware in @mastra/cloudflare",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/cloudflare-d1": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.7",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-xmx3-r6wm-33p3",
+          "description": "Malware in @mastra/cloudflare-d1",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/convex": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-3g98-f7ww-r9qq",
+          "description": "Malware in @mastra/convex",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/core": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.42.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-pp62-grrw-hvfp",
+          "description": "Malware in @mastra/core",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/couchbase": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.4",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-3xgr-445x-7mm6",
+          "description": "Malware in @mastra/couchbase",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/cursor": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.2.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-cp3h-358p-m8h2",
+          "description": "Malware in @mastra/cursor",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/datadog": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.5",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-h6wr-wm4g-qfpg",
+          "description": "Malware in @mastra/datadog",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/daytona": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.4.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-8rq6-5x45-6j98",
+          "description": "Malware in @mastra/daytona",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/deployer": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.42.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-rjjh-j9jr-wg46",
+          "description": "Malware in @mastra/deployer",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/deployer-cloudflare": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.44",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-c93p-x3xh-cgpj",
+          "description": "Malware in @mastra/deployer-cloudflare",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/deployer-netlify": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.20",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-q697-64gp-6qq7",
+          "description": "Malware in @mastra/deployer-netlify",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/deployer-vercel": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.38",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-phgx-m87g-gqmf",
+          "description": "Malware in @mastra/deployer-vercel",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/docker": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.3.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-vmr3-957g-5w95",
+          "description": "Malware in @mastra/docker",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/dsql": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-7f5h-95hw-fx6x",
+          "description": "Malware in @mastra/dsql",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/duckdb": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.4.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-8fh9-h5vv-j2h4",
+          "description": "Malware in @mastra/duckdb",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/dynamodb": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.9",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-g53g-3w8w-pqfr",
+          "description": "Malware in @mastra/dynamodb",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/e2b": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.3.4",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-jg9x-69gr-j4hh",
+          "description": "Malware in @mastra/e2b",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/editor": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.11.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-69r2-rp52-252g",
+          "description": "Malware in @mastra/editor",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/evals": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.3.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-c9hm-w6m5-hwcj",
+          "description": "Malware in @mastra/evals",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/express": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.3.31",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-r6w3-xpw9-p9g6",
+          "description": "Malware in @mastra/express",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/fastembed": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-7wrg-5c4f-2ph2",
+          "description": "Malware in @mastra/fastembed",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/fastify": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.3.31",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-q2q2-qp24-85vj",
+          "description": "Malware in @mastra/fastify",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/gcs": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.2.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-7crh-g7x3-q72f",
+          "description": "Malware in @mastra/gcs",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/google-cloud-pubsub": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.6",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-wv5r-22mx-vfr8",
+          "description": "Malware in @mastra/google-cloud-pubsub",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/hono": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.4.26",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-89jf-vg4p-9vmj",
+          "description": "Malware in @mastra/hono",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/inngest": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.5.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-cgr7-8rxj-9vgx",
+          "description": "Malware in @mastra/inngest",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/koa": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.5.14",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-w9wg-f3pj-cf4v",
+          "description": "Malware in @mastra/koa",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/langfuse": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.3.6",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-5v2f-vg69-mmhv",
+          "description": "Malware in @mastra/langfuse",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/langsmith": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.4",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-xqqc-fpmf-95cg",
+          "description": "Malware in @mastra/langsmith",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/libsql": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.13.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-4755-6mgh-pjpw",
+          "description": "Malware in @mastra/libsql",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/longmemeval": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.50",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-7x3v-wg29-8m8v",
+          "description": "Malware in @mastra/longmemeval",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/mcp": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.10.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-wfr8-6x4q-hpr3",
+          "description": "Malware in @mastra/mcp",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/mcp-docs-server": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.47",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-wxp6-9hmr-928g",
+          "description": "Malware in @mastra/mcp-docs-server",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/mcp-registry-registry": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-5w62-p653-57mf",
+          "description": "Malware in @mastra/mcp-registry-registry",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/memory": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.20.4",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-69g6-344c-3qpm",
+          "description": "Malware in @mastra/memory",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/mongodb": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.9.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-prf3-w8mj-rf6j",
+          "description": "Malware in @mastra/mongodb",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/mssql": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.3.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-mhw2-7gv3-64jj",
+          "description": "Malware in @mastra/mssql",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/nestjs": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.15",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-9qg4-j8r6-rjc9",
+          "description": "Malware in @mastra/nestjs",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/otel-bridge": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-xww8-gf7m-2fhh",
+          "description": "Malware in @mastra/otel-bridge",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/otel-exporter": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-2579-m2q3-5whx",
+          "description": "Malware in @mastra/otel-exporter",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/pg": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.13.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-v5r7-mvp4-8qv6",
+          "description": "Malware in @mastra/pg",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/pinecone": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-f3jx-6rr7-6f5j",
+          "description": "Malware in @mastra/pinecone",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/playground-ui": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 33.0.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-25cg-799c-2gpr",
+          "description": "Malware in @mastra/playground-ui",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/posthog": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.29",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-p3jv-r79x-4jvw",
+          "description": "Malware in @mastra/posthog",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/qdrant": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-j93j-53rg-7g7g",
+          "description": "Malware in @mastra/qdrant",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/rag": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.2.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-442j-fj4w-jhpw",
+          "description": "Malware in @mastra/rag",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/s3": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.5.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-6fx7-6whr-32rx",
+          "description": "Malware in @mastra/s3",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/s3vectors": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.7",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-53fm-gc37-mgvr",
+          "description": "Malware in @mastra/s3vectors",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/schema-compat": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.12",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-jf5v-9r8r-vf3m",
+          "description": "Malware in @mastra/schema-compat",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/sentry": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.4",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-r8mf-3854-wvmf",
+          "description": "Malware in @mastra/sentry",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/server": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.1.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-wm6j-68jc-4x58",
+          "description": "Malware in @mastra/server",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/stagehand": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.2.5",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-x59w-qg4x-cmrx",
+          "description": "Malware in @mastra/stagehand",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/tavily": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-ph9m-rfv2-m2h6",
+          "description": "Malware in @mastra/tavily",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/temporal": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.14",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-m6rq-qx37-q2jv",
+          "description": "Malware in @mastra/temporal",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/turbopuffer": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-jcv4-fvwf-3vg7",
+          "description": "Malware in @mastra/turbopuffer",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/upstash": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-grc4-63qq-h897",
+          "description": "Malware in @mastra/upstash",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/vectorize": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-hhx4-85x4-3g8c",
+          "description": "Malware in @mastra/vectorize",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/voice-aws-nova-sonic": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.4",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-xvgq-p2rf-7qv6",
+          "description": "Malware in @mastra/voice-aws-nova-sonic",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/voice-deepgram": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.12.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-858r-w468-45r4",
+          "description": "Malware in @mastra/voice-deepgram",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/voice-elevenlabs": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.12.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-fg73-2f9p-wvpv",
+          "description": "Malware in @mastra/voice-elevenlabs",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/voice-google": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.12.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-p75c-5cq4-mjmg",
+          "description": "Malware in @mastra/voice-google",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/voice-google-gemini-live": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.12.2",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-q952-4f7p-5rf3",
+          "description": "Malware in @mastra/voice-google-gemini-live",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/voice-openai": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.12.3",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-8p42-82r4-mf65",
+          "description": "Malware in @mastra/voice-openai",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mastra/voice-openai-realtime": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.12.6",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-4rfq-w3x8-rrx3",
+          "description": "Malware in @mastra/voice-openai-realtime",
           "origin": "ghsa"
         }
       ]
@@ -19013,6 +20133,20 @@
         }
       ]
     },
+    "create-mastra": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.13.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-jgwq-x2m5-mxhm",
+          "description": "Malware in create-mastra",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "create-react-app-lambda": {
       "compromised": true,
       "severity": "critical",
@@ -28221,6 +29355,20 @@
           "date": "2026-04-14",
           "cve": "GHSA-q3xp-j858-q9xf",
           "description": "Malware in markdownlint-rule-link-pattern",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "mastra": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.13.1",
+          "type": "supply-chain",
+          "date": "2026-06-17",
+          "cve": "GHSA-mvf4-vg87-q9vm",
+          "description": "Malware in mastra",
           "origin": "ghsa"
         }
       ]
@@ -45306,5 +46454,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-16T11:02:54.269Z"
+  "lastRefresh": "2026-06-17T10:47:02.503Z"
 }
