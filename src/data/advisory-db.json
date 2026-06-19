@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-18",
+  "version": "2026-06-19",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -15695,6 +15695,20 @@
         }
       ]
     },
+    "assert-kit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-748x-3gxw-v7xv",
+          "description": "Malware in assert-kit",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "asset-delivery": {
       "compromised": true,
       "severity": "critical",
@@ -23409,6 +23423,20 @@
         }
       ]
     },
+    "eth-util": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-fq6v-3gxv-7rjv",
+          "description": "Malware in eth-util",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "eth-wallet-sentinel": {
       "compromised": true,
       "severity": "critical",
@@ -23447,6 +23475,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-whx3-vxm3-8xjh",
           "description": "Malware in ethereum-ens",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ethereum-gas-reporter": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-hr44-2g4q-fx38",
+          "description": "Malware in ethereum-gas-reporter",
           "origin": "ghsa"
         }
       ]
@@ -30185,6 +30227,20 @@
         }
       ]
     },
+    "mongoose-jsonify": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-6wmf-9mj4-fx3x",
+          "description": "Malware in mongoose-jsonify",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "mongoose-odm": {
       "compromised": true,
       "severity": "critical",
@@ -31217,6 +31273,20 @@
           "date": "2026-02-03",
           "cve": "GHSA-c7jj-qv39-h43c",
           "description": "Malware in netlify-project-helper",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "new-ecro": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-chhh-8532-pg35",
+          "description": "Malware in new-ecro",
           "origin": "ghsa"
         }
       ]
@@ -34409,6 +34479,20 @@
           "date": "2025-11-18",
           "cve": "GHSA-f2g5-jc9j-vfp5",
           "description": "Malware in pretty-jsonify",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "pretty-logger-js": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-qfx3-7369-9f9v",
+          "description": "Malware in pretty-logger-js",
           "origin": "ghsa"
         }
       ]
@@ -42715,6 +42799,20 @@
         }
       ]
     },
+    "ts-big-ecro": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-3cg2-mrw5-67r6",
+          "description": "Malware in ts-big-ecro",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "ts-big-lib": {
       "compromised": true,
       "severity": "critical",
@@ -42795,6 +42893,48 @@
           "date": "2026-05-12",
           "cve": "GHSA-w2mh-w7hh-f235",
           "description": "Malware in ts-dna",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ts-ecro": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-cwjv-7gg4-fp86",
+          "description": "Malware in ts-ecro",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ts-ecro-helper": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-pw67-28xc-x677",
+          "description": "Malware in ts-ecro-helper",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ts-esys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-19",
+          "cve": "GHSA-76f5-jq4m-cjc3",
+          "description": "Malware in ts-esys",
           "origin": "ghsa"
         }
       ]
@@ -46958,5 +47098,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-18T10:14:19.748Z"
+  "lastRefresh": "2026-06-19T10:19:15.145Z"
 }
