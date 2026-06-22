@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-21",
+  "version": "2026-06-22",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -29695,6 +29695,20 @@
         }
       ]
     },
+    "mddriver": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-22",
+          "cve": "GHSA-75f4-4w6r-vvch",
+          "description": "Malware in mddriver",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "mdp-client-web": {
       "compromised": true,
       "severity": "critical",
@@ -31749,6 +31763,20 @@
           "date": "2026-02-20",
           "cve": "GHSA-qgwv-9xxh-fmph",
           "description": "Malware in node-native-bridge",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "node-path-utils": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-22",
+          "cve": "GHSA-7qr8-pqwp-95p9",
+          "description": "Malware in node-path-utils",
           "origin": "ghsa"
         }
       ]
@@ -47098,5 +47126,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-21T09:42:54.661Z"
+  "lastRefresh": "2026-06-22T11:44:37.998Z"
 }
