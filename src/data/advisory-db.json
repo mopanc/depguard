@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-22",
+  "version": "2026-06-23",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -17557,6 +17557,20 @@
         }
       ]
     },
+    "carousel-controller-mixin": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-cm93-hx95-m69r",
+          "description": "Malware in carousel-controller-mixin",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "cat-retail-app": {
       "compromised": true,
       "severity": "critical",
@@ -20382,6 +20396,20 @@
           "cve": "CVE-2017-16074",
           "description": "Typosquat of cross-env. Exfiltrated environment variables to attacker server npm.hacktask.net.",
           "origin": "curated"
+        }
+      ]
+    },
+    "crud-respect": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-4p36-4jp8-8rx5",
+          "description": "Malware in crud-respect",
+          "origin": "ghsa"
         }
       ]
     },
@@ -31697,6 +31725,20 @@
         }
       ]
     },
+    "node-core-libs": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-6vr2-5hpq-589c",
+          "description": "Malware in node-core-libs",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "node-coremesh": {
       "compromised": true,
       "severity": "critical",
@@ -31735,6 +31777,20 @@
           "date": "2025-12-05",
           "cve": "GHSA-94c7-pr5j-9xpx",
           "description": "Malware in node-dpapi1",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "node-fetch-utils": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-4jfq-h5q8-g7hm",
+          "description": "Malware in node-fetch-utils",
           "origin": "ghsa"
         }
       ]
@@ -31791,6 +31847,20 @@
           "date": "2026-04-17",
           "cve": "GHSA-rxwg-h367-5qgm",
           "description": "Malware in node-red-contrib-yolo-object-detection",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "node-slot": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-9243-vwcg-mpf3",
+          "description": "Malware in node-slot",
           "origin": "ghsa"
         }
       ]
@@ -32757,6 +32827,20 @@
           "date": "2026-01-16",
           "cve": "GHSA-cprr-hm5h-pv32",
           "description": "Malware in omnicore-ds2-sdk",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "onboarding-respects-modal": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-7mh9-j98m-ccvj",
+          "description": "Malware in onboarding-respects-modal",
           "origin": "ghsa"
         }
       ]
@@ -36681,6 +36765,20 @@
         }
       ]
     },
+    "respects-switch": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-4xcj-2v9f-vmqv",
+          "description": "Malware in respects-switch",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "responses-starter-app": {
       "compromised": true,
       "severity": "critical",
@@ -37731,6 +37829,20 @@
         }
       ]
     },
+    "search-from-search": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-fgqv-2jmm-2p39",
+          "description": "Malware in search-from-search",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "secguest-lib": {
       "compromised": true,
       "severity": "critical",
@@ -37965,6 +38077,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-r599-4jqx-9665",
           "description": "Malware in set-nested-prop",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "setka-editor": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-4626-p8q4-554f",
+          "description": "Malware in setka-editor",
           "origin": "ghsa"
         }
       ]
@@ -43149,6 +43275,20 @@
         }
       ]
     },
+    "ts-wross": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-23",
+          "cve": "GHSA-53h7-mc3v-w73c",
+          "description": "Malware in ts-wross",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tsconfig-stitch": {
       "compromised": true,
       "severity": "critical",
@@ -47126,5 +47266,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-22T11:44:37.998Z"
+  "lastRefresh": "2026-06-23T09:30:44.069Z"
 }
