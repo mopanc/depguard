@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-23",
+  "version": "2026-06-24",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -14953,6 +14953,20 @@
         }
       ]
     },
+    "aes-decode-runner-pro": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-f4hv-x68w-wqr9",
+          "description": "Malware in aes-decode-runner-pro",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "aesdecryptor": {
       "compromised": true,
       "severity": "critical",
@@ -24361,6 +24375,20 @@
         }
       ]
     },
+    "fetch-page-assets": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.9",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-vxq2-vhm7-7mhq",
+          "description": "Malware in fetch-page-assets",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "ffruitmaliciousxmlparser": {
       "compromised": true,
       "severity": "critical",
@@ -26219,6 +26247,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-qv6c-x8r4-46ff",
           "description": "Malware in hover-design-prototype",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "html-to-gutenberg": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 4.2.11",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-2gqj-wrf5-35w8",
+          "description": "Malware in html-to-gutenberg",
           "origin": "ghsa"
         }
       ]
@@ -29611,6 +29653,20 @@
         }
       ]
     },
+    "markdownlint-cli2-fix": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-75g7-vcxw-p99c",
+          "description": "Malware in markdownlint-cli2-fix",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "markdownlint-rule-link-pattern": {
       "compromised": true,
       "severity": "critical",
@@ -31893,6 +31949,20 @@
         }
       ]
     },
+    "node-vfs-polyfill": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-89vx-wfvc-j58f",
+          "description": "Malware in node-vfs-polyfill",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "nodemon-copack": {
       "compromised": true,
       "severity": "critical",
@@ -33023,6 +33093,20 @@
           "date": "2025-12-16",
           "cve": "GHSA-f5xm-4hwm-3fmf",
           "description": "Malware in openhands-frontend",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "opt-archetype-check": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-fq5h-gc4g-76cp",
+          "description": "Malware in opt-archetype-check",
           "origin": "ghsa"
         }
       ]
@@ -34437,6 +34521,34 @@
           "date": "2026-05-04",
           "cve": "GHSA-9x65-cvfj-9vmq",
           "description": "Malware in pos-next-react-native",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "postcss-minify-selector": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-gwv6-f7j6-4xc8",
+          "description": "Malware in postcss-minify-selector",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "postcss-minify-selector-parser": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-3m8w-m4vc-8f58",
+          "description": "Malware in postcss-minify-selector-parser",
           "origin": "ghsa"
         }
       ]
@@ -40965,6 +41077,20 @@
         }
       ]
     },
+    "tailwind-textform-fill": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-4wh6-h6rw-f94h",
+          "description": "Malware in tailwind-textform-fill",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tailwind-typ": {
       "compromised": true,
       "severity": "critical",
@@ -45235,6 +45361,20 @@
         }
       ]
     },
+    "vscode-test-web": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-24",
+          "cve": "GHSA-vxwh-gqjr-fxcw",
+          "description": "Malware in vscode-test-web",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "vscode-ui5-language-assistant": {
       "compromised": true,
       "severity": "critical",
@@ -47266,5 +47406,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-23T09:30:44.069Z"
+  "lastRefresh": "2026-06-24T08:59:03.338Z"
 }
