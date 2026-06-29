@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-28",
+  "version": "2026-06-29",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -4547,6 +4547,20 @@
           "date": "2026-05-05",
           "cve": "GHSA-627r-xf4j-2cqq",
           "description": "Malware in @enterprise-core/auth-gateway-bridge",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@epsteinlovekids483/crossmint-wallets-sdk-pentest": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-x7jg-w433-8q2r",
+          "description": "Malware in @epsteinlovekids483/crossmint-wallets-sdk-pentest",
           "origin": "ghsa"
         }
       ]
@@ -14267,6 +14281,20 @@
         }
       ]
     },
+    "@vpms/design-system": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-43r2-9cx9-pv7f",
+          "description": "Malware in @vpms/design-system",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@vreden-team/baileys": {
       "compromised": true,
       "severity": "critical",
@@ -20581,6 +20609,20 @@
         }
       ]
     },
+    "crossmint-wallets-sdk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-7rfm-v32j-2583",
+          "description": "Malware in crossmint-wallets-sdk",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "crud-respect": {
       "compromised": true,
       "severity": "critical",
@@ -26013,6 +26055,48 @@
         }
       ]
     },
+    "gx-npm-feature-flags": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-hhw7-23r7-qwj7",
+          "description": "Malware in gx-npm-feature-flags",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "gx-npm-lib": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-wcmr-4783-pq3p",
+          "description": "Malware in gx-npm-lib",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "gx-npm-ui": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-5jpv-9x2f-72jj",
+          "description": "Malware in gx-npm-ui",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "h-jsencrypt": {
       "compromised": true,
       "severity": "critical",
@@ -26625,6 +26709,20 @@
           "date": "2026-01-12",
           "cve": "GHSA-5fpx-j295-mggf",
           "description": "Malware in huggingface-js",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "hunsterx-package": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-29mh-6rgm-mmfw",
+          "description": "Malware in hunsterx-package",
           "origin": "ghsa"
         }
       ]
@@ -34731,6 +34829,20 @@
           "date": "2026-06-11",
           "cve": "GHSA-95f6-59wp-jpv8",
           "description": "Malware in polymarket-clob-api",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "polymarket-clob-math": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-3q5w-m6wr-5jp2",
+          "description": "Malware in polymarket-clob-math",
           "origin": "ghsa"
         }
       ]
@@ -43499,6 +43611,20 @@
         }
       ]
     },
+    "ts-ankle": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-992p-988h-h55j",
+          "description": "Malware in ts-ankle",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "ts-big-ecro": {
       "compromised": true,
       "severity": "critical",
@@ -43621,6 +43747,34 @@
           "date": "2026-06-19",
           "cve": "GHSA-pw67-28xc-x677",
           "description": "Malware in ts-ecro-helper",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ts-einkle": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-mjcv-m7fg-mg8j",
+          "description": "Malware in ts-einkle",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ts-einkle-slot": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-8cxx-rp6g-mcr9",
+          "description": "Malware in ts-einkle-slot",
           "origin": "ghsa"
         }
       ]
@@ -44773,6 +44927,20 @@
         }
       ]
     },
+    "unsafe-malicious-package": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-4gj3-wx83-w2hr",
+          "description": "Malware in unsafe-malicious-package",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "unsearch": {
       "compromised": true,
       "severity": "critical",
@@ -45288,6 +45456,20 @@
           "cve": null,
           "description": "SANDWORM_MODE worm. Typosquat of vim package.",
           "origin": "curated"
+        }
+      ]
+    },
+    "velocityfix": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-06-29",
+          "cve": "GHSA-2736-v5cj-q9x5",
+          "description": "Malware in velocityfix",
+          "origin": "ghsa"
         }
       ]
     },
@@ -47966,5 +48148,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-28T08:45:39.364Z"
+  "lastRefresh": "2026-06-29T10:47:29.540Z"
 }
