@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-29",
+  "version": "2026-06-30",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -15177,6 +15177,20 @@
         }
       ]
     },
+    "ai-sdk-ollama": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.13.1",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-m9j7-x8ww-5jwr",
+          "description": "Malware in ai-sdk-ollama",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "alf-ui-js": {
       "compromised": true,
       "severity": "critical",
@@ -16143,6 +16157,202 @@
         }
       ]
     },
+    "autotel-drizzle": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.27",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-hhr2-ppwm-hgqr",
+          "description": "Malware in autotel-drizzle",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-eventcatalog": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-h58c-49hq-mq6c",
+          "description": "Malware in autotel-eventcatalog",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-hono": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.4.26",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-c2jx-wr8m-cv28",
+          "description": "Malware in autotel-hono",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-mcp": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.14",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-3wmg-66hp-xhv9",
+          "description": "Malware in autotel-mcp",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-mcp-instrumentation": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 29.0.2",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-7cv4-gfx4-2c3v",
+          "description": "Malware in autotel-mcp-instrumentation",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-mongoose": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.3",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-4vjc-qq25-pvc4",
+          "description": "Malware in autotel-mongoose",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-pact": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.2.2",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-43fx-93g7-w27h",
+          "description": "Malware in autotel-pact",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-playwright": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.4.32",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-6pcg-qh3x-h5pg",
+          "description": "Malware in autotel-playwright",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-plugins": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.19.26",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-fgj5-m9vh-ffjw",
+          "description": "Malware in autotel-plugins",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-sentry": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.5.13",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-rxgj-x3gg-2fg8",
+          "description": "Malware in autotel-sentry",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-subscribers": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 4.1.1",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-37wr-f689-9c3c",
+          "description": "Malware in autotel-subscribers",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-tanstack": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.13.27",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-mhh3-45v6-6vmh",
+          "description": "Malware in autotel-tanstack",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-vitest": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.4.26",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-2x3q-hrjf-x554",
+          "description": "Malware in autotel-vitest",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "autotel-web": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.12.2",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-78g2-45pm-5862",
+          "description": "Malware in autotel-web",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "aven_types": {
       "compromised": true,
       "severity": "critical",
@@ -16167,6 +16377,62 @@
           "date": "2025-11-24",
           "cve": "GHSA-fvr9-qhw8-v3w6",
           "description": "Malware in avvvatars-vue",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "awaitly": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.33.3",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-c8c9-7f3h-7c76",
+          "description": "Malware in awaitly",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "awaitly-analyze": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.24.2",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-hv34-4pjp-j28h",
+          "description": "Malware in awaitly-analyze",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "awaitly-libsql": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.1",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-j6m2-hp97-pv4j",
+          "description": "Malware in awaitly-libsql",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "awaitly-mongo": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.1",
+          "type": "supply-chain",
+          "date": "2026-06-30",
+          "cve": "GHSA-4vpc-g7mx-4m5v",
+          "description": "Malware in awaitly-mongo",
           "origin": "ghsa"
         }
       ]
@@ -48148,5 +48414,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-06-29T10:47:29.540Z"
+  "lastRefresh": "2026-06-30T09:25:32.062Z"
 }
