@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-06",
+  "version": "2026-07-07",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -19013,6 +19013,20 @@
         }
       ]
     },
+    "chai-spycore": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-07",
+          "cve": "GHSA-w3fq-7xj5-8gmv",
+          "description": "Malware in chai-spycore",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "chai-status": {
       "compromised": true,
       "severity": "critical",
@@ -24497,6 +24511,34 @@
           "date": "2026-02-27",
           "cve": "GHSA-pqqv-f6rm-588j",
           "description": "Malware in express-core-validator",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "express-deflect": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-07",
+          "cve": "GHSA-968w-6262-r9f5",
+          "description": "Malware in express-deflect",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "express-firegate": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-07",
+          "cve": "GHSA-59r7-h2ch-m4v2",
+          "description": "Malware in express-firegate",
           "origin": "ghsa"
         }
       ]
@@ -48414,5 +48456,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-06T10:08:29.543Z"
+  "lastRefresh": "2026-07-07T09:33:00.541Z"
 }
