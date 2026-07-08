@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-07",
+  "version": "2026-07-08",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -32677,6 +32677,20 @@
         }
       ]
     },
+    "nodemon-node": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-08",
+          "cve": "GHSA-58j3-rgh4-9rjc",
+          "description": "Malware in nodemon-node",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "nodenetbanxsdk": {
       "compromised": true,
       "severity": "critical",
@@ -43933,6 +43947,20 @@
         }
       ]
     },
+    "ts-await": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-08",
+          "cve": "GHSA-xpmf-x27p-9vcc",
+          "description": "Malware in ts-await",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "ts-big-ecro": {
       "compromised": true,
       "severity": "critical",
@@ -48456,5 +48484,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-07T09:33:00.541Z"
+  "lastRefresh": "2026-07-08T08:19:27.787Z"
 }

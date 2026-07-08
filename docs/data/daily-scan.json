@@ -1,6 +1,6 @@
 {
-  "date": "2026-07-07",
-  "scannedAt": "2026-07-07T09:33:28.254Z",
+  "date": "2026-07-08",
+  "scannedAt": "2026-07-08T08:19:59.864Z",
   "totalPackages": 173,
   "totalAlerts": 0,
   "packages": [
@@ -112,7 +112,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-07-06T17:14:09.480Z"
+      "lastPublish": "2026-07-07T16:59:21.838Z"
     },
     {
       "name": "react-dom",
@@ -134,7 +134,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-07-06T17:14:24.197Z"
+      "lastPublish": "2026-07-07T16:59:35.937Z"
     },
     {
       "name": "rollup",
@@ -222,7 +222,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 6,
-      "lastPublish": "2026-07-07T06:29:57.819Z"
+      "lastPublish": "2026-07-08T06:07:34.658Z"
     },
     {
       "name": "@testing-library/react",
@@ -354,7 +354,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-07-07T00:00:58.217Z"
+      "lastPublish": "2026-07-07T23:59:44.002Z"
     },
     {
       "name": "turbo",
@@ -376,7 +376,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-07-07T02:23:20.491Z"
+      "lastPublish": "2026-07-07T14:55:34.472Z"
     },
     {
       "name": "ramda",
@@ -424,7 +424,7 @@
     },
     {
       "name": "@nestjs/core",
-      "version": "11.1.27",
+      "version": "11.1.28",
       "score": 94,
       "prevScore": 94,
       "rank": 20,
@@ -442,7 +442,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-15T09:16:25.179Z"
+      "lastPublish": "2026-07-08T06:37:27.881Z"
     },
     {
       "name": "sinon",
@@ -732,7 +732,7 @@
     },
     {
       "name": "cypress",
-      "version": "15.18.0",
+      "version": "15.18.1",
       "score": 88,
       "prevScore": 88,
       "rank": 34,
@@ -750,7 +750,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-23T17:09:27.855Z"
+      "lastPublish": "2026-07-07T14:46:26.929Z"
     },
     {
       "name": "nuxt",
@@ -1300,7 +1300,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-22T17:43:56.396Z"
+      "lastPublish": "2026-07-07T15:42:48.108Z"
     },
     {
       "name": "@tanstack/react-query",
@@ -1366,7 +1366,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 5,
-      "lastPublish": "2026-07-06T11:41:36.804Z"
+      "lastPublish": "2026-07-07T16:39:49.712Z"
     },
     {
       "name": "postcss",
@@ -1963,33 +1963,11 @@
       "lastPublish": "2026-07-02T12:53:08.133Z"
     },
     {
-      "name": "yargs-parser",
-      "version": "22.0.0",
-      "score": 79,
-      "prevScore": 79,
-      "rank": 90,
-      "prevRank": 90,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "ISC",
-      "downloads": 0,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2025-05-26T20:12:00.864Z"
-    },
-    {
       "name": "joi",
       "version": "18.2.3",
       "score": 79,
       "prevScore": 79,
-      "rank": 91,
+      "rank": 90,
       "prevRank": 91,
       "vulns": {
         "total": 0,
@@ -2011,7 +1989,7 @@
       "version": "2.3.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 92,
+      "rank": 91,
       "prevRank": 92,
       "vulns": {
         "total": 0,
@@ -2033,7 +2011,7 @@
       "version": "9.0.3",
       "score": 79,
       "prevScore": 79,
-      "rank": 93,
+      "rank": 92,
       "prevRank": 93,
       "vulns": {
         "total": 0,
@@ -2055,7 +2033,7 @@
       "version": "1.19.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 94,
+      "rank": 93,
       "prevRank": 94,
       "vulns": {
         "total": 0,
@@ -2077,7 +2055,7 @@
       "version": "9.7.4",
       "score": 79,
       "prevScore": 79,
-      "rank": 95,
+      "rank": 94,
       "prevRank": 95,
       "vulns": {
         "total": 0,
@@ -2099,7 +2077,7 @@
       "version": "1.0.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 96,
+      "rank": 95,
       "prevRank": 96,
       "vulns": {
         "total": 0,
@@ -2114,14 +2092,14 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-07-07T03:09:49.431Z"
+      "lastPublish": "2026-07-08T03:07:17.789Z"
     },
     {
       "name": "knex",
       "version": "3.3.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 97,
+      "rank": 96,
       "prevRank": 97,
       "vulns": {
         "total": 0,
@@ -2143,7 +2121,7 @@
       "version": "8.22.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 98,
+      "rank": 97,
       "prevRank": 98,
       "vulns": {
         "total": 0,
@@ -2162,10 +2140,10 @@
     },
     {
       "name": "mysql2",
-      "version": "3.22.5",
+      "version": "3.22.6",
       "score": 79,
       "prevScore": 79,
-      "rank": 99,
+      "rank": 98,
       "prevRank": 99,
       "vulns": {
         "total": 0,
@@ -2180,14 +2158,14 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-06T08:10:39.646Z"
+      "lastPublish": "2026-07-07T14:19:42.519Z"
     },
     {
       "name": "better-sqlite3",
       "version": "12.11.1",
       "score": 79,
       "prevScore": 79,
-      "rank": 100,
+      "rank": 99,
       "prevRank": 100,
       "vulns": {
         "total": 0,
@@ -2209,7 +2187,7 @@
       "version": "5.11.1",
       "score": 79,
       "prevScore": 79,
-      "rank": 101,
+      "rank": 100,
       "prevRank": 101,
       "vulns": {
         "total": 0,
@@ -2231,7 +2209,7 @@
       "version": "2.12.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 102,
+      "rank": 101,
       "prevRank": 102,
       "vulns": {
         "total": 0,
@@ -2253,7 +2231,7 @@
       "version": "11.14.1",
       "score": 79,
       "prevScore": 79,
-      "rank": 103,
+      "rank": 102,
       "prevRank": 103,
       "vulns": {
         "total": 0,
@@ -2275,7 +2253,7 @@
       "version": "3.19.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 104,
+      "rank": 103,
       "prevRank": 104,
       "vulns": {
         "total": 0,
@@ -2297,7 +2275,7 @@
       "version": "10.3.1",
       "score": 79,
       "prevScore": 79,
-      "rank": 105,
+      "rank": 104,
       "prevRank": 105,
       "vulns": {
         "total": 0,
@@ -2319,7 +2297,7 @@
       "version": "3.0.4",
       "score": 79,
       "prevScore": 79,
-      "rank": 106,
+      "rank": 105,
       "prevRank": 106,
       "vulns": {
         "total": 0,
@@ -2341,7 +2319,7 @@
       "version": "4.8.3",
       "score": 79,
       "prevScore": 79,
-      "rank": 107,
+      "rank": 106,
       "prevRank": 107,
       "vulns": {
         "total": 0,
@@ -2363,7 +2341,7 @@
       "version": "6.6.9",
       "score": 79,
       "prevScore": 79,
-      "rank": 108,
+      "rank": 107,
       "prevRank": 108,
       "vulns": {
         "total": 0,
@@ -2385,7 +2363,7 @@
       "version": "3.1.14",
       "score": 79,
       "prevScore": 79,
-      "rank": 109,
+      "rank": 108,
       "prevRank": 109,
       "vulns": {
         "total": 0,
@@ -2407,7 +2385,7 @@
       "version": "10.0.3",
       "score": 79,
       "prevScore": 79,
-      "rank": 110,
+      "rank": 109,
       "prevRank": 110,
       "vulns": {
         "total": 0,
@@ -2429,7 +2407,7 @@
       "version": "14.3.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 111,
+      "rank": 110,
       "prevRank": 111,
       "vulns": {
         "total": 0,
@@ -2451,7 +2429,7 @@
       "version": "1.2.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 112,
+      "rank": 111,
       "prevRank": 112,
       "vulns": {
         "total": 0,
@@ -2470,10 +2448,10 @@
     },
     {
       "name": "@aws-sdk/client-s3",
-      "version": "3.1080.0",
+      "version": "3.1081.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 113,
+      "rank": 112,
       "prevRank": 113,
       "vulns": {
         "total": 0,
@@ -2488,14 +2466,14 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-07-06T18:53:23.088Z"
+      "lastPublish": "2026-07-07T18:56:17.183Z"
     },
     {
       "name": "@google-cloud/storage",
       "version": "7.21.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 114,
+      "rank": 113,
       "prevRank": 114,
       "vulns": {
         "total": 0,
@@ -2517,7 +2495,7 @@
       "version": "3.49.0",
       "score": 79,
       "prevScore": 79,
-      "rank": 115,
+      "rank": 114,
       "prevRank": 115,
       "vulns": {
         "total": 0,
@@ -2539,7 +2517,7 @@
       "version": "3.1.3",
       "score": 79,
       "prevScore": 79,
-      "rank": 116,
+      "rank": 115,
       "prevRank": 116,
       "vulns": {
         "total": 0,
@@ -2555,6 +2533,28 @@
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2025-11-14T18:29:11.565Z"
+    },
+    {
+      "name": "yargs-parser",
+      "version": "22.0.0",
+      "score": 78,
+      "prevScore": 79,
+      "rank": 116,
+      "prevRank": 90,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "ISC",
+      "downloads": 0,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2025-05-26T20:12:00.864Z"
     },
     {
       "name": "bcryptjs",
@@ -2730,7 +2730,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-06-16T18:53:16.779Z"
+      "lastPublish": "2026-07-07T14:19:58.976Z"
     },
     {
       "name": "readable-stream",
@@ -3262,7 +3262,7 @@
     },
     {
       "name": "lru-cache",
-      "version": "11.5.1",
+      "version": "11.5.2",
       "score": 65,
       "prevScore": 65,
       "rank": 149,
@@ -3280,7 +3280,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-05-27T15:04:12.732Z"
+      "lastPublish": "2026-07-07T23:27:14.327Z"
     },
     {
       "name": "node-fetch",
