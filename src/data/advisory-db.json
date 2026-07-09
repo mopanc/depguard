@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-08",
+  "version": "2026-07-09",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -2839,6 +2839,20 @@
           "date": "2026-03-31",
           "cve": "GHSA-6p89-h5mp-9cqp",
           "description": "Malware in @c8o/nimbus-core",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@calm2026/imux": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-09",
+          "cve": "GHSA-vwgj-9938-7p8q",
+          "description": "Malware in @calm2026/imux",
           "origin": "ghsa"
         }
       ]
@@ -17935,6 +17949,20 @@
         }
       ]
     },
+    "calvuepro": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-09",
+          "cve": "GHSA-82qq-fgw6-6hf8",
+          "description": "Malware in calvuepro",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "camscanner-seo": {
       "compromised": true,
       "severity": "critical",
@@ -19695,6 +19723,48 @@
           "date": "2025-11-24",
           "cve": "GHSA-pxr9-c6pq-g38g",
           "description": "Malware in claude-token-updater",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "clavue": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-09",
+          "cve": "GHSA-3qpf-99hh-7hp4",
+          "description": "Malware in clavue",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "clavue-agent-sdk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-09",
+          "cve": "GHSA-vxh6-2g6j-qrrc",
+          "description": "Malware in clavue-agent-sdk",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "clavuepro": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-09",
+          "cve": "GHSA-7m5m-ch5w-5q7v",
+          "description": "Malware in clavuepro",
           "origin": "ghsa"
         }
       ]
@@ -31459,6 +31529,20 @@
         }
       ]
     },
+    "myclaude-code": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-09",
+          "cve": "GHSA-f5r3-gf4p-pf67",
+          "description": "Malware in myclaude-code",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "mysql2.js": {
       "compromised": true,
       "severity": "critical",
@@ -41693,6 +41777,20 @@
         }
       ]
     },
+    "tailwind-core": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.0",
+          "type": "supply-chain",
+          "date": "2026-07-09",
+          "cve": "GHSA-m6r5-49q4-pv25",
+          "description": "Malware in tailwind-core",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tailwind-dark-mode-kit": {
       "compromised": true,
       "severity": "critical",
@@ -48484,5 +48582,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-08T08:19:27.787Z"
+  "lastRefresh": "2026-07-09T09:29:56.879Z"
 }
