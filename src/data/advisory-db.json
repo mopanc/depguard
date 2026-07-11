@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-10",
+  "version": "2026-07-11",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -16059,6 +16059,20 @@
         }
       ]
     },
+    "auth-next-gen": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-11",
+          "cve": "GHSA-8qpp-8j53-4wh7",
+          "description": "Malware in auth-next-gen",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "auth-types": {
       "compromised": true,
       "severity": "critical",
@@ -16181,6 +16195,20 @@
           "date": "2026-06-16",
           "cve": "GHSA-fx94-j779-7c6j",
           "description": "Malware in authcascade",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "authvaultx": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-11",
+          "cve": "GHSA-frr6-2jc6-6fhr",
+          "description": "Malware in authvaultx",
           "origin": "ghsa"
         }
       ]
@@ -48862,5 +48890,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-10T09:26:11.872Z"
+  "lastRefresh": "2026-07-11T07:47:15.847Z"
 }
