@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-15",
+  "version": "2026-07-16",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -10371,6 +10371,20 @@
           "date": "2026-05-04",
           "cve": "GHSA-q9xj-mpqj-qpcc",
           "description": "Malware in @sbt_gitverse/analytics-client",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@sectest429/hello-npm-world": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-16",
+          "cve": "GHSA-q7w2-749v-c98p",
+          "description": "Malware in @sectest429/hello-npm-world",
           "origin": "ghsa"
         }
       ]
@@ -21309,6 +21323,20 @@
         }
       ]
     },
+    "claude-token-tracker-mcp": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-16",
+          "cve": "GHSA-w56m-5ch4-5xjw",
+          "description": "Malware in claude-token-tracker-mcp",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "claude-token-updater": {
       "compromised": true,
       "severity": "critical",
@@ -26933,6 +26961,20 @@
           "date": "2026-07-15",
           "cve": "GHSA-cw9q-6cmp-p38r",
           "description": "Malware in fhirproxy-utils",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "field-plus": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-16",
+          "cve": "GHSA-wcq8-7m2v-8r69",
+          "description": "Malware in field-plus",
           "origin": "ghsa"
         }
       ]
@@ -34329,6 +34371,20 @@
         }
       ]
     },
+    "n8n-nodes-rce-poc": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-16",
+          "cve": "GHSA-f4f3-9g54-864m",
+          "description": "Malware in n8n-nodes-rce-poc",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "n8n-nodes-text-helpers": {
       "compromised": true,
       "severity": "critical",
@@ -36299,6 +36355,20 @@
           "date": "2026-01-16",
           "cve": "GHSA-mxj5-q763-23p6",
           "description": "Malware in nyse-web-tools-common",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "nyt-cms": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-16",
+          "cve": "GHSA-r98c-r926-c796",
+          "description": "Malware in nyt-cms",
           "origin": "ghsa"
         }
       ]
@@ -50485,6 +50555,20 @@
         }
       ]
     },
+    "vor8zakon": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-16",
+          "cve": "GHSA-9f89-97fj-pqmp",
+          "description": "Malware in vor8zakon",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "voyager-web": {
       "compromised": true,
       "severity": "critical",
@@ -52838,5 +52922,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-15T07:59:09.989Z"
+  "lastRefresh": "2026-07-16T08:04:10.814Z"
 }
