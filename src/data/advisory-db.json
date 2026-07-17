@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-16",
+  "version": "2026-07-17",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -16713,6 +16713,20 @@
           "date": "2026-02-03",
           "cve": "GHSA-j2cw-hc39-qrw9",
           "description": "Malware in ansi-universal-ui",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "anthropic-claude-latest": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-17",
+          "cve": "GHSA-j588-p757-86r9",
+          "description": "Malware in anthropic-claude-latest",
           "origin": "ghsa"
         }
       ]
@@ -42001,6 +42015,20 @@
         }
       ]
     },
+    "scan-only": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-17",
+          "cve": "GHSA-72g3-g9xj-wxp6",
+          "description": "Malware in scan-only",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "scan-store": {
       "compromised": true,
       "severity": "critical",
@@ -52922,5 +52950,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-16T08:04:10.814Z"
+  "lastRefresh": "2026-07-17T08:01:14.165Z"
 }
