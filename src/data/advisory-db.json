@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-17",
+  "version": "2026-07-18",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -3571,6 +3571,34 @@
         }
       ]
     },
+    "@edgecommons/edgecommons": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-07-18",
+          "cve": "GHSA-8p39-h6xv-p2g9",
+          "description": "Malicious code in @edgecommons/edgecommons (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@edgecommons/streamlog-node": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-07-18",
+          "cve": "GHSA-4rqf-6883-f59f",
+          "description": "Malicious code in @edgecommons/streamlog-node (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@emcd-vue/auth": {
       "compromised": true,
       "severity": "critical",
@@ -6045,6 +6073,20 @@
           "date": "2026-05-05",
           "cve": "GHSA-39cj-m2w3-265w",
           "description": "Malware in @infinid-indonesia/ui-kit",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@injectivelabs/sdk-ts": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.20.21",
+          "type": "supply-chain",
+          "date": "2026-07-18",
+          "cve": "GHSA-5fc4-fm2x-6f4r",
+          "description": "Malicious code in @injectivelabs/sdk-ts (npm)",
           "origin": "ghsa"
         }
       ]
@@ -24329,6 +24371,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-f78c-gcxh-wjpq",
           "description": "Malware in easypanel-sdk",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "easyway2": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-07-18",
+          "cve": "GHSA-68c2-54w2-m326",
+          "description": "Malicious code in easyway2 (npm)",
           "origin": "ghsa"
         }
       ]
@@ -45249,6 +45305,48 @@
         }
       ]
     },
+    "syft-acp-atoms": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-07-18",
+          "cve": "GHSA-j5f4-f3f3-634h",
+          "description": "Malicious code in syft-acp-atoms (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "syft-acp-core": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-07-18",
+          "cve": "GHSA-289v-6j56-44w8",
+          "description": "Malicious code in syft-acp-core (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "syft-acp-uikit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-07-18",
+          "cve": "GHSA-rvgp-458h-wjc3",
+          "description": "Malicious code in syft-acp-uikit (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "symphony-core": {
       "compromised": true,
       "severity": "critical",
@@ -52950,5 +53048,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-17T08:01:14.165Z"
+  "lastRefresh": "2026-07-18T07:41:08.686Z"
 }
