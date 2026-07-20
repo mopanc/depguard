@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-19",
+  "version": "2026-07-20",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -3011,6 +3011,20 @@
         }
       ]
     },
+    "@car_loans/dealerships-approval": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-p8xg-5qpp-p289",
+          "description": "Malware in @car_loans/dealerships-approval",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@caretive/caret-cli": {
       "compromised": true,
       "severity": "critical",
@@ -5345,6 +5359,1126 @@
           "date": "2026-03-03",
           "cve": "GHSA-33x7-m654-2w4g",
           "description": "Malware in @global-dax-ad-platform/dax-utils",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-agpl-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-r5w6-4v34-wvg7",
+          "description": "Malware in @gocortexio/npmgremlinbox-agpl-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-agpl-1-0-only": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-8rqf-7352-m3m9",
+          "description": "Malware in @gocortexio/npmgremlinbox-agpl-1-0-only",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-agpl-1-0-or-later": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-q6xg-rf9w-r3q7",
+          "description": "Malware in @gocortexio/npmgremlinbox-agpl-1-0-or-later",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-agpl-3-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-6ff8-mg9c-x59x",
+          "description": "Malware in @gocortexio/npmgremlinbox-agpl-3-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-agpl-3-0-only": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-hrqc-mppq-7pr5",
+          "description": "Malware in @gocortexio/npmgremlinbox-agpl-3-0-only",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-agpl-3-0-or-later": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-cf53-hv78-9ffv",
+          "description": "Malware in @gocortexio/npmgremlinbox-agpl-3-0-or-later",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-apsl": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-67m7-p4w7-8744",
+          "description": "Malware in @gocortexio/npmgremlinbox-apsl",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-arphic-1999": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-295j-j4gp-423v",
+          "description": "Malware in @gocortexio/npmgremlinbox-arphic-1999",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-artistic-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-gvj6-3qrj-427g",
+          "description": "Malware in @gocortexio/npmgremlinbox-artistic-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-base": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-9qqm-p44x-pmh6",
+          "description": "Malware in @gocortexio/npmgremlinbox-base",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-busl-1-1": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-x724-cv8r-x29f",
+          "description": "Malware in @gocortexio/npmgremlinbox-busl-1-1",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-c-uda-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-gwc5-9794-fgr2",
+          "description": "Malware in @gocortexio/npmgremlinbox-c-uda-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cal-1-0-combined-work-exception": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-vjjx-v6cg-9v97",
+          "description": "Malware in @gocortexio/npmgremlinbox-cal-1-0-combined-work-exception",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-nc-3-0-de": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-cjcw-4jj7-mwqr",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-nc-3-0-de",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-nc-nd-3-0-de": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-433g-ghwg-9crw",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-nc-nd-3-0-de",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-nc-nd-3-0-igo": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-pfff-33jv-92x4",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-nc-nd-3-0-igo",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-nc-sa-2-0-de": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-7rxf-3w7r-p25p",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-nc-sa-2-0-de",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-nc-sa-2-0-fr": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-gjq7-gh7x-8m2r",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-nc-sa-2-0-fr",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-nc-sa-2-0-uk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-7r89-775j-qrf2",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-nc-sa-2-0-uk",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-nc-sa-3-0-de": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-9658-ffq5-hx94",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-nc-sa-3-0-de",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-nc-sa-3-0-igo": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-jg78-wmg7-h279",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-nc-sa-3-0-igo",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-nd-3-0-de": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-66vh-6mm9-hgp5",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-nd-3-0-de",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-sa-2-0-uk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-9wg7-9rv7-xv2h",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-sa-2-0-uk",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-sa-2-1-jp": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-x637-pr99-2972",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-sa-2-1-jp",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-sa-3-0-at": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-wx6w-h3xq-gw73",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-sa-3-0-at",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-sa-3-0-de": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-g2mp-g3q3-7rx3",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-sa-3-0-de",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cc-by-sa-4-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-mwvx-43ff-rfhg",
+          "description": "Malware in @gocortexio/npmgremlinbox-cc-by-sa-4-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cddl-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-ghq5-9c42-xm6m",
+          "description": "Malware in @gocortexio/npmgremlinbox-cddl-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cdla-sharing-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-9xxm-2vjv-vcf8",
+          "description": "Malware in @gocortexio/npmgremlinbox-cdla-sharing-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cern-ohl-s-2-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-cf67-mcc6-xv6g",
+          "description": "Malware in @gocortexio/npmgremlinbox-cern-ohl-s-2-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cern-ohl-w-2-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-v3g4-vqc2-ww4m",
+          "description": "Malware in @gocortexio/npmgremlinbox-cern-ohl-w-2-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-copyleft-next-0-3-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-h79m-rf9m-2rw3",
+          "description": "Malware in @gocortexio/npmgremlinbox-copyleft-next-0-3-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-copyleft-next-0-3-1": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-2gc4-3jrf-539r",
+          "description": "Malware in @gocortexio/npmgremlinbox-copyleft-next-0-3-1",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-cpol-1-02": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-j2jx-hj5v-jx3v",
+          "description": "Malware in @gocortexio/npmgremlinbox-cpol-1-02",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-ecos-2-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-jhf4-7xww-5wr4",
+          "description": "Malware in @gocortexio/npmgremlinbox-ecos-2-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-epl-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-rgmq-p9gv-7m9r",
+          "description": "Malware in @gocortexio/npmgremlinbox-epl-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-epl-2-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-pcgm-v58j-9h83",
+          "description": "Malware in @gocortexio/npmgremlinbox-epl-2-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-eupl-1-1": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-c537-6552-hchq",
+          "description": "Malware in @gocortexio/npmgremlinbox-eupl-1-1",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-eupl-1-2": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-7mf4-xph8-p3x5",
+          "description": "Malware in @gocortexio/npmgremlinbox-eupl-1-2",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-eupl-3-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-8wvp-4p3h-8rcv",
+          "description": "Malware in @gocortexio/npmgremlinbox-eupl-3-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-fdk-aac": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-f352-j467-hh2v",
+          "description": "Malware in @gocortexio/npmgremlinbox-fdk-aac",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-gpl-2-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-6f4v-mj95-7hx7",
+          "description": "Malware in @gocortexio/npmgremlinbox-gpl-2-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-gpl-3-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-rgg7-35hm-9r87",
+          "description": "Malware in @gocortexio/npmgremlinbox-gpl-3-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-hippocratic-2-1": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-6jrh-cw7q-cchf",
+          "description": "Malware in @gocortexio/npmgremlinbox-hippocratic-2-1",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-jpl-image": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-8xvv-j38f-37q4",
+          "description": "Malware in @gocortexio/npmgremlinbox-jpl-image",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-lgpl-2-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-mphc-8p8q-3qch",
+          "description": "Malware in @gocortexio/npmgremlinbox-lgpl-2-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-lgpl-2-1": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-vjr7-6xvw-fjwv",
+          "description": "Malware in @gocortexio/npmgremlinbox-lgpl-2-1",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-lgpl-3-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-8cfc-7pm7-2wfg",
+          "description": "Malware in @gocortexio/npmgremlinbox-lgpl-3-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-linux-man-pages-copyleft": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-xjx5-pj89-q82h",
+          "description": "Malware in @gocortexio/npmgremlinbox-linux-man-pages-copyleft",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-malware-c2-beacon": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-vmcc-vqgj-wh6c",
+          "description": "Malware in @gocortexio/npmgremlinbox-malware-c2-beacon",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-malware-code-obfuscation": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-4ch4-g9wf-fg55",
+          "description": "Malware in @gocortexio/npmgremlinbox-malware-code-obfuscation",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-malware-credential-harvesting": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-89jh-h47r-j47w",
+          "description": "Malware in @gocortexio/npmgremlinbox-malware-credential-harvesting",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-malware-cryptomining-indicators": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-6rh6-pc5p-4j88",
+          "description": "Malware in @gocortexio/npmgremlinbox-malware-cryptomining-indicators",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-malware-install-execution": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-3m93-ccj9-w63p",
+          "description": "Malware in @gocortexio/npmgremlinbox-malware-install-execution",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-malware-network-indicators": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-fcqp-56vj-9g8m",
+          "description": "Malware in @gocortexio/npmgremlinbox-malware-network-indicators",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-mpl-1-1": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-jq98-3cqm-6m69",
+          "description": "Malware in @gocortexio/npmgremlinbox-mpl-1-1",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-mpl-2-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-pgj9-qg38-66qm",
+          "description": "Malware in @gocortexio/npmgremlinbox-mpl-2-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-ms-lpl": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-pwfp-vhxq-7g8f",
+          "description": "Malware in @gocortexio/npmgremlinbox-ms-lpl",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-ncgl-uk-2-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-cx55-w99m-rcx9",
+          "description": "Malware in @gocortexio/npmgremlinbox-ncgl-uk-2-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-openpbs-2-3": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-rhgp-gf2p-j7r3",
+          "description": "Malware in @gocortexio/npmgremlinbox-openpbs-2-3",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-osl-3-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-p5pm-xhx8-3gq6",
+          "description": "Malware in @gocortexio/npmgremlinbox-osl-3-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-polyform-noncommercial-1-0-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-q9m9-5h2w-6fqv",
+          "description": "Malware in @gocortexio/npmgremlinbox-polyform-noncommercial-1-0-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-polyform-small-business-1-0-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-pj22-8328-xx6m",
+          "description": "Malware in @gocortexio/npmgremlinbox-polyform-small-business-1-0-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-qpl-1-0-inria-2004": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-mvwx-9jqh-5qhf",
+          "description": "Malware in @gocortexio/npmgremlinbox-qpl-1-0-inria-2004",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-sendmail-8-23": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-9x3r-xqjc-rf4m",
+          "description": "Malware in @gocortexio/npmgremlinbox-sendmail-8-23",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-simpl-2-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-r8xp-4267-6m36",
+          "description": "Malware in @gocortexio/npmgremlinbox-simpl-2-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-sspl-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-7fmj-6v2f-m56v",
+          "description": "Malware in @gocortexio/npmgremlinbox-sspl-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-tapr-ohl-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-qrhx-w63c-43gx",
+          "description": "Malware in @gocortexio/npmgremlinbox-tapr-ohl-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-tpl-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-c342-xf26-r5wc",
+          "description": "Malware in @gocortexio/npmgremlinbox-tpl-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-typosquat-axios": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-7j2p-8vwj-g565",
+          "description": "Malware in @gocortexio/npmgremlinbox-typosquat-axios",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-typosquat-chalk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-576v-8wcx-4p4q",
+          "description": "Malware in @gocortexio/npmgremlinbox-typosquat-chalk",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-typosquat-commander": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-qpvx-cv58-6gq8",
+          "description": "Malware in @gocortexio/npmgremlinbox-typosquat-commander",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-typosquat-express": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-rhf7-542w-5vqq",
+          "description": "Malware in @gocortexio/npmgremlinbox-typosquat-express",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-typosquat-lodash": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-2wfp-mw9m-3c6x",
+          "description": "Malware in @gocortexio/npmgremlinbox-typosquat-lodash",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-typosquat-moment": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-9mx2-4mpm-2r3j",
+          "description": "Malware in @gocortexio/npmgremlinbox-typosquat-moment",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-typosquat-react": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-rf94-jqj5-mxj3",
+          "description": "Malware in @gocortexio/npmgremlinbox-typosquat-react",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-typosquat-webpack": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-4wcr-8537-v2ww",
+          "description": "Malware in @gocortexio/npmgremlinbox-typosquat-webpack",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-ucl-1-0": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-fh2p-2rm7-q273",
+          "description": "Malware in @gocortexio/npmgremlinbox-ucl-1-0",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-unlicense": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-ghmj-68m9-xmgq",
+          "description": "Malware in @gocortexio/npmgremlinbox-unlicense",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@gocortexio/npmgremlinbox-wxwindows": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-7qjp-cprm-mcp6",
+          "description": "Malware in @gocortexio/npmgremlinbox-wxwindows",
           "origin": "ghsa"
         }
       ]
@@ -12601,6 +13735,20 @@
         }
       ]
     },
+    "@tqm-mfe/main": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-cg4c-94r8-hqjq",
+          "description": "Malware in @tqm-mfe/main",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@trackstar/angular-trackstar-link": {
       "compromised": true,
       "severity": "critical",
@@ -14403,6 +15551,34 @@
           "date": "2025-11-24",
           "cve": "GHSA-ppf7-mxm7-7h3h",
           "description": "Malware in @vishadtyagi/full-year-calendar",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@vite-js/ui": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-x4cp-w826-x466",
+          "description": "Malware in @vite-js/ui",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@vite-js/vui": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-6x4h-wrvq-m68h",
+          "description": "Malware in @vite-js/vui",
           "origin": "ghsa"
         }
       ]
@@ -26545,6 +27721,20 @@
         }
       ]
     },
+    "express-ini": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-w3p6-c3cm-r253",
+          "description": "Malware in express-ini",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "express-js-web": {
       "compromised": true,
       "severity": "critical",
@@ -34913,6 +36103,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-cvxx-qf3j-v4w3",
           "description": "Malware in next-circular-dependency",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "next-locomotive-init": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-v4q3-jmq9-q449",
+          "description": "Malware in next-locomotive-init",
           "origin": "ghsa"
         }
       ]
@@ -45221,6 +46425,20 @@
         }
       ]
     },
+    "svgson-lite": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-g7rx-jhhj-8whr",
+          "description": "Malware in svgson-lite",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "swagger-express-routes": {
       "compromised": true,
       "severity": "critical",
@@ -49127,6 +50345,20 @@
         }
       ]
     },
+    "uac-package": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.0",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-7cmm-649r-p3q2",
+          "description": "Malware in uac-package",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "uba-plugins": {
       "compromised": true,
       "severity": "critical",
@@ -50929,6 +52161,34 @@
           "date": "2026-06-26",
           "cve": "GHSA-783r-3958-xf8p",
           "description": "Malware in vxui-react",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "vybscan-testbed-inert-postinstall": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-cwcf-rmgg-qg9w",
+          "description": "Malware in vybscan-testbed-inert-postinstall",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "vybscan-testbed-obfuscated-postinstall": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-20",
+          "cve": "GHSA-43r2-4jr2-rhjf",
+          "description": "Malware in vybscan-testbed-obfuscated-postinstall",
           "origin": "ghsa"
         }
       ]
@@ -53048,5 +54308,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-19T08:08:11.677Z"
+  "lastRefresh": "2026-07-20T08:49:33.776Z"
 }
