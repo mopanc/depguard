@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-20",
+  "version": "2026-07-21",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -21309,6 +21309,20 @@
         }
       ]
     },
+    "chai-as-reddit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-21",
+          "cve": "GHSA-vc32-h28h-pmhm",
+          "description": "Malware in chai-as-reddit",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "chai-as-redeploy": {
       "compromised": true,
       "severity": "critical",
@@ -21641,6 +21655,20 @@
           "date": "2025-11-26",
           "cve": "GHSA-5qcc-669p-2584",
           "description": "Malware in chai-jsons",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "chai-leaf": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-21",
+          "cve": "GHSA-m3c7-2j38-rjh7",
+          "description": "Malware in chai-leaf",
           "origin": "ghsa"
         }
       ]
@@ -54308,5 +54336,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-20T08:49:33.776Z"
+  "lastRefresh": "2026-07-21T08:19:00.743Z"
 }
