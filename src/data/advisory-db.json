@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-27",
+  "version": "2026-07-28",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -15663,6 +15663,34 @@
           "date": "2025-11-24",
           "cve": "GHSA-jqcj-cc9g-j67v",
           "description": "Malware in @varsityvibe/validation-schemas",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@vaultflow/create-flow": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-28",
+          "cve": "GHSA-xpp9-qw49-cpw2",
+          "description": "Malware in @vaultflow/create-flow",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@vaultflow/update-flow": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-28",
+          "cve": "GHSA-gv55-mvjq-232h",
+          "description": "Malware in @vaultflow/update-flow",
           "origin": "ghsa"
         }
       ]
@@ -55568,5 +55596,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-27T09:40:39.170Z"
+  "lastRefresh": "2026-07-28T08:25:18.296Z"
 }
