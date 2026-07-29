@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-28",
+  "version": "2026-07-29",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -2839,6 +2839,20 @@
           "date": "2026-04-13",
           "cve": "GHSA-8mf9-v5mc-4ch3",
           "description": "Malware in @bookiply/core",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@bowozzz/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-29",
+          "cve": "GHSA-f9vh-885g-hv2f",
+          "description": "Malware in @bowozzz/baileys",
           "origin": "ghsa"
         }
       ]
@@ -9647,6 +9661,20 @@
         }
       ]
     },
+    "@mypwn/hawkeye": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-07-29",
+          "cve": "GHSA-28p4-h97c-j397",
+          "description": "Malicious code in @mypwn/hawkeye (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@nayzak51/primebeem-db": {
       "compromised": true,
       "severity": "critical",
@@ -10063,6 +10091,20 @@
           "date": "2026-05-05",
           "cve": "GHSA-pfh5-gh42-c5ff",
           "description": "Malware in @omni-corp-infra/sso-bridge-core",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@omniwatch-wick/cli": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-29",
+          "cve": "GHSA-x4cm-7r6h-pjg3",
+          "description": "Malware in @omniwatch-wick/cli",
           "origin": "ghsa"
         }
       ]
@@ -20623,6 +20665,20 @@
         }
       ]
     },
+    "blots": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.1.0",
+          "type": "supply-chain",
+          "date": "2026-07-29",
+          "cve": "GHSA-m24q-pqxm-qhqw",
+          "description": "Malicious code in blots (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "bluelite-bot-manager": {
       "compromised": true,
       "severity": "critical",
@@ -22485,6 +22541,20 @@
         }
       ]
     },
+    "chain-analyze": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-29",
+          "cve": "GHSA-vmj5-cm6w-jrgj",
+          "description": "Malware in chain-analyze",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "chain-coremesh": {
       "compromised": true,
       "severity": "critical",
@@ -22509,6 +22579,20 @@
           "date": "2026-05-22",
           "cve": "GHSA-vpcq-rhwg-qph4",
           "description": "Malware in chain-key-validator",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "chain-manager": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-29",
+          "cve": "GHSA-257g-ggr2-j398",
+          "description": "Malware in chain-manager",
           "origin": "ghsa"
         }
       ]
@@ -49799,6 +49883,20 @@
         }
       ]
     },
+    "toll_free": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-07-29",
+          "cve": "GHSA-8grw-9ghp-8r94",
+          "description": "Malicious code in toll_free (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "toonfetch": {
       "compromised": true,
       "severity": "critical",
@@ -55596,5 +55694,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-28T08:25:18.296Z"
+  "lastRefresh": "2026-07-29T08:31:28.225Z"
 }
