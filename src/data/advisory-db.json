@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-29",
+  "version": "2026-07-30",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -34623,6 +34623,20 @@
         }
       ]
     },
+    "litespeed-cache": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-30",
+          "cve": "GHSA-vxgg-x9mm-892p",
+          "description": "Malware in litespeed-cache",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "llama-tokenizer": {
       "compromised": true,
       "severity": "critical",
@@ -36677,6 +36691,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-44rc-f8j4-fw99",
           "description": "Malware in n8n-nodes-tmdb",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "n8n-nodes-trust-me-im-totally-safe": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-07-30",
+          "cve": "GHSA-58v7-66mp-4mf4",
+          "description": "Malware in n8n-nodes-trust-me-im-totally-safe",
           "origin": "ghsa"
         }
       ]
@@ -49183,6 +49211,20 @@
         }
       ]
     },
+    "test2221": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.2.4",
+          "type": "supply-chain",
+          "date": "2026-07-30",
+          "cve": "GHSA-76mv-v3rc-4p79",
+          "description": "Malicious code in test2221 (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "test23112222-api": {
       "compromised": true,
       "severity": "critical",
@@ -55694,5 +55736,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-07-29T08:31:28.225Z"
+  "lastRefresh": "2026-07-30T08:16:25.430Z"
 }
