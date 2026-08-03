@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-02",
+  "version": "2026-08-03",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -3413,6 +3413,20 @@
           "date": "2026-05-05",
           "cve": "GHSA-563q-j42j-86qv",
           "description": "Malware in @corp-infra/sso-gateway-core",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@custombots/custombot": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-03",
+          "cve": "GHSA-77jv-xw6r-q246",
+          "description": "Malicious code in @custombots/custombot (npm)",
           "origin": "ghsa"
         }
       ]
@@ -14655,6 +14669,20 @@
           "date": "2026-03-03",
           "cve": "GHSA-xvg5-299p-j75r",
           "description": "Malware in @twilio-client/twilio-client",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@types-beta/sdk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.0",
+          "type": "supply-chain",
+          "date": "2026-08-03",
+          "cve": "GHSA-j9jc-8h3g-qqrx",
+          "description": "Malicious code in @types-beta/sdk (npm)",
           "origin": "ghsa"
         }
       ]
@@ -48245,6 +48273,20 @@
         }
       ]
     },
+    "tailwind-anim": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-03",
+          "cve": "GHSA-7xhc-fvmj-h5xj",
+          "description": "Malware in tailwind-anim",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tailwind-animationbased": {
       "compromised": true,
       "severity": "critical",
@@ -56100,5 +56142,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-02T08:13:42.591Z"
+  "lastRefresh": "2026-08-03T09:33:52.450Z"
 }
