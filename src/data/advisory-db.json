@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-03",
+  "version": "2026-08-04",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -17235,6 +17235,20 @@
         }
       ]
     },
+    "@zzzgenesis00/bip39-generator": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 3.1.2",
+          "type": "supply-chain",
+          "date": "2026-08-04",
+          "cve": "GHSA-f5gh-74gw-hjvx",
+          "description": "Malicious code in @zzzgenesis00/bip39-generator (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "a4wu": {
       "compromised": true,
       "severity": "critical",
@@ -32267,6 +32281,20 @@
           "date": "2026-01-19",
           "cve": "GHSA-w4wq-pc2v-rw4r",
           "description": "Malware in internallib_v355",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "internallib_v688": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-04",
+          "cve": "GHSA-jvmj-rg3h-c654",
+          "description": "Malware in internallib_v688",
           "origin": "ghsa"
         }
       ]
@@ -56142,5 +56170,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-03T09:33:52.450Z"
+  "lastRefresh": "2026-08-04T08:28:42.004Z"
 }
