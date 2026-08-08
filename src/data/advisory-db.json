@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-07",
+  "version": "2026-08-08",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -3497,6 +3497,20 @@
           "date": "2025-11-25",
           "cve": "GHSA-99gc-8v36-q594",
           "description": "Malware in @commute/market-data-chartjs",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@coralxyz/anchor": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.30.2",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-hhj6-h3rr-qc2j",
+          "description": "Malicious code in @coralxyz/anchor (npm)",
           "origin": "ghsa"
         }
       ]
@@ -11589,6 +11603,20 @@
           "date": "2026-06-18",
           "cve": "GHSA-rhv6-f4px-2cf4",
           "description": "Malware in @rafaelsene01/agent-flow",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@rbx-ts/services": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.6.0",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-2846-4m8r-rvv5",
+          "description": "Malicious code in @rbx-ts/services (npm)",
           "origin": "ghsa"
         }
       ]
@@ -35939,6 +35967,20 @@
         }
       ]
     },
+    "localization-fixer": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-744p-7qm5-8wpj",
+          "description": "Malicious code in localization-fixer (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "locate-path_updated": {
       "compromised": true,
       "severity": "critical",
@@ -36383,6 +36425,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-xvf8-hcj7-3wpp",
           "description": "Malware in manual-billing-system-miniapp-api",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "map-streak-kit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-2fcq-4c2w-gvm3",
+          "description": "Malicious code in map-streak-kit (npm)",
           "origin": "ghsa"
         }
       ]
@@ -37083,6 +37139,20 @@
           "date": "2026-04-24",
           "cve": "GHSA-wwr2-883g-52c2",
           "description": "Malware in modern-events",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "modern-localization": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-qf2g-q6rj-77q5",
+          "description": "Malicious code in modern-localization (npm)",
           "origin": "ghsa"
         }
       ]
@@ -47391,6 +47461,426 @@
         }
       ]
     },
+    "sme-rko-finance-front-operations-domain": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-4rj4-828w-hv35",
+          "description": "Malicious code in sme-rko-finance-front-operations-domain (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-fee": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-ffh6-w4x4-2j5q",
+          "description": "Malicious code in sme-rko-finance-front-operations-fee (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-feed-impl": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-j2hm-7vph-3whg",
+          "description": "Malicious code in sme-rko-finance-front-operations-feed-impl (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-feed-models": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-52qg-7wfr-wvgx",
+          "description": "Malicious code in sme-rko-finance-front-operations-feed-models (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-holding-domain": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-wm7f-4h9v-m4mm",
+          "description": "Malicious code in sme-rko-finance-front-operations-holding-domain (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-income": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-6m9x-xq34-wgvq",
+          "description": "Malicious code in sme-rko-finance-front-operations-income (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-notifications-impl": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-45vf-qpf8-q2pq",
+          "description": "Malicious code in sme-rko-finance-front-operations-notifications-impl (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-notifications-models": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-35pp-f297-w386",
+          "description": "Malicious code in sme-rko-finance-front-operations-notifications-models (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-other": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-xqr4-4gx9-7w24",
+          "description": "Malicious code in sme-rko-finance-front-operations-other (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-overnight": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-c9vg-pfhf-qxw9",
+          "description": "Malicious code in sme-rko-finance-front-operations-overnight (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-pegasus": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-6fvh-4vgq-9765",
+          "description": "Malicious code in sme-rko-finance-front-operations-pegasus (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-penalty": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-h56m-2x6r-3fx2",
+          "description": "Malicious code in sme-rko-finance-front-operations-penalty (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-providers": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-cg6q-c6gh-62q2",
+          "description": "Malicious code in sme-rko-finance-front-operations-providers (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-shared": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-pp5j-rx3f-4m7x",
+          "description": "Malicious code in sme-rko-finance-front-operations-shared (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-special-payments": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-28cp-6vcg-8fhv",
+          "description": "Malicious code in sme-rko-finance-front-operations-special-payments (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-tax": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-p2hc-6684-r35c",
+          "description": "Malicious code in sme-rko-finance-front-operations-tax (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-widget-domain": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-q26r-96fx-86h6",
+          "description": "Malicious code in sme-rko-finance-front-operations-widget-domain (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-widget-impl": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-2phg-c6vf-892f",
+          "description": "Malicious code in sme-rko-finance-front-operations-widget-impl (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-operations-widget-models": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-gpvf-x5gg-r5cv",
+          "description": "Malicious code in sme-rko-finance-front-operations-widget-models (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payment-registers-operations-domain": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-vrgq-5852-3299",
+          "description": "Malicious code in sme-rko-finance-front-payment-registers-operations-domain (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-allowed-tariffs-filter": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-mp53-hghj-9r7p",
+          "description": "Malicious code in sme-rko-finance-front-payments-allowed-tariffs-filter (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-classic-payment-actions-operations-repeat-impl": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-8q7h-xvgq-ff27",
+          "description": "Malicious code in sme-rko-finance-front-payments-classic-payment-actions-operations-repeat-impl (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-classic-payment-actions-operations-repeat-models": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-xfv4-g237-3qv8",
+          "description": "Malicious code in sme-rko-finance-front-payments-classic-payment-actions-operations-repeat-models (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-currency-payment-actions-operations-repeat-impl": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-85v5-vfj6-7hw8",
+          "description": "Malicious code in sme-rko-finance-front-payments-currency-payment-actions-operations-repeat-impl (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-currency-payment-actions-operations-repeat-models": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-6hmr-8896-mrmx",
+          "description": "Malicious code in sme-rko-finance-front-payments-currency-payment-actions-operations-repeat-models (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-currency-payment-domain": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-pwjh-hjvr-rv33",
+          "description": "Malicious code in sme-rko-finance-front-payments-currency-payment-domain (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-domain": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-pmc8-g84p-3x77",
+          "description": "Malicious code in sme-rko-finance-front-payments-domain (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-feed-adapter": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-xprg-ffr4-2rw4",
+          "description": "Malicious code in sme-rko-finance-front-payments-feed-adapter (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-feed-display-list": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-6cqr-56m6-wch6",
+          "description": "Malicious code in sme-rko-finance-front-payments-feed-display-list (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sme-rko-finance-front-payments-feed-display-list-impl": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.8.1",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-4wvm-26xh-fgjw",
+          "description": "Malicious code in sme-rko-finance-front-payments-feed-display-list-impl (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "smintio-portals-component-sdk": {
       "compromised": true,
       "severity": "critical",
@@ -51797,6 +52287,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-6jhx-v2wm-936m",
           "description": "Malware in tiptap-shadcn-vue",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "titan-exchange-shared-permissions": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.9.9",
+          "type": "supply-chain",
+          "date": "2026-08-08",
+          "cve": "GHSA-8qhv-45mq-rp4v",
+          "description": "Malicious code in titan-exchange-shared-permissions (npm)",
           "origin": "ghsa"
         }
       ]
@@ -58018,5 +58522,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-07T07:06:41.983Z"
+  "lastRefresh": "2026-08-08T06:41:58.985Z"
 }
