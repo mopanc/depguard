@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-11",
+  "version": "2026-08-12",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -14239,6 +14239,20 @@
         }
       ]
     },
+    "@telekom-ods/react-ui-kit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.6.9",
+          "type": "supply-chain",
+          "date": "2026-08-12",
+          "cve": "GHSA-7hwp-8qhg-wfmp",
+          "description": "Malicious code in @telekom-ods/react-ui-kit (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@testfei/hallo-word": {
       "compromised": true,
       "severity": "critical",
@@ -21617,6 +21631,20 @@
         }
       ]
     },
+    "boring-vault": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-08-12",
+          "cve": "GHSA-2hm3-fxxw-fwgw",
+          "description": "Malicious code in boring-vault (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "box-react-uix": {
       "compromised": true,
       "severity": "critical",
@@ -22047,6 +22075,34 @@
           "date": "2026-07-09",
           "cve": "GHSA-82qq-fgw6-6hf8",
           "description": "Malware in calvuepro",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "camelot-ammv2-core": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-08-12",
+          "cve": "GHSA-j6vj-qx8g-mv2c",
+          "description": "Malicious code in camelot-ammv2-core (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "camelot-ammv2-periphery": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-08-12",
+          "cve": "GHSA-m3cv-6763-2mrv",
+          "description": "Malicious code in camelot-ammv2-periphery (npm)",
           "origin": "ghsa"
         }
       ]
@@ -58522,5 +58578,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-11T06:57:53.344Z"
+  "lastRefresh": "2026-08-12T07:16:38.405Z"
 }
