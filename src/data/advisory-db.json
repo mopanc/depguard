@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-14",
+  "version": "2026-08-15",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -16209,6 +16209,20 @@
           "date": "2026-08-06",
           "cve": "GHSA-rx4f-8493-c7j8",
           "description": "Malware in @vboxdev/common",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@velliajs/discord": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.5",
+          "type": "supply-chain",
+          "date": "2026-08-15",
+          "cve": "GHSA-5546-mfxg-3v4r",
+          "description": "Malicious code in @velliajs/discord (npm)",
           "origin": "ghsa"
         }
       ]
@@ -35309,6 +35323,20 @@
         }
       ]
     },
+    "kit-hydration-vim": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-15",
+          "cve": "GHSA-g9cm-v642-m5rj",
+          "description": "Malware in kit-hydration-vim",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "kl-b2c-ui-kit": {
       "compromised": true,
       "severity": "critical",
@@ -49953,6 +49981,20 @@
         }
       ]
     },
+    "svelte-goal-vim": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-15",
+          "cve": "GHSA-qx34-66jv-3pg5",
+          "description": "Malware in svelte-goal-vim",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "svelte-monorepo": {
       "compromised": true,
       "severity": "critical",
@@ -58718,5 +58760,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-14T07:16:32.486Z"
+  "lastRefresh": "2026-08-15T06:28:46.694Z"
 }
