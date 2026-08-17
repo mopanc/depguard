@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-16",
+  "version": "2026-08-17",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -627,6 +627,20 @@
           "date": "2026-02-24",
           "cve": "GHSA-q326-5gvm-75w3",
           "description": "Malware in @ai-studio-web/app",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@ai-vertical/ai-agent": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-17",
+          "cve": "GHSA-3248-8gvm-g9jv",
+          "description": "Malware in @ai-vertical/ai-agent",
           "origin": "ghsa"
         }
       ]
@@ -23927,6 +23941,20 @@
         }
       ]
     },
+    "checkout-desktop-total": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 35.6.1",
+          "type": "supply-chain",
+          "date": "2026-08-17",
+          "cve": "GHSA-23pp-f6q9-c2ch",
+          "description": "Malicious code in checkout-desktop-total (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "cheerio-core": {
       "compromised": true,
       "severity": "critical",
@@ -28617,6 +28645,34 @@
         }
       ]
     },
+    "epic-common": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.1-security",
+          "type": "supply-chain",
+          "date": "2026-08-17",
+          "cve": "GHSA-5ffc-9gj9-xfvj",
+          "description": "Malicious code in epic-common (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "epic-common-node": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.1-security",
+          "type": "supply-chain",
+          "date": "2026-08-17",
+          "cve": "GHSA-m36g-mhjr-ww2c",
+          "description": "Malicious code in epic-common-node (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "epic-internal-tools": {
       "compromised": true,
       "severity": "critical",
@@ -28627,6 +28683,20 @@
           "date": "2026-07-10",
           "cve": "GHSA-wx8q-h5p5-9hcf",
           "description": "Malware in epic-internal-tools",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "epic-sso": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.1-security",
+          "type": "supply-chain",
+          "date": "2026-08-17",
+          "cve": "GHSA-cwhw-mm6w-rcj2",
+          "description": "Malicious code in epic-sso (npm)",
           "origin": "ghsa"
         }
       ]
@@ -42011,6 +42081,20 @@
           "date": "2026-07-27",
           "cve": "GHSA-vjr2-cx8x-3q2x",
           "description": "Malware in permcserver",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "pfp-forms-sme-loan": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 20.2.1",
+          "type": "supply-chain",
+          "date": "2026-08-17",
+          "cve": "GHSA-686f-p2j6-prfg",
+          "description": "Malicious code in pfp-forms-sme-loan (npm)",
           "origin": "ghsa"
         }
       ]
@@ -58760,5 +58844,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-16T06:31:10.219Z"
+  "lastRefresh": "2026-08-17T06:42:25.676Z"
 }
