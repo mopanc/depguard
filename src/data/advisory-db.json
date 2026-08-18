@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-17",
+  "version": "2026-08-18",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -20889,6 +20889,34 @@
         }
       ]
     },
+    "bcc-design": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 9999.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-18",
+          "cve": "GHSA-v36x-48h2-hc4f",
+          "description": "Malicious code in bcc-design (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "bcc-design-icons": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 9999.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-18",
+          "cve": "GHSA-73q2-99qx-v576",
+          "description": "Malicious code in bcc-design-icons (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "bcore-bravo-eslint-config": {
       "compromised": true,
       "severity": "critical",
@@ -21487,6 +21515,20 @@
           "date": "2026-05-01",
           "cve": "GHSA-cfpj-hqgr-45g3",
           "description": "Malware in blackbeards-navigator",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "blastradar": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-18",
+          "cve": "GHSA-pp9x-4g56-7322",
+          "description": "Malware in blastradar",
           "origin": "ghsa"
         }
       ]
@@ -25267,6 +25309,20 @@
           "date": "2026-01-21",
           "cve": "GHSA-pv7x-9f66-mjm7",
           "description": "Malware in coopshares-webcomponent",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "core-tailwindcss-utility": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 3.7.1",
+          "type": "supply-chain",
+          "date": "2026-08-18",
+          "cve": "GHSA-4j6f-r8pw-g5w5",
+          "description": "Malicious code in core-tailwindcss-utility (npm)",
           "origin": "ghsa"
         }
       ]
@@ -45935,6 +45991,20 @@
         }
       ]
     },
+    "runtime-health": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.2",
+          "type": "supply-chain",
+          "date": "2026-08-18",
+          "cve": "GHSA-fg74-5f33-c553",
+          "description": "Malicious code in runtime-health (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "runtime-metrics-w7k2": {
       "compromised": true,
       "severity": "critical",
@@ -49823,6 +49893,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-x8hh-3gmf-mm9r",
           "description": "Malware in sufetch",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sui-move-graphql": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-18",
+          "cve": "GHSA-xgmm-vq93-f5vx",
+          "description": "Malware in sui-move-graphql",
           "origin": "ghsa"
         }
       ]
@@ -54769,6 +54853,20 @@
         }
       ]
     },
+    "ulebkit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-18",
+          "cve": "GHSA-w4vj-4cxr-299x",
+          "description": "Malware in ulebkit",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "ultimates-express": {
       "compromised": true,
       "severity": "critical",
@@ -58844,5 +58942,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-17T06:42:25.676Z"
+  "lastRefresh": "2026-08-18T06:33:50.472Z"
 }
