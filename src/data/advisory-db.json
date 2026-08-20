@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-19",
+  "version": "2026-08-20",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -7375,6 +7375,20 @@
           "date": "2026-04-13",
           "cve": "GHSA-xqfw-gvgh-hp79",
           "description": "Malware in @hrb-web/nuxt",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@httttt/mcp-demo": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-20",
+          "cve": "GHSA-gxrv-g7xx-29x2",
+          "description": "Malicious code in @httttt/mcp-demo (npm)",
           "origin": "ghsa"
         }
       ]
@@ -30241,6 +30255,20 @@
         }
       ]
     },
+    "expect-dotenv": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 7.2.1",
+          "type": "supply-chain",
+          "date": "2026-08-20",
+          "cve": "GHSA-r76x-fxpp-j74m",
+          "description": "Malicious code in expect-dotenv (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "experian-design-system": {
       "compromised": true,
       "severity": "critical",
@@ -30531,6 +30559,20 @@
           "date": "2025-12-10",
           "cve": "GHSA-vf2p-5pcm-655m",
           "description": "Malware in express-my-error-handler",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "express-route-engine": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 3.6.3",
+          "type": "supply-chain",
+          "date": "2026-08-20",
+          "cve": "GHSA-xvv6-j32c-qxhp",
+          "description": "Malicious code in express-route-engine (npm)",
           "origin": "ghsa"
         }
       ]
@@ -39477,6 +39519,14 @@
           "date": "2026-07-31",
           "cve": "GHSA-4f46-w499-cvxr",
           "description": "Malicious code in nano-perf (npm)",
+          "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-20",
+          "cve": "GHSA-4236-g67q-42fc",
+          "description": "Malware in nano-perf",
           "origin": "ghsa"
         }
       ]
@@ -54293,6 +54343,20 @@
         }
       ]
     },
+    "tn-advertisement": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-20",
+          "cve": "GHSA-j2c8-6hx3-7994",
+          "description": "Malware in tn-advertisement",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tnactgfds": {
       "compromised": true,
       "severity": "critical",
@@ -60790,5 +60854,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-19T06:34:59.073Z"
+  "lastRefresh": "2026-08-20T06:36:22.001Z"
 }
