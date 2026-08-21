@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-20",
+  "version": "2026-08-21",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -7715,6 +7715,20 @@
         }
       ]
     },
+    "@js-lib-team/env-parser": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-21",
+          "cve": "GHSA-pqxh-h974-337x",
+          "description": "Malicious code in @js-lib-team/env-parser (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@junyoung-kim/reins": {
       "compromised": true,
       "severity": "critical",
@@ -10287,6 +10301,20 @@
           "date": "2026-01-07",
           "cve": "GHSA-873w-7m5r-r4m4",
           "description": "Malware in @nestor_hexom/qyxb",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@next-fonts/font": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-08-21",
+          "cve": "GHSA-9c7m-jf5w-pq4v",
+          "description": "Malicious code in @next-fonts/font (npm)",
           "origin": "ghsa"
         }
       ]
@@ -23311,6 +23339,20 @@
         }
       ]
     },
+    "chai-as-soul": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.3.5",
+          "type": "supply-chain",
+          "date": "2026-08-21",
+          "cve": "GHSA-c7j2-7fxx-qjq2",
+          "description": "Malicious code in chai-as-soul (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "chai-as-stream": {
       "compromised": true,
       "severity": "critical",
@@ -25211,6 +25253,20 @@
           "date": "2026-01-16",
           "cve": "GHSA-qrj2-7j22-58mf",
           "description": "Malware in cognito-auth-plugin",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "coin-fees": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 20.1.1",
+          "type": "supply-chain",
+          "date": "2026-08-21",
+          "cve": "GHSA-c7m8-52wr-gcp3",
+          "description": "Malicious code in coin-fees (npm)",
           "origin": "ghsa"
         }
       ]
@@ -30615,6 +30671,20 @@
           "date": "2026-07-27",
           "cve": "GHSA-rjp6-jx87-x8x8",
           "description": "Malware in express-self-destruct2",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "express-session-handler": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.3.3",
+          "type": "supply-chain",
+          "date": "2026-08-21",
+          "cve": "GHSA-w25r-wmr3-97hj",
+          "description": "Malicious code in express-session-handler (npm)",
           "origin": "ghsa"
         }
       ]
@@ -37913,6 +37983,20 @@
         }
       ]
     },
+    "mcq-session": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.4",
+          "type": "supply-chain",
+          "date": "2026-08-21",
+          "cve": "GHSA-7hm6-5mgc-qm2c",
+          "description": "Malicious code in mcq-session (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "mdb-react-sortable": {
       "compromised": true,
       "severity": "critical",
@@ -38497,6 +38581,20 @@
           "date": "2025-12-10",
           "cve": "GHSA-gw2p-8mmc-wh8m",
           "description": "Malware in modules-runtime",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "moidevy": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-21",
+          "cve": "GHSA-4j24-mrxm-5jfj",
+          "description": "Malicious code in moidevy (npm)",
           "origin": "ghsa"
         }
       ]
@@ -60854,5 +60952,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-20T06:36:22.001Z"
+  "lastRefresh": "2026-08-21T06:36:37.407Z"
 }
