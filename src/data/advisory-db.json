@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-21",
+  "version": "2026-08-22",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -11309,6 +11309,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-2jjg-c6pv-mwm3",
           "description": "Malware in @posthog/siphash",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@postman-cse/okta-aio-linux-arm64": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.8.10",
+          "type": "supply-chain",
+          "date": "2026-08-22",
+          "cve": "GHSA-h84r-259m-g3fg",
+          "description": "Malware in @postman-cse/okta-aio-linux-arm64",
           "origin": "ghsa"
         }
       ]
@@ -31991,6 +32005,20 @@
         }
       ]
     },
+    "fuel-react": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 91.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-22",
+          "cve": "GHSA-77vr-cf3r-2v4w",
+          "description": "Malicious code in fuel-react (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "fusion-events": {
       "compromised": true,
       "severity": "critical",
@@ -37461,6 +37489,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-fjhh-wwxc-6722",
           "description": "Malware in lululemon-b2b-utils",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "lumen-pages-community": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 9.9.9",
+          "type": "supply-chain",
+          "date": "2026-08-22",
+          "cve": "GHSA-cf4g-g969-7qvx",
+          "description": "Malicious code in lumen-pages-community (npm)",
           "origin": "ghsa"
         }
       ]
@@ -60952,5 +60994,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-21T06:36:37.407Z"
+  "lastRefresh": "2026-08-22T06:30:52.992Z"
 }
