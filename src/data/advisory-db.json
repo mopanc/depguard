@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-23",
+  "version": "2026-08-24",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -19405,6 +19405,20 @@
         }
       ]
     },
+    "amundi-compare": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.9.12",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-8jcq-36hr-gv49",
+          "description": "Malicious code in amundi-compare (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "analysis-chart": {
       "compromised": true,
       "severity": "critical",
@@ -26069,6 +26083,20 @@
         }
       ]
     },
+    "conversa-sdk": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-8m82-6fp4-38m4",
+          "description": "Malware in conversa-sdk",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "converse-rn-lib": {
       "compromised": true,
       "severity": "critical",
@@ -32173,6 +32201,20 @@
         }
       ]
     },
+    "fund-calculator": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.9.12",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-2qjv-462j-82h3",
+          "description": "Malicious code in fund-calculator (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "fusion-events": {
       "compromised": true,
       "severity": "critical",
@@ -34031,6 +34073,20 @@
           "date": "2026-01-16",
           "cve": "GHSA-rm6w-3x8c-chfx",
           "description": "Malware in idel2-content",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "identitysecuretokenserv": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-2g7g-rqj2-26hv",
+          "description": "Malware in identitysecuretokenserv",
           "origin": "ghsa"
         }
       ]
@@ -38343,6 +38399,20 @@
           "date": "2026-08-07",
           "cve": "GHSA-vqp7-j6jf-34qm",
           "description": "Malicious code in merge-grid-stats (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "message-compiler": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 9.2.0",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-pw4h-7785-7vpj",
+          "description": "Malicious code in message-compiler (npm)",
           "origin": "ghsa"
         }
       ]
@@ -49383,6 +49453,118 @@
           "date": "2026-07-14",
           "cve": "GHSA-63pr-5274-mfh7",
           "description": "Malware in slds-lsp-client",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sm-admin": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-g8wg-mh5v-wf2r",
+          "description": "Malicious code in sm-admin (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sm-apikey-model": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-26rf-c87j-mwr4",
+          "description": "Malicious code in sm-apikey-model (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sm-billing-form": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-q99c-rfrp-g979",
+          "description": "Malicious code in sm-billing-form (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sm-cart": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-hm6h-363f-fpgf",
+          "description": "Malicious code in sm-cart (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sm-checkout": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-pxgj-j29f-m7fq",
+          "description": "Malicious code in sm-checkout (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sm-oauth": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-7x7x-6w24-fch9",
+          "description": "Malicious code in sm-oauth (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sm-payment": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.1",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-mxq2-g955-f593",
+          "description": "Malicious code in sm-payment (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "sm-session": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.1",
+          "type": "supply-chain",
+          "date": "2026-08-24",
+          "cve": "GHSA-wm74-4gpw-8fm5",
+          "description": "Malicious code in sm-session (npm)",
           "origin": "ghsa"
         }
       ]
@@ -61246,5 +61428,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-23T06:32:01.126Z"
+  "lastRefresh": "2026-08-24T06:45:36.866Z"
 }
