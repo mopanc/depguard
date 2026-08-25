@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-24",
+  "version": "2026-08-25",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -4019,6 +4019,20 @@
         }
       ]
     },
+    "@elc-online/up-analytics": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.99.99",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-96pw-9rhf-qx2p",
+          "description": "Malicious code in @elc-online/up-analytics (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@emcd-vue/auth": {
       "compromised": true,
       "severity": "critical",
@@ -7669,6 +7683,20 @@
           "date": "2026-03-05",
           "cve": "GHSA-6qpc-26c3-fqx4",
           "description": "Malware in @imhuman/fw-logger",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@immuta/pxl-components": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.99.1",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-w5cw-x3vw-8gfj",
+          "description": "Malicious code in @immuta/pxl-components (npm)",
           "origin": "ghsa"
         }
       ]
@@ -24879,6 +24907,76 @@
         }
       ]
     },
+    "classhomework": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-5rhm-fgq5-c8mf",
+          "description": "Malware in classhomework",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "classlesson": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-rxrv-wfcx-mpjc",
+          "description": "Malware in classlesson",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "classroomhomework": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-hrpx-q7gr-p9g5",
+          "description": "Malware in classroomhomework",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "classroomlesson": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-9x5r-mwwj-hpg6",
+          "description": "Malware in classroomlesson",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "classroomwork": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-wqmh-qmf4-3f8p",
+          "description": "Malware in classroomwork",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "classwind-utils": {
       "compromised": true,
       "severity": "critical",
@@ -24889,6 +24987,20 @@
           "date": "2026-06-08",
           "cve": "GHSA-ghrw-2645-5c47",
           "description": "Malware in classwind-utils",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "classwork": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-776h-qpf5-rx46",
+          "description": "Malware in classwork",
           "origin": "ghsa"
         }
       ]
@@ -27623,6 +27735,104 @@
         }
       ]
     },
+    "desmosclasswork": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-752h-3q4v-jhq7",
+          "description": "Malware in desmosclasswork",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "desmoshomework": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-8vvg-qhfh-7h74",
+          "description": "Malware in desmoshomework",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "desmosisfire": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-mwq6-6g7q-rjxp",
+          "description": "Malware in desmosisfire",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "desmosistuff": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-j367-pvh3-755f",
+          "description": "Malware in desmosistuff",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "desmosmathwork": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-3vxp-vqwp-3vmh",
+          "description": "Malware in desmosmathwork",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "desmosschoolwork": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-4v42-34fj-5p2w",
+          "description": "Malware in desmosschoolwork",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "desmoswork": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-m8cf-32j6-jq72",
+          "description": "Malware in desmoswork",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "despicable-me": {
       "compromised": true,
       "severity": "critical",
@@ -27843,6 +28053,20 @@
           "date": "2026-01-28",
           "cve": "GHSA-3qx7-2mxx-7vvc",
           "description": "Malware in digital-music-dynmsg-ribbon",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "digitalexp-style-module-l9": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-9xhc-fq73-45jp",
+          "description": "Malicious code in digitalexp-style-module-l9 (npm)",
           "origin": "ghsa"
         }
       ]
@@ -34063,6 +34287,20 @@
         }
       ]
     },
+    "iamhungryrn": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-chwh-2rv3-4c2f",
+          "description": "Malware in iamhungryrn",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "idel2-content": {
       "compromised": true,
       "severity": "critical",
@@ -34185,6 +34423,20 @@
           "date": "2026-04-13",
           "cve": "GHSA-mgvv-m58f-pv4w",
           "description": "Malware in ih-icon",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ilovedesmos": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-3wf6-8h38-rvjr",
+          "description": "Malware in ilovedesmos",
           "origin": "ghsa"
         }
       ]
@@ -35431,6 +35683,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-vhcq-fc6c-hqx4",
           "description": "Malware in itobuz-angular-button",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "iwantaburger": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-gcgg-jh5v-64hh",
+          "description": "Malware in iwantaburger",
           "origin": "ghsa"
         }
       ]
@@ -43927,6 +44193,20 @@
         }
       ]
     },
+    "pleasedoyourhomework": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-w62m-775m-86f2",
+          "description": "Malware in pleasedoyourhomework",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "plugin-react-swc": {
       "compromised": true,
       "severity": "critical",
@@ -48001,6 +48281,48 @@
         }
       ]
     },
+    "schoolhomework": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-mx5q-7285-qm6f",
+          "description": "Malware in schoolhomework",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "schoollesson": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-4q3f-7qxr-pfm4",
+          "description": "Malware in schoollesson",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "schoolwork": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-m62q-p4m5-72m6",
+          "description": "Malware in schoolwork",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "scketio": {
       "compromised": true,
       "severity": "critical",
@@ -50409,6 +50731,20 @@
         }
       ]
     },
+    "sonsonsahur": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-xv2p-qw82-6xmj",
+          "description": "Malware in sonsonsahur",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "sort-by-distance": {
       "compromised": true,
       "severity": "critical",
@@ -51917,6 +52253,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-23rm-x3xw-w5w2",
           "description": "Malware in super-commit",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "superdupertest111": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-99f7-924m-fp2c",
+          "description": "Malware in superdupertest111",
           "origin": "ghsa"
         }
       ]
@@ -56359,6 +56709,34 @@
         }
       ]
     },
+    "tungtunggod": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-6h57-7m4x-f6v7",
+          "description": "Malware in tungtunggod",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "tungtungisgoated": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-xv9m-378j-86x3",
+          "description": "Malware in tungtungisgoated",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "turbo-he": {
       "compromised": true,
       "severity": "critical",
@@ -59985,6 +60363,20 @@
         }
       ]
     },
+    "whatsgoodlookingbabycreed": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-25",
+          "cve": "GHSA-3jr7-rgw6-prgf",
+          "description": "Malware in whatsgoodlookingbabycreed",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "whop-sdk": {
       "compromised": true,
       "severity": "critical",
@@ -61428,5 +61820,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-24T06:45:36.866Z"
+  "lastRefresh": "2026-08-25T06:37:20.668Z"
 }
