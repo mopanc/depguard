@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-25",
+  "version": "2026-08-26",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -13844,6 +13844,14 @@
           "cve": "GHSA-54xx-8x72-3539",
           "description": "Malicious code in @syncraft-labs/core (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "= 0.4.1",
+          "type": "supply-chain",
+          "date": "2026-08-26",
+          "cve": "GHSA-vhcg-r2h4-gx3m",
+          "description": "Malware in @syncraft-labs/core",
+          "origin": "ghsa"
         }
       ]
     },
@@ -13858,6 +13866,14 @@
           "cve": "GHSA-83j7-x5xf-qxwq",
           "description": "Malicious code in @syncraft-labs/react (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "= 0.4.1",
+          "type": "supply-chain",
+          "date": "2026-08-26",
+          "cve": "GHSA-4xx4-j6wx-746g",
+          "description": "Malware in @syncraft-labs/react",
+          "origin": "ghsa"
         }
       ]
     },
@@ -13871,6 +13887,14 @@
           "date": "2026-08-23",
           "cve": "GHSA-9cqm-9mxm-f9gh",
           "description": "Malicious code in @syncraft-labs/vue (npm)",
+          "origin": "ghsa"
+        },
+        {
+          "version": "= 0.4.1",
+          "type": "supply-chain",
+          "date": "2026-08-26",
+          "cve": "GHSA-pv4r-p86x-36rw",
+          "description": "Malware in @syncraft-labs/vue",
           "origin": "ghsa"
         }
       ]
@@ -19975,6 +19999,20 @@
           "date": "2026-03-02",
           "cve": "GHSA-29c7-mqr6-w382",
           "description": "Malware in argonist",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "array-shuffler-utils-99": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-26",
+          "cve": "GHSA-22jp-536p-wwgr",
+          "description": "Malware in array-shuffler-utils-99",
           "origin": "ghsa"
         }
       ]
@@ -31053,6 +31091,20 @@
         }
       ]
     },
+    "express-security-policy": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-26",
+          "cve": "GHSA-3hxc-wppf-m25r",
+          "description": "Malware in express-security-policy",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "express-self-destruct": {
       "compromised": true,
       "severity": "critical",
@@ -31777,6 +31829,34 @@
           "date": "2026-05-25",
           "cve": "GHSA-fc78-r45j-m7f5",
           "description": "Malware in fivem-monitor",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "fivem-tool-helper": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-26",
+          "cve": "GHSA-7jgv-5jq7-38g6",
+          "description": "Malware in fivem-tool-helper",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "fivem-tool-helper-v2": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-26",
+          "cve": "GHSA-qgxc-chq8-gvrg",
+          "description": "Malware in fivem-tool-helper-v2",
           "origin": "ghsa"
         }
       ]
@@ -47287,6 +47367,20 @@
         }
       ]
     },
+    "renovate-config-doctolib": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-26",
+          "cve": "GHSA-8327-2h3c-rm8g",
+          "description": "Malware in renovate-config-doctolib",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "replicate-js": {
       "compromised": true,
       "severity": "critical",
@@ -61820,5 +61914,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-25T06:37:20.668Z"
+  "lastRefresh": "2026-08-26T06:39:00.667Z"
 }
