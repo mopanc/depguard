@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-29",
+  "version": "2026-08-30",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -42585,6 +42585,20 @@
         }
       ]
     },
+    "gclassroom": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-30",
+          "cve": "GHSA-6c25-pq89-3m9w",
+          "description": "Malware in gclassroom",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "gcp-internal-research-poc": {
       "compromised": true,
       "severity": "critical",
@@ -43187,6 +43201,20 @@
         }
       ]
     },
+    "grafeno-billing": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-30",
+          "cve": "GHSA-8x3v-8vvh-78qm",
+          "description": "Malicious code in grafeno-billing (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "grafeno-client": {
       "compromised": true,
       "severity": "critical",
@@ -43243,6 +43271,20 @@
         }
       ]
     },
+    "grafeno-payments": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-30",
+          "cve": "GHSA-wv93-x8h7-2vq7",
+          "description": "Malicious code in grafeno-payments (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "grafeno-pix": {
       "compromised": true,
       "severity": "critical",
@@ -43281,6 +43323,20 @@
           "date": "2026-08-29",
           "cve": "GHSA-hfcc-rc45-2cgg",
           "description": "Malicious code in grafeno-utils (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "grafeno-webhook": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-08-30",
+          "cve": "GHSA-477g-wmjw-mjmr",
+          "description": "Malicious code in grafeno-webhook (npm)",
           "origin": "ghsa"
         }
       ]
@@ -53205,6 +53261,20 @@
         }
       ]
     },
+    "opiumbest": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-30",
+          "cve": "GHSA-pwqr-5gcr-9rc4",
+          "description": "Malware in opiumbest",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "opt-archetype-check": {
       "compromised": true,
       "severity": "critical",
@@ -55805,6 +55875,20 @@
           "date": "2026-03-06",
           "cve": "GHSA-whff-563x-2xmr",
           "description": "Malware in qq-console",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "quesoeducation": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-08-30",
+          "cve": "GHSA-mm9m-8q5p-fxwx",
+          "description": "Malware in quesoeducation",
           "origin": "ghsa"
         }
       ]
@@ -75732,5 +75816,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-08-29T12:10:09.456Z"
+  "lastRefresh": "2026-08-30T11:06:03.568Z"
 }
