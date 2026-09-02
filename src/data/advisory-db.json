@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-01",
+  "version": "2026-09-02",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -15807,6 +15807,20 @@
         }
       ]
     },
+    "@mrlegendbot/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.4",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-36cp-4g73-5fp7",
+          "description": "Malicious code in @mrlegendbot/baileys (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@msecscc/gaia": {
       "compromised": true,
       "severity": "critical",
@@ -19677,6 +19691,20 @@
           "date": "2026-08-26",
           "cve": "GHSA-pv4r-p86x-36rw",
           "description": "Malware in @syncraft-labs/vue",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@systemzero/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.2",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-qhhx-6r5v-mv3q",
+          "description": "Malicious code in @systemzero/baileys (npm)",
           "origin": "ghsa"
         }
       ]
@@ -28753,6 +28781,20 @@
         }
       ]
     },
+    "bt2-api-gateway-node-js": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.1",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-2mp3-m33f-336f",
+          "description": "Malicious code in bt2-api-gateway-node-js (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "btc-transaction-helper": {
       "compromised": true,
       "severity": "critical",
@@ -31101,6 +31143,20 @@
           "date": "2026-08-28",
           "cve": "GHSA-7jf3-h6fc-4939",
           "description": "Malware in chilly-mountain",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "chromatitle-dev": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-frp7-533p-p64q",
+          "description": "Malicious code in chromatitle-dev (npm)",
           "origin": "ghsa"
         }
       ]
@@ -34363,6 +34419,20 @@
           "date": "2026-03-03",
           "cve": "GHSA-ffqq-2q7r-p599",
           "description": "Malware in cmc-client",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "cminhouse-api-gateway-nodejs": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-4hx5-5274-4w96",
+          "description": "Malicious code in cminhouse-api-gateway-nodejs (npm)",
           "origin": "ghsa"
         }
       ]
@@ -40457,6 +40527,20 @@
         }
       ]
     },
+    "eslint-rxjs": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-45hh-8cg6-r5qp",
+          "description": "Malicious code in eslint-rxjs (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "eslint-scope": {
       "compromised": true,
       "severity": "critical",
@@ -41475,6 +41559,20 @@
           "date": "2026-01-13",
           "cve": "GHSA-3j82-vrp8-g357",
           "description": "Malware in extended-path",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "eyiouss": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-h2w3-x32h-cpqq",
+          "description": "Malware in eyiouss",
           "origin": "ghsa"
         }
       ]
@@ -54087,6 +54185,20 @@
         }
       ]
     },
+    "order-package-saas": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.1",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-3g84-3hw7-h9rh",
+          "description": "Malicious code in order-package-saas (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "origin_response_handler": {
       "compromised": true,
       "severity": "critical",
@@ -54965,6 +55077,20 @@
           "date": "2026-03-18",
           "cve": "GHSA-cp73-78rw-jwx8",
           "description": "Malware in peer-deps-external",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "peertube-plugin-poc-marker": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-m44c-j84g-q863",
+          "description": "Malicious code in peertube-plugin-poc-marker (npm)",
           "origin": "ghsa"
         }
       ]
@@ -71360,6 +71486,14 @@
           "cve": "GHSA-2p2j-mgv3-82vj",
           "description": "Malicious code in twapfetch (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-vfw8-w58v-xv38",
+          "description": "Malware in twapfetch",
+          "origin": "ghsa"
         }
       ]
     },
@@ -73711,6 +73845,20 @@
           "date": "2026-08-29",
           "cve": "GHSA-rjfw-6xw6-qjfx",
           "description": "Malicious code in vitest-chalk-pro (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "vitest-cli-pro": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 10.0.7",
+          "type": "supply-chain",
+          "date": "2026-09-02",
+          "cve": "GHSA-hqvf-2mg4-69wp",
+          "description": "Malicious code in vitest-cli-pro (npm)",
           "origin": "ghsa"
         }
       ]
@@ -76614,5 +76762,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-01T10:58:51.171Z"
+  "lastRefresh": "2026-09-02T10:27:53.326Z"
 }
