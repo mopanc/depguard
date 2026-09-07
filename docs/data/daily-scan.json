@@ -1,6 +1,6 @@
 {
-  "date": "2026-09-06",
-  "scannedAt": "2026-09-06T10:09:43.252Z",
+  "date": "2026-09-07",
+  "scannedAt": "2026-09-07T11:24:37.372Z",
   "totalPackages": 173,
   "totalAlerts": 0,
   "packages": [
@@ -20,7 +20,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 275165454,
+      "downloads": 242434971,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 1,
@@ -42,40 +42,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 176345363,
+      "downloads": 158616150,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 2,
       "lastPublish": "2026-09-02T08:44:39.421Z"
     },
     {
-      "name": "lodash",
-      "version": "4.18.1",
-      "score": 96,
-      "prevScore": 96,
-      "rank": 3,
-      "prevRank": 3,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 173745865,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-04-01T21:01:20.458Z"
-    },
-    {
       "name": "react",
       "version": "19.2.8",
       "score": 96,
       "prevScore": 96,
-      "rank": 4,
+      "rank": 3,
       "prevRank": 4,
       "vulns": {
         "total": 0,
@@ -86,11 +64,33 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 171637376,
+      "downloads": 152836339,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-09-04T16:28:14.583Z"
+    },
+    {
+      "name": "lodash",
+      "version": "4.18.1",
+      "score": 96,
+      "prevScore": 96,
+      "rank": 4,
+      "prevRank": 3,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 147836833,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-04-01T21:01:20.458Z"
     },
     {
       "name": "react-dom",
@@ -108,7 +108,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 161184805,
+      "downloads": 143693625,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -130,7 +130,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 124564577,
+      "downloads": 109611000,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 1,
@@ -152,40 +152,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 115334634,
+      "downloads": 105092825,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2025-12-22T21:26:03.989Z"
     },
     {
-      "name": "date-fns",
-      "version": "4.4.0",
-      "score": 96,
-      "prevScore": 96,
-      "rank": 8,
-      "prevRank": 8,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 100050262,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-05-29T23:45:56.645Z"
-    },
-    {
       "name": "playwright",
       "version": "1.63.0",
       "score": 96,
       "prevScore": 96,
-      "rank": 9,
+      "rank": 8,
       "prevRank": 9,
       "vulns": {
         "total": 0,
@@ -196,19 +174,19 @@
         "advisories": []
       },
       "license": "Apache-2.0",
-      "downloads": 87469377,
+      "downloads": 81838822,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 6,
-      "lastPublish": "2026-09-06T05:21:45.837Z"
+      "lastPublish": "2026-09-07T05:25:42.627Z"
     },
     {
-      "name": "@testing-library/react",
-      "version": "16.3.3",
+      "name": "date-fns",
+      "version": "4.4.0",
       "score": 96,
       "prevScore": 96,
-      "rank": 10,
-      "prevRank": 10,
+      "rank": 9,
+      "prevRank": 8,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -218,18 +196,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 57095788,
+      "downloads": 65712032,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-08-27T17:41:18.735Z"
+      "lastPublish": "2026-05-29T23:45:56.645Z"
     },
     {
       "name": "vitest",
       "version": "5.0.0",
       "score": 95,
       "prevScore": 95,
-      "rank": 11,
+      "rank": 10,
       "prevRank": 11,
       "vulns": {
         "total": 0,
@@ -240,7 +218,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 99878658,
+      "downloads": 92675784,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -251,7 +229,7 @@
       "version": "30.5.1",
       "score": 95,
       "prevScore": 95,
-      "rank": 12,
+      "rank": 11,
       "prevRank": 12,
       "vulns": {
         "total": 0,
@@ -262,19 +240,19 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 47953492,
+      "downloads": 42103333,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-09-01T07:59:10.505Z"
     },
     {
-      "name": "underscore",
-      "version": "1.13.8",
+      "name": "@testing-library/react",
+      "version": "16.3.3",
       "score": 95,
-      "prevScore": 95,
-      "rank": 13,
-      "prevRank": 13,
+      "prevScore": 96,
+      "rank": 12,
+      "prevRank": 10,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -284,18 +262,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 28881469,
+      "downloads": 40461138,
       "deprecated": false,
       "compromised": false,
-      "codeFindings": 1,
-      "lastPublish": "2026-02-19T11:42:14.942Z"
+      "codeFindings": 0,
+      "lastPublish": "2026-08-27T17:41:18.735Z"
     },
     {
       "name": "turbo",
       "version": "2.10.12",
       "score": 95,
       "prevScore": 95,
-      "rank": 14,
+      "rank": 13,
       "prevRank": 14,
       "vulns": {
         "total": 0,
@@ -306,11 +284,33 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 23499416,
+      "downloads": 21403509,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-08-26T22:40:11.019Z"
+    },
+    {
+      "name": "underscore",
+      "version": "1.13.8",
+      "score": 95,
+      "prevScore": 95,
+      "rank": 14,
+      "prevRank": 13,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 20149783,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 1,
+      "lastPublish": "2026-02-19T11:42:14.942Z"
     },
     {
       "name": "typescript",
@@ -328,11 +328,11 @@
         "advisories": []
       },
       "license": "Apache-2.0",
-      "downloads": 273429217,
+      "downloads": 244721332,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-06T08:21:25.233Z"
+      "lastPublish": "2026-09-07T08:31:26.166Z"
     },
     {
       "name": "@babel/core",
@@ -350,7 +350,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 181283982,
+      "downloads": 159628557,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -372,7 +372,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 132879571,
+      "downloads": 92836012,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -394,7 +394,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 55288719,
+      "downloads": 40645752,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -416,40 +416,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 15608415,
+      "downloads": 13835385,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-09-04T07:45:21.162Z"
     },
     {
-      "name": "ramda",
-      "version": "0.32.0",
-      "score": 94,
-      "prevScore": 94,
-      "rank": 20,
-      "prevRank": 20,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 14318668,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2025-10-10T16:29:39.432Z"
-    },
-    {
       "name": "@nestjs/core",
       "version": "12.0.1",
       "score": 94,
       "prevScore": 94,
-      "rank": 21,
+      "rank": 20,
       "prevRank": 21,
       "vulns": {
         "total": 0,
@@ -460,11 +438,33 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 14315401,
+      "downloads": 12925256,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-08-27T07:29:12.178Z"
+    },
+    {
+      "name": "ramda",
+      "version": "0.32.0",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 21,
+      "prevRank": 20,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 12068901,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2025-10-10T16:29:39.432Z"
     },
     {
       "name": "sinon",
@@ -482,40 +482,18 @@
         "advisories": []
       },
       "license": "BSD-3-Clause",
-      "downloads": 12030018,
+      "downloads": 10264030,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-07-20T17:59:28.504Z"
     },
     {
-      "name": "@angular/core",
-      "version": "22.1.5",
-      "score": 94,
-      "prevScore": 94,
-      "rank": 23,
-      "prevRank": 23,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 6047933,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-03T02:43:33.856Z"
-    },
-    {
       "name": "webpack",
       "version": "5.110.3",
       "score": 93,
       "prevScore": 93,
-      "rank": 24,
+      "rank": 23,
       "prevRank": 24,
       "vulns": {
         "total": 0,
@@ -526,7 +504,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 56430458,
+      "downloads": 49793842,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -537,7 +515,7 @@
       "version": "5.12.3",
       "score": 93,
       "prevScore": 93,
-      "rank": 25,
+      "rank": 24,
       "prevRank": 25,
       "vulns": {
         "total": 0,
@@ -548,19 +526,19 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 12594645,
+      "downloads": 8946475,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-09-04T08:24:54.735Z"
     },
     {
-      "name": "svelte",
-      "version": "5.57.0",
+      "name": "@angular/core",
+      "version": "22.1.5",
       "score": 93,
-      "prevScore": 93,
-      "rank": 26,
-      "prevRank": 26,
+      "prevScore": 94,
+      "rank": 25,
+      "prevRank": 23,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -570,18 +548,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 5841239,
+      "downloads": 5154477,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-08-28T23:33:45.038Z"
+      "lastPublish": "2026-09-03T02:43:33.856Z"
     },
     {
       "name": "mocha",
       "version": "12.0.0",
       "score": 92,
       "prevScore": 92,
-      "rank": 27,
+      "rank": 26,
       "prevRank": 27,
       "vulns": {
         "total": 0,
@@ -592,11 +570,33 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 15437670,
+      "downloads": 13310953,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-08-31T15:02:47.521Z"
+    },
+    {
+      "name": "svelte",
+      "version": "5.57.0",
+      "score": 92,
+      "prevScore": 93,
+      "rank": 27,
+      "prevRank": 26,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 4093852,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-08-28T23:33:45.038Z"
     },
     {
       "name": "c8",
@@ -614,7 +614,7 @@
         "advisories": []
       },
       "license": "ISC",
-      "downloads": 4337515,
+      "downloads": 3690387,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -636,40 +636,18 @@
         "advisories": []
       },
       "license": "ISC",
-      "downloads": 8894554,
+      "downloads": 7490463,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-02-22T21:23:17.002Z"
     },
     {
-      "name": "tsup",
-      "version": "8.5.1",
-      "score": 91,
-      "prevScore": 91,
-      "rank": 30,
-      "prevRank": 30,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 8489374,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 1,
-      "lastPublish": "2025-11-12T21:21:42.746Z"
-    },
-    {
       "name": "koa",
       "version": "3.2.1",
       "score": 91,
       "prevScore": 91,
-      "rank": 31,
+      "rank": 30,
       "prevRank": 31,
       "vulns": {
         "total": 0,
@@ -680,11 +658,33 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 8399430,
+      "downloads": 6779881,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-05-21T07:25:34.368Z"
+    },
+    {
+      "name": "tsup",
+      "version": "8.5.1",
+      "score": 91,
+      "prevScore": 91,
+      "rank": 31,
+      "prevRank": 30,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 5851871,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 1,
+      "lastPublish": "2025-11-12T21:21:42.746Z"
     },
     {
       "name": "parcel",
@@ -702,7 +702,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 353927,
+      "downloads": 240098,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -724,7 +724,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 44505030,
+      "downloads": 38209826,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -746,7 +746,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 7643697,
+      "downloads": 6365841,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 1,
@@ -755,7 +755,7 @@
     {
       "name": "nuxt",
       "version": "4.5.2",
-      "score": 86,
+      "score": 85,
       "prevScore": 86,
       "rank": 35,
       "prevRank": 35,
@@ -768,7 +768,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 2010897,
+      "downloads": 1776211,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -790,7 +790,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 286262,
+      "downloads": 199026,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -2180,7 +2180,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-06T02:19:37.628Z"
+      "lastPublish": "2026-09-07T02:21:38.874Z"
     },
     {
       "name": "knex",
@@ -2792,7 +2792,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 7265591,
+      "downloads": 6258021,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -2870,7 +2870,7 @@
       "score": 75,
       "prevScore": 75,
       "rank": 131,
-      "prevRank": 132,
+      "prevRank": 131,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2892,7 +2892,7 @@
       "score": 75,
       "prevScore": 75,
       "rank": 132,
-      "prevRank": 133,
+      "prevRank": 132,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2912,9 +2912,9 @@
       "name": "ms",
       "version": "2.1.3",
       "score": 75,
-      "prevScore": 76,
+      "prevScore": 75,
       "rank": 133,
-      "prevRank": 131,
+      "prevRank": 133,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2990,7 +2990,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 14144,
+      "downloads": 9667,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -3703,7 +3703,7 @@
     {
       "name": "nest",
       "version": "0.1.6",
-      "score": 53,
+      "score": 52,
       "prevScore": 53,
       "rank": 169,
       "prevRank": 169,
@@ -3716,7 +3716,7 @@
         "advisories": []
       },
       "license": null,
-      "downloads": 23431,
+      "downloads": 16293,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -3790,7 +3790,7 @@
         ]
       },
       "license": "BSD-3-Clause",
-      "downloads": 111166,
+      "downloads": 58053,
       "deprecated": true,
       "compromised": false,
       "codeFindings": 0,

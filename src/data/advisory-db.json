@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-06",
+  "version": "2026-09-07",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -8999,6 +8999,20 @@
           "date": "2026-03-31",
           "cve": "GHSA-6p89-h5mp-9cqp",
           "description": "Malware in @c8o/nimbus-core",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@caliperx2/components": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-4jpr-935q-33r2",
+          "description": "Malicious code in @caliperx2/components (npm)",
           "origin": "ghsa"
         }
       ]
@@ -25653,6 +25667,20 @@
         }
       ]
     },
+    "agentrc-security-poc-policy": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-8gv3-q4hj-3764",
+          "description": "Malicious code in agentrc-security-poc-policy (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "agoda-dep-confusion": {
       "compromised": true,
       "severity": "critical",
@@ -27711,6 +27739,20 @@
         }
       ]
     },
+    "b2b-frontend-external-library": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-hmhj-jhrj-285j",
+          "description": "Malicious code in b2b-frontend-external-library (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "baas-admin-sdk": {
       "compromised": true,
       "severity": "critical",
@@ -28071,6 +28113,34 @@
           "date": "2025-11-24",
           "cve": "GHSA-27gg-rj6x-rpc2",
           "description": "Malware in barebones-css",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "base-account-core": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-vgm8-2vf8-769j",
+          "description": "Malware in base-account-core",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "base-app-data": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-9hpg-rmwp-vg4p",
+          "description": "Malware in base-app-data",
           "origin": "ghsa"
         }
       ]
@@ -42673,6 +42743,104 @@
           "date": "2026-09-04",
           "cve": "GHSA-g6w5-69rc-3m3c",
           "description": "Malicious code in cb-serverless-plugins (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "cb-wallet-analytics": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-7944-c265-3ff7",
+          "description": "Malware in cb-wallet-analytics",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "cb-wallet-data": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-7w56-x3g2-57fg",
+          "description": "Malware in cb-wallet-data",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "cb-wallet-env": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-m477-pr6m-v2fp",
+          "description": "Malware in cb-wallet-env",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "cb-wallet-http": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-mv3f-92cr-83h7",
+          "description": "Malware in cb-wallet-http",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "cb-wallet-metadata": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-cxwc-958j-45g8",
+          "description": "Malware in cb-wallet-metadata",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "cb-wallet-solana-provider": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-5cg4-38v4-j4vc",
+          "description": "Malware in cb-wallet-solana-provider",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "cb-wallet-store": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-gw4f-3mgw-h64x",
+          "description": "Malware in cb-wallet-store",
           "origin": "ghsa"
         }
       ]
@@ -191267,6 +191435,20 @@
         }
       ]
     },
+    "omni-channel-configurator-wireline-frontend": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "> 0",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-p429-pvx5-xj55",
+          "description": "Malicious code in omni-channel-configurator-wireline-frontend (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "omnicore-ds2-sdk": {
       "compromised": true,
       "severity": "critical",
@@ -197353,6 +197535,34 @@
           "date": "2026-01-07",
           "cve": "GHSA-vmfh-wx67-675j",
           "description": "Malware in scrollbar-stylecss",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "scw-core": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-fv48-xvcx-h3qh",
+          "description": "Malware in scw-core",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "scw-mobile": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-h9g8-rwcg-hpmh",
+          "description": "Malware in scw-mobile",
           "origin": "ghsa"
         }
       ]
@@ -211421,6 +211631,20 @@
         }
       ]
     },
+    "vishal_312pkg": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-v7f2-5vcp-m653",
+          "description": "Malicious code in vishal_312pkg (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "vite-chunker": {
       "compromised": true,
       "severity": "critical",
@@ -212173,6 +212397,34 @@
           "date": "2026-05-22",
           "cve": "GHSA-jq6x-r6vm-vwrx",
           "description": "Malware in wallet-backup-verifier",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "wallet-cds-web": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-qh9w-32r6-2qpw",
+          "description": "Malware in wallet-cds-web",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "wallet-engine-signing": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-07",
+          "cve": "GHSA-qw4m-ccr9-7r43",
+          "description": "Malware in wallet-engine-signing",
           "origin": "ghsa"
         }
       ]
@@ -214558,5 +214810,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-06T10:09:18.279Z"
+  "lastRefresh": "2026-09-07T11:24:13.184Z"
 }
