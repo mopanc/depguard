@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-07",
+  "version": "2026-09-08",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -23899,6 +23899,20 @@
           "date": "2026-03-16",
           "cve": "GHSA-cgmf-p7fr-9qwp",
           "description": "Malware in @wealth-common/font",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@web2apk/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-08",
+          "cve": "GHSA-f4f2-cqqp-jcrx",
+          "description": "Malware in @web2apk/baileys",
           "origin": "ghsa"
         }
       ]
@@ -182481,6 +182495,34 @@
         }
       ]
     },
+    "i18nexus": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-08",
+          "cve": "GHSA-38hw-f37p-99jj",
+          "description": "Malware in i18nexus",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "i18nexus-tools": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-08",
+          "cve": "GHSA-9cfw-xh4g-cc2f",
+          "description": "Malware in i18nexus-tools",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "iamhungryrn": {
       "compromised": true,
       "severity": "critical",
@@ -185403,6 +185445,20 @@
           "date": "2026-04-20",
           "cve": "GHSA-vj4v-6qjg-33v7",
           "description": "Malware in krdfonts",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "krdpass-auth-react-native": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-08",
+          "cve": "GHSA-3j7p-44mj-76hx",
+          "description": "Malware in krdpass-auth-react-native",
           "origin": "ghsa"
         }
       ]
@@ -214810,5 +214866,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-07T11:24:13.184Z"
+  "lastRefresh": "2026-09-08T10:28:08.646Z"
 }
