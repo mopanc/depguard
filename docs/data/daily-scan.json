@@ -1,6 +1,6 @@
 {
-  "date": "2026-09-08",
-  "scannedAt": "2026-09-08T10:28:35.695Z",
+  "date": "2026-09-09",
+  "scannedAt": "2026-09-09T10:39:34.219Z",
   "totalPackages": 173,
   "totalAlerts": 0,
   "packages": [
@@ -68,7 +68,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-07T16:27:51.218Z"
+      "lastPublish": "2026-09-08T16:32:50.410Z"
     },
     {
       "name": "lodash",
@@ -112,7 +112,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-07T16:30:30.324Z"
+      "lastPublish": "2026-09-08T16:30:02.556Z"
     },
     {
       "name": "rollup",
@@ -178,7 +178,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 6,
-      "lastPublish": "2026-09-08T05:28:06.477Z"
+      "lastPublish": "2026-09-09T05:26:12.415Z"
     },
     {
       "name": "date-fns",
@@ -332,7 +332,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-08T08:27:29.964Z"
+      "lastPublish": "2026-09-09T08:31:54.618Z"
     },
     {
       "name": "@babel/core",
@@ -398,7 +398,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-07T23:50:33.787Z"
+      "lastPublish": "2026-09-08T23:52:31.867Z"
     },
     {
       "name": "vue",
@@ -1388,7 +1388,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 5,
-      "lastPublish": "2026-08-31T10:28:56.661Z"
+      "lastPublish": "2026-09-08T13:59:34.541Z"
     },
     {
       "name": "postcss",
@@ -1498,7 +1498,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 2,
-      "lastPublish": "2026-09-05T05:14:04.965Z"
+      "lastPublish": "2026-09-08T20:05:10.368Z"
     },
     {
       "name": "prettier",
@@ -2070,7 +2070,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-07-09T09:05:46.130Z"
+      "lastPublish": "2026-09-08T10:32:14.519Z"
     },
     {
       "name": "jsonwebtoken",
@@ -2158,7 +2158,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-04T15:34:39.663Z"
+      "lastPublish": "2026-09-08T17:11:41.366Z"
     },
     {
       "name": "typeorm",
@@ -2180,7 +2180,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-08T02:20:04.342Z"
+      "lastPublish": "2026-09-09T02:20:09.582Z"
     },
     {
       "name": "knex",
@@ -2514,7 +2514,7 @@
     },
     {
       "name": "@aws-sdk/client-s3",
-      "version": "3.1127.0",
+      "version": "3.1128.0",
       "score": 79,
       "prevScore": 79,
       "rank": 115,
@@ -2532,11 +2532,11 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-04T18:48:11.282Z"
+      "lastPublish": "2026-09-08T18:48:56.081Z"
     },
     {
       "name": "@google-cloud/storage",
-      "version": "8.0.1",
+      "version": "8.1.0",
       "score": 79,
       "prevScore": 79,
       "rank": 116,
@@ -2554,7 +2554,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-08-18T20:10:34.882Z"
+      "lastPublish": "2026-09-08T14:15:07.092Z"
     },
     {
       "name": "core-js",
@@ -3024,7 +3024,7 @@
       "score": 69,
       "prevScore": 69,
       "rank": 138,
-      "prevRank": 139,
+      "prevRank": 138,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3046,7 +3046,7 @@
       "score": 68,
       "prevScore": 68,
       "rank": 139,
-      "prevRank": 140,
+      "prevRank": 139,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3066,9 +3066,9 @@
       "name": "@emotion/react",
       "version": "11.14.0",
       "score": 68,
-      "prevScore": 69,
+      "prevScore": 68,
       "rank": 140,
-      "prevRank": 138,
+      "prevRank": 140,
       "vulns": {
         "total": 0,
         "critical": 0,
