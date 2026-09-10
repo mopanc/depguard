@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-09",
+  "version": "2026-09-10",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -16473,6 +16473,20 @@
         }
       ]
     },
+    "@neroxkira/vangal-baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-8g69-mcxv-f88g",
+          "description": "Malicious code in @neroxkira/vangal-baileys (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@nestor_hexom/garfield": {
       "compromised": true,
       "severity": "critical",
@@ -16525,6 +16539,20 @@
           "date": "2026-08-21",
           "cve": "GHSA-9c7m-jf5w-pq4v",
           "description": "Malicious code in @next-fonts/font (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@nexustechpro/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.2.7",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-pv55-pgr3-jjrj",
+          "description": "Malicious code in @nexustechpro/baileys (npm)",
           "origin": "ghsa"
         }
       ]
@@ -18373,6 +18401,20 @@
           "date": "2026-04-13",
           "cve": "GHSA-jrjx-8vfw-xg4h",
           "description": "Malware in @sage-active/ui",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@sahril2nd/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.21",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-j2h4-4g8c-mqh9",
+          "description": "Malicious code in @sahril2nd/baileys (npm)",
           "origin": "ghsa"
         }
       ]
@@ -178463,6 +178505,146 @@
         }
       ]
     },
+    "etoro-aggregator": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-qj36-g77p-6w4c",
+          "description": "Malicious code in etoro-aggregator (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "etoro-analytics": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-wgc5-frwf-f4r9",
+          "description": "Malicious code in etoro-analytics (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "etoro-api": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-jhx2-c8c9-77m4",
+          "description": "Malicious code in etoro-api (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "etoro-auth": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-cp95-g9vf-h9mc",
+          "description": "Malicious code in etoro-auth (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "etoro-billing": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-6qw8-8vc7-fmj4",
+          "description": "Malicious code in etoro-billing (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "etoro-builders": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-642v-mmwv-fj8c",
+          "description": "Malicious code in etoro-builders (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "etoro-cashout": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-4jmj-qv75-33m2",
+          "description": "Malicious code in etoro-cashout (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "etoro-charts": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-rmph-mjrh-89x3",
+          "description": "Malicious code in etoro-charts (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "etoro-client": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-hcqp-jmx5-mrwx",
+          "description": "Malicious code in etoro-client (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "etoro-core": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-10",
+          "cve": "GHSA-9vfj-6pvw-qrqr",
+          "description": "Malicious code in etoro-core (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "etsy-advocacy": {
       "compromised": true,
       "severity": "critical",
@@ -215300,5 +215482,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-09T10:39:06.119Z"
+  "lastRefresh": "2026-09-10T10:27:09.943Z"
 }

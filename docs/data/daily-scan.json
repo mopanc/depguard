@@ -1,6 +1,6 @@
 {
-  "date": "2026-09-09",
-  "scannedAt": "2026-09-09T10:39:34.219Z",
+  "date": "2026-09-10",
+  "scannedAt": "2026-09-10T10:27:33.238Z",
   "totalPackages": 173,
   "totalAlerts": 0,
   "packages": [
@@ -50,7 +50,7 @@
     },
     {
       "name": "react",
-      "version": "19.2.8",
+      "version": "19.3.0",
       "score": 96,
       "prevScore": 96,
       "rank": 3,
@@ -68,7 +68,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-08T16:32:50.410Z"
+      "lastPublish": "2026-09-09T17:21:30.071Z"
     },
     {
       "name": "lodash",
@@ -94,7 +94,7 @@
     },
     {
       "name": "react-dom",
-      "version": "19.2.8",
+      "version": "19.3.0",
       "score": 96,
       "prevScore": 96,
       "rank": 5,
@@ -112,7 +112,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-08T16:30:02.556Z"
+      "lastPublish": "2026-09-09T17:17:39.744Z"
     },
     {
       "name": "rollup",
@@ -178,7 +178,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 6,
-      "lastPublish": "2026-09-09T05:26:12.415Z"
+      "lastPublish": "2026-09-10T05:24:51.772Z"
     },
     {
       "name": "date-fns",
@@ -288,7 +288,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-08-26T22:40:11.019Z"
+      "lastPublish": "2026-09-09T14:16:04.379Z"
     },
     {
       "name": "underscore",
@@ -332,7 +332,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-09T08:31:54.618Z"
+      "lastPublish": "2026-09-10T08:33:07.601Z"
     },
     {
       "name": "@babel/core",
@@ -398,7 +398,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-08T23:52:31.867Z"
+      "lastPublish": "2026-09-09T23:56:55.077Z"
     },
     {
       "name": "vue",
@@ -534,7 +534,7 @@
     },
     {
       "name": "@angular/core",
-      "version": "22.1.5",
+      "version": "22.1.6",
       "score": 93,
       "prevScore": 93,
       "rank": 25,
@@ -552,7 +552,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-03T02:43:33.856Z"
+      "lastPublish": "2026-09-09T20:24:40.190Z"
     },
     {
       "name": "mocha",
@@ -1040,7 +1040,7 @@
     },
     {
       "name": "zod",
-      "version": "4.5.4",
+      "version": "4.6.1",
       "score": 80,
       "prevScore": 80,
       "rank": 48,
@@ -1058,7 +1058,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-08-29T17:55:42.775Z"
+      "lastPublish": "2026-09-09T21:50:12.924Z"
     },
     {
       "name": "yup",
@@ -2158,7 +2158,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-08T17:11:41.366Z"
+      "lastPublish": "2026-09-10T09:53:57.487Z"
     },
     {
       "name": "typeorm",
@@ -2180,7 +2180,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-09T02:20:09.582Z"
+      "lastPublish": "2026-09-10T02:20:46.083Z"
     },
     {
       "name": "knex",
@@ -2514,7 +2514,7 @@
     },
     {
       "name": "@aws-sdk/client-s3",
-      "version": "3.1128.0",
+      "version": "3.1129.0",
       "score": 79,
       "prevScore": 79,
       "rank": 115,
@@ -2532,7 +2532,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-08T18:48:56.081Z"
+      "lastPublish": "2026-09-09T18:49:32.225Z"
     },
     {
       "name": "@google-cloud/storage",
@@ -2668,7 +2668,7 @@
     },
     {
       "name": "firebase",
-      "version": "12.18.0",
+      "version": "12.19.0",
       "score": 78,
       "prevScore": 78,
       "rank": 122,
@@ -2686,7 +2686,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-08-19T20:24:53.654Z"
+      "lastPublish": "2026-09-09T19:20:03.458Z"
     },
     {
       "name": "yargs-parser",
@@ -2933,7 +2933,7 @@
     {
       "name": "cross-fetch",
       "version": "4.1.0",
-      "score": 74,
+      "score": 73,
       "prevScore": 74,
       "rank": 134,
       "prevRank": 134,
@@ -3240,7 +3240,7 @@
     },
     {
       "name": "nodemailer",
-      "version": "10.0.1",
+      "version": "10.0.3",
       "score": 65,
       "prevScore": 65,
       "rank": 148,
@@ -3258,7 +3258,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-07T12:17:20.573Z"
+      "lastPublish": "2026-09-10T07:06:05.114Z"
     },
     {
       "name": "lru-cache",
