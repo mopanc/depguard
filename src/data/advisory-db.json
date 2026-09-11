@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-10",
+  "version": "2026-09-11",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -173941,6 +173941,48 @@
         }
       ]
     },
+    "daytona-test-filereader": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-11",
+          "cve": "GHSA-f2vx-rj2m-pmp8",
+          "description": "Malware in daytona-test-filereader",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "daytona-test-miner": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-11",
+          "cve": "GHSA-7fxg-v94h-8j5g",
+          "description": "Malware in daytona-test-miner",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "daytona-test-npm": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-11",
+          "cve": "GHSA-j8pm-8rv6-xg64",
+          "description": "Malware in daytona-test-npm",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "daytonjs": {
       "compromised": true,
       "severity": "critical",
@@ -204819,6 +204861,20 @@
         }
       ]
     },
+    "strapi-plugin-vinsoc-1109": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 3.6.8",
+          "type": "supply-chain",
+          "date": "2026-09-11",
+          "cve": "GHSA-244v-fw48-794m",
+          "description": "Malicious code in strapi-plugin-vinsoc-1109 (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "strapi-plugin-workspace-plugin": {
       "compromised": true,
       "severity": "critical",
@@ -215482,5 +215538,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-10T10:27:09.943Z"
+  "lastRefresh": "2026-09-11T10:30:35.939Z"
 }
