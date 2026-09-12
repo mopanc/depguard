@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-11",
+  "version": "2026-09-12",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -152255,6 +152255,20 @@
         }
       ]
     },
+    "cr-bot-common": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-12",
+          "cve": "GHSA-mjmf-5pc4-pfrp",
+          "description": "Malicious code in cr-bot-common (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "cr-static-shared-components": {
       "compromised": true,
       "severity": "critical",
@@ -181977,6 +181991,20 @@
         }
       ]
     },
+    "greensaver": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.1",
+          "type": "supply-chain",
+          "date": "2026-09-12",
+          "cve": "GHSA-jfw2-6254-9cwg",
+          "description": "Malicious code in greensaver (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "gridster-coords": {
       "compromised": true,
       "severity": "critical",
@@ -206317,6 +206345,20 @@
         }
       ]
     },
+    "tailwind-form-kit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.6.4",
+          "type": "supply-chain",
+          "date": "2026-09-12",
+          "cve": "GHSA-p7c5-phj5-qm49",
+          "description": "Malicious code in tailwind-form-kit (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tailwind-inquirer": {
       "compromised": true,
       "severity": "critical",
@@ -208721,6 +208763,20 @@
           "date": "2026-03-13",
           "cve": "GHSA-7wp6-2652-ppmj",
           "description": "Malware in tourney-sdk-react",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "tracker-cloudflare": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-12",
+          "cve": "GHSA-f874-m83r-9vqh",
+          "description": "Malicious code in tracker-cloudflare (npm)",
           "origin": "ghsa"
         }
       ]
@@ -215538,5 +215594,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-11T10:30:35.939Z"
+  "lastRefresh": "2026-09-12T09:57:21.889Z"
 }
