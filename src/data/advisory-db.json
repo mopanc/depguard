@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-14",
+  "version": "2026-09-15",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -8705,6 +8705,118 @@
           "date": "2026-04-23",
           "cve": "GHSA-g98r-qjhg-4fmr",
           "description": "Malware in @bitwarden/cli",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@biz44/id10-client": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.11",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-3fp9-rc4g-j5v2",
+          "description": "Malicious code in @biz44/id10-client (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@biz44/id12-client": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.13",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-57p7-wfrw-75gv",
+          "description": "Malicious code in @biz44/id12-client (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@biz44/id44-client": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.44",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-5j4q-j7xc-mcjq",
+          "description": "Malicious code in @biz44/id44-client (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@biz44/id79-client": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.80",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-38g4-jrgw-cqgh",
+          "description": "Malicious code in @biz44/id79-client (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@biz44/id95-client": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.96",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-h5qm-2mw2-cpj7",
+          "description": "Malicious code in @biz44/id95-client (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@biz44/id99-client": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.100",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-2r46-q2c6-8xv3",
+          "description": "Malicious code in @biz44/id99-client (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@biz44/process-runtime-utils": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.10",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-85j9-pqgv-pr94",
+          "description": "Malicious code in @biz44/process-runtime-utils (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@biz44/runtime-utils": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.11",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-fc79-g66m-pjph",
+          "description": "Malicious code in @biz44/runtime-utils (npm)",
           "origin": "ghsa"
         }
       ]
@@ -320731,6 +320843,20 @@
         }
       ]
     },
+    "id79-client": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.1.79",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-c62r-crr7-5qfm",
+          "description": "Malicious code in id79-client (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "ida-asinan17-sluey": {
       "compromised": true,
       "severity": "critical",
@@ -328077,6 +328203,20 @@
           "date": "2026-07-16",
           "cve": "GHSA-f4f3-9g54-864m",
           "description": "Malware in n8n-nodes-rce-poc",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "n8n-nodes-sysdiag2": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-15",
+          "cve": "GHSA-mx46-3mx3-r66x",
+          "description": "Malicious code in n8n-nodes-sysdiag2 (npm)",
           "origin": "ghsa"
         }
       ]
@@ -354460,5 +354600,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-14T11:34:39.353Z"
+  "lastRefresh": "2026-09-15T10:54:42.178Z"
 }
