@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-17",
+  "version": "2026-09-18",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -14303,6 +14303,20 @@
         }
       ]
     },
+    "@lekzo/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.1",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-75mc-fj4c-6pfm",
+          "description": "Malicious code in @lekzo/baileys (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@lessondesk/api-client": {
       "compromised": true,
       "severity": "critical",
@@ -18643,6 +18657,20 @@
         }
       ]
     },
+    "@sanzoffc/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 3.0.4",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-grqc-r63w-6845",
+          "description": "Malicious code in @sanzoffc/baileys (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@sanzxcode/baileys": {
       "compromised": true,
       "severity": "critical",
@@ -21239,6 +21267,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-4h39-m37p-58xp",
           "description": "Malware in @tiaanduplessis/react-progressbar",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@tink/tink-link-core": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 9.9.10",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-hvcc-qwg6-972c",
+          "description": "Malicious code in @tink/tink-link-core (npm)",
           "origin": "ghsa"
         }
       ]
@@ -29345,6 +29387,20 @@
           "date": "2026-07-29",
           "cve": "GHSA-m24q-pqxm-qhqw",
           "description": "Malicious code in blots (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "blue-string-formatter-utils": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-5mc6-ff2p-32qj",
+          "description": "Malicious code in blue-string-formatter-utils (npm)",
           "origin": "ghsa"
         }
       ]
@@ -474067,6 +474123,20 @@
         }
       ]
     },
+    "tailwindcss-form": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.5.1",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-xhr7-h7hc-7785",
+          "description": "Malicious code in tailwindcss-form (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tailwindcss-form-bundler": {
       "compromised": true,
       "severity": "critical",
@@ -474959,6 +475029,20 @@
           "date": "2025-11-24",
           "cve": "GHSA-fw6c-h4gj-gvvj",
           "description": "Malware in test23112222-api",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "test89078-auth": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.99.99",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-x9mp-cqw3-368c",
+          "description": "Malicious code in test89078-auth (npm)",
           "origin": "ghsa"
         }
       ]
@@ -481901,6 +481985,20 @@
         }
       ]
     },
+    "xa424234657567": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-h7pm-6wh6-7xvw",
+          "description": "Malicious code in xa424234657567 (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "xboxlive-auth": {
       "compromised": true,
       "severity": "critical",
@@ -482275,6 +482373,34 @@
           "date": "2026-03-20",
           "cve": "GHSA-p427-hrfp-pc52",
           "description": "Malware in xyztttxyz",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "xzvbailey": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-rg4j-jh5f-w982",
+          "description": "Malicious code in xzvbailey (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "xzvbailsx": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-m364-pjc8-42wc",
+          "description": "Malicious code in xzvbailsx (npm)",
           "origin": "ghsa"
         }
       ]
@@ -482769,6 +482895,20 @@
         }
       ]
     },
+    "zero-baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.7.0",
+          "type": "supply-chain",
+          "date": "2026-09-18",
+          "cve": "GHSA-2q5p-vqh2-8c92",
+          "description": "Malicious code in zero-baileys (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "zis-common-lib": {
       "compromised": true,
       "severity": "critical",
@@ -482882,5 +483022,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-17T10:50:56.810Z"
+  "lastRefresh": "2026-09-18T10:26:31.141Z"
 }
