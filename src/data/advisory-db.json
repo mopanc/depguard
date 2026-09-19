@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-18",
+  "version": "2026-09-19",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -375107,6 +375107,20 @@
         }
       ]
     },
+    "keroeltop": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.99.99",
+          "type": "supply-chain",
+          "date": "2026-09-19",
+          "cve": "GHSA-gg5m-rqpp-c9xf",
+          "description": "Malicious code in keroeltop (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "keroris": {
       "compromised": true,
       "severity": "critical",
@@ -483022,5 +483036,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-18T10:26:31.141Z"
+  "lastRefresh": "2026-09-19T10:11:26.139Z"
 }
