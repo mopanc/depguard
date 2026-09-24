@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-23",
+  "version": "2026-09-24",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -8457,6 +8457,62 @@
         }
       ]
     },
+    "@baanx/abis": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-24",
+          "cve": "GHSA-598m-93qh-82f9",
+          "description": "Malware in @baanx/abis",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@baanx/blockchain-config": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-24",
+          "cve": "GHSA-f67m-pjx9-96cv",
+          "description": "Malware in @baanx/blockchain-config",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@baanx/common": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-24",
+          "cve": "GHSA-27jh-hjhg-vg2p",
+          "description": "Malware in @baanx/common",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@baanx/domain": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-24",
+          "cve": "GHSA-qhfc-6rp6-pwv6",
+          "description": "Malware in @baanx/domain",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@baanx/solana-lib": {
       "compromised": true,
       "severity": "critical",
@@ -8467,6 +8523,14 @@
           "date": "2026-09-21",
           "cve": "GHSA-pvh9-27rp-6282",
           "description": "Malicious code in @baanx/solana-lib (npm)",
+          "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-24",
+          "cve": "GHSA-5x34-3xqm-3r73",
+          "description": "Malware in @baanx/solana-lib",
           "origin": "ghsa"
         }
       ]
@@ -13919,6 +13983,34 @@
         }
       ]
     },
+    "@insiderintelligence/componentlibrary": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-24",
+          "cve": "GHSA-rjh6-qm48-cg84",
+          "description": "Malware in @insiderintelligence/componentlibrary",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@insiderintelligence/googleadmanager": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-09-24",
+          "cve": "GHSA-q699-336h-g385",
+          "description": "Malware in @insiderintelligence/googleadmanager",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@internal-infra/core-sso-bridge": {
       "compromised": true,
       "severity": "critical",
@@ -18591,6 +18683,20 @@
           "date": "2026-01-27",
           "cve": "GHSA-758f-75gv-c4m3",
           "description": "Malware in @riag-libs/pattern-library-react-hooks",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@rixxcodex/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 8.1.0",
+          "type": "supply-chain",
+          "date": "2026-09-24",
+          "cve": "GHSA-fjxf-mv8f-cp6x",
+          "description": "Malicious code in @rixxcodex/baileys (npm)",
           "origin": "ghsa"
         }
       ]
@@ -462421,6 +462527,20 @@
         }
       ]
     },
+    "pino-testkit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 10.4.5",
+          "type": "supply-chain",
+          "date": "2026-09-24",
+          "cve": "GHSA-q57p-68r4-fj72",
+          "description": "Malicious code in pino-testkit (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "pino-zod": {
       "compromised": true,
       "severity": "critical",
@@ -485030,5 +485150,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-09-23T10:39:19.434Z"
+  "lastRefresh": "2026-09-24T10:59:06.805Z"
 }
