@@ -1,15 +1,81 @@
 {
-  "date": "2026-09-25",
-  "scannedAt": "2026-09-25T11:00:05.029Z",
+  "date": "2026-09-26",
+  "scannedAt": "2026-09-26T10:42:16.703Z",
   "totalPackages": 173,
-  "totalAlerts": 4,
+  "totalAlerts": 5,
   "packages": [
+    {
+      "name": "chalk",
+      "version": "6.0.0",
+      "score": 97,
+      "prevScore": 80,
+      "rank": 1,
+      "prevRank": 45,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 521790910,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-07-26T14:51:07.269Z"
+    },
+    {
+      "name": "uuid",
+      "version": "14.0.2",
+      "score": 97,
+      "prevScore": 80,
+      "rank": 2,
+      "prevRank": 43,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 271029280,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-08-18T18:21:56.060Z"
+    },
+    {
+      "name": "nanoid",
+      "version": "6.0.1",
+      "score": 97,
+      "prevScore": 80,
+      "rank": 3,
+      "prevRank": 44,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 238660644,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-09-10T18:00:48.080Z"
+    },
     {
       "name": "esbuild",
       "version": "0.28.2",
       "score": 96,
       "prevScore": 96,
-      "rank": 1,
+      "rank": 4,
       "prevRank": 1,
       "vulns": {
         "total": 0,
@@ -20,40 +86,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 201162613,
+      "downloads": 261733069,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 1,
       "lastPublish": "2026-08-08T20:00:55.454Z"
     },
     {
-      "name": "react",
-      "version": "19.3.0",
-      "score": 96,
-      "prevScore": 96,
-      "rank": 2,
-      "prevRank": 2,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 132703321,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-23T16:29:46.987Z"
-    },
-    {
       "name": "vite",
       "version": "8.3.1",
       "score": 96,
       "prevScore": 96,
-      "rank": 3,
+      "rank": 5,
       "prevRank": 3,
       "vulns": {
         "total": 0,
@@ -64,18 +108,40 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 131207416,
+      "downloads": 169308044,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 2,
       "lastPublish": "2026-09-24T12:26:19.940Z"
     },
     {
+      "name": "react",
+      "version": "19.3.0",
+      "score": 96,
+      "prevScore": 96,
+      "rank": 6,
+      "prevRank": 2,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 169108433,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-09-23T16:29:46.987Z"
+    },
+    {
       "name": "lodash",
       "version": "4.18.1",
       "score": 96,
       "prevScore": 96,
-      "rank": 4,
+      "rank": 7,
       "prevRank": 4,
       "vulns": {
         "total": 0,
@@ -86,7 +152,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 128527290,
+      "downloads": 164038197,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -97,7 +163,7 @@
       "version": "19.3.0",
       "score": 96,
       "prevScore": 96,
-      "rank": 5,
+      "rank": 8,
       "prevRank": 5,
       "vulns": {
         "total": 0,
@@ -108,7 +174,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 125272754,
+      "downloads": 159716600,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -119,7 +185,7 @@
       "version": "4.63.5",
       "score": 96,
       "prevScore": 96,
-      "rank": 6,
+      "rank": 9,
       "prevRank": 6,
       "vulns": {
         "total": 0,
@@ -130,7 +196,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 92405374,
+      "downloads": 117766618,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 1,
@@ -141,7 +207,7 @@
       "version": "6.2.2",
       "score": 96,
       "prevScore": 96,
-      "rank": 7,
+      "rank": 10,
       "prevRank": 7,
       "vulns": {
         "total": 0,
@@ -152,7 +218,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 85146255,
+      "downloads": 111862149,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -163,7 +229,7 @@
       "version": "4.4.0",
       "score": 96,
       "prevScore": 96,
-      "rank": 8,
+      "rank": 11,
       "prevRank": 8,
       "vulns": {
         "total": 0,
@@ -174,7 +240,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 72360904,
+      "downloads": 94232425,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -185,7 +251,7 @@
       "version": "1.63.0",
       "score": 96,
       "prevScore": 96,
-      "rank": 9,
+      "rank": 12,
       "prevRank": 9,
       "vulns": {
         "total": 0,
@@ -196,19 +262,19 @@
         "advisories": []
       },
       "license": "Apache-2.0",
-      "downloads": 69104951,
+      "downloads": 90238625,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 6,
-      "lastPublish": "2026-09-25T05:25:49.938Z"
+      "lastPublish": "2026-09-26T05:22:58.266Z"
     },
     {
-      "name": "vitest",
-      "version": "5.0.2",
-      "score": 95,
-      "prevScore": 95,
-      "rank": 10,
-      "prevRank": 10,
+      "name": "marked",
+      "version": "18.0.14",
+      "score": 96,
+      "prevScore": 80,
+      "rank": 13,
+      "prevRank": 81,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -218,18 +284,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 73825000,
+      "downloads": 72183511,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-25T09:00:46.560Z"
+      "lastPublish": "2026-09-22T06:09:15.277Z"
     },
     {
       "name": "@testing-library/react",
       "version": "16.3.3",
-      "score": 95,
+      "score": 96,
       "prevScore": 95,
-      "rank": 11,
+      "rank": 14,
       "prevRank": 11,
       "vulns": {
         "total": 0,
@@ -240,18 +306,40 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 43656566,
+      "downloads": 56363561,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
       "lastPublish": "2026-08-27T17:41:18.735Z"
     },
     {
+      "name": "vitest",
+      "version": "5.0.2",
+      "score": 95,
+      "prevScore": 95,
+      "rank": 15,
+      "prevRank": 10,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 96708902,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-09-25T09:00:46.560Z"
+    },
+    {
       "name": "jest",
       "version": "30.5.2",
       "score": 95,
       "prevScore": 95,
-      "rank": 12,
+      "rank": 16,
       "prevRank": 12,
       "vulns": {
         "total": 0,
@@ -262,7 +350,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 35427628,
+      "downloads": 45343351,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -272,30 +360,8 @@
       "name": "dotenv-expand",
       "version": "1000.0.0",
       "score": 95,
-      "prevScore": 80,
-      "rank": 13,
-      "prevRank": 78,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "BSD-3-Clause",
-      "downloads": 32192991,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 2,
-      "lastPublish": "2026-07-29T18:35:28.694Z"
-    },
-    {
-      "name": "underscore",
-      "version": "1.13.8",
-      "score": 95,
       "prevScore": 95,
-      "rank": 14,
+      "rank": 17,
       "prevRank": 13,
       "vulns": {
         "total": 0,
@@ -305,19 +371,41 @@
         "low": 0,
         "advisories": []
       },
-      "license": "MIT",
-      "downloads": 21478088,
+      "license": "BSD-3-Clause",
+      "downloads": 41109190,
       "deprecated": false,
       "compromised": false,
-      "codeFindings": 1,
-      "lastPublish": "2026-02-19T11:42:14.942Z"
+      "codeFindings": 2,
+      "lastPublish": "2026-07-29T18:35:28.694Z"
     },
     {
-      "name": "typescript",
-      "version": "7.0.2",
-      "score": 94,
-      "prevScore": 94,
-      "rank": 15,
+      "name": "moment",
+      "version": "2.31.0",
+      "score": 95,
+      "prevScore": 80,
+      "rank": 18,
+      "prevRank": 41,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 34233364,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-09-15T01:07:26.131Z"
+    },
+    {
+      "name": "underscore",
+      "version": "1.13.8",
+      "score": 95,
+      "prevScore": 95,
+      "rank": 19,
       "prevRank": 14,
       "vulns": {
         "total": 0,
@@ -327,195 +415,19 @@
         "low": 0,
         "advisories": []
       },
-      "license": "Apache-2.0",
-      "downloads": 209215221,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-25T08:32:31.141Z"
-    },
-    {
-      "name": "@babel/core",
-      "version": "8.0.6",
-      "score": 94,
-      "prevScore": 94,
-      "rank": 16,
-      "prevRank": 15,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
       "license": "MIT",
-      "downloads": 136803539,
+      "downloads": 27917431,
       "deprecated": false,
       "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-18T13:48:10.809Z"
-    },
-    {
-      "name": "express",
-      "version": "5.2.1",
-      "score": 94,
-      "prevScore": 94,
-      "rank": 17,
-      "prevRank": 16,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 101489586,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-14T06:46:38.631Z"
-    },
-    {
-      "name": "next",
-      "version": "16.3.6",
-      "score": 94,
-      "prevScore": 94,
-      "rank": 18,
-      "prevRank": 17,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 42734285,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-25T00:07:28.507Z"
-    },
-    {
-      "name": "markdown-it",
-      "version": "15.0.2",
-      "score": 94,
-      "prevScore": 79,
-      "rank": 19,
-      "prevRank": 112,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 20702593,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 2,
-      "lastPublish": "2026-09-12T05:30:00.258Z"
-    },
-    {
-      "name": "cross-env",
-      "version": "10.1.0",
-      "score": 94,
-      "prevScore": 80,
-      "rank": 20,
-      "prevRank": 77,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 18419115,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2025-09-29T17:34:12.232Z"
+      "codeFindings": 1,
+      "lastPublish": "2026-02-19T11:42:14.942Z"
     },
     {
       "name": "turbo",
       "version": "2.11.4",
-      "score": 94,
+      "score": 95,
       "prevScore": 94,
-      "rank": 21,
-      "prevRank": 18,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 17620831,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-25T04:04:11.634Z"
-    },
-    {
-      "name": "vue",
-      "version": "3.5.43",
-      "score": 94,
-      "prevScore": 94,
-      "rank": 22,
-      "prevRank": 19,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 12038101,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-18T08:19:31.033Z"
-    },
-    {
-      "name": "@nestjs/core",
-      "version": "12.1.0",
-      "score": 94,
-      "prevScore": 94,
-      "rank": 23,
-      "prevRank": 20,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 10324932,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-23T09:04:59.124Z"
-    },
-    {
-      "name": "ramda",
-      "version": "0.32.0",
-      "score": 94,
-      "prevScore": 94,
-      "rank": 24,
+      "rank": 20,
       "prevRank": 21,
       "vulns": {
         "total": 0,
@@ -526,19 +438,19 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 9707904,
+      "downloads": 23694702,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2025-10-10T16:29:39.432Z"
+      "lastPublish": "2026-09-25T04:04:11.634Z"
     },
     {
-      "name": "sinon",
-      "version": "22.1.0",
+      "name": "typescript",
+      "version": "7.0.2",
       "score": 94,
       "prevScore": 94,
-      "rank": 25,
-      "prevRank": 22,
+      "rank": 21,
+      "prevRank": 15,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -547,20 +459,20 @@
         "low": 0,
         "advisories": []
       },
-      "license": "BSD-3-Clause",
-      "downloads": 8284521,
+      "license": "Apache-2.0",
+      "downloads": 270587987,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-07-20T17:59:28.504Z"
+      "lastPublish": "2026-09-26T08:17:08.219Z"
     },
     {
-      "name": "webpack",
-      "version": "5.111.1",
-      "score": 93,
-      "prevScore": 93,
-      "rank": 26,
-      "prevRank": 23,
+      "name": "@babel/core",
+      "version": "8.0.6",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 22,
+      "prevRank": 16,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -570,106 +482,106 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 43367999,
+      "downloads": 174612774,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-18T11:27:13.638Z"
+      "lastPublish": "2026-09-18T13:48:10.809Z"
+    },
+    {
+      "name": "express",
+      "version": "5.2.1",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 23,
+      "prevRank": 17,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 130322863,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-09-14T06:46:38.631Z"
+    },
+    {
+      "name": "next",
+      "version": "16.3.6",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 24,
+      "prevRank": 18,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 55037480,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-09-26T00:38:54.078Z"
+    },
+    {
+      "name": "markdown-it",
+      "version": "15.0.2",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 25,
+      "prevRank": 19,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 26389203,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 2,
+      "lastPublish": "2026-09-12T05:30:00.258Z"
+    },
+    {
+      "name": "cross-env",
+      "version": "10.1.0",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 26,
+      "prevRank": 20,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 23389522,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2025-09-29T17:34:12.232Z"
     },
     {
       "name": "concurrently",
       "version": "10.0.5",
-      "score": 93,
-      "prevScore": 79,
+      "score": 94,
+      "prevScore": 93,
       "rank": 27,
-      "prevRank": 111,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 15783555,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-08-15T03:33:20.323Z"
-    },
-    {
-      "name": "fastify",
-      "version": "5.12.5",
-      "score": 93,
-      "prevScore": 93,
-      "rank": 28,
-      "prevRank": 24,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 9612689,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-16T10:23:05.047Z"
-    },
-    {
-      "name": "@angular/core",
-      "version": "22.2.0",
-      "score": 93,
-      "prevScore": 93,
-      "rank": 29,
-      "prevRank": 25,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 4960205,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-23T17:55:38.407Z"
-    },
-    {
-      "name": "mocha",
-      "version": "12.0.2",
-      "score": 92,
-      "prevScore": 92,
-      "rank": 30,
-      "prevRank": 26,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 10779633,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-17T14:24:05.099Z"
-    },
-    {
-      "name": "svelte",
-      "version": "5.57.1",
-      "score": 92,
-      "prevScore": 92,
-      "rank": 31,
       "prevRank": 27,
       "vulns": {
         "total": 0,
@@ -680,19 +592,19 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 4236198,
+      "downloads": 20815341,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-18T23:52:47.113Z"
+      "lastPublish": "2026-08-15T03:33:20.323Z"
     },
     {
-      "name": "c8",
-      "version": "12.0.0",
-      "score": 92,
-      "prevScore": 92,
-      "rank": 32,
-      "prevRank": 28,
+      "name": "vue",
+      "version": "3.5.43",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 28,
+      "prevRank": 22,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -701,19 +613,85 @@
         "low": 0,
         "advisories": []
       },
-      "license": "ISC",
-      "downloads": 3174576,
+      "license": "MIT",
+      "downloads": 15352925,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-07-14T13:51:32.917Z"
+      "lastPublish": "2026-09-18T08:19:31.033Z"
     },
     {
-      "name": "tsup",
-      "version": "8.5.1",
-      "score": 91,
-      "prevScore": 91,
-      "rank": 33,
+      "name": "@nestjs/core",
+      "version": "12.1.0",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 29,
+      "prevRank": 23,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 13530164,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-09-23T09:04:59.124Z"
+    },
+    {
+      "name": "ramda",
+      "version": "0.32.0",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 30,
+      "prevRank": 24,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 12644234,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2025-10-10T16:29:39.432Z"
+    },
+    {
+      "name": "sinon",
+      "version": "22.1.0",
+      "score": 94,
+      "prevScore": 94,
+      "rank": 31,
+      "prevRank": 25,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "BSD-3-Clause",
+      "downloads": 10729965,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-07-20T17:59:28.504Z"
+    },
+    {
+      "name": "@angular/core",
+      "version": "22.2.0",
+      "score": 94,
+      "prevScore": 93,
+      "rank": 32,
       "prevRank": 29,
       "vulns": {
         "total": 0,
@@ -724,18 +702,62 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 6200614,
+      "downloads": 6264881,
       "deprecated": false,
       "compromised": false,
-      "codeFindings": 1,
-      "lastPublish": "2025-11-12T21:21:42.746Z"
+      "codeFindings": 0,
+      "lastPublish": "2026-09-23T17:55:38.407Z"
     },
     {
-      "name": "nyc",
-      "version": "18.0.0",
-      "score": 91,
-      "prevScore": 91,
+      "name": "webpack",
+      "version": "5.111.1",
+      "score": 93,
+      "prevScore": 93,
+      "rank": 33,
+      "prevRank": 26,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 54782759,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-09-18T11:27:13.638Z"
+    },
+    {
+      "name": "fastify",
+      "version": "5.12.5",
+      "score": 93,
+      "prevScore": 93,
       "rank": 34,
+      "prevRank": 28,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 12564792,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-09-16T10:23:05.047Z"
+    },
+    {
+      "name": "mocha",
+      "version": "12.0.2",
+      "score": 92,
+      "prevScore": 92,
+      "rank": 35,
       "prevRank": 30,
       "vulns": {
         "total": 0,
@@ -745,19 +767,19 @@
         "low": 0,
         "advisories": []
       },
-      "license": "ISC",
-      "downloads": 6129332,
+      "license": "MIT",
+      "downloads": 13914127,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-02-22T21:23:17.002Z"
+      "lastPublish": "2026-09-17T14:24:05.099Z"
     },
     {
-      "name": "koa",
-      "version": "3.2.1",
-      "score": 91,
-      "prevScore": 91,
-      "rank": 35,
+      "name": "svelte",
+      "version": "5.57.1",
+      "score": 92,
+      "prevScore": 92,
+      "rank": 36,
       "prevRank": 31,
       "vulns": {
         "total": 0,
@@ -768,18 +790,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 5113106,
+      "downloads": 5546172,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-05-21T07:25:34.368Z"
+      "lastPublish": "2026-09-18T23:52:47.113Z"
     },
     {
-      "name": "parcel",
-      "version": "2.16.4",
-      "score": 90,
-      "prevScore": 90,
-      "rank": 36,
+      "name": "c8",
+      "version": "12.0.0",
+      "score": 92,
+      "prevScore": 92,
+      "rank": 37,
       "prevRank": 32,
       "vulns": {
         "total": 0,
@@ -789,19 +811,19 @@
         "low": 0,
         "advisories": []
       },
-      "license": "MIT",
-      "downloads": 284576,
+      "license": "ISC",
+      "downloads": 4166453,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-02-03T00:55:08.080Z"
+      "lastPublish": "2026-07-14T13:51:32.917Z"
     },
     {
-      "name": "@babel/preset-env",
-      "version": "8.0.6",
-      "score": 88,
-      "prevScore": 88,
-      "rank": 37,
+      "name": "tsup",
+      "version": "8.5.1",
+      "score": 91,
+      "prevScore": 91,
+      "rank": 38,
       "prevRank": 33,
       "vulns": {
         "total": 0,
@@ -812,18 +834,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 34847565,
+      "downloads": 8030493,
       "deprecated": false,
       "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-18T13:53:08.241Z"
+      "codeFindings": 1,
+      "lastPublish": "2025-11-12T21:21:42.746Z"
     },
     {
-      "name": "cypress",
-      "version": "16.1.0",
-      "score": 87,
-      "prevScore": 87,
-      "rank": 38,
+      "name": "nyc",
+      "version": "18.0.0",
+      "score": 91,
+      "prevScore": 91,
+      "rank": 39,
       "prevRank": 34,
       "vulns": {
         "total": 0,
@@ -833,19 +855,19 @@
         "low": 0,
         "advisories": []
       },
-      "license": "MIT",
-      "downloads": 4649846,
+      "license": "ISC",
+      "downloads": 7965436,
       "deprecated": false,
       "compromised": false,
-      "codeFindings": 1,
-      "lastPublish": "2026-09-15T19:18:40.147Z"
+      "codeFindings": 0,
+      "lastPublish": "2026-02-22T21:23:17.002Z"
     },
     {
-      "name": "nuxt",
-      "version": "4.5.2",
-      "score": 85,
-      "prevScore": 85,
-      "rank": 39,
+      "name": "koa",
+      "version": "3.2.1",
+      "score": 91,
+      "prevScore": 91,
+      "rank": 40,
       "prevRank": 35,
       "vulns": {
         "total": 0,
@@ -856,18 +878,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 1555417,
+      "downloads": 6823873,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-08-05T16:30:59.563Z"
+      "lastPublish": "2026-05-21T07:25:34.368Z"
     },
     {
-      "name": "gatsby",
-      "version": "5.16.1",
-      "score": 83,
-      "prevScore": 83,
-      "rank": 40,
+      "name": "parcel",
+      "version": "2.16.4",
+      "score": 90,
+      "prevScore": 90,
+      "rank": 41,
       "prevRank": 36,
       "vulns": {
         "total": 0,
@@ -878,18 +900,18 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 331334,
+      "downloads": 345201,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-02-10T14:28:51.947Z"
+      "lastPublish": "2026-02-03T00:55:08.080Z"
     },
     {
-      "name": "moment",
-      "version": "2.31.0",
-      "score": 80,
-      "prevScore": 80,
-      "rank": 41,
+      "name": "@babel/preset-env",
+      "version": "8.0.6",
+      "score": 88,
+      "prevScore": 88,
+      "rank": 42,
       "prevRank": 37,
       "vulns": {
         "total": 0,
@@ -900,19 +922,85 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 0,
+      "downloads": 43645225,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-15T01:07:26.131Z"
+      "lastPublish": "2026-09-18T13:53:08.241Z"
+    },
+    {
+      "name": "cypress",
+      "version": "16.1.0",
+      "score": 88,
+      "prevScore": 87,
+      "rank": 43,
+      "prevRank": 38,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 5904377,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 1,
+      "lastPublish": "2026-09-15T19:18:40.147Z"
+    },
+    {
+      "name": "nuxt",
+      "version": "4.5.2",
+      "score": 86,
+      "prevScore": 85,
+      "rank": 44,
+      "prevRank": 39,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 1971323,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-08-05T16:30:59.563Z"
+    },
+    {
+      "name": "gatsby",
+      "version": "5.16.1",
+      "score": 83,
+      "prevScore": 83,
+      "rank": 45,
+      "prevRank": 40,
+      "vulns": {
+        "total": 0,
+        "critical": 0,
+        "high": 0,
+        "moderate": 0,
+        "low": 0,
+        "advisories": []
+      },
+      "license": "MIT",
+      "downloads": 375024,
+      "deprecated": false,
+      "compromised": false,
+      "codeFindings": 0,
+      "lastPublish": "2026-02-10T14:28:51.947Z"
     },
     {
       "name": "dayjs",
       "version": "1.11.23",
       "score": 80,
       "prevScore": 80,
-      "rank": 42,
-      "prevRank": 38,
+      "rank": 46,
+      "prevRank": 42,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -929,78 +1017,12 @@
       "lastPublish": "2026-08-17T11:52:35.217Z"
     },
     {
-      "name": "uuid",
-      "version": "14.0.2",
-      "score": 80,
-      "prevScore": 80,
-      "rank": 43,
-      "prevRank": 39,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 0,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-08-18T18:21:56.060Z"
-    },
-    {
-      "name": "nanoid",
-      "version": "6.0.1",
-      "score": 80,
-      "prevScore": 80,
-      "rank": 44,
-      "prevRank": 40,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 0,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-10T18:00:48.080Z"
-    },
-    {
-      "name": "chalk",
-      "version": "6.0.0",
-      "score": 80,
-      "prevScore": 80,
-      "rank": 45,
-      "prevRank": 41,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 0,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-07-26T14:51:07.269Z"
-    },
-    {
       "name": "dotenv",
-      "version": "18.0.3",
+      "version": "18.0.4",
       "score": 80,
       "prevScore": 80,
-      "rank": 46,
-      "prevRank": 42,
+      "rank": 47,
+      "prevRank": 46,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1014,15 +1036,15 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-22T14:48:50.847Z"
+      "lastPublish": "2026-09-25T15:13:04.955Z"
     },
     {
       "name": "commander",
       "version": "15.0.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 47,
-      "prevRank": 43,
+      "rank": 48,
+      "prevRank": 47,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1043,8 +1065,8 @@
       "version": "1.20.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 48,
-      "prevRank": 44,
+      "rank": 49,
+      "prevRank": 48,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1065,8 +1087,8 @@
       "version": "11.4.1",
       "score": 80,
       "prevScore": 80,
-      "rank": 49,
-      "prevRank": 45,
+      "rank": 50,
+      "prevRank": 49,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1087,8 +1109,8 @@
       "version": "5.0.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 50,
-      "prevRank": 46,
+      "rank": 51,
+      "prevRank": 50,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1109,8 +1131,8 @@
       "version": "7.8.5",
       "score": 80,
       "prevScore": 80,
-      "rank": 51,
-      "prevRank": 47,
+      "rank": 52,
+      "prevRank": 51,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1131,8 +1153,8 @@
       "version": "4.6.5",
       "score": 80,
       "prevScore": 80,
-      "rank": 52,
-      "prevRank": 48,
+      "rank": 53,
+      "prevRank": 52,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1153,8 +1175,8 @@
       "version": "1.7.1",
       "score": 80,
       "prevScore": 80,
-      "rank": 53,
-      "prevRank": 49,
+      "rank": 54,
+      "prevRank": 53,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1175,8 +1197,8 @@
       "version": "8.20.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 54,
-      "prevRank": 50,
+      "rank": 55,
+      "prevRank": 54,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1197,8 +1219,8 @@
       "version": "13.15.35",
       "score": 80,
       "prevScore": 80,
-      "rank": 55,
-      "prevRank": 51,
+      "rank": 56,
+      "prevRank": 55,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1219,8 +1241,8 @@
       "version": "0.15.1",
       "score": 80,
       "prevScore": 80,
-      "rank": 56,
-      "prevRank": 52,
+      "rank": 57,
+      "prevRank": 56,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1241,8 +1263,8 @@
       "version": "8.3.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 57,
-      "prevRank": 53,
+      "rank": 58,
+      "prevRank": 57,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1263,8 +1285,8 @@
       "version": "1.12.1",
       "score": 80,
       "prevScore": 80,
-      "rank": 58,
-      "prevRank": 54,
+      "rank": 59,
+      "prevRank": 58,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1285,8 +1307,8 @@
       "version": "7.10.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 59,
-      "prevRank": 55,
+      "rank": 60,
+      "prevRank": 59,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1307,8 +1329,8 @@
       "version": "13.0.3",
       "score": 80,
       "prevScore": 80,
-      "rank": 60,
-      "prevRank": 56,
+      "rank": 61,
+      "prevRank": 60,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1329,8 +1351,8 @@
       "version": "6.2.1",
       "score": 80,
       "prevScore": 80,
-      "rank": 61,
-      "prevRank": 57,
+      "rank": 62,
+      "prevRank": 61,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1351,8 +1373,8 @@
       "version": "5.0.15",
       "score": 80,
       "prevScore": 80,
-      "rank": 62,
-      "prevRank": 58,
+      "rank": 63,
+      "prevRank": 62,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1370,11 +1392,11 @@
     },
     {
       "name": "mobx",
-      "version": "7.0.4",
+      "version": "7.0.5",
       "score": 80,
       "prevScore": 80,
-      "rank": 63,
-      "prevRank": 59,
+      "rank": 64,
+      "prevRank": 63,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1388,15 +1410,15 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-22T18:24:43.782Z"
+      "lastPublish": "2026-09-25T17:24:12.362Z"
     },
     {
       "name": "swr",
       "version": "2.5.1",
       "score": 80,
       "prevScore": 80,
-      "rank": 64,
-      "prevRank": 60,
+      "rank": 65,
+      "prevRank": 64,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1414,11 +1436,11 @@
     },
     {
       "name": "@tanstack/react-query",
-      "version": "5.103.2",
+      "version": "5.104.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 65,
-      "prevRank": 61,
+      "rank": 66,
+      "prevRank": 65,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1432,15 +1454,15 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-21T09:33:10.783Z"
+      "lastPublish": "2026-09-26T03:56:26.747Z"
     },
     {
       "name": "graphql",
       "version": "17.0.2",
       "score": 80,
       "prevScore": 80,
-      "rank": 66,
-      "prevRank": 62,
+      "rank": 67,
+      "prevRank": 66,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1461,8 +1483,8 @@
       "version": "4.3.3",
       "score": 80,
       "prevScore": 80,
-      "rank": 67,
-      "prevRank": 63,
+      "rank": 68,
+      "prevRank": 67,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1476,15 +1498,15 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 5,
-      "lastPublish": "2026-09-08T13:59:34.541Z"
+      "lastPublish": "2026-09-25T19:43:55.017Z"
     },
     {
       "name": "postcss",
       "version": "8.5.28",
       "score": 80,
       "prevScore": 80,
-      "rank": 68,
-      "prevRank": 64,
+      "rank": 69,
+      "prevRank": 68,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1505,8 +1527,8 @@
       "version": "10.6.1",
       "score": 80,
       "prevScore": 80,
-      "rank": 69,
-      "prevRank": 65,
+      "rank": 70,
+      "prevRank": 69,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1527,8 +1549,8 @@
       "version": "1.105.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 70,
-      "prevRank": 66,
+      "rank": 71,
+      "prevRank": 70,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1549,8 +1571,8 @@
       "version": "4.9.1",
       "score": 80,
       "prevScore": 80,
-      "rank": 71,
-      "prevRank": 67,
+      "rank": 72,
+      "prevRank": 71,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1571,8 +1593,8 @@
       "version": "6.5.3",
       "score": 80,
       "prevScore": 80,
-      "rank": 72,
-      "prevRank": 68,
+      "rank": 73,
+      "prevRank": 72,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1586,15 +1608,15 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 2,
-      "lastPublish": "2026-09-08T20:05:10.368Z"
+      "lastPublish": "2026-09-25T23:18:20.587Z"
     },
     {
       "name": "prettier",
       "version": "3.9.9",
       "score": 80,
       "prevScore": 80,
-      "rank": 73,
-      "prevRank": 69,
+      "rank": 74,
+      "prevRank": 73,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1615,8 +1637,8 @@
       "version": "6.2.12",
       "score": 80,
       "prevScore": 80,
-      "rank": 74,
-      "prevRank": 70,
+      "rank": 75,
+      "prevRank": 74,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1637,8 +1659,8 @@
       "version": "1.4.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 75,
-      "prevRank": 71,
+      "rank": 76,
+      "prevRank": 75,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1659,8 +1681,8 @@
       "version": "2.4.0",
       "score": 80,
       "prevScore": 80,
-      "rank": 76,
-      "prevRank": 72,
+      "rank": 77,
+      "prevRank": 76,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1681,8 +1703,8 @@
       "version": "0.35.4",
       "score": 80,
       "prevScore": 80,
-      "rank": 77,
-      "prevRank": 73,
+      "rank": 78,
+      "prevRank": 77,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1703,8 +1725,8 @@
       "version": "6.0.1",
       "score": 80,
       "prevScore": 80,
-      "rank": 78,
-      "prevRank": 74,
+      "rank": 79,
+      "prevRank": 78,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1725,8 +1747,8 @@
       "version": "4.7.9",
       "score": 80,
       "prevScore": 80,
-      "rank": 79,
-      "prevRank": 75,
+      "rank": 80,
+      "prevRank": 79,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1747,8 +1769,8 @@
       "version": "8.21.3",
       "score": 80,
       "prevScore": 80,
-      "rank": 80,
-      "prevRank": 76,
+      "rank": 81,
+      "prevRank": 80,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1765,34 +1787,12 @@
       "lastPublish": "2026-08-07T14:10:25.816Z"
     },
     {
-      "name": "marked",
-      "version": "18.0.14",
-      "score": 80,
-      "prevScore": 80,
-      "rank": 81,
-      "prevRank": 79,
-      "vulns": {
-        "total": 0,
-        "critical": 0,
-        "high": 0,
-        "moderate": 0,
-        "low": 0,
-        "advisories": []
-      },
-      "license": "MIT",
-      "downloads": 0,
-      "deprecated": false,
-      "compromised": false,
-      "codeFindings": 0,
-      "lastPublish": "2026-09-22T06:09:15.277Z"
-    },
-    {
       "name": "source-map",
       "version": "0.8.0",
       "score": 80,
       "prevScore": 80,
       "rank": 82,
-      "prevRank": 80,
+      "prevRank": 82,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1814,7 +1814,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 83,
-      "prevRank": 81,
+      "prevRank": 83,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1836,7 +1836,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 84,
-      "prevRank": 82,
+      "prevRank": 84,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1858,7 +1858,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 85,
-      "prevRank": 83,
+      "prevRank": 85,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1880,7 +1880,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 86,
-      "prevRank": 84,
+      "prevRank": 86,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1902,7 +1902,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 87,
-      "prevRank": 85,
+      "prevRank": 87,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1924,7 +1924,7 @@
       "score": 80,
       "prevScore": 80,
       "rank": 88,
-      "prevRank": 86,
+      "prevRank": 88,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1946,7 +1946,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 89,
-      "prevRank": 87,
+      "prevRank": 89,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1968,7 +1968,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 90,
-      "prevRank": 88,
+      "prevRank": 90,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -1990,7 +1990,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 91,
-      "prevRank": 89,
+      "prevRank": 91,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2012,7 +2012,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 92,
-      "prevRank": 90,
+      "prevRank": 92,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2034,7 +2034,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 93,
-      "prevRank": 91,
+      "prevRank": 93,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2056,7 +2056,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 94,
-      "prevRank": 92,
+      "prevRank": 94,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2078,7 +2078,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 95,
-      "prevRank": 93,
+      "prevRank": 95,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2100,7 +2100,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 96,
-      "prevRank": 94,
+      "prevRank": 96,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2122,7 +2122,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 97,
-      "prevRank": 95,
+      "prevRank": 97,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2144,7 +2144,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 98,
-      "prevRank": 96,
+      "prevRank": 98,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2166,7 +2166,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 99,
-      "prevRank": 97,
+      "prevRank": 99,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2188,7 +2188,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 100,
-      "prevRank": 98,
+      "prevRank": 100,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2202,7 +2202,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-25T02:19:39.398Z"
+      "lastPublish": "2026-09-26T02:19:13.800Z"
     },
     {
       "name": "knex",
@@ -2210,7 +2210,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 101,
-      "prevRank": 99,
+      "prevRank": 101,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2232,7 +2232,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 102,
-      "prevRank": 100,
+      "prevRank": 102,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2254,7 +2254,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 103,
-      "prevRank": 101,
+      "prevRank": 103,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2276,7 +2276,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 104,
-      "prevRank": 102,
+      "prevRank": 104,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2298,7 +2298,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 105,
-      "prevRank": 103,
+      "prevRank": 105,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2320,7 +2320,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 106,
-      "prevRank": 104,
+      "prevRank": 106,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2342,7 +2342,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 107,
-      "prevRank": 105,
+      "prevRank": 107,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2364,7 +2364,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 108,
-      "prevRank": 106,
+      "prevRank": 108,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2386,7 +2386,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 109,
-      "prevRank": 107,
+      "prevRank": 109,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2408,7 +2408,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 110,
-      "prevRank": 108,
+      "prevRank": 110,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2430,7 +2430,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 111,
-      "prevRank": 109,
+      "prevRank": 111,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2452,7 +2452,7 @@
       "score": 79,
       "prevScore": 79,
       "rank": 112,
-      "prevRank": 110,
+      "prevRank": 112,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2492,7 +2492,7 @@
     },
     {
       "name": "@aws-sdk/client-s3",
-      "version": "3.1140.0",
+      "version": "3.1141.0",
       "score": 79,
       "prevScore": 79,
       "rank": 114,
@@ -2510,7 +2510,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-24T18:58:00.394Z"
+      "lastPublish": "2026-09-25T18:54:47.753Z"
     },
     {
       "name": "@google-cloud/storage",
@@ -2792,7 +2792,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 6148906,
+      "downloads": 7732621,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -2848,7 +2848,7 @@
       "score": 75,
       "prevScore": 75,
       "rank": 130,
-      "prevRank": 131,
+      "prevRank": 130,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2870,7 +2870,7 @@
       "score": 75,
       "prevScore": 75,
       "rank": 131,
-      "prevRank": 132,
+      "prevRank": 131,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2892,7 +2892,7 @@
       "score": 75,
       "prevScore": 75,
       "rank": 132,
-      "prevRank": 133,
+      "prevRank": 132,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2912,9 +2912,9 @@
       "name": "locate-path",
       "version": "8.0.0",
       "score": 75,
-      "prevScore": 76,
+      "prevScore": 75,
       "rank": 133,
-      "prevRank": 130,
+      "prevRank": 133,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -2990,7 +2990,7 @@
         "advisories": []
       },
       "license": "MIT",
-      "downloads": 14036,
+      "downloads": 20725,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -3716,7 +3716,7 @@
         "advisories": []
       },
       "license": null,
-      "downloads": 14157,
+      "downloads": 16928,
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
@@ -3790,7 +3790,7 @@
         ]
       },
       "license": "BSD-3-Clause",
-      "downloads": 65432,
+      "downloads": 96716,
       "deprecated": true,
       "compromised": false,
       "codeFindings": 0,
@@ -3859,36 +3859,44 @@
   ],
   "alerts": [
     {
-      "package": "dotenv-expand",
+      "package": "chalk",
       "type": "score-rise",
       "severity": "info",
-      "message": "dotenv-expand score recovered from 80 to 95",
+      "message": "chalk score recovered from 80 to 97",
+      "from": 80,
+      "to": 97
+    },
+    {
+      "package": "uuid",
+      "type": "score-rise",
+      "severity": "info",
+      "message": "uuid score recovered from 80 to 97",
+      "from": 80,
+      "to": 97
+    },
+    {
+      "package": "nanoid",
+      "type": "score-rise",
+      "severity": "info",
+      "message": "nanoid score recovered from 80 to 97",
+      "from": 80,
+      "to": 97
+    },
+    {
+      "package": "marked",
+      "type": "score-rise",
+      "severity": "info",
+      "message": "marked score recovered from 80 to 96",
+      "from": 80,
+      "to": 96
+    },
+    {
+      "package": "moment",
+      "type": "score-rise",
+      "severity": "info",
+      "message": "moment score recovered from 80 to 95",
       "from": 80,
       "to": 95
-    },
-    {
-      "package": "markdown-it",
-      "type": "score-rise",
-      "severity": "info",
-      "message": "markdown-it score recovered from 79 to 94",
-      "from": 79,
-      "to": 94
-    },
-    {
-      "package": "cross-env",
-      "type": "score-rise",
-      "severity": "info",
-      "message": "cross-env score recovered from 80 to 94",
-      "from": 80,
-      "to": 94
-    },
-    {
-      "package": "concurrently",
-      "type": "score-rise",
-      "severity": "info",
-      "message": "concurrently score recovered from 79 to 93",
-      "from": 79,
-      "to": 93
     }
   ]
 }
