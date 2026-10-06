@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-05",
+  "version": "2026-10-06",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -18137,6 +18137,20 @@
           "date": "2026-09-06",
           "cve": "GHSA-rghh-4gfg-jvqc",
           "description": "Malware in @pilllesss/yorn",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@pinecone-experience/messages": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.9.1",
+          "type": "supply-chain",
+          "date": "2026-10-06",
+          "cve": "GHSA-px72-v3hv-7q87",
+          "description": "Malicious code in @pinecone-experience/messages (npm)",
           "origin": "ghsa"
         }
       ]
@@ -36757,6 +36771,20 @@
           "date": "2026-09-04",
           "cve": "GHSA-gcgf-2xc2-f433",
           "description": "Malicious code in captchait (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "captchetat-angularv8": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-06",
+          "cve": "GHSA-7crr-x792-cp3w",
+          "description": "Malware in captchetat-angularv8",
           "origin": "ghsa"
         }
       ]
@@ -178832,6 +178860,14 @@
           "cve": "GHSA-5gq4-v664-5cwf",
           "description": "Malicious code in dotenv-async (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-06",
+          "cve": "GHSA-gp83-4g76-4qg5",
+          "description": "Malware in dotenv-async",
+          "origin": "ghsa"
         }
       ]
     },
@@ -268409,6 +268445,20 @@
         }
       ]
     },
+    "hardhat-init": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.21.0",
+          "type": "supply-chain",
+          "date": "2026-10-06",
+          "cve": "GHSA-w6mp-phr7-c2v5",
+          "description": "Malicious code in hardhat-init (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "hardhat-jsx": {
       "compromised": true,
       "severity": "critical",
@@ -326201,6 +326251,20 @@
         }
       ]
     },
+    "internallib_v23": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-10-06",
+          "cve": "GHSA-hpq7-6v2v-xmq3",
+          "description": "Malicious code in internallib_v23 (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "internallib_v275": {
       "compromised": true,
       "severity": "critical",
@@ -326211,6 +326275,20 @@
           "date": "2026-10-05",
           "cve": "GHSA-wp69-7q5m-655v",
           "description": "Malicious code in internallib_v275 (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "internallib_v30": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-10-06",
+          "cve": "GHSA-rqhh-xrhc-wr23",
+          "description": "Malicious code in internallib_v30 (npm)",
           "origin": "ghsa"
         }
       ]
@@ -326323,6 +326401,34 @@
           "date": "2026-01-27",
           "cve": "GHSA-4r5c-58jj-47rr",
           "description": "Malware in internallib_v828",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "internallib_v86": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.2",
+          "type": "supply-chain",
+          "date": "2026-10-06",
+          "cve": "GHSA-5q3r-2hm2-jm3j",
+          "description": "Malicious code in internallib_v86 (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "internallib_v875": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-10-06",
+          "cve": "GHSA-pjcv-xqxg-cv9j",
+          "description": "Malicious code in internallib_v875 (npm)",
           "origin": "ghsa"
         }
       ]
@@ -485167,6 +485273,20 @@
         }
       ]
     },
+    "virgil-cli": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.4",
+          "type": "supply-chain",
+          "date": "2026-10-06",
+          "cve": "GHSA-6j8f-g5mj-4wcj",
+          "description": "Malicious code in virgil-cli (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "vishal_312pkg": {
       "compromised": true,
       "severity": "critical",
@@ -488642,5 +488762,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-05T13:24:29.624Z"
+  "lastRefresh": "2026-10-06T12:38:23.688Z"
 }
