@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-06",
+  "version": "2026-10-07",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -31513,6 +31513,20 @@
           "date": "2025-12-12",
           "cve": "GHSA-367v-g33p-g8jc",
           "description": "Malware in browser-client-neptune",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "browser-metrics-plugin.contrib": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.1",
+          "type": "supply-chain",
+          "date": "2026-10-07",
+          "cve": "GHSA-qxf4-wgfv-6mvr",
+          "description": "Malicious code in browser-metrics-plugin.contrib (npm)",
           "origin": "ghsa"
         }
       ]
@@ -464977,6 +464991,20 @@
         }
       ]
     },
+    "personio-pipeline-projen": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.171.31",
+          "type": "supply-chain",
+          "date": "2026-10-07",
+          "cve": "GHSA-ph63-hxpv-5cwm",
+          "description": "Malicious code in personio-pipeline-projen (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "pf23727": {
       "compromised": true,
       "severity": "critical",
@@ -476527,6 +476555,20 @@
         }
       ]
     },
+    "store-webpack-config": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.1-security",
+          "type": "supply-chain",
+          "date": "2026-10-07",
+          "cve": "GHSA-v9x4-6r9x-f7mf",
+          "description": "Malicious code in store-webpack-config (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "storefront-logger": {
       "compromised": true,
       "severity": "critical",
@@ -482213,6 +482255,20 @@
         }
       ]
     },
+    "troubleshooting": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.0",
+          "type": "supply-chain",
+          "date": "2026-10-07",
+          "cve": "GHSA-42gg-4m94-8m7w",
+          "description": "Malicious code in troubleshooting (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "true": {
       "compromised": true,
       "severity": "critical",
@@ -486051,6 +486107,20 @@
         }
       ]
     },
+    "waie-crash-baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-07",
+          "cve": "GHSA-5r5f-v5vv-289q",
+          "description": "Malware in waie-crash-baileys",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "wailib": {
       "compromised": true,
       "severity": "critical",
@@ -487231,6 +487301,20 @@
           "date": "2026-03-20",
           "cve": "GHSA-mqvj-42pf-qv58",
           "description": "Malware in wildhunter",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "windows_registry_editor": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.0.1-security",
+          "type": "supply-chain",
+          "date": "2026-10-07",
+          "cve": "GHSA-mmx2-rhc3-vg25",
+          "description": "Malicious code in windows_registry_editor (npm)",
           "origin": "ghsa"
         }
       ]
@@ -488762,5 +488846,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-06T12:38:23.688Z"
+  "lastRefresh": "2026-10-07T12:31:31.978Z"
 }
