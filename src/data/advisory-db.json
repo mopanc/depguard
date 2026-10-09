@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08",
+  "version": "2026-10-09",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -25729,6 +25729,20 @@
           "date": "2025-12-02",
           "cve": "GHSA-8vgr-2977-855f",
           "description": "Malware in @wxi-dev/serverless-tsc-config",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@wxwxtest/testrrrdd": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.0.1",
+          "type": "supply-chain",
+          "date": "2026-10-09",
+          "cve": "GHSA-8qcg-7j5r-xhvh",
+          "description": "Malicious code in @wxwxtest/testrrrdd (npm)",
           "origin": "ghsa"
         }
       ]
@@ -164409,6 +164423,20 @@
           "date": "2026-10-05",
           "cve": "GHSA-29mx-x4mq-3x9j",
           "description": "Malicious code in css-ogojwh-polyfill (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "css-overscroll-contain": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-10-09",
+          "cve": "GHSA-hjq9-gv63-8hh8",
+          "description": "Malicious code in css-overscroll-contain (npm)",
           "origin": "ghsa"
         }
       ]
@@ -466921,6 +466949,20 @@
         }
       ]
     },
+    "pxnpm": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 7.0.0-beta.6",
+          "type": "supply-chain",
+          "date": "2026-10-09",
+          "cve": "GHSA-h3fw-vmw2-h9xc",
+          "description": "Malicious code in pxnpm (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "pymongo": {
       "compromised": true,
       "severity": "critical",
@@ -480757,6 +480799,20 @@
         }
       ]
     },
+    "testrrrd": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-10-09",
+          "cve": "GHSA-w6fg-gwpf-x5xf",
+          "description": "Malicious code in testrrrd (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "testtestsharp": {
       "compromised": true,
       "severity": "critical",
@@ -487501,6 +487557,20 @@
         }
       ]
     },
+    "wie888r": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-10-09",
+          "cve": "GHSA-fhmp-x3hx-6669",
+          "description": "Malicious code in wie888r (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "wifi-killer-xnet": {
       "compromised": true,
       "severity": "critical",
@@ -487595,6 +487665,20 @@
           "date": "2026-03-02",
           "cve": "GHSA-5xm7-fvcm-hr3f",
           "description": "Malware in windowston",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "wix-reg-poc-bypass": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-10-09",
+          "cve": "GHSA-v43v-p74g-hrf9",
+          "description": "Malicious code in wix-reg-poc-bypass (npm)",
           "origin": "ghsa"
         }
       ]
@@ -488001,6 +488085,20 @@
           "date": "2026-09-18",
           "cve": "GHSA-h7pm-6wh6-7xvw",
           "description": "Malicious code in xa424234657567 (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "xblaxw": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.0.0",
+          "type": "supply-chain",
+          "date": "2026-10-09",
+          "cve": "GHSA-46q8-4h48-v8wc",
+          "description": "Malicious code in xblaxw (npm)",
           "origin": "ghsa"
         }
       ]
@@ -489126,5 +489224,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-08T12:41:12.354Z"
+  "lastRefresh": "2026-10-09T12:28:10.672Z"
 }
