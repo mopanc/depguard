@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-10",
+  "version": "2026-10-11",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -467937,6 +467937,20 @@
         }
       ]
     },
+    "react-dropzone-v4": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-10-11",
+          "cve": "GHSA-7945-qpg8-rjvv",
+          "description": "Malicious code in react-dropzone-v4 (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "react-element-prompt-inspector": {
       "compromised": true,
       "severity": "critical",
@@ -489224,5 +489238,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-10T11:47:06.193Z"
+  "lastRefresh": "2026-10-11T11:59:29.837Z"
 }
