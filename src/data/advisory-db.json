@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-12",
+  "version": "2026-10-13",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -9735,6 +9735,20 @@
           "date": "2026-08-07",
           "cve": "GHSA-m8jr-68xh-8qp9",
           "description": "Malicious code in @ch4acko3/frontal-lobe (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@chatest/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-13",
+          "cve": "GHSA-c2gc-jwcq-w8r3",
+          "description": "Malware in @chatest/baileys",
           "origin": "ghsa"
         }
       ]
@@ -31711,6 +31725,20 @@
           "date": "2026-02-03",
           "cve": "GHSA-97xw-rj6v-j7xc",
           "description": "Malware in braintree-web-latest",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "brass-common": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.9.1",
+          "type": "supply-chain",
+          "date": "2026-10-13",
+          "cve": "GHSA-fcgr-wqxm-5qqr",
+          "description": "Malicious code in brass-common (npm)",
           "origin": "ghsa"
         }
       ]
@@ -464463,6 +464491,20 @@
         }
       ]
     },
+    "orderly-plugin-liquidity-heatmap": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-10-13",
+          "cve": "GHSA-fp2f-2254-46g7",
+          "description": "Malicious code in orderly-plugin-liquidity-heatmap (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "origin_response_handler": {
       "compromised": true,
       "severity": "critical",
@@ -489484,5 +489526,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-12T14:14:02.370Z"
+  "lastRefresh": "2026-10-13T13:24:04.127Z"
 }
