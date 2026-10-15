@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "check-version": "node --import tsx scripts/check-version.ts",
-    "build": "tsc && rm -rf dist/data && mkdir -p dist/data && cp src/data/*.json dist/data/ && chmod 755 dist/cli.js",
+    "build": "tsc && rm -rf dist/data && mkdir -p dist/data && cp src/data/*.json dist/data/ && node scripts/pack-advisory-db.mjs && chmod 755 dist/cli.js",
     "test": "node --import tsx --test tests/*.test.ts",
     "lint": "eslint src/ tests/",
     "audit:security": "npm audit --audit-level=high --omit=dev",
