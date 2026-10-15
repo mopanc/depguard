@@ -94,6 +94,11 @@ export function mergeAdvisories(
   return merged
 }
 
+/** Warning emitted when registry metadata could not be fetched (report is degraded) */
+export const PACKAGE_UNAVAILABLE_WARNING = 'Could not fetch package data from npm registry'
+/** Warning emitted when the weekly download count is unknown (weeklyDownloads is then 0) */
+export const DOWNLOADS_UNAVAILABLE_WARNING = 'Could not fetch download counts'
+
 /**
  * Produce a full audit report for an npm package.
  * Combines advisories from both npm registry and GitHub Advisory Database.
@@ -125,7 +130,7 @@ export async function audit(
       scriptAnalysis: { suspicious: false, risks: [] },
       fixSuggestions: [],
       licenseCompatibility: checkLicenseCompatibility(null, targetLicense),
-      warnings: ['Could not fetch package data from npm registry'],
+      warnings: [PACKAGE_UNAVAILABLE_WARNING],
     }
   }
 
@@ -141,7 +146,7 @@ export async function audit(
   // Fetch downloads, npm advisories, and GitHub advisories concurrently
   const [downloads, npmAdvisories, ghAdvisories] = await Promise.all([
     fetchDownloads(name, fetcher).catch(() => {
-      warnings.push('Could not fetch download counts')
+      warnings.push(DOWNLOADS_UNAVAILABLE_WARNING)
       return 0
     }),
     fetchAdvisories(name, auditVersion, fetcher).catch(() => {

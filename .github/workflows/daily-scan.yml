@@ -2,7 +2,9 @@ name: Daily Security Scan
 
 on:
   schedule:
-    - cron: '0 6 * * *' # 06:00 UTC daily
+    # Off the top of the hour: GitHub queues :00 schedules heavily (runs were
+    # starting 5-8h late). 05:17 UTC lands well before the European workday.
+    - cron: '17 5 * * *'
   workflow_dispatch: # allow manual trigger
 
 permissions:

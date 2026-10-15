@@ -31,6 +31,40 @@ function getGitHubToken(): string | null {
 
 const DEFAULT_TTL = 5 * 60 * 1000 // 5 minutes
 
+/** Abort any single request after this long — one hung socket must not stall a whole audit */
+const REQUEST_TIMEOUT_MS = 15_000
+/** Retries for 429 / 5xx responses from npm endpoints */
+const MAX_RETRIES = 3
+const MAX_RETRY_DELAY_MS = 10_000
+/** api.npmjs.org accepts up to 128 unscoped packages per bulk downloads lookup */
+const BULK_DOWNLOADS_BATCH = 128
+
+function withTimeout(init: RequestInit = {}): RequestInit {
+  return { ...init, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) }
+}
+
+function isRetryable(status: number): boolean {
+  return status === 429 || status >= 500
+}
+
+function retryDelayMs(res: Response, attempt: number): number {
+  const retryAfter = Number(res.headers?.get?.('retry-after'))
+  const ms = Number.isFinite(retryAfter) && retryAfter >= 0 ? retryAfter * 1000 : 1000 * 2 ** attempt
+  return Math.min(ms, MAX_RETRY_DELAY_MS)
+}
+
+/**
+ * fetch with a per-request timeout, retrying rate-limited (429) and server
+ * error (5xx) responses with backoff. Returns the last response received.
+ */
+async function fetchWithRetry(fetcher: FetchFn, url: string, init: RequestInit = {}): Promise<Response> {
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetcher(url, withTimeout(init))
+    if (!isRetryable(res.status) || attempt >= MAX_RETRIES) return res
+    await new Promise(resolve => setTimeout(resolve, retryDelayMs(res, attempt)))
+  }
+}
+
 const cache = new Map<string, CacheEntry<unknown>>()
 
 function getCached<T>(key: string): T | null {
@@ -68,7 +102,7 @@ export async function fetchPackage(
   if (cached) return cached
 
   try {
-    const res = await fetcher(`${REGISTRY_URL}/${encodeURIComponent(name)}`, {
+    const res = await fetchWithRetry(fetcher, `${REGISTRY_URL}/${encodeURIComponent(name)}`, {
       headers: { 'Accept': 'application/json' },
     })
     if (!res.ok) return null
@@ -80,7 +114,12 @@ export async function fetchPackage(
   }
 }
 
-/** Fetch weekly download count */
+/**
+ * Fetch weekly download count.
+ * Throws when the count cannot be determined (rate limit, network, timeout) so
+ * callers can tell "unknown" apart from a genuine 0. A 404 means npm has no
+ * download stats for the package, which is a real answer: 0.
+ */
 export async function fetchDownloads(
   name: string,
   fetcher: FetchFn = globalThis.fetch,
@@ -89,17 +128,72 @@ export async function fetchDownloads(
   const cached = getCached<number>(key)
   if (cached !== null) return cached
 
-  try {
-    const res = await fetcher(`${DOWNLOADS_URL}/${encodeURIComponent(name)}`, {
-      headers: { 'Accept': 'application/json' },
-    })
-    if (!res.ok) return 0
-    const data = (await res.json()) as NpmDownloadsResponse
-    setCache(key, data.downloads)
-    return data.downloads
-  } catch {
-    return 0
+  const res = await fetchWithRetry(fetcher, `${DOWNLOADS_URL}/${encodeURIComponent(name)}`, {
+    headers: { 'Accept': 'application/json' },
+  })
+  if (res.status === 404) return 0
+  if (!res.ok) throw new Error(`npm downloads API returned HTTP ${res.status} for ${name}`)
+  const data = (await res.json()) as NpmDownloadsResponse
+  setCache(key, data.downloads)
+  return data.downloads
+}
+
+/**
+ * Fetch weekly download counts for many packages, using the bulk endpoint for
+ * unscoped names (scoped names are not supported in bulk and go one by one).
+ * Results are cached, so a later fetchDownloads() for the same name is free.
+ *
+ * Returns only the names whose count was determined. A name absent from the
+ * map means "unknown", never 0.
+ */
+export async function fetchBulkDownloads(
+  names: string[],
+  fetcher: FetchFn = globalThis.fetch,
+): Promise<Map<string, number>> {
+  const result = new Map<string, number>()
+  const unscoped: string[] = []
+  const scoped: string[] = []
+
+  for (const name of new Set(names)) {
+    const cached = getCached<number>(`dl:${name}`)
+    if (cached !== null) result.set(name, cached)
+    else (name.startsWith('@') ? scoped : unscoped).push(name)
   }
+
+  for (let i = 0; i < unscoped.length; i += BULK_DOWNLOADS_BATCH) {
+    const batch = unscoped.slice(i, i + BULK_DOWNLOADS_BATCH)
+    // A single-name "bulk" lookup returns the non-keyed response shape
+    if (batch.length === 1) {
+      scoped.push(batch[0])
+      continue
+    }
+    try {
+      const res = await fetchWithRetry(fetcher, `${DOWNLOADS_URL}/${batch.map(encodeURIComponent).join(',')}`, {
+        headers: { 'Accept': 'application/json' },
+      })
+      if (!res.ok) continue
+      const data = (await res.json()) as Record<string, NpmDownloadsResponse | null>
+      for (const name of batch) {
+        if (!(name in data)) continue
+        // null = npm has no stats for this name, same meaning as a 404
+        const downloads = data[name]?.downloads ?? 0
+        setCache(`dl:${name}`, downloads)
+        result.set(name, downloads)
+      }
+    } catch {
+      // Leave this batch unresolved — absent names are reported as unknown
+    }
+  }
+
+  for (const name of scoped) {
+    try {
+      result.set(name, await fetchDownloads(name, fetcher))
+    } catch {
+      // Unknown — leave absent
+    }
+  }
+
+  return result
 }
 
 /** Search npm registry */
@@ -116,7 +210,7 @@ export async function searchPackages(
 
   try {
     const params = new URLSearchParams({ text: keywords, size: String(limit) })
-    const res = await fetcher(`${SEARCH_URL}?${params}`, {
+    const res = await fetchWithRetry(fetcher, `${SEARCH_URL}?${params}`, {
       headers: { 'Accept': 'application/json' },
     })
     if (!res.ok) return empty
@@ -139,7 +233,7 @@ export async function fetchAdvisories(
   if (cached) return cached
 
   try {
-    const res = await fetcher(ADVISORIES_URL, {
+    const res = await fetchWithRetry(fetcher, ADVISORIES_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ [name]: [version] }),
@@ -195,7 +289,7 @@ export async function fetchBulkAdvisories(
     }
 
     try {
-      const res = await fetcher(ADVISORIES_URL, {
+      const res = await fetchWithRetry(fetcher, ADVISORIES_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -264,7 +358,7 @@ export async function fetchGitHubAdvisories(
     const headers: Record<string, string> = { 'Accept': 'application/vnd.github+json' }
     if (token) headers['Authorization'] = `Bearer ${token}`
 
-    const res = await fetcher(`${GITHUB_ADVISORIES_URL}?${params}`, { headers })
+    const res = await fetcher(`${GITHUB_ADVISORIES_URL}?${params}`, withTimeout({ headers }))
 
     // Track rate limit from response headers
     const remaining = res.headers?.get?.('x-ratelimit-remaining')

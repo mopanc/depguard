@@ -1,6 +1,6 @@
 import { describe, it, beforeEach } from 'node:test'
 import assert from 'node:assert/strict'
-import { audit, mergeAdvisories } from '../src/audit.js'
+import { audit, mergeAdvisories, DOWNLOADS_UNAVAILABLE_WARNING } from '../src/audit.js'
 import { clearCache, disableDiskCache } from '../src/registry.js'
 import type { FetchFn, GitHubAdvisory } from '../src/types.js'
 
@@ -68,6 +68,20 @@ describe('audit', () => {
     assert.strictEqual(report.vulnerabilities.total, 0)
     assert.strictEqual(report.licenseCompatibility.compatible, true)
     assert.strictEqual(report.warnings.length, 0)
+  })
+
+  it('warns when download counts are unavailable instead of silently reporting 0', async () => {
+    const base = createMockFetch()
+    const fetcher = ((input: string | URL | Request, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url
+      if (url.includes('api.npmjs.org/downloads')) {
+        return Promise.resolve({ ok: false, status: 429, headers: new Headers({ 'retry-after': '0' }) } as Response)
+      }
+      return base(input, init)
+    }) as FetchFn
+    const report = await audit('test-lib', 'MIT', fetcher)
+    assert.strictEqual(report.weeklyDownloads, 0)
+    assert.ok(report.warnings.includes(DOWNLOADS_UNAVAILABLE_WARNING))
   })
 
   it('reports vulnerabilities when present', async () => {
