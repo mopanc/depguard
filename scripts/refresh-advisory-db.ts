@@ -14,8 +14,8 @@
  * only "indirectly exposed" through a malicious dependency are skipped.
  * Curated incident descriptions are never overwritten.
  *
- * When the stored importerVersion is older than IMPORTER_VERSION, every source
- * is re-read from the beginning once, repairing entries written by older rules.
+ * When the stored importerVersion is older than IMPORTER_VERSION, the missing
+ * history is read once (see IMPORTER_VERSION for what each step does).
  *
  * Run: npx tsx scripts/refresh-advisory-db.ts [--full]
  * Env:  GITHUB_TOKEN (recommended — bumps rate limit 60 → 5000/h)
@@ -31,31 +31,26 @@ import type { GhsaAdvisory, Incident } from './ghsa-import.js'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DB_PATH = process.env.DEPGUARD_ADVISORY_DB_PATH ?? join(__dirname, '..', 'src', 'data', 'advisory-db.json')
 
-/** Bump when import rules change in a way that requires re-reading history. */
-const IMPORTER_VERSION = 2
+/**
+ * Bump when import rules change in a way that requires re-reading history.
+ * v1 → anything: full rebuild of every source (v1 kept only the first package
+ *      of each advisory, so every entry may need repair).
+ * v2 → v3: one-time backfill of malware advisories published before the v2
+ *      window, which began on 2025-11-17 (the original 180-day backfill).
+ *      That cut left out Shai-Hulud and the chalk hijack (September 2025).
+ */
+const IMPORTER_VERSION = 3
+const V2_MALWARE_WINDOW_START = '2025-11-17'
 
 /**
- * `rebuildFrom` bounds a rebuild. GitHub's malware history goes back to 2022
- * and is far larger than what depguard ships (the DB is bundled in the npm
- * package), so the malware source is only re-read from the oldest advisory
- * already imported, repairing entries without widening the scope. The
- * CWE-506 source is small (a few hundred advisories) and is read in full.
+ * GitHub's npm malware history (2022 onwards) is read in full on a rebuild:
+ * before the v2 window it holds ~18k advisories, versus ~89k in the 11 months
+ * after it, so completeness costs little and removes an arbitrary cut-off.
  */
 const SOURCES = [
-  { key: 'malware', label: 'malware', query: 'type=malware', rebuildFrom: 'oldest-imported' },
-  { key: 'reviewed-cwe506', label: 'hijacked (reviewed, CWE-506)', query: 'type=reviewed&cwes=506', rebuildFrom: 'beginning' },
+  { key: 'malware', label: 'malware', query: 'type=malware' },
+  { key: 'reviewed-cwe506', label: 'hijacked (reviewed, CWE-506)', query: 'type=reviewed&cwes=506' },
 ] as const
-
-/** Date of the oldest GHSA-imported incident, the start of the malware window. */
-function oldestImportedDate(db: AdvisoryDB): string | null {
-  let oldest: string | null = null
-  for (const pkg of Object.values(db.packages)) {
-    for (const i of pkg.incidents) {
-      if (i.origin === 'ghsa' && (!oldest || i.date < oldest)) oldest = i.date
-    }
-  }
-  return oldest
-}
 
 interface CompromisedPackage {
   compromised: boolean
@@ -136,10 +131,13 @@ async function backoff(attempt: number, retryAfter: string | null): Promise<void
 async function refresh(): Promise<void> {
   const startedAt = new Date()
   const db = loadDB()
-  const fullRebuild = process.argv.includes('--full') || (db.importerVersion ?? 1) < IMPORTER_VERSION
+  const storedVersion = db.importerVersion ?? 1
+  const fullRebuild = process.argv.includes('--full') || storedVersion < 2
+  const historyBackfill = !fullRebuild && storedVersion < 3
 
   console.log(`[refresh-advisory-db] current DB version: ${db.version}, packages: ${Object.keys(db.packages).length}`)
-  if (fullRebuild) console.log(`  full rebuild: importer v${db.importerVersion ?? 1} → v${IMPORTER_VERSION}, re-reading every source from the start`)
+  if (fullRebuild) console.log(`  full rebuild: importer v${storedVersion} → v${IMPORTER_VERSION}, re-reading every source from the start`)
+  if (historyBackfill) console.log(`  importer v${storedVersion} → v${IMPORTER_VERSION}: backfilling malware published before ${V2_MALWARE_WINDOW_START}`)
 
   const token = process.env.GITHUB_TOKEN
   if (!token) console.log('  [warn] no GITHUB_TOKEN — limited to 60 req/hour')
@@ -149,21 +147,38 @@ async function refresh(): Promise<void> {
   const sampleAdditions: Array<{ name: string; ghsa: string; range: string; summary: string }> = []
   const lastBySource = { ...(db.lastRefreshBySource ?? {}) }
 
+  // Each pass reads one query, newest first. Incremental passes start at the
+  // day of their source's last refresh; the v3 backfill reads what lies before
+  // the old malware window. Overlaps are harmless: re-seen advisories dedupe.
+  const passes: Array<{ key: string | null; label: string; query: string; filter: string }> = []
   for (const source of SOURCES) {
     // The malware source predates per-source state and used db.lastRefresh
-    let since: string | null
-    if (fullRebuild) {
-      since = source.rebuildFrom === 'oldest-imported' ? oldestImportedDate(db) : null
-    } else {
-      since = lastBySource[source.key] ?? (source.key === 'malware' ? db.lastRefresh : undefined) ?? null
-    }
+    const since = fullRebuild
+      ? null
+      : lastBySource[source.key] ?? (source.key === 'malware' ? db.lastRefresh : undefined) ?? null
     // >= the day, not >: a refresh runs mid-day, so ">" would skip for good
-    // every advisory published later that same day. Re-seen ones are deduped.
-    const sinceFilter = since ? `&published=%3E%3D${since.split('T')[0]}` : ''
-    console.log(`  source: ${source.label}${since ? ` since ${since.split('T')[0]}` : ' (full history)'}`)
+    // every advisory published later that same day.
+    passes.push({
+      key: source.key,
+      label: `${source.label}${since ? ` since ${since.split('T')[0]}` : ' (full history)'}`,
+      query: source.query,
+      filter: since ? `&published=%3E%3D${since.split('T')[0]}` : '',
+    })
+  }
+  if (historyBackfill) {
+    passes.push({
+      key: null,
+      label: `malware published before ${V2_MALWARE_WINDOW_START}`,
+      query: 'type=malware',
+      filter: `&published=%3C%3D${V2_MALWARE_WINDOW_START}`,
+    })
+  }
+
+  for (const source of passes) {
+    console.log(`  source: ${source.label}`)
 
     let url: string | null =
-      `https://api.github.com/advisories?${source.query}&ecosystem=npm&sort=published&direction=desc&per_page=100${sinceFilter}`
+      `https://api.github.com/advisories?${source.query}&ecosystem=npm&sort=published&direction=desc&per_page=100${source.filter}`
 
     while (url) {
       stats.pages++
@@ -212,7 +227,7 @@ async function refresh(): Promise<void> {
 
       url = next
     }
-    lastBySource[source.key] = startedAt.toISOString()
+    if (source.key) lastBySource[source.key] = startedAt.toISOString()
   }
 
   db.version = startedAt.toISOString().split('T')[0]
