@@ -83,6 +83,15 @@ function findImported(pkg: CompromisedPackage, adv: GhsaAdvisory): Incident | un
   return pkg.incidents.find(i => i.cve === id || i.cve === adv.ghsa_id || (adv.cve_id !== null && i.cve === adv.cve_id))
 }
 
+const REQUEST_TIMEOUT_MS = 30_000
+const MAX_ATTEMPTS = 5
+
+/**
+ * One page of advisories. Every request has a timeout (a hung socket once
+ * stalled a rebuild indefinitely) and transient failures are retried with
+ * backoff: network errors, 5xx, and GitHub's rate limits (429, or 403 with
+ * retry-after / an exhausted quota), honouring retry-after when present.
+ */
 async function fetchPage(url: string, token: string | undefined): Promise<{ items: GhsaAdvisory[]; next: string | null }> {
   const headers: Record<string, string> = {
     'Accept': 'application/vnd.github+json',
@@ -90,14 +99,38 @@ async function fetchPage(url: string, token: string | undefined): Promise<{ item
   }
   if (token) headers['Authorization'] = `Bearer ${token}`
 
-  const res = await fetch(url, { headers })
-  if (!res.ok) {
-    throw new Error(`GHSA fetch failed: ${res.status} ${res.statusText} — ${await res.text()}`)
+  for (let attempt = 1; ; attempt++) {
+    let res: Response
+    try {
+      res = await fetch(url, { headers, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) })
+    } catch (e) {
+      if (attempt >= MAX_ATTEMPTS) throw new Error(`GHSA fetch failed after ${attempt} attempts: ${(e as Error).message}`)
+      await backoff(attempt, null)
+      continue
+    }
+
+    const rateLimited = res.status === 429 ||
+      (res.status === 403 && (res.headers.has('retry-after') || res.headers.get('x-ratelimit-remaining') === '0'))
+    if ((rateLimited || res.status >= 500) && attempt < MAX_ATTEMPTS) {
+      await backoff(attempt, res.headers.get('retry-after'))
+      continue
+    }
+    if (!res.ok) {
+      throw new Error(`GHSA fetch failed: ${res.status} ${res.statusText} — ${await res.text()}`)
+    }
+
+    const items = (await res.json()) as GhsaAdvisory[]
+    const link = res.headers.get('link') ?? ''
+    const nextMatch = link.match(/<([^>]+)>;\s*rel="next"/)
+    return { items, next: nextMatch ? nextMatch[1] : null }
   }
-  const items = (await res.json()) as GhsaAdvisory[]
-  const link = res.headers.get('link') ?? ''
-  const nextMatch = link.match(/<([^>]+)>;\s*rel="next"/)
-  return { items, next: nextMatch ? nextMatch[1] : null }
+}
+
+async function backoff(attempt: number, retryAfter: string | null): Promise<void> {
+  const seconds = Number(retryAfter)
+  const ms = Number.isFinite(seconds) && seconds > 0 ? seconds * 1000 : 2000 * 2 ** (attempt - 1)
+  console.log(`    retrying in ${Math.round(ms / 1000)}s (attempt ${attempt + 1}/${MAX_ATTEMPTS})`)
+  await new Promise(resolve => setTimeout(resolve, Math.min(ms, 120_000)))
 }
 
 async function refresh(): Promise<void> {
