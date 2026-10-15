@@ -1,6 +1,6 @@
 # depguard-cli
 
-**Find out in seconds whether an npm supply-chain attack reached your machine.** When a worm or a hijacked maintainer account ships malicious versions, `npx depguard-cli exposure` checks every project, global install and the npm download cache on your machine against ~35,000 known-malicious npm packages. It tells you exactly where a bad version is, whether it was installed, and what to rotate. depguard also audits packages before you install them and repositories before you open them. Zero runtime dependencies. Runs in the terminal or as an MCP server for Claude, Cursor, Windsurf and any MCP client.
+**Find out in seconds whether an npm supply-chain attack reached your machine.** When a worm or a hijacked maintainer account ships malicious versions, `npx depguard-cli exposure` checks every project, global install and the npm download cache on your machine against 100,000+ known-malicious npm packages. It tells you exactly where a bad version is, whether it was installed, and what to rotate. depguard also audits packages before you install them and repositories before you open them. Zero runtime dependencies. Runs in the terminal or as an MCP server for Claude, Cursor, Windsurf and any MCP client.
 
 [![npm](https://img.shields.io/npm/v/depguard-cli)](https://www.npmjs.com/package/depguard-cli) [![license](https://img.shields.io/npm/l/depguard-cli)](LICENSE)
 
@@ -307,7 +307,7 @@ Suitable for **EU Cyber Resilience Act**, **US Executive Order 14028 / OMB M-22-
 **Development.**
 
 ```bash
-npm test          # 469 offline tests
+npm test          # 524 offline tests
 npm run check     # version + build + lint + test + audit:security (gates publish)
 ```
 

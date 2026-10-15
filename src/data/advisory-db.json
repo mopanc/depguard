@@ -1197924,7 +1197924,7 @@
       "severity": "critical",
       "incidents": [
         {
-          "version": "10.1.0,10.1.1,10.1.2",
+          "version": "10.1.1,10.1.2",
           "type": "protestware",
           "date": "2022-03-16",
           "cve": "CVE-2022-23812",
@@ -1202202,6 +1202202,14 @@
           "cve": "CVE-2017-16066",
           "description": "opencv.js is malware",
           "origin": "ghsa"
+        },
+        {
+          "version": "1.0.1",
+          "type": "typosquat",
+          "date": "2017-07-19",
+          "cve": null,
+          "description": "Typosquat that exfiltrated environment variables (CVE-2017-16066). Later versions belong to a legitimate OpenCV port that took over the name.",
+          "origin": "curated"
         }
       ]
     },
