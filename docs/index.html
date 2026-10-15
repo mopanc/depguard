@@ -695,12 +695,12 @@
 
     <div class="releases">
       <article class="release" id="v1-15-1">
-        <div class="ver"><b>v1.15.1</b><span>16 October 2026</span></div>
+        <div class="ver"><b>v1.15.1</b><span>15 October 2026</span></div>
         <div>
           <h2>Fewer false alarms, Shai-Hulud covered</h2>
           <p>A wider review of the database, and a gate so a false positive cannot ship unnoticed again.</p>
           <ul>
-            <li><b>Four false positives removed:</b> node-ipc 10.1.0, fsevents 1.x, bignum 0.12.2 to 0.13.0, and the legitimate opencv.js port. Each was clean software flagged by a too-broad entry.</li>
+            <li><b>False positives removed:</b> node-ipc 10.1.0, fsevents 1.x, bignum 0.12.2 to 0.13.0, the legitimate opencv.js port, @ebay/ui-core-react, and the empty placeholder releases npm publishes after removing malware. Each was clean software flagged by a too-broad entry.</li>
             <li><b>Shai-Hulud and the chalk hijack are detected.</b> Malware advisories from before November 2025 were never imported; the database now holds the full history, about 108,000 packages.</li>
             <li><b>Precision gate.</b> Every database update is tested against known-clean versions and the most popular npm packages before it is committed.</li>
           </ul>
