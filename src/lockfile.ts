@@ -561,6 +561,19 @@ export interface InstalledPackage {
 export const LOCKFILE_NAMES = ['package-lock.json', 'npm-shrinkwrap.json', 'pnpm-lock.yaml', 'yarn.lock', 'bun.lock'] as const
 
 /**
+ * Every installed (name, version) pair for a project, read from its lock file.
+ * Picks the lock file the package manager itself would use: npm-shrinkwrap.json
+ * over package-lock.json, then pnpm, yarn and bun. [] when there is none.
+ */
+export function getInstalledPackages(projectPath: string): InstalledPackage[] {
+  for (const name of ['npm-shrinkwrap.json', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock', 'bun.lock']) {
+    const lockPath = join(projectPath, name)
+    if (existsSync(lockPath)) return parseLockfilePackages(lockPath)
+  }
+  return []
+}
+
+/**
  * Every (name, version) pair in a lock file, including nested and duplicate
  * copies of the same package. Unlike getAllInstalledVersions (one version per
  * name, nested npm copies skipped), this is what an exposure check needs: a

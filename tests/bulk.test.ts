@@ -269,6 +269,73 @@ describe('auditProject', () => {
     assert.ok(report.warnings?.some(w => w.includes('transitive')))
   })
 
+  it('audits direct deps at the installed version, not the latest', async () => {
+    writeFileSync(join(tmpDir, 'package.json'), JSON.stringify({ name: 'p', dependencies: { 'pkg-a': '^1.0.0' } }))
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 3,
+      packages: { '': { name: 'p' }, 'node_modules/pkg-a': { version: '1.0.0' } },
+    }))
+    const registryPkg = {
+      ...makePkg('pkg-a'),
+      'dist-tags': { latest: '2.0.0' },
+      versions: {
+        '1.0.0': { name: 'pkg-a', version: '1.0.0', license: 'MIT', dependencies: {} },
+        '2.0.0': { name: 'pkg-a', version: '2.0.0', license: 'MIT', dependencies: {} },
+      },
+    }
+    const sentVersions: string[] = []
+    const fetcher = ((input: string | URL | Request, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url
+      if (url.includes('registry.npmjs.org/pkg-a')) {
+        return Promise.resolve({ ok: true, json: async () => registryPkg } as Response)
+      }
+      if (url.includes('security/advisories/bulk') && init?.body) {
+        const body = JSON.parse(init.body as string) as Record<string, string[]>
+        if (body['pkg-a']) sentVersions.push(...body['pkg-a'])
+        return Promise.resolve({ ok: true, json: async () => ({}) } as Response)
+      }
+      return createMockFetch([])(input, init)
+    }) as FetchFn
+
+    const report = await auditProject(join(tmpDir, 'package.json'), { fetcher })
+    assert.strictEqual(report.results[0].version, '1.0.0')
+    assert.deepStrictEqual(sentVersions, ['1.0.0'])
+    assert.strictEqual(report.transitiveSummary?.totalDeps, 0)
+  })
+
+  it('checks every installed copy of a transitive dep and attributes advisories to the exact version', async () => {
+    writeFileSync(join(tmpDir, 'package.json'), JSON.stringify({ name: 'p', dependencies: { 'pkg-a': '^1.0.0' } }))
+    writeFileSync(join(tmpDir, 'package-lock.json'), JSON.stringify({
+      lockfileVersion: 3,
+      packages: {
+        '': { name: 'p' },
+        'node_modules/pkg-a': { version: '1.0.0' },
+        'node_modules/shared': { version: '2.0.0' },
+        'node_modules/pkg-a/node_modules/shared': { version: '1.4.0' },
+      },
+    }))
+    const advisory = { id: 7, title: 'RCE in shared', severity: 'critical', url: 'https://github.com/advisories/GHSA-x', vulnerable_versions: '<1.5.0', patched_versions: '>=1.5.0' }
+    const base = createMockFetch(['pkg-a'])
+    const fetcher = ((input: string | URL | Request, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url
+      if (url.includes('security/advisories/bulk') && init?.body) {
+        const body = JSON.parse(init.body as string) as Record<string, string[]>
+        const hit = body.shared?.[0] === '1.4.0'
+        return Promise.resolve({ ok: true, json: async () => (hit ? { shared: [advisory] } : {}) } as Response)
+      }
+      return base(input, init)
+    }) as FetchFn
+
+    const report = await auditProject(join(tmpDir, 'package.json'), { fetcher })
+    const ts = report.transitiveSummary
+    assert.ok(ts)
+    assert.strictEqual(ts.totalDeps, 2)
+    assert.strictEqual(ts.vulnerable, 1)
+    assert.strictEqual(ts.details[0].name, 'shared')
+    assert.strictEqual(ts.details[0].version, '1.4.0')
+    assert.strictEqual(ts.critical, 1)
+  })
+
   it('reports clean transitive summary when no transitive vulns found', async () => {
     const pkg = {
       name: 'test-project',
