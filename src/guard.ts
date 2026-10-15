@@ -109,6 +109,17 @@ export function findSimilarPackages(name: string, maxDistance = 2): string[] {
 }
 
 /**
+ * Split an install spec ("express", "express@4.18.2", "@scope/pkg@^1") into
+ * the package name and the optional version, range or dist-tag after it.
+ */
+export function parsePackageSpec(spec: string): { name: string; version?: string } {
+  const at = spec.indexOf('@', spec.startsWith('@') ? 1 : 0)
+  if (at <= 0) return { name: spec }
+  const version = spec.slice(at + 1).trim()
+  return version ? { name: spec.slice(0, at), version } : { name: spec.slice(0, at) }
+}
+
+/**
  * Verify if an npm package exists and check for typosquatting.
  * Lightweight — no audit, just existence + name similarity check.
  */
@@ -117,10 +128,11 @@ export async function verify(
   options: VerifyOptions = {},
 ): Promise<VerifyResult> {
   const fetcher = options.fetcher ?? globalThis.fetch
-  const similarTo = findSimilarPackages(packageName)
+  const { name } = parsePackageSpec(packageName)
+  const similarTo = findSimilarPackages(name)
   const possibleTyposquat = similarTo.length > 0
 
-  const pkg = await fetchPackage(packageName, fetcher)
+  const pkg = await fetchPackage(name, fetcher)
 
   if (!pkg) {
     return {
@@ -159,8 +171,10 @@ export async function guard(
   const reasons: string[] = []
   let decision: GuardResult['decision'] = 'allow'
 
+  const { name, version: requested } = parsePackageSpec(packageName)
+
   // Step 1: Verify existence (hallucination guard)
-  const verifyResult = await verify(packageName, { fetcher })
+  const verifyResult = await verify(name, { fetcher })
 
   if (!verifyResult.exists) {
     reasons.push('Package does not exist on npm — possible AI hallucination')
@@ -183,9 +197,33 @@ export async function guard(
   // if the LATEST version (what would actually get installed) falls inside a
   // known-malicious range. Historical incidents on different versions are not
   // grounds to block; see policy `depguard-false-positive-aversion-policy`.
-  const targetVersion = verifyResult.version
+  let targetVersion = verifyResult.version
+  if (requested) {
+    const pkg = await fetchPackage(name, fetcher)
+    const resolved = pkg?.['dist-tags']?.[requested] ?? (pkg?.versions?.[requested] ? requested : null)
+    if (resolved || getCompromisedIncidents(name, requested).length > 0) {
+      // A malicious version npm already removed is still reported as compromised
+      targetVersion = resolved ?? requested
+    } else if (/^v?\d+\.\d+\.\d+(?:[-+].*)?$/.test(requested)) {
+      // An exact version that is not on npm cannot be installed
+      reasons.push(pkg?.time?.[requested]
+        ? `Version ${requested} of ${name} was removed from npm and cannot be installed`
+        : `Version ${requested} of ${name} was never published on npm: possible AI hallucination`)
+      return {
+        package: packageName,
+        decision: 'block',
+        exists: true,
+        possibleTyposquat: verifyResult.possibleTyposquat,
+        similarTo: verifyResult.similarTo,
+        score: null,
+        reasons,
+        auditSummary: null,
+      }
+    }
+    // A range is checked at the latest version, which is what it usually resolves to
+  }
   const matchingIncidents = targetVersion
-    ? getCompromisedIncidents(packageName, targetVersion)
+    ? getCompromisedIncidents(name, targetVersion)
     : []
   if (matchingIncidents.length > 0) {
     const incident = matchingIncidents[0]
@@ -216,8 +254,8 @@ export async function guard(
 
   try {
     const [auditReport, scoreReport] = await Promise.all([
-      audit(packageName, targetLicense, fetcher),
-      score(packageName, { targetLicense, fetcher }),
+      audit(name, targetLicense, fetcher, targetVersion ?? undefined),
+      score(name, { targetLicense, fetcher }),
     ])
 
     scoreResult = scoreReport.total

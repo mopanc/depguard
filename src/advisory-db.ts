@@ -34,6 +34,12 @@ export interface AdvisoryException {
   /** Either a GHSA id, CVE id, or "*" to suppress every incident for the package. */
   id: string
   reason: string
+  /**
+   * Official advisories (GHSA ids) that wrongly call this package itself
+   * malicious. They are left out of audit results for the package, not only
+   * out of compromise checks.
+   */
+  disputedAdvisories?: string[]
 }
 
 export interface CompromisedPackage {
@@ -73,6 +79,8 @@ let db: Map<string, CompromisedPackage> | null = null
 let dbVersion = ''
 /** name → set of suppressed ids ("*" suppresses every incident) */
 let exceptions: Map<string, Set<string>> = new Map()
+/** name → disputed official advisory id (upper case GHSA) → reason */
+let disputed: Map<string, Map<string, string>> = new Map()
 
 /**
  * Load the advisory database from the bundled JSON file.
@@ -83,6 +91,7 @@ function ensureLoaded(): void {
 
   db = new Map()
   exceptions = new Map()
+  disputed = new Map()
   try {
     const thisDir = dirname(fileURLToPath(import.meta.url))
     const possibleDirs = [
@@ -130,7 +139,28 @@ function loadExceptions(parsed: unknown): void {
     const set = exceptions.get(e.package) ?? new Set<string>()
     set.add(e.id)
     exceptions.set(e.package, set)
+    for (const id of e.disputedAdvisories ?? []) {
+      const ids = disputed.get(e.package) ?? new Map<string, string>()
+      ids.set(id.toUpperCase(), e.reason)
+      disputed.set(e.package, ids)
+    }
   }
+}
+
+/**
+ * Returns the documented reason when an official advisory (identified by its
+ * URL, which carries the GHSA id) wrongly calls `name@version` malicious, else
+ * null. Audits drop these advisories so a clean package is not reported as
+ * malware. A version the database itself lists as compromised (opencv.js
+ * 1.0.1) is never treated as disputed.
+ */
+export function disputedAdvisoryReason(name: string, version: string, advisoryUrl: string): string | null {
+  ensureLoaded()
+  const ids = disputed.get(name)
+  if (!ids) return null
+  if (getCompromisedIncidents(name, version).length > 0) return null
+  const ghsa = advisoryUrl.match(/GHSA(-[23456789cfghjmpqrvwx]{4}){3}/i)?.[0]?.toUpperCase()
+  return ghsa ? ids.get(ghsa) ?? null : null
 }
 
 function isExcepted(name: string, incident: Incident): boolean {

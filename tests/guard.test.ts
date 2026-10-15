@@ -1,6 +1,6 @@
 import { describe, it, beforeEach } from 'node:test'
 import assert from 'node:assert/strict'
-import { levenshtein, findSimilarPackages, verify, guard } from '../src/guard.js'
+import { levenshtein, findSimilarPackages, verify, guard, parsePackageSpec } from '../src/guard.js'
 import { clearCache, disableDiskCache } from '../src/registry.js'
 import type { FetchFn } from '../src/types.js'
 
@@ -195,5 +195,70 @@ describe('guard', () => {
       fetcher,
     })
     assert.ok(result.reasons.some(r => r.includes('critical')))
+  })
+})
+
+describe('parsePackageSpec', () => {
+  it('splits names, scoped names, versions, ranges and tags', () => {
+    assert.deepEqual(parsePackageSpec('express'), { name: 'express' })
+    assert.deepEqual(parsePackageSpec('express@4.18.2'), { name: 'express', version: '4.18.2' })
+    assert.deepEqual(parsePackageSpec('@scope/pkg'), { name: '@scope/pkg' })
+    assert.deepEqual(parsePackageSpec('@scope/pkg@^1.2.0'), { name: '@scope/pkg', version: '^1.2.0' })
+    assert.deepEqual(parsePackageSpec('pkg@latest'), { name: 'pkg', version: 'latest' })
+    assert.deepEqual(parsePackageSpec('pkg@'), { name: 'pkg' })
+  })
+})
+
+describe('guard with name@version', () => {
+  const nodeIpc = {
+    name: 'node-ipc',
+    'dist-tags': { latest: '12.0.0' },
+    license: 'MIT',
+    time: { created: '2014-01-01T00:00:00.000Z', modified: '2024-01-01T00:00:00.000Z' },
+    versions: Object.fromEntries(['10.1.0', '10.1.1', '12.0.0'].map(v => [v, { name: 'node-ipc', version: v, license: 'MIT' }])),
+  }
+
+  it('does not report an existing version as a hallucination', async () => {
+    const result = await guard('test-lib@2.5.0', { fetcher: createMockFetch() })
+    assert.strictEqual(result.exists, true)
+    assert.notStrictEqual(result.decision, 'block')
+    assert.strictEqual(result.package, 'test-lib@2.5.0')
+  })
+
+  it('accepts dist-tags and ranges', async () => {
+    for (const spec of ['test-lib@latest', 'test-lib@^2.0.0']) {
+      const result = await guard(spec, { fetcher: createMockFetch() })
+      assert.strictEqual(result.exists, true, spec)
+      assert.notStrictEqual(result.decision, 'block', spec)
+    }
+  })
+
+  it('blocks an exact version that was never published', async () => {
+    const result = await guard('test-lib@9.9.9', { fetcher: createMockFetch() })
+    assert.strictEqual(result.decision, 'block')
+    assert.ok(result.reasons.some(r => r.includes('never published')))
+  })
+
+  it('checks the requested version against the known-malicious database', async () => {
+    const fetcher = createMockFetch({ 'registry.npmjs.org/node-ipc': nodeIpc })
+    const bad = await guard('node-ipc@10.1.1', { fetcher })
+    assert.strictEqual(bad.decision, 'block')
+    assert.ok(bad.reasons.some(r => r.startsWith('KNOWN COMPROMISED')))
+    const clean = await guard('node-ipc@10.1.0', { fetcher })
+    assert.ok(!clean.reasons.some(r => r.startsWith('KNOWN COMPROMISED')))
+  })
+
+  it('reports a malicious version npm already removed as compromised, not as a hallucination', async () => {
+    // 10.1.2 is not in the fixture's versions, like a version npm took down
+    const result = await guard('node-ipc@10.1.2', { fetcher: createMockFetch({ 'registry.npmjs.org/node-ipc': nodeIpc }) })
+    assert.strictEqual(result.decision, 'block')
+    assert.ok(result.reasons.some(r => r.startsWith('KNOWN COMPROMISED')))
+  })
+})
+
+describe('verify with name@version', () => {
+  it('looks up the package name, not the whole spec', async () => {
+    const result = await verify('test-lib@2.5.0', { fetcher: createMockFetch() })
+    assert.strictEqual(result.exists, true)
   })
 })

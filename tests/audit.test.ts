@@ -256,3 +256,51 @@ describe('mergeAdvisories — multi-package GHSA handling', () => {
     assert.strictEqual(merged[0].vulnerable_versions, '< 7.0.0-alpha.20')
   })
 })
+
+// Official advisories that wrongly call a package itself malicious are listed
+// as `disputedAdvisories` in the exception file and left out of audits.
+describe('mergeAdvisories — disputed advisories', () => {
+  const malware = (pkg: string, ghsa: string, range: string): GitHubAdvisory => ({
+    ghsa_id: ghsa,
+    cve_id: null,
+    summary: `Malware in ${pkg}`,
+    severity: 'critical',
+    html_url: `https://github.com/advisories/${ghsa}`,
+    vulnerabilities: [{ package: { ecosystem: 'npm', name: pkg }, vulnerable_version_range: range, first_patched_version: null }],
+    cwes: [{ cwe_id: 'CWE-506' }],
+    cvss: null,
+  } as GitHubAdvisory)
+
+  it('drops a disputed GitHub advisory for the excepted package', () => {
+    const gh = [malware('@ebay/ui-core-react', 'GHSA-536f-jp4m-fgrw', '<= 9.8.1')]
+    assert.strictEqual(mergeAdvisories([], gh, '9.8.1', '@ebay/ui-core-react').length, 0)
+  })
+
+  it('drops a disputed npm advisory for the excepted package', () => {
+    const npm = [{
+      id: 1097171, title: 'Malware in @ebay/ui-core-react', severity: 'critical' as const,
+      url: 'https://github.com/advisories/GHSA-536f-jp4m-fgrw', vulnerable_versions: '>=0', patched_versions: null,
+    }]
+    assert.strictEqual(mergeAdvisories(npm, [], '9.8.1', '@ebay/ui-core-react').length, 0)
+  })
+
+  it('drops the opencv.js malware advisory for the legitimate port', () => {
+    const gh = [malware('opencv.js', 'GHSA-5hxw-r847-qfwp', '<= 1.2.1')]
+    assert.strictEqual(mergeAdvisories([], gh, '1.2.1', 'opencv.js').length, 0)
+  })
+
+  it('keeps the advisory for a version the database lists as compromised', () => {
+    const gh = [malware('opencv.js', 'GHSA-5hxw-r847-qfwp', '<= 1.2.1')]
+    assert.strictEqual(mergeAdvisories([], gh, '1.0.1', 'opencv.js').length, 1)
+  })
+
+  it('keeps the same advisory id for any other package', () => {
+    const gh = [malware('some-other-pkg', 'GHSA-536f-jp4m-fgrw', '<= 1.0.0')]
+    assert.strictEqual(mergeAdvisories([], gh, '1.0.0', 'some-other-pkg').length, 1)
+  })
+
+  it('keeps advisories that are excepted only from compromise checks', () => {
+    const gh = [malware('fsevents', 'GHSA-8r6j-v8pm-fqw3', '<= 1.2.10')]
+    assert.strictEqual(mergeAdvisories([], gh, '1.2.9', 'fsevents').length, 1)
+  })
+})

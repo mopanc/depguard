@@ -41,7 +41,7 @@ const TOOLS = [
     inputSchema: {
       type: 'object' as const,
       properties: {
-        name: { type: 'string', description: 'npm package name to check before installing' },
+        name: { type: 'string', description: 'npm package name to check before installing, optionally with the version to install (e.g. "express" or "express@4.18.2")' },
         threshold: { type: 'number', description: 'Score threshold for allow decision (default: 60)' },
         targetLicense: { type: 'string', description: 'Project license for compatibility check (default: MIT)' },
       },

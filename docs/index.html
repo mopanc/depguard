@@ -52,7 +52,7 @@
     "description": "Answers whether a machine was hit by an npm supply-chain attack: scans every lock file, global install and the npm cache for known-malicious package versions. Also a pre-install guard, a pre-open repository audit against fake-interview malware, vulnerability audit and CycloneDX 1.6 SBOM generation. CLI and MCP server with 15 tools. Zero dependencies.",
     "url": "https://depguard.dev",
     "downloadUrl": "https://www.npmjs.com/package/depguard-cli",
-    "softwareVersion": "1.15.1",
+    "softwareVersion": "1.15.2",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "programmingLanguage": "TypeScript",
     "runtimePlatform": "Node.js",
@@ -694,6 +694,17 @@
     </div>
 
     <div class="releases">
+      <article class="release" id="v1-15-2">
+        <div class="ver"><b>v1.15.2</b><span>15 October 2026</span></div>
+        <div>
+          <h2>Clean packages stay clean everywhere</h2>
+          <p>Two follow-ups found while checking the 1.15.1 release against the live registry.</p>
+          <ul>
+            <li><b>Disputed advisories are no longer counted in audits.</b> @ebay/ui-core-react and the legitimate opencv.js port were still shown as critical malware by audit, because the official advisories bypassed the exception list. The malicious opencv.js 1.0.1 is still reported.</li>
+            <li><b>guard accepts name@version.</b> guard express@4.18.2 used to block the package as a possible hallucination. It now checks and audits the version you are about to install, and reports a removed malicious version such as chalk@5.6.1 as compromised.</li>
+          </ul>
+        </div>
+      </article>
       <article class="release" id="v1-15-1">
         <div class="ver"><b>v1.15.1</b><span>15 October 2026</span></div>
         <div>
