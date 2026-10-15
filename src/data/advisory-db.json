@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-14",
+  "version": "2026-10-15",
   "packages": {
     "02-echo": {
       "compromised": true,
@@ -12249,6 +12249,20 @@
           "date": "2026-07-14",
           "cve": "GHSA-4xgj-9m4q-8g8v",
           "description": "Malware in @flex-ng/header-component",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@flexmr/ui": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.99.99",
+          "type": "supply-chain",
+          "date": "2026-10-15",
+          "cve": "GHSA-ccxj-49h8-hp3q",
+          "description": "Malicious code in @flexmr/ui (npm)",
           "origin": "ghsa"
         }
       ]
@@ -479896,6 +479910,14 @@
           "cve": "GHSA-xhr7-h7hc-7785",
           "description": "Malicious code in tailwindcss-form (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-15",
+          "cve": "GHSA-c8m9-qwg6-5cv9",
+          "description": "Malware in tailwindcss-form",
+          "origin": "ghsa"
         }
       ]
     },
@@ -480119,6 +480141,20 @@
           "date": "2025-12-30",
           "cve": "GHSA-gg45-2h47-hmmj",
           "description": "Malware in tailwindcss-typography-style",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "tailwindcss-uniform": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-15",
+          "cve": "GHSA-r7f7-6833-rxh9",
+          "description": "Malware in tailwindcss-uniform",
           "origin": "ghsa"
         }
       ]
@@ -485413,6 +485449,20 @@
         }
       ]
     },
+    "util-foriepft": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-10-15",
+          "cve": "GHSA-jc4x-j69j-jf5c",
+          "description": "Malicious code in util-foriepft (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "uudi": {
       "compromised": true,
       "severity": "critical",
@@ -489680,5 +489730,5 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-14T11:02:19.684Z"
+  "lastRefresh": "2026-10-15T10:45:13.048Z"
 }
