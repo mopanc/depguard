@@ -4,18 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>depguard: was your machine hit by an npm supply-chain attack?</title>
-  <meta name="description" content="Check every project, global install and the npm cache on your machine for known-malicious npm package versions in seconds: npx depguard-cli exposure. 35,000+ malicious packages including hijacked releases like debug@4.4.2. Also a pre-install guard, a pre-open repo audit against fake-interview malware, and an MCP server for Claude, Cursor and Windsurf. Free, open source, zero dependencies.">
+  <meta name="description" content="Check every project, global install and the npm cache on your machine for known-malicious npm package versions in seconds: npx depguard-cli exposure. 100,000+ malicious packages including hijacked releases like debug@4.4.2. Also a pre-install guard, a pre-open repo audit against fake-interview malware, and an MCP server for Claude, Cursor and Windsurf. Free, open source, zero dependencies.">
   <meta name="keywords" content="npm malware scanner, npm supply chain attack, was I affected, compromised npm package, Shai-Hulud, npm worm, hijacked npm package, check installed packages for malware, lockfile scanner, npm cache, incident response, fake interview malware, VS Code tasks.json malware, MCP server, npm security, AI coding agent, Claude MCP, Cursor MCP, SBOM, CycloneDX, depguard">
   <meta name="author" content="Jorge Morais">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <meta name="theme-color" content="#080c14">
-  <link rel="canonical" href="https://depguard.dev">
+  <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a1916" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://depguard.dev/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="depguard: was your machine hit by an npm supply-chain attack?">
-  <meta property="og:description" content="Run npx depguard-cli exposure to check every lock file, global install and the npm cache on your machine against 35,000+ known-malicious npm packages. Exact version matches, every location, what to rotate.">
-  <meta property="og:url" content="https://depguard.dev">
+  <meta property="og:description" content="Run npx depguard-cli exposure to check every lock file, global install and the npm cache on your machine against 100,000+ known-malicious npm packages. Exact version matches, every location, what to rotate.">
+  <meta property="og:url" content="https://depguard.dev/">
   <meta property="og:site_name" content="depguard">
   <meta property="og:image" content="https://depguard.dev/og-image.png">
   <meta property="og:image:type" content="image/png">
@@ -27,21 +28,16 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="depguard: was your machine hit by an npm supply-chain attack?">
-  <meta name="twitter:description" content="Run npx depguard-cli exposure to check every lock file, global install and the npm cache on your machine against 35,000+ known-malicious npm packages. Exact version matches, every location, what to rotate.">
+  <meta name="twitter:description" content="Run npx depguard-cli exposure to check every lock file, global install and the npm cache on your machine against 100,000+ known-malicious npm packages. Exact version matches, every location, what to rotate.">
   <meta name="twitter:image" content="https://depguard.dev/og-image.png">
   <meta name="twitter:image:alt" content="depguard: was your machine hit by an npm supply-chain attack? npx depguard-cli exposure">
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NNXTZPVDT5"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-NNXTZPVDT5');
-  </script>
+  <!-- Favicon: the receipt mark -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23f4f1e8'/%3E%3Cg transform='translate(8 12) scale(.84)' fill='none' stroke-width='9.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 10 H76 V82 L67.3 75 L58.7 82 L50 75 L41.3 82 L32.7 75 L24 82 Z' stroke='%231a1915'/%3E%3Cpath d='M37 44 L47 54 L64 35' stroke='%230d6b58'/%3E%3C/g%3E%3C/svg%3E">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23080c14'/%3E%3Crect x='4' y='4' width='24' height='24' rx='4' fill='none' stroke='%2300ffc8' stroke-width='2'/%3E%3Crect x='11' y='11' width='10' height='10' rx='2' fill='%2300ffc8'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap">
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -56,7 +52,7 @@
     "description": "Answers whether a machine was hit by an npm supply-chain attack: scans every lock file, global install and the npm cache for known-malicious package versions. Also a pre-install guard, a pre-open repository audit against fake-interview malware, vulnerability audit and CycloneDX 1.6 SBOM generation. CLI and MCP server with 15 tools. Zero dependencies.",
     "url": "https://depguard.dev",
     "downloadUrl": "https://www.npmjs.com/package/depguard-cli",
-    "softwareVersion": "1.15.0",
+    "softwareVersion": "1.15.1",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "programmingLanguage": "TypeScript",
     "runtimePlatform": "Node.js",
@@ -77,256 +73,317 @@
     },
     "featureList": [
       "Exposure scan: checks every lock file, global install and the npm download cache for known-malicious npm package versions, with locations, install evidence and remediation steps",
-      "Workspace auto-exec surface audit — pre-open repo scan that detects files which execute automatically on IDE open (VS Code tasks runOn:folderOpen, devcontainer lifecycle commands, .envrc, JetBrains run configs, Makefile default target, .gitattributes filter drivers, committed git hooks). Defense against fake-interview / take-home-test malware campaigns.",
-      "Known compromised packages database — curated advisory DB blocks event-stream, colors, faker, ua-parser-js, and 20+ documented attacks",
-      "AI Code Review — detects console.logs, empty catch blocks, broken imports, orphan files, abandoned TODOs left by AI agents",
-      "Local usage statistics — tracks calls, tokens saved, threats blocked (data never leaves the machine)",
-      "Comment-aware code analysis — strips comments before scanning, eliminates false positives from documentation URLs",
-      "Lock file parsing — reads package-lock.json and pnpm-lock.yaml for accurate phantom dependency detection",
-      "Pre-install guardian — verify, audit, allow/warn/block before every npm install (AI-initiated or user-requested)",
-      "AI hallucination guard — verify package names exist on npm registry",
+      "Workspace auto-exec surface audit: pre-open repo scan that detects files which execute automatically on IDE open (VS Code tasks runOn:folderOpen, devcontainer lifecycle commands, .envrc, JetBrains run configs, Makefile default target, .gitattributes filter drivers, committed git hooks). Defense against fake-interview / take-home-test malware campaigns.",
+      "Known-malicious packages database: 100,000+ npm packages from GitHub malware advisories plus hijacked releases of legitimate packages such as debug, color, eslint-config-prettier, ua-parser-js and event-stream",
+      "AI Code Review: detects console.logs, empty catch blocks, broken imports, orphan files, abandoned TODOs left by AI agents",
+      "Local usage statistics: tracks calls, tokens saved, threats blocked (data never leaves the machine)",
+      "Comment-aware code analysis: strips comments before scanning, eliminates false positives from documentation URLs",
+      "Lock file parsing for npm, pnpm, Yarn and Bun, including nested and duplicated copies",
+      "Pre-install guardian: verify, audit, allow/warn/block before every npm install (AI-initiated or user-requested)",
+      "AI hallucination guard: verify package names exist on npm registry",
       "Typosquatting detection via Levenshtein distance against 100+ popular packages",
-      "Dead dependency detection — find unused packages with size savings estimate",
+      "Dead dependency detection: find unused packages with size savings estimate",
       "npm vulnerability detection (CVE + GitHub Advisory Database + CVSS scoring)",
       "Supply chain attack detection (18+ code patterns, 20+ install script patterns)",
       "Package scoring 0-100 with security ceiling (critical vulns cap at 30)",
       "Native Node.js alternative recommendations (20+)",
-      "MCP server with 14 tools for AI coding agents",
-      "CycloneDX 1.6 SBOM generation with VEX support — compliance-ready output for EU Cyber Resilience Act, US EO 14028, OMB M-22-18, SOC 2, FedRAMP",
+      "MCP server with 15 tools for AI coding agents",
+      "CycloneDX 1.6 SBOM generation with VEX support: compliance-ready output for EU Cyber Resilience Act, US EO 14028, OMB M-22-18, SOC 2, FedRAMP",
+      "SARIF v2.1.0 output for the GitHub Security tab",
       "Dual license support (SPDX OR/AND expressions, 25+ licenses)",
       "Transitive dependency tree audit with circular detection",
-      "Token savings tracking for AI workflows",
       "tsconfig path alias support for accurate file analysis"
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "How do I check if my machine was affected by an npm supply-chain attack?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Run npx depguard-cli exposure. It reads every lock file under your home directory, your globally installed packages and the npm download cache, and reports any exact version that is known to be malicious, where it is, and what to rotate."}},
+      {"@type": "Question", "name": "Was I affected by the debug and color npm compromise of September 2025?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Only if a project, a global install or your npm cache contains one of the hijacked versions, such as debug 4.4.2 or color 5.0.1. npx depguard-cli exposure checks all three in one run. Other versions of those packages are not affected."}},
+      {"@type": "Question", "name": "Does depguard send my code or dependency list anywhere?",
+       "acceptedAnswer": {"@type": "Answer", "text": "No. The exposure scan runs locally against a bundled database of known-malicious packages. Nothing about your projects leaves your machine."}},
+      {"@type": "Question", "name": "Will depguard flag clean versions of a package that was once compromised?",
+       "acceptedAnswer": {"@type": "Answer", "text": "No. It only matches the exact versions listed in an advisory. Every database update is tested against known-clean versions and the most popular npm packages before it ships."}},
+      {"@type": "Question", "name": "How is depguard different from npm audit?",
+       "acceptedAnswer": {"@type": "Answer", "text": "npm audit checks one project at a time and only what its lock file lists. depguard checks every project on the machine, global installs and the npm download cache in a single run."}}
+    ]
+  }
+  </script>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
 
-<!-- ============ NAVIGATION ============ -->
-<header role="banner">
-  <nav class="nav-inner" aria-label="Main navigation">
-    <a href="#/" class="logo" aria-label="depguard home" data-nav>
-      <span class="logo-mark" aria-hidden="true"></span>
+  <header class="top">
+    <a class="brand" href="/" data-nav aria-label="depguard home">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><path class="mark-o" d="M24 10 H76 V82 L67.3 75 L58.7 82 L50 75 L41.3 82 L32.7 75 L24 82 Z"/><path class="mark-a" d="M37 44 L47 54 L64 35"/></svg>
       depguard
     </a>
-    <button class="mobile-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
-    <ul class="nav-links">
-      <li><a href="#/" data-nav data-page-link="home">Home</a></li>
-      <li><a href="#/docs" data-nav data-page-link="docs">Docs</a></li>
-      <li><a href="#/ranking" data-nav data-page-link="ranking">Ranking</a></li>
-      <li><a href="#/security" data-nav data-page-link="security">Security</a></li>
-      <li><a href="#/changelog" data-nav data-page-link="changelog">Changelog</a></li>
-      <li><a href="https://www.npmjs.com/package/depguard-cli" target="_blank" rel="noopener">npm</a></li>
-      <li><a href="https://github.com/mopanc/depguard" target="_blank" rel="noopener" class="nav-cta">GitHub</a></li>
-    </ul>
-  </nav>
-</header>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <nav class="top" id="main-nav" aria-label="Main">
+      <a href="/#how" data-nav>How it works</a>
+      <a href="/#check" data-nav>Check a package</a>
+      <a href="/ranking" data-nav data-page-link="ranking">Ranking</a>
+      <a href="/security" data-nav data-page-link="security">Security</a>
+      <a href="/docs" data-nav data-page-link="docs">Docs</a>
+      <a class="btn" href="https://github.com/mopanc/depguard" rel="noopener">GitHub</a>
+    </nav>
+  </header>
 
-<div class="grid-glow" id="gridGlow" aria-hidden="true"></div>
-
-<main>
+  <main id="main">
 
 <!-- ================================================================
      PAGE: HOME
      ================================================================ -->
 <div data-page="home">
 
-<!-- HERO -->
-<section class="hero" aria-labelledby="hero-heading">
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-content">
-    <div class="hero-badge reveal">
-      <span class="dot" aria-hidden="true"></span>
-      v1.12.0 &middot; Advisory Database &middot; 14 Tools &middot; Zero Dependencies &middot;
-      <svg width="14" height="10" viewBox="0 0 16 11" aria-label="Made in Portugal" style="vertical-align:middle;opacity:.6"><rect width="6" height="11" fill="#006600"/><rect x="6" width="10" height="11" fill="#ff0000"/><circle cx="6" cy="5.5" r="2" fill="#ffcc00" stroke="#006600" stroke-width=".3"/></svg>
-    </div>
-    <h1 id="hero-heading" class="reveal reveal-delay-1">
-      Your AI agent's<br><span class="cmd">security guardrail</span>
-    </h1>
-    <p class="hero-sub reveal reveal-delay-2">
-      An <strong>MCP server</strong> that guards your codebase from three threats: <strong>compromised npm packages</strong>, <strong>insecure dependencies</strong>, and <strong>debris left by AI coding agents</strong>. Backed by a curated advisory database of known attacks. Every package is verified before install, every coding session is reviewed, every unused dependency is flagged.
-    </p>
-    <div class="hero-actions reveal reveal-delay-3">
-      <a href="#/docs" class="btn btn-accent" data-nav>Get Started</a>
-      <a href="https://github.com/mopanc/depguard" target="_blank" rel="noopener" class="btn btn-ghost">View on GitHub</a>
-    </div>
-
-    <div class="hero-badges-live reveal reveal-delay-3" aria-label="Project status badges">
-      <a href="https://www.npmjs.com/package/depguard-cli" target="_blank" rel="noopener" aria-label="npm package">
-        <img src="https://img.shields.io/npm/v/depguard-cli?style=flat-square&label=npm&color=0e1924&labelColor=080c14&logo=npm&logoColor=00ffc8" alt="npm version" loading="lazy" height="20">
-      </a>
-      <a href="https://www.npmjs.com/package/depguard-cli" target="_blank" rel="noopener" aria-label="weekly downloads">
-        <img src="https://img.shields.io/npm/dw/depguard-cli?style=flat-square&label=downloads%2Fweek&color=0e1924&labelColor=080c14&logo=npm&logoColor=00ffc8" alt="downloads/week" loading="lazy" height="20">
-      </a>
-      <a href="https://github.com/mopanc/depguard/actions/workflows/ci.yml" target="_blank" rel="noopener" aria-label="CI status">
-        <img src="https://img.shields.io/github/actions/workflow/status/mopanc/depguard/ci.yml?style=flat-square&label=tests&color=0e1924&labelColor=080c14&logo=githubactions&logoColor=00ffc8" alt="tests passing" loading="lazy" height="20">
-      </a>
-      <a href="https://github.com/mopanc/depguard" target="_blank" rel="noopener" aria-label="GitHub stars">
-        <img src="https://img.shields.io/github/stars/mopanc/depguard?style=flat-square&color=0e1924&labelColor=080c14&logo=github&logoColor=00ffc8" alt="GitHub stars" loading="lazy" height="20">
-      </a>
-      <a href="https://github.com/punkpeye/awesome-mcp-servers#security" target="_blank" rel="noopener" aria-label="Featured in awesome-mcp-servers">
-        <img src="https://img.shields.io/badge/awesome--mcp--servers-listed-0e1924?style=flat-square&labelColor=080c14&logo=awesomelists&logoColor=00ffc8" alt="Listed in awesome-mcp-servers" loading="lazy" height="20">
-      </a>
-    </div>
-
-    <div class="hero-terminal reveal reveal-delay-3">
-      <div class="term">
-        <div class="term-bar" aria-hidden="true">
-          <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-          <span class="term-title">one command to connect</span>
-          <span style="width:30px"></span>
+    <div class="hero">
+      <h1 class="rise">Was your machine <em>hit?</em></h1>
+      <p class="lede rise rise-2">When a hijacked npm package ships malware, the question is no longer whether to install it. It is whether it already reached any project on your machine. One command answers that in seconds.</p>
+      <div class="actions rise rise-3">
+        <div class="run">
+          <code><b>$</b> npx depguard-cli exposure</code>
+          <button class="copy" type="button" data-copy="npx depguard-cli exposure">Copy</button>
         </div>
-        <div class="term-body">
-<pre><span class="t-comment">// Add depguard to any MCP-compatible AI agent</span>
-<span class="t-prompt">$</span> <span class="t-cmd">claude mcp add depguard -- npx -y depguard-cli --mcp</span>
+        <a class="ghost" href="/#how" data-nav>How it works</a>
+      </div>
+      <p class="note">Free and open source. Runs on your machine. Nothing about your projects leaves it.</p>
+    </div>
 
-<span class="t-comment">// 1. AI agent wants to install a package</span>
-<span class="t-key">Agent</span>    <span class="t-comment">"I need RTSP streaming support"</span>
-<span class="t-key">depguard</span> <span class="t-str">guard</span> <span class="t-comment">— go2rtc (score 72/100, allow)</span>
+    <div class="showcase">
+      <div class="side">
+        <div class="label">What you see</div>
+        <h2>An answer, not a report</h2>
+        <p>Either nothing known is on your machine, or exactly which version is where, whether it was installed, and what to do next.</p>
+        <div class="toggle" role="group" aria-label="Example result">
+          <button type="button" id="show-clean" aria-pressed="true">Clean machine</button>
+          <button type="button" id="show-hit" aria-pressed="false">If you were hit</button>
+        </div>
+      </div>
+      <div class="term" aria-label="Example output of depguard exposure">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <pre class="out" id="out"></pre>
+      </div>
+    </div>
 
-<span class="t-comment">// 2. AI agent finishes coding</span>
-<span class="t-key">depguard</span> <span class="t-str">review</span> <span class="t-comment">— Found 3 console.logs, 1 empty catch, 1 TODO</span>
-<span class="t-key">Agent</span>    <span class="t-val">Fixing 5 issues before committing...</span>
+    <div class="numbers">
+      <div class="num"><div class="v alarm">89,000+</div><div class="k">malware advisories for npm packages in the last 11 months</div></div>
+      <div class="num"><div class="v">3 places</div><div class="k">projects, global installs and the npm cache, in one run</div></div>
+      <div class="num"><div class="v">~15 s</div><div class="k">to check 14,532 package versions on a real laptop</div></div>
+      <div class="num"><div class="v">0</div><div class="k">runtime dependencies in depguard itself</div></div>
+    </div>
 
-<span class="t-comment">// 3. Cleanup unused packages</span>
-<span class="t-key">depguard</span> <span class="t-str">sweep</span> <span class="t-comment">— lodash unused (~1.4 MB savings)</span><span class="cursor" aria-hidden="true"></span></pre>
+    <section id="how">
+      <div class="label">Where it looks</div>
+      <h2>A lock file is a receipt. depguard reads all of them.</h2>
+      <p class="intro">Every install leaves a record somewhere. The scan looks in the three places a malicious version can hide, and matches each exact version against the known-malicious database.</p>
+      <div class="places">
+        <div class="place">
+          <svg class="illo" viewBox="0 0 130 100" aria-hidden="true"><rect class="w" x="40" y="14" width="56" height="70" rx="4"/><path class="o" d="M30 10 H86 V82 L79 77 L72 82 L65 77 L58 82 L51 77 L44 82 L37 77 L30 82 Z"/><path class="o" d="M40 26 H76 M40 36 H70 M40 46 H74"/><path class="kl" d="M40 58 H64"/><circle class="k" cx="96" cy="66" r="15"/><path class="ko" d="M89 66 L94 71 L103 61"/></svg>
+          <h3>Every project</h3>
+          <p>All lock files under your home directory: npm, pnpm, Yarn and Bun. Nested copies count, so a bad version buried three dependencies deep is still found.</p>
+          <div class="path">~/work/**/package-lock.json</div>
+        </div>
+        <div class="place">
+          <svg class="illo" viewBox="0 0 130 100" aria-hidden="true"><circle class="w" cx="72" cy="52" r="32"/><circle class="o" cx="64" cy="48" r="32"/><path class="o" d="M32 48 H96 M64 16 C50 30 50 66 64 80 M64 16 C78 30 78 66 64 80"/><rect class="k" x="86" y="60" width="34" height="24" rx="5"/><path class="ko" d="M93 69 L98 73 L93 77 M102 77 H110"/></svg>
+          <h3>Global installs</h3>
+          <p>Command-line tools you installed globally months ago and forgot about, including everything they pulled in.</p>
+          <div class="path">$(npm root -g)</div>
+        </div>
+        <div class="place">
+          <svg class="illo" viewBox="0 0 130 100" aria-hidden="true"><rect class="w" x="30" y="38" width="76" height="50" rx="6"/><path class="o" d="M22 30 H98 V44 H22 Z"/><path class="o" d="M26 44 V82 H94 V44"/><path class="o" d="M50 58 H70"/><rect class="k" x="44" y="12" width="30" height="22" rx="3"/><path class="ko" d="M51 20 H67 M51 26 H61"/></svg>
+          <h3>The download cache</h3>
+          <p>Proof that a tarball was downloaded on this machine, and on which day, even if the project that asked for it is long gone.</p>
+          <div class="path">~/.npm/_cacache</div>
+        </div>
+      </div>
+      <div class="promise">
+        <div>
+          <h3>Exact versions only.</h3>
+          <p>A false alarm would mean rotating every credential you own for nothing. Every database update is tested against known-clean versions and the most popular npm packages before it ships.</p>
+        </div>
+        <div class="versions" aria-label="Example">
+          <span class="bad"><i></i>debug@4.4.2 &nbsp;hijacked</span>
+          <span class="ok"><i></i>debug@4.4.3 &nbsp;clean</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="check">
+      <div class="label">Before you install</div>
+      <h2>Check any package in seconds</h2>
+      <div class="tester">
+        <div>
+          <p class="intro">The same engine as the CLI: known malware, vulnerabilities, license, maintenance and a 0 to 100 score. No install, no account.</p>
+          <div class="chips" role="group" aria-label="Popular packages">
+            <button class="chip" type="button" data-pkg="express" aria-pressed="false">express</button>
+            <button class="chip" type="button" data-pkg="lodash" aria-pressed="false">lodash</button>
+            <button class="chip" type="button" data-pkg="react" aria-pressed="false">react</button>
+            <button class="chip" type="button" data-pkg="axios" aria-pressed="false">axios</button>
+            <button class="chip" type="button" data-pkg="chalk" aria-pressed="false">chalk</button>
+            <button class="chip" type="button" data-pkg="moment" aria-pressed="false">moment</button>
+          </div>
+          <form class="ask" id="demo-form">
+            <label for="demo-pkg" class="sr">Package name</label>
+            <input id="demo-pkg" name="pkg" placeholder="any npm package" autocomplete="off" spellcheck="false" autocapitalize="off">
+            <button type="submit" id="demo-btn" aria-label="Run audit"><span id="demo-btn-text">Audit</span><span id="demo-btn-spinner" class="spinner" hidden></span></button>
+          </form>
+          <p class="small">Runs a live audit of the latest published version. Nothing is installed.</p>
+        </div>
+        <div class="term" role="region" aria-live="polite" aria-label="Audit result">
+          <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>depguard live audit</span></div>
+          <div class="term-body" id="demo-output">
+<pre><span class="t-comment">// Pick a package or type any name</span>
+<span class="t-comment">// Full real-time security audit, powered by the depguard engine</span>
+<span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ___</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="inside">
+      <div class="label">Inside the code</div>
+      <h2>What depguard looks for in a package</h2>
+      <p class="intro">It downloads the tarball and reads the actual source, so a package that does something its description never mentioned gets caught. Nothing is executed.</p>
+      <div class="sev">
+        <div class="sev-card crit"><h3>Malware patterns</h3><p>Decoded payloads passed to eval, reverse shells, crypto miners.</p><span class="pill-s">Critical</span></div>
+        <div class="sev-card crit"><h3>Data exfiltration</h3><p>Environment variables, SSH keys and tokens serialised and sent out.</p><span class="pill-s">Critical</span></div>
+        <div class="sev-card crit"><h3>Install scripts</h3><p>preinstall and postinstall scripts that download and run code.</p><span class="pill-s">Critical</span></div>
+        <div class="sev-card high"><h3>Code execution</h3><p>eval, new Function and child processes where they have no business.</p><span class="pill-s">High</span></div>
+        <div class="sev-card high"><h3>Obfuscation</h3><p>Long encoded strings and minified source hidden from reviewers.</p><span class="pill-s">High</span></div>
+        <div class="sev-card info"><h3>Behaviour mismatch</h3><p>A "string formatter" that opens network connections is flagged.</p><span class="pill-s">Explained</span></div>
+      </div>
+      <p class="more"><a class="ghost" href="/security" data-nav>The full security model</a></p>
+    </section>
+
+    <section>
+      <div class="label">When it finds something</div>
+      <h2>From "am I affected?" to a plan</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="n">Step 1</div>
+          <h3>Scan</h3>
+          <p>One command, no setup, no account. Point it at a folder, or let it read your whole home directory.</p>
+        </div>
+        <div class="step">
+          <div class="n">Step 2</div>
+          <h3>Read the evidence</h3>
+          <p>Every location of each malicious version, whether it is really installed, whether it runs install scripts, and when it was downloaded.</p>
+        </div>
+        <div class="step">
+          <div class="n">Step 3</div>
+          <h3>Act on what matters</h3>
+          <p>The steps scale with the evidence. If the version only sits in a lock file and never reached your disk, it says so, and you skip the credential rotation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="incidents">
+      <div class="label">Incidents it knows about</div>
+      <h2>Real attacks, real versions</h2>
+      <p class="intro">A few of the cases in the database, from the GitHub Advisory Database and hand-checked advisories. New ones arrive every day.</p>
+      <div class="incidents">
+        <div class="inc"><div class="when">May 2026</div><div class="pkg">@tanstack/*<code>many packages</code></div><div class="what">Malicious releases across the TanStack packages exfiltrated cloud credentials and GitHub tokens.</div></div>
+        <div class="inc"><div class="when">September 2025</div><div class="pkg">debug<code>4.4.2</code></div><div class="what">Maintainer account taken over. The same wave hit color, color-convert, error-ex and others.</div></div>
+        <div class="inc"><div class="when">July 2025</div><div class="pkg">eslint-config-prettier<code>10.1.7</code></div><div class="what">A phished maintainer token published malware across several versions and sibling packages.</div></div>
+        <div class="inc"><div class="when">March 2022</div><div class="pkg">node-ipc<code>10.1.1</code></div><div class="what">The maintainer shipped code that overwrote files on machines with Russian or Belarusian IPs.</div></div>
+        <div class="inc"><div class="when">January 2022</div><div class="pkg">colors<code>1.4.1</code></div><div class="what">The author sabotaged his own package with an infinite loop, breaking thousands of builds.</div></div>
+        <div class="inc"><div class="when">October 2021</div><div class="pkg">ua-parser-js<code>0.7.29</code></div><div class="what">Hijacked releases installed a cryptominer and a password stealer.</div></div>
+        <div class="inc"><div class="when">November 2018</div><div class="pkg">event-stream<code>3.3.6</code></div><div class="what">A new maintainer added a dependency that targeted Copay bitcoin wallets.</div></div>
+      </div>
+    </section>
+
+    <div class="band" id="more">
+      <div class="label">Before the next one</div>
+      <h2>The same tool works on the way in</h2>
+      <div class="also">
+        <div>
+          <h3>Before you open a repo</h3>
+          <p>A fake job interview can send a "take-home test" that runs malware the moment VS Code opens the folder. This lists everything that would run.</p>
+          <code>npx depguard-cli audit-workspace ./test-repo</code>
+        </div>
+        <div>
+          <h3>Before you install</h3>
+          <p>Checks that a package exists, is not a typosquat and has no known malware or vulnerabilities, then says allow, warn or block.</p>
+          <code>npx depguard-cli guard some-package</code>
+        </div>
+        <div>
+          <h3>Inside your AI agent</h3>
+          <p>Claude Code, Cursor and other agents ask depguard the same questions through MCP, before they install anything for you.</p>
+          <code>claude mcp add depguard -- npx -y depguard-cli --mcp</code>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<div class="divider" aria-hidden="true"></div>
 
-<!-- THE PROBLEM -->
-<section class="section" aria-labelledby="problem-heading">
-  <div class="section-label reveal">The Problem</div>
-  <h2 id="problem-heading" class="reveal">Your AI agent installs blindly and leaves debris</h2>
-  <p class="section-desc reveal">AI coding agents create two problems: they <strong>install packages without checking security</strong>, and they <strong>leave garbage in your code</strong> (console.logs, empty catch blocks, broken imports, orphan files). Without depguard, every <code style="color:var(--accent);background:var(--bg-deep);padding:.1rem .4rem;border-radius:3px">npm install</code> is a blind trust decision and every coding session adds invisible debt.</p>
+    <section id="ranking-teaser">
+      <div class="label">Daily ranking</div>
+      <h2>The most installed npm packages, audited every morning</h2>
+      <p class="intro"><span id="home-rank-count">173</span> packages almost every project depends on, ranked by security score and re-checked daily. <a href="/ranking" data-nav>See the full ranking</a>.</p>
+      <div class="rank-head">
+        <div><b id="home-rank-total">173</b><span>Packages</span></div>
+        <div class="ok"><b id="home-rank-clean">168</b><span>Clean</span></div>
+        <div class="warn"><b id="home-rank-warnings">5</b><span>Warnings</span></div>
+        <div class="bad"><b id="home-rank-danger">0</b><span>Danger</span></div>
+        <div><b id="home-rank-date">15 Oct</b><span>Last scan</span></div>
+      </div>
+      <div class="rank-table">
+        <table>
+          <thead><tr><th scope="col">#</th><th scope="col">Package</th><th scope="col">Score</th><th scope="col">Vulns</th><th scope="col">Downloads</th></tr></thead>
+          <tbody id="home-rank-body"><tr><td class="n">1</td><td class="p">semver<small>7.8.5</small></td><td><div class="score"><b>98</b><i style="width:118px"></i></div></td><td>0</td><td class="d">873.2M/w</td></tr><tr><td class="n">2</td><td class="p">ansi-styles<small>7.0.0</small></td><td><div class="score"><b>98</b><i style="width:118px"></i></div></td><td>0</td><td class="d">695.5M/w</td></tr><tr><td class="n">3</td><td class="p">commander<small>15.0.0</small></td><td><div class="score"><b>97</b><i style="width:116px"></i></div></td><td>0</td><td class="d">538M/w</td></tr><tr><td class="n">4</td><td class="p">string-width<small>8.3.0</small></td><td><div class="score"><b>97</b><i style="width:116px"></i></div></td><td>0</td><td class="d">527.4M/w</td></tr><tr><td class="n">5</td><td class="p">supports-color<small>11.0.0</small></td><td><div class="score"><b>97</b><i style="width:116px"></i></div></td><td>0</td><td class="d">503.4M/w</td></tr><tr><td class="n">6</td><td class="p">chalk<small>6.0.1</small></td><td><div class="score"><b>97</b><i style="width:116px"></i></div></td><td>0</td><td class="d">496.3M/w</td></tr></tbody>
+        </table>
+      </div>
+    </section>
 
-  <div class="stats-grid reveal">
-    <div class="stat-card">
-      <div class="stat-number danger">2,200+</div>
-      <div class="stat-label">Malicious packages detected on npm in 2025</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number danger">8M+</div>
-      <div class="stat-label">Weekly downloads compromised by event-stream attack</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">100x</div>
-      <div class="stat-label">Faster package installs with AI agents vs manual review</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">18+</div>
-      <div class="stat-label">Malware patterns depguard detects in package source code</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">99%</div>
-      <div class="stat-label">AI tokens saved per audit vs manual web search and reasoning</div>
-    </div>
-  </div>
-</section>
+    <section id="faq">
+      <div class="label">Questions</div>
+      <h2>What people ask</h2>
+      <div class="faq">
+        <details open>
+          <summary>How do I check if my machine was affected by an npm supply-chain attack?</summary>
+          <p>Run <code>npx depguard-cli exposure</code>. It reads every lock file under your home directory, your global installs and the npm download cache, and reports any exact version known to be malicious, where it is, and what to rotate. On a typical developer laptop it takes about 15 seconds.</p>
+        </details>
+        <details>
+          <summary>Was I affected by the debug and color compromise of September 2025?</summary>
+          <p>Only if a project, a global install or your npm cache holds one of the hijacked versions, such as debug 4.4.2 or color 5.0.1. The command above checks all three at once. Other versions of those packages are not affected.</p>
+        </details>
+        <details>
+          <summary>Does depguard send my dependency list anywhere?</summary>
+          <p>No. The scan runs against a database bundled with the package. Nothing about your projects leaves your machine.</p>
+        </details>
+        <details>
+          <summary>Will it flag clean versions of a package that was once compromised?</summary>
+          <p>No. It only matches the exact versions listed in an advisory. Every database update is tested against known-clean versions and the most popular npm packages before it ships.</p>
+        </details>
+        <details>
+          <summary>What happens if it finds something?</summary>
+          <p>It lists every place the malicious version appears, whether it is actually installed, whether it runs install scripts and when it was downloaded, followed by the steps to take. If the version only sits in a lock file and never reached your disk, it tells you that too.</p>
+        </details>
+        <details>
+          <summary>How is this different from npm audit?</summary>
+          <p>npm audit looks at one project at a time, and only at what that project's lock file lists. depguard looks at every project on the machine, the packages you installed globally and the cache of everything npm has downloaded, in a single run.</p>
+        </details>
+      </div>
+      <p class="more"><a class="ghost" href="/docs" data-nav>Setup, MCP tools and scoring in the docs</a></p>
+    </section>
 
-<div class="divider" aria-hidden="true"></div>
-
-<!-- HOW IT WORKS -->
-<section class="section" aria-labelledby="how-heading">
-  <div class="section-label reveal">How It Works</div>
-  <h2 id="how-heading" class="reveal">How MCP integration works</h2>
-  <p class="section-desc reveal">One command connects depguard to your AI agent. From that moment, every install is verified and every coding session is reviewed.</p>
-
-  <div class="steps">
-    <article class="step reveal">
-      <h3>Guard</h3>
-      <p>Before every <code>npm install</code> &mdash; whether the user asked or the AI decided on its own &mdash; depguard verifies the package exists, checks for typosquatting, and runs a security audit.</p>
-      <code>depguard_guard("express")</code>
-    </article>
-    <article class="step reveal reveal-delay-1">
-      <h3>Review</h3>
-      <p>After coding, depguard scans the source files for debris the AI left behind: console.logs, empty catch blocks, broken imports, orphan files. The AI agent fixes them before reporting done.</p>
-      <code>depguard_review(".", "quick")</code>
-    </article>
-    <article class="step reveal reveal-delay-2">
-      <h3>Clean Up</h3>
-      <p>At the end of a session, depguard finds unused packages that were installed but never imported. The AI agent removes them, keeping the project lean.</p>
-      <code>depguard_sweep(".")</code>
-    </article>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- LIVE SECURITY TESTER -->
-<section class="section" id="demo" aria-labelledby="demo-heading">
-  <div class="section-label reveal">Live Security Tester</div>
-  <h2 id="demo-heading" class="reveal">Your AI suggested <code style="color:var(--orange)">npm install</code> &mdash; but did you check?</h2>
-  <p class="section-desc reveal">Audit <strong>any npm package</strong> in real time. Same engine as the CLI &mdash; vulnerabilities, malware patterns, license, maintainer analysis, and a 0-100 security score. No install required.</p>
-
-  <div class="demo-container reveal">
-    <div style="font-size:.7rem;color:var(--text-dim);margin-bottom:.8rem;letter-spacing:.03em">POPULAR PACKAGES &mdash; click to audit instantly</div>
-    <div class="demo-suggestions" role="list" aria-label="Suggested packages">
-      <button class="demo-sug" onclick="runLiveAudit('express')" role="listitem">express</button>
-      <button class="demo-sug" onclick="runLiveAudit('lodash')" role="listitem">lodash</button>
-      <button class="demo-sug" onclick="runLiveAudit('react')" role="listitem">react</button>
-      <button class="demo-sug" onclick="runLiveAudit('axios')" role="listitem">axios</button>
-      <button class="demo-sug" onclick="runLiveAudit('chalk')" role="listitem">chalk</button>
-      <button class="demo-sug" onclick="runLiveAudit('moment')" role="listitem">moment</button>
-    </div>
-    <div class="demo-input-row">
-      <input type="text" class="demo-input" id="demo-pkg" placeholder="Type any npm package name..." aria-label="Package name to audit" onkeydown="if(event.key==='Enter')runLiveAudit()" autocomplete="off" spellcheck="false">
-      <button class="demo-btn" id="demo-btn" onclick="runLiveAudit()" aria-label="Run audit">
-        <span id="demo-btn-text">Audit</span>
-        <span id="demo-btn-spinner" class="spinner" hidden></span>
-      </button>
-    </div>
-    <div class="demo-result" id="demo-result" role="region" aria-live="polite">
-      <div class="term">
-        <div class="term-bar" aria-hidden="true">
-          <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-          <span class="term-title">depguard live audit</span>
-          <span style="width:30px"></span>
-        </div>
-        <div class="term-body" id="demo-output">
-<pre><span class="t-comment">// Type a package name or click one above</span>
-<span class="t-comment">// Full real-time security audit &mdash; powered by the depguard engine</span>
-<span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ___</span><span class="cursor" aria-hidden="true"></span></pre>
+    <div class="closing">
+      <h2>Fifteen seconds to know for sure</h2>
+      <p class="intro">Run it now, and again the next time a worm makes the news.</p>
+      <div class="actions">
+        <div class="run">
+          <code><b>$</b> npx depguard-cli exposure</code>
+          <button class="copy" type="button" data-copy="npx depguard-cli exposure">Copy</button>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- FOOTER CTA -->
-<section class="section final-cta" aria-labelledby="cta-heading">
-  <div class="section-label reveal" style="justify-content:center">Get Started</div>
-  <h2 id="cta-heading" class="reveal">One command. Infinite peace of mind.</h2>
-  <p class="section-desc reveal" style="text-align:center">No API keys. No accounts. No configuration. Your AI agent gets security superpowers in 10 seconds.</p>
-
-  <div class="final-term reveal">
-    <div class="term">
-      <div class="term-bar" aria-hidden="true">
-        <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-        <span class="term-title">connect depguard</span>
-        <span style="width:30px"></span>
-      </div>
-      <div class="term-body">
-<pre><span class="t-prompt">$</span> <span class="t-cmd">claude mcp add depguard -- npx -y depguard-cli --mcp</span></pre>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-actions reveal" style="justify-content:center">
-    <a href="#/docs" class="btn btn-accent" data-nav>Setup Guide</a>
-    <a href="https://github.com/mopanc/depguard" target="_blank" rel="noopener" class="btn btn-ghost">Star on GitHub</a>
-    <a href="https://www.npmjs.com/package/depguard-cli" target="_blank" rel="noopener" class="btn btn-ghost">npm</a>
-  </div>
-</section>
 
 </div><!-- /home -->
 
@@ -336,31 +393,30 @@
      ================================================================ -->
 <div data-page="docs" hidden>
 
-<!-- SETUP -->
-<section class="section" aria-labelledby="setup-heading">
-  <div class="section-label reveal">Getting Started</div>
-  <h2 id="setup-heading" class="reveal">Add depguard to your AI agent</h2>
-  <p class="section-desc reveal">One command. Zero configuration. Your AI agent starts checking every dependency immediately.</p>
-
-  <div class="integrations-grid reveal">
-    <div class="integ">Claude Code<span class="integ-status">MCP Ready</span></div>
-    <div class="integ">Claude Desktop<span class="integ-status">MCP Ready</span></div>
-    <div class="integ">Cursor<span class="integ-status">MCP Ready</span></div>
-    <div class="integ">Windsurf<span class="integ-status">MCP Ready</span></div>
-    <div class="integ">Continue.dev<span class="integ-status">MCP Ready</span></div>
-    <div class="integ">Cline<span class="integ-status">MCP Ready</span></div>
-    <div class="integ">Roo Code<span class="integ-status">MCP Ready</span></div>
-    <div class="integ">Any MCP Client<span class="integ-status">JSON-RPC 2.0</span></div>
-  </div>
-
-  <div class="term reveal" style="max-width:700px">
-    <div class="term-bar" aria-hidden="true">
-      <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-      <span class="term-title">Setup &mdash; choose your agent</span>
-      <span style="width:30px"></span>
+    <div class="page-head">
+      <div class="label">Docs</div>
+      <h1 class="rise">Set up depguard in one command</h1>
+      <p class="lede rise rise-2">Use it from the terminal, or connect it to your AI agent so every install is checked before it happens. No API keys, no accounts, no configuration.</p>
     </div>
-    <div class="term-body">
-<pre><span class="t-comment">// Claude Code — one command</span>
+
+    <section id="setup" style="padding-top:64px">
+      <div class="label">Getting started</div>
+      <h2>Add depguard to your AI agent</h2>
+      <p class="intro">One command. Zero configuration. Your AI agent starts checking every dependency immediately.</p>
+      <div class="integrations">
+        <div class="integ">Claude Code<span>MCP ready</span></div>
+        <div class="integ">Claude Desktop<span>MCP ready</span></div>
+        <div class="integ">Cursor<span>MCP ready</span></div>
+        <div class="integ">Windsurf<span>MCP ready</span></div>
+        <div class="integ">Continue.dev<span>MCP ready</span></div>
+        <div class="integ">Cline<span>MCP ready</span></div>
+        <div class="integ">Roo Code<span>MCP ready</span></div>
+        <div class="integ">Any MCP client<span>JSON-RPC 2.0</span></div>
+      </div>
+      <div class="term setup-term">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>setup: choose your agent</span></div>
+        <div class="term-body">
+<pre><span class="t-comment">// Claude Code: one command</span>
 <span class="t-prompt">$</span> <span class="t-cmd">claude mcp add depguard -- npx -y depguard-cli --mcp</span>
 
 <span class="t-comment">// Claude Desktop, Cursor, Windsurf, Continue.dev, Cline, Roo Code</span>
@@ -374,278 +430,157 @@
   }
 }
 
-<span class="t-comment">// That's it. Your agent now has 10 security tools.</span>
-<span class="t-comment">// No API keys. No accounts. No configuration.</span></pre>
-    </div>
-  </div>
-</section>
+<span class="t-comment">// That's it. Your agent now has 15 security tools.</span>
+<span class="t-comment">// No API keys. No accounts. No configuration.</span>
 
-<div class="divider" aria-hidden="true"></div>
-
-<!-- MCP TOOLS -->
-<section class="section" aria-labelledby="tools-heading">
-  <div class="section-label reveal">MCP Tools</div>
-  <h2 id="tools-heading" class="reveal">14 tools your AI agent calls automatically</h2>
-  <p class="section-desc reveal">Organized by workflow: before installing, after coding, project health, and quick lookups. The AI agent knows when to call each one.</p>
-
-  <div class="features-grid reveal">
-    <!-- BEFORE OPENING THE REPO -->
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x26D4;</div>
-      <h3>depguard_workspace_audit</h3>
-      <p>Called <strong>after `git clone` and BEFORE opening the repo in any IDE</strong>. Lists every file that auto-executes on workspace open: VS Code <code>tasks.json</code> <code>runOn:folderOpen</code>, devcontainer lifecycle commands, <code>.envrc</code>, JetBrains run configs, Makefile default targets, <code>.gitattributes</code> filter drivers, committed git hooks. Defense against fake-interview / take-home-test malware that compromises the developer's session before the IDE finishes loading.</p>
-      <span class="feat-tag red">Before Open</span>
-    </article>
-    <!-- BEFORE INSTALLING -->
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x2716;</div>
-      <h3>depguard_guard</h3>
-      <p>Called <strong>before every npm install</strong>, whether the user asked or the AI decided. Verifies the package exists, detects typosquatting, runs security audit, returns allow/warn/block.</p>
-      <span class="feat-tag red">Before Install</span>
-    </article>
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x25CE;</div>
-      <h3>depguard_should_use</h3>
-      <p>When the AI needs functionality ("RTSP streaming", "date formatting"), it calls this <strong>before choosing a package</strong>. Checks native Node.js alternatives first, then scores npm candidates.</p>
-      <span class="feat-tag red">Before Install</span>
-    </article>
-    <!-- AFTER CODING -->
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x2728;</div>
-      <h3>depguard_review</h3>
-      <p>Called <strong>after code changes or before commit</strong>. Finds console.logs, empty catch blocks, broken imports, orphan files, abandoned TODOs. The AI fixes them before reporting done.</p>
-      <span class="feat-tag green">After Coding</span>
-    </article>
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x2702;</div>
-      <h3>depguard_sweep</h3>
-      <p>Finds packages installed but never imported. Config-aware, workspace-aware, peer-dep-aware. Also detects phantom dependencies in node_modules.</p>
-      <span class="feat-tag green">After Coding</span>
-    </article>
-    <!-- PROJECT HEALTH -->
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x25C8;</div>
-      <h3>depguard_audit</h3>
-      <p>Deep security audit of a single package. Downloads tarball, scans source code for 18+ malware patterns, checks dual advisory databases, analyzes install scripts.</p>
-      <span class="feat-tag orange">Project Health</span>
-    </article>
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x2666;</div>
-      <h3>depguard_audit_project</h3>
-      <p>Audit all dependencies from a package.json in one call. Auto-detects project license. Use after cloning a repo or reviewing project security.</p>
-      <span class="feat-tag orange">Project Health</span>
-    </article>
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x269B;</div>
-      <h3>depguard_remediate</h3>
-      <p>Faced with "100 vulnerabilities found"? This groups every vulnerable transitive under the direct dependency that pulls it in, sorted by severity weight. Tells you which 3 direct deps to bump to fix the most criticals. Read-only.</p>
-      <span class="feat-tag orange">Project Health</span>
-    </article>
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x26A0;</div>
-      <h3>depguard_audit_deep</h3>
-      <p>Crawls the full transitive dependency tree. Aggregates vulnerabilities across all nested packages. Shows circular dependencies and total attack surface.</p>
-      <span class="feat-tag orange">Project Health</span>
-    </article>
-    <!-- QUICK LOOKUPS -->
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x25A0;</div>
-      <h3>depguard_score</h3>
-      <p>Quick 0-100 quality score. Faster than full audit when you only need the number. Critical vulns cap at 30, high at 50.</p>
-      <span class="feat-tag green">Quick Lookup</span>
-    </article>
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x2714;</div>
-      <h3>depguard_verify</h3>
-      <p>Quick existence check + typosquatting detection. Faster than guard when you only need to verify a package name exists.</p>
-      <span class="feat-tag green">Quick Lookup</span>
-    </article>
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x25B2;</div>
-      <h3>depguard_search</h3>
-      <p>Search npm by keywords, sorted by depguard quality score. Find packages without web searches.</p>
-      <span class="feat-tag green">Quick Lookup</span>
-    </article>
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x25C6;</div>
-      <h3>depguard_audit_bulk</h3>
-      <p>Audit multiple packages in one call. Use audit_project instead if you have a package.json path.</p>
-      <span class="feat-tag green">Quick Lookup</span>
-    </article>
-    <!-- COMPLIANCE -->
-    <article class="feat">
-      <div class="feat-icon" aria-hidden="true">&#x25BC;</div>
-      <h3>depguard_sbom</h3>
-      <p>Generate a <strong>CycloneDX 1.6 SBOM</strong> with PURLs, integrity hashes, and optional VEX vulnerability data. Compliance-ready for EU CRA, US EO 14028, OMB M-22-18, SOC 2, FedRAMP. Consumed unchanged by Dependency-Track, Trivy, Grype.</p>
-      <span class="feat-tag orange">Compliance</span>
-    </article>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- SCORING MODEL -->
-<section class="section" aria-labelledby="scoring-heading">
-  <div class="section-label reveal">Scoring Model</div>
-  <h2 id="scoring-heading" class="reveal">Transparent, reproducible scores</h2>
-  <p class="section-desc reveal">Every package scored 0&ndash;100 across five weighted dimensions. CVSS scores used when available. <strong style="color:var(--red)">Hard security ceiling</strong>: critical vulns cap total at 30, high vulns at 50. Code analysis findings further reduce the score.</p>
-
-  <div class="score-bars reveal">
-    <div class="score-row">
-      <span class="score-label">Security</span>
-      <div class="score-track"><div class="score-fill" data-width="30" style="width:0"></div></div>
-      <span class="score-pct">30%</span>
-    </div>
-    <div class="score-row">
-      <span class="score-label">Maintenance</span>
-      <div class="score-track"><div class="score-fill" data-width="25" style="width:0"></div></div>
-      <span class="score-pct">25%</span>
-    </div>
-    <div class="score-row">
-      <span class="score-label">Popularity</span>
-      <div class="score-track"><div class="score-fill" data-width="20" style="width:0"></div></div>
-      <span class="score-pct">20%</span>
-    </div>
-    <div class="score-row">
-      <span class="score-label">License</span>
-      <div class="score-track"><div class="score-fill" data-width="15" style="width:0"></div></div>
-      <span class="score-pct">15%</span>
-    </div>
-    <div class="score-row">
-      <span class="score-label">Dependencies</span>
-      <div class="score-track"><div class="score-fill" data-width="10" style="width:0"></div></div>
-      <span class="score-pct">10%</span>
-    </div>
-  </div>
-
-  <div class="thresholds reveal">
-    <div class="threshold safe">
-      <div class="threshold-score">&ge; 60</div>
-      <div class="threshold-action">Install</div>
-      <div class="threshold-desc">Safe to use. Meets quality standards.</div>
-    </div>
-    <div class="threshold warn">
-      <div class="threshold-score">40 &ndash; 59</div>
-      <div class="threshold-action">Caution</div>
-      <div class="threshold-desc">Review before using. Potential risks.</div>
-    </div>
-    <div class="threshold danger">
-      <div class="threshold-score">&lt; 40</div>
-      <div class="threshold-action">Write Your Own</div>
-      <div class="threshold-desc">Better to implement the functionality yourself.</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- SMART ADVISOR -->
-<section class="section" aria-labelledby="native-heading">
-  <div class="section-label reveal">Smart Advisor</div>
-  <h2 id="native-heading" class="reveal">Skip the package. Use Node.js.</h2>
-  <p class="section-desc reveal">depguard checks 20+ native alternatives before recommending npm packages. Less bloat, smaller attack surface.</p>
-
-  <div class="natives-grid reveal">
-    <div class="native-card">
-      <div>
-        <div class="native-instead">npm install axios</div>
-        <div class="native-use">globalThis.fetch()</div>
-        <div class="native-desc">Built-in HTTP client. Full Request/Response API.</div>
+<span class="t-comment">// Or use it straight from the terminal:</span>
+<span class="t-prompt">$</span> <span class="t-cmd">npx depguard-cli exposure</span>
+<span class="t-prompt">$</span> <span class="t-cmd">npx depguard-cli audit express</span></pre>
+        </div>
       </div>
-      <div class="native-ver">Node 18+</div>
-    </div>
-    <div class="native-card">
-      <div>
-        <div class="native-instead">npm install uuid</div>
-        <div class="native-use">crypto.randomUUID()</div>
-        <div class="native-desc">RFC 4122 v4 UUID generation. Cryptographically secure.</div>
-      </div>
-      <div class="native-ver">Node 19+</div>
-    </div>
-    <div class="native-card">
-      <div>
-        <div class="native-instead">npm install lodash.clonedeep</div>
-        <div class="native-use">structuredClone()</div>
-        <div class="native-desc">Deep clone any serializable value. Handles circular refs.</div>
-      </div>
-      <div class="native-ver">Node 17+</div>
-    </div>
-    <div class="native-card">
-      <div>
-        <div class="native-instead">npm install dotenv</div>
-        <div class="native-use">process.loadEnvFile()</div>
-        <div class="native-desc">Load .env files natively. No parsing library needed.</div>
-      </div>
-      <div class="native-ver">Node 21.7+</div>
-    </div>
-    <div class="native-card">
-      <div>
-        <div class="native-instead">npm install glob</div>
-        <div class="native-use">fs.glob()</div>
-        <div class="native-desc">Native file globbing. Async iterator interface.</div>
-      </div>
-      <div class="native-ver">Node 22+</div>
-    </div>
-    <div class="native-card">
-      <div>
-        <div class="native-instead">npm install jest</div>
-        <div class="native-use">node:test</div>
-        <div class="native-desc">Built-in test runner with describe, it, and assertions.</div>
-      </div>
-      <div class="native-ver">Node 18+</div>
-    </div>
-    <div class="native-card">
-      <div>
-        <div class="native-instead">npm install yargs</div>
-        <div class="native-use">util.parseArgs()</div>
-        <div class="native-desc">Parse CLI arguments with type validation. Built-in.</div>
-      </div>
-      <div class="native-ver">Node 18.3+</div>
-    </div>
-    <div class="native-card">
-      <div>
-        <div class="native-instead">npm install better-sqlite3</div>
-        <div class="native-use">node:sqlite</div>
-        <div class="native-desc">Embedded SQLite database. Synchronous API.</div>
-      </div>
-      <div class="native-ver">Node 22.5+</div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<div class="divider" aria-hidden="true"></div>
+    <section id="tools">
+      <div class="label">MCP tools</div>
+      <h2>15 tools your AI agent calls automatically</h2>
+      <p class="intro">Organised by workflow: after an incident, before opening a repo, before installing, after coding, project health, quick lookups and compliance. The agent knows when to call each one.</p>
+      <div class="tools">
+        <article class="tool new">
+          <h3>depguard_exposure</h3>
+          <p>Answers <strong>"was this machine hit?"</strong> after a supply-chain incident. Checks every lock file, global installs and the npm download cache against the known-malicious database, with every location, install evidence and remediation steps. Exact version matches only.</p>
+          <span class="tag alarm">After an incident</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_audit_workspace</h3>
+          <p>Called <strong>after git clone and before opening the repo in any IDE</strong>. Lists every file that runs on workspace open: VS Code <code>tasks.json</code> <code>runOn:folderOpen</code>, devcontainer lifecycle commands, <code>.envrc</code>, JetBrains run configs, Makefile default targets, <code>.gitattributes</code> filter drivers, committed git hooks. Defence against fake-interview malware.</p>
+          <span class="tag alarm">Before open</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_guard</h3>
+          <p>Called <strong>before every npm install</strong>, whether the user asked or the AI decided. Verifies the package exists, detects typosquatting, runs a security audit and returns allow, warn or block.</p>
+          <span class="tag alarm">Before install</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_should_use</h3>
+          <p>When the AI needs functionality ("RTSP streaming", "date formatting"), it calls this <strong>before choosing a package</strong>. Checks native Node.js alternatives first, then scores npm candidates.</p>
+          <span class="tag alarm">Before install</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_review</h3>
+          <p>Called <strong>after code changes or before commit</strong>. Finds console.logs, empty catch blocks, broken imports, orphan files and abandoned TODOs. The AI fixes them before reporting done.</p>
+          <span class="tag">After coding</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_sweep</h3>
+          <p>Finds packages installed but never imported. Config-aware, workspace-aware, peer-dependency-aware. Also detects phantom dependencies in node_modules.</p>
+          <span class="tag">After coding</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_audit</h3>
+          <p>Deep security audit of a single package. Downloads the tarball, scans source code for 18+ malware patterns, checks two advisory databases and analyses install scripts.</p>
+          <span class="tag warn">Project health</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_audit_project</h3>
+          <p>Audits all dependencies from a package.json in one call, at the versions in the lock file, including every installed transitive copy. Auto-detects the project license.</p>
+          <span class="tag warn">Project health</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_remediate</h3>
+          <p>Faced with "100 vulnerabilities found"? Groups every vulnerable transitive under the direct dependency that pulls it in, sorted by severity weight, so you know which few bumps fix the most criticals. Read-only.</p>
+          <span class="tag warn">Project health</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_audit_deep</h3>
+          <p>Crawls the full transitive dependency tree. Aggregates vulnerabilities across all nested packages and shows circular dependencies and the total attack surface.</p>
+          <span class="tag warn">Project health</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_score</h3>
+          <p>Quick 0 to 100 quality score. Faster than a full audit when you only need the number. Critical vulnerabilities cap it at 30, high at 50.</p>
+          <span class="tag">Quick lookup</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_verify</h3>
+          <p>Quick existence check plus typosquatting detection. Faster than guard when you only need to know a package name is real.</p>
+          <span class="tag">Quick lookup</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_search</h3>
+          <p>Searches npm by keywords, sorted by depguard quality score. Finds packages without web searches.</p>
+          <span class="tag">Quick lookup</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_audit_bulk</h3>
+          <p>Audits several packages in one call. Use audit_project instead if you have a package.json path.</p>
+          <span class="tag">Quick lookup</span>
+        </article>
+        <article class="tool">
+          <h3>depguard_sbom</h3>
+          <p>Generates a <strong>CycloneDX 1.6 SBOM</strong> with PURLs, integrity hashes and optional VEX vulnerability data. Ready for EU CRA, US EO 14028, OMB M-22-18, SOC 2 and FedRAMP. Read unchanged by Dependency-Track, Trivy and Grype.</p>
+          <span class="tag warn">Compliance</span>
+        </article>
+      </div>
+    </section>
 
-<!-- COMPARISON -->
-<section class="section" aria-labelledby="compare-heading">
-  <div class="section-label reveal">What You Get</div>
-  <h2 id="compare-heading" class="reveal">depguard vs doing it manually</h2>
-  <p class="section-desc reveal">Without depguard, you need to check multiple sources, analyze scripts by hand, and make gut-feel decisions. Here's what one command replaces.</p>
+    <section id="scoring">
+      <div class="label">Scoring model</div>
+      <h2>Transparent, reproducible scores</h2>
+      <p class="intro">Every package is scored 0 to 100 across five weighted dimensions, using CVSS scores when available. A <strong>hard security ceiling</strong> applies: critical vulnerabilities cap the total at 30, high vulnerabilities at 50.</p>
+      <div class="bars">
+        <div class="bar-row"><span>Security</span><div class="track"><span class="fill" style="width:100%"></span></div><span class="pct">30%</span></div>
+        <div class="bar-row"><span>Maintenance</span><div class="track"><span class="fill" style="width:83.3%"></span></div><span class="pct">25%</span></div>
+        <div class="bar-row"><span>Popularity</span><div class="track"><span class="fill" style="width:66.7%"></span></div><span class="pct">20%</span></div>
+        <div class="bar-row"><span>License</span><div class="track"><span class="fill" style="width:50%"></span></div><span class="pct">15%</span></div>
+        <div class="bar-row"><span>Dependencies</span><div class="track"><span class="fill" style="width:33.3%"></span></div><span class="pct">10%</span></div>
+      </div>
+      <div class="thresholds">
+        <div class="sev-card info"><div class="v">&ge; 60</div><h3>Install</h3><p>Safe to use. Meets quality standards.</p></div>
+        <div class="sev-card high"><div class="v">40 to 59</div><h3>Caution</h3><p>Review before using. Potential risks.</p></div>
+        <div class="sev-card crit"><div class="v">&lt; 40</div><h3>Write your own</h3><p>Better to implement the functionality yourself.</p></div>
+      </div>
+    </section>
 
-  <div class="compare-wrap reveal">
-    <table class="compare-table" role="table" aria-label="What depguard automates vs manual approach">
-      <thead>
-        <tr>
-          <th scope="col">Task</th>
-          <th scope="col">depguard</th>
-          <th scope="col">Manual Approach</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Check known CVEs</td><td class="check" aria-label="Automated">&#10003; Automated</td><td>Search npm + GitHub advisories manually</td></tr>
-        <tr><td>GitHub Advisory Database</td><td class="check" aria-label="Automated">&#10003; Included</td><td>Visit github.com/advisories, search, cross-reference</td></tr>
-        <tr><td>Static code analysis</td><td class="check" aria-label="Automated">&#10003; 18+ patterns</td><td>Download tarball, read source code manually</td></tr>
-        <tr><td>Inspect install scripts</td><td class="check" aria-label="Automated">&#10003; 20+ patterns</td><td>Read package source code line by line</td></tr>
-        <tr><td>Behavioral mismatch</td><td class="check" aria-label="Automated">&#10003; Automated</td><td>Compare description vs code behavior yourself</td></tr>
-        <tr><td>Check maintenance health</td><td class="check" aria-label="Automated">&#10003; Scored</td><td>Check npm page, GitHub commits, last publish date</td></tr>
-        <tr><td>Verify license compatibility</td><td class="check" aria-label="Automated">&#10003; 25+ SPDX</td><td>Read LICENSE file, understand copyleft hierarchy</td></tr>
-        <tr><td>Evaluate package quality</td><td class="check" aria-label="Automated">&#10003; 0&ndash;100</td><td>Subjective judgement, no consistent scoring</td></tr>
-        <tr><td>Find native alternatives</td><td class="check" aria-label="Automated">&#10003; 20+ mapped</td><td>Know Node.js APIs by heart or search docs</td></tr>
-        <tr><td>AI agent integration</td><td class="check" aria-label="Automated">&#10003; 13 MCP tools</td><td>Not possible &mdash; agents install blindly</td></tr>
-        <tr><td>Time per package</td><td class="check" aria-label="Fast">~2 seconds</td><td>15&ndash;30 minutes of research</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+    <section id="native">
+      <div class="label">Smart advisor</div>
+      <h2>Skip the package. Use Node.js.</h2>
+      <p class="intro">depguard checks 20+ native alternatives before recommending npm packages. Less bloat, smaller attack surface.</p>
+      <div class="natives">
+        <div class="native"><div class="instead">npm install axios</div><div class="use">globalThis.fetch()</div><div class="desc">Built-in HTTP client. Full Request/Response API.</div><div class="ver">Node 18+</div></div>
+        <div class="native"><div class="instead">npm install uuid</div><div class="use">crypto.randomUUID()</div><div class="desc">RFC 4122 v4 UUID generation. Cryptographically secure.</div><div class="ver">Node 19+</div></div>
+        <div class="native"><div class="instead">npm install lodash.clonedeep</div><div class="use">structuredClone()</div><div class="desc">Deep clone any serialisable value. Handles circular references.</div><div class="ver">Node 17+</div></div>
+        <div class="native"><div class="instead">npm install dotenv</div><div class="use">process.loadEnvFile()</div><div class="desc">Load .env files natively. No parsing library needed.</div><div class="ver">Node 21.7+</div></div>
+        <div class="native"><div class="instead">npm install glob</div><div class="use">fs.glob()</div><div class="desc">Native file globbing. Async iterator interface.</div><div class="ver">Node 22+</div></div>
+        <div class="native"><div class="instead">npm install jest</div><div class="use">node:test</div><div class="desc">Built-in test runner with describe, it and assertions.</div><div class="ver">Node 18+</div></div>
+        <div class="native"><div class="instead">npm install yargs</div><div class="use">util.parseArgs()</div><div class="desc">Parse CLI arguments with type validation. Built in.</div><div class="ver">Node 18.3+</div></div>
+        <div class="native"><div class="instead">npm install better-sqlite3</div><div class="use">node:sqlite</div><div class="desc">Embedded SQLite database. Synchronous API.</div><div class="ver">Node 22.5+</div></div>
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="label">What you get</div>
+      <h2>depguard vs doing it manually</h2>
+      <p class="intro">Without depguard you check several sources, read scripts by hand and make gut-feel decisions. Here is what one command replaces.</p>
+      <div class="table-wrap">
+        <table aria-label="What depguard automates vs manual approach">
+          <thead><tr><th scope="col">Task</th><th scope="col">depguard</th><th scope="col">Manual approach</th></tr></thead>
+          <tbody>
+            <tr><td>Was this machine hit?</td><td class="check">&#10003; One run</td><td>Open every project, check global installs, dig through the npm cache</td></tr>
+            <tr><td>Check known CVEs</td><td class="check">&#10003; Automated</td><td>Search npm and GitHub advisories manually</td></tr>
+            <tr><td>GitHub Advisory Database</td><td class="check">&#10003; Included</td><td>Visit github.com/advisories, search, cross-reference</td></tr>
+            <tr><td>Static code analysis</td><td class="check">&#10003; 18+ patterns</td><td>Download the tarball, read the source by hand</td></tr>
+            <tr><td>Inspect install scripts</td><td class="check">&#10003; 20+ patterns</td><td>Read package source code line by line</td></tr>
+            <tr><td>Behavioural mismatch</td><td class="check">&#10003; Automated</td><td>Compare description and code behaviour yourself</td></tr>
+            <tr><td>Check maintenance health</td><td class="check">&#10003; Scored</td><td>Check the npm page, GitHub commits, last publish date</td></tr>
+            <tr><td>Verify license compatibility</td><td class="check">&#10003; 25+ SPDX</td><td>Read the LICENSE file, understand the copyleft hierarchy</td></tr>
+            <tr><td>Evaluate package quality</td><td class="check">&#10003; 0 to 100</td><td>Subjective judgement, no consistent scoring</td></tr>
+            <tr><td>Find native alternatives</td><td class="check">&#10003; 20+ mapped</td><td>Know Node.js APIs by heart or search the docs</td></tr>
+            <tr><td>AI agent integration</td><td class="check">&#10003; 15 MCP tools</td><td>Not possible: agents install blindly</td></tr>
+            <tr><td>Time per package</td><td class="check">~2 seconds</td><td>15 to 30 minutes of research</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
 </div><!-- /docs -->
 
@@ -655,58 +590,26 @@
      ================================================================ -->
 <div data-page="security" hidden>
 
-<!-- CODE ANALYSIS — NEW v1.6.0 -->
-<section class="section" aria-labelledby="code-analysis-heading">
-  <div class="section-label reveal" style="color:var(--red)">New in v1.6.0</div>
-  <h2 id="code-analysis-heading" class="reveal">Static Code Analysis</h2>
-  <p class="section-desc reveal">depguard now <strong>downloads the package tarball</strong> and scans the actual source code for malware patterns, obfuscation, data exfiltration, and behavioral mismatches. Every finding includes a <strong>detailed explanation</strong> suitable for developers.</p>
-
-  <div class="features-grid reveal">
-    <article class="feat" style="border-left: 3px solid var(--red)">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--red)">&#x2620;</div>
-      <h3>Malware Detection</h3>
-      <p>Eval of decoded payloads, reverse shells via net.connect, cryptocurrency mining pool URLs (stratum+tcp). Critical severity &mdash; auto-blocks.</p>
-      <span class="feat-tag red">Critical</span>
-    </article>
-    <article class="feat" style="border-left: 3px solid var(--red)">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--red)">&#x21C6;</div>
-      <h3>Data Exfiltration</h3>
-      <p>JSON.stringify(process.env), Object.keys(process.env), fetch with dynamic URLs from env vars, bracket-notation env access to evade scanners.</p>
-      <span class="feat-tag red">Critical</span>
-    </article>
-    <article class="feat" style="border-left: 3px solid var(--orange)">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--orange)">&#x26A1;</div>
-      <h3>Code Execution</h3>
-      <p>eval(), new Function(), child_process.exec/spawn, shell interpreter spawning. Flags dangerous patterns with context.</p>
-      <span class="feat-tag orange">High</span>
-    </article>
-    <article class="feat" style="border-left: 3px solid var(--orange)">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--orange)">&#x2592;</div>
-      <h3>Obfuscation</h3>
-      <p>Long hex/unicode-encoded strings, base64 payloads, minified source in non-.min.js files. Techniques used to hide malicious code from reviewers.</p>
-      <span class="feat-tag orange">High</span>
-    </article>
-    <article class="feat" style="border-left: 3px solid var(--yellow)">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--yellow)">&#x2260;</div>
-      <h3>Behavioral Mismatch</h3>
-      <p>A "string formatter" that makes network calls? A "date utility" that reads the filesystem? depguard compares what a package <em>says</em> it does vs what it <em>actually</em> does.</p>
-      <span class="feat-tag orange">Unique</span>
-    </article>
-    <article class="feat" style="border-left: 3px solid var(--accent)">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--accent)">&#x2139;</div>
-      <h3>Rich Explanations</h3>
-      <p>Every finding includes: severity, category, title, a detailed explanation of <em>why</em> it's dangerous, the exact evidence from source code, and a recommendation.</p>
-      <span class="feat-tag green">Developer-Friendly</span>
-    </article>
-  </div>
-
-  <div class="term reveal" style="max-width:740px;margin-top:3rem">
-    <div class="term-bar" aria-hidden="true">
-      <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-      <span class="term-title">SecurityFinding example</span>
-      <span style="width:30px"></span>
+    <div class="page-head">
+      <div class="label">Security</div>
+      <h1 class="rise">What depguard catches, and how</h1>
+      <p class="lede rise rise-2">It downloads the package tarball and scans the actual source code for malware patterns, obfuscation, data exfiltration and behaviour that does not match the description. Every finding comes with a plain explanation.</p>
     </div>
-    <div class="term-body">
+
+    <section id="code-analysis" style="padding-top:64px">
+      <div class="label">Static code analysis</div>
+      <h2>Beyond CVEs: reading the code</h2>
+      <div class="sev">
+        <div class="sev-card crit"><h3>Malware detection</h3><p>Eval of decoded payloads, reverse shells via net.connect, cryptocurrency mining pool URLs (stratum+tcp). Critical severity, blocked automatically.</p><span class="pill-s">Critical</span></div>
+        <div class="sev-card crit"><h3>Data exfiltration</h3><p>JSON.stringify(process.env), Object.keys(process.env), fetch with dynamic URLs from env vars, bracket-notation env access to evade scanners.</p><span class="pill-s">Critical</span></div>
+        <div class="sev-card high"><h3>Code execution</h3><p>eval(), new Function(), child_process.exec and spawn, shell interpreter spawning. Dangerous patterns are flagged with context.</p><span class="pill-s">High</span></div>
+        <div class="sev-card high"><h3>Obfuscation</h3><p>Long hex or unicode-encoded strings, base64 payloads, minified source in non-.min.js files. Techniques used to hide malicious code from reviewers.</p><span class="pill-s">High</span></div>
+        <div class="sev-card high"><h3>Behaviour mismatch</h3><p>A "string formatter" that makes network calls? A "date utility" that reads the filesystem? depguard compares what a package <em>says</em> it does with what it <em>actually</em> does.</p><span class="pill-s">Unique</span></div>
+        <div class="sev-card info"><h3>Rich explanations</h3><p>Every finding includes severity, category, title, an explanation of <em>why</em> it is dangerous, the exact evidence from the source and a recommendation.</p><span class="pill-s">Developer-friendly</span></div>
+      </div>
+      <div class="term finding-term">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>SecurityFinding example</span></div>
+        <div class="term-body">
 <pre><span class="t-comment">// What your AI agent receives for a suspicious package:</span>
 
 {
@@ -720,116 +623,61 @@
   <span class="t-key">"file"</span>:           <span class="t-val">"src/index.js"</span>,
   <span class="t-key">"recommendation"</span>: <span class="t-err">"Do NOT install this package."</span>
 }</pre>
-    </div>
-  </div>
-</section>
+        </div>
+      </div>
+      <div class="cats">
+        <div><b>malware</b>Eval plus decode, reverse shells, crypto mining, TCP backdoors</div>
+        <div><b>data-exfiltration</b>Env serialisation, credential reads, dynamic fetch URLs</div>
+        <div><b>code-execution</b>eval(), new Function(), child_process, shell spawn</div>
+        <div><b>obfuscation</b>Hex and unicode strings, base64 payloads, minified source</div>
+        <div><b>unexpected-behavior</b>Network or filesystem access that does not fit the package's purpose</div>
+        <div><b>supply-chain</b>Typosquatting patterns in install scripts</div>
+      </div>
+    </section>
 
-<div class="divider" aria-hidden="true"></div>
+    <section id="install-scripts">
+      <div class="label">Install scripts</div>
+      <h2>Install script analysis</h2>
+      <p class="intro">depguard statically analyses install scripts (<code>preinstall</code>, <code>install</code>, <code>postinstall</code>) for 20+ suspicious patterns. Each finding includes an explanation and a recommendation.</p>
+      <div class="table-wrap">
+        <table aria-label="Install script detection patterns">
+          <thead><tr><th scope="col">Pattern</th><th scope="col">Severity</th><th scope="col">What it detects</th></tr></thead>
+          <tbody>
+            <tr><td>Remote code execution</td><td><span class="sev-badge crit">Critical</span></td><td>curl or wget piped to sh, download-and-execute chains</td></tr>
+            <tr><td>Credential file access</td><td><span class="sev-badge crit">Critical</span></td><td>Reading ~/.ssh, ~/.aws, ~/.npmrc, ~/.gnupg, /etc/passwd</td></tr>
+            <tr><td>Sensitive env vars</td><td><span class="sev-badge crit">Critical</span></td><td>Accessing $NPM_TOKEN, $AWS_SECRET, $GITHUB_TOKEN</td></tr>
+            <tr><td>Eval of decoded content</td><td><span class="sev-badge crit">Critical</span></td><td>eval(atob(...)), eval(Buffer.from(..., "base64"))</td></tr>
+            <tr><td>Reverse shells</td><td><span class="sev-badge crit">Critical</span></td><td>/dev/tcp connections, netcat with the -e flag</td></tr>
+            <tr><td>Shell typosquatting</td><td><span class="sev-badge crit">Critical</span></td><td>/bin/ssh instead of /bin/sh</td></tr>
+            <tr><td>Process spawning</td><td><span class="sev-badge high">High</span></td><td>child_process, execSync, spawn</td></tr>
+            <tr><td>Dynamic code execution</td><td><span class="sev-badge high">High</span></td><td>eval(), exec() in install scripts</td></tr>
+            <tr><td>Obfuscated strings</td><td><span class="sev-badge high">High</span></td><td>Hex-encoded strings, base64 payloads</td></tr>
+            <tr><td>Network APIs</td><td><span class="sev-badge high">High</span></td><td>net.connect, dgram, dns.resolve in install scripts</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-<!-- INSTALL SCRIPT ANALYSIS -->
-<section class="section" aria-labelledby="scripts-heading">
-  <div class="section-label reveal">Install Scripts</div>
-  <h2 id="scripts-heading" class="reveal">Install script analysis</h2>
-  <p class="section-desc reveal">depguard statically analyzes install scripts (<code style="color:var(--accent);background:var(--bg-deep);padding:.1rem .4rem;border-radius:3px">preinstall</code>, <code style="color:var(--accent);background:var(--bg-deep);padding:.1rem .4rem;border-radius:3px">install</code>, <code style="color:var(--accent);background:var(--bg-deep);padding:.1rem .4rem;border-radius:3px">postinstall</code>) for 20+ suspicious patterns. Each finding now includes a rich explanation and recommendation.</p>
-
-  <div class="attacks-table-wrap reveal">
-    <table class="attacks-table" role="table" aria-label="Install script detection patterns">
-      <thead>
-        <tr>
-          <th scope="col">Pattern</th>
-          <th scope="col">Severity</th>
-          <th scope="col">What It Detects</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Remote code execution</td><td><span class="sev-badge crit">Critical</span></td><td>curl/wget piped to sh, download-and-execute chains</td></tr>
-        <tr><td>Credential file access</td><td><span class="sev-badge crit">Critical</span></td><td>Reading ~/.ssh, ~/.aws, ~/.npmrc, ~/.gnupg, /etc/passwd</td></tr>
-        <tr><td>Sensitive env vars</td><td><span class="sev-badge crit">Critical</span></td><td>Accessing $NPM_TOKEN, $AWS_SECRET, $GITHUB_TOKEN</td></tr>
-        <tr><td>Eval of decoded content</td><td><span class="sev-badge crit">Critical</span></td><td>eval(atob(...)), eval(Buffer.from(..., "base64"))</td></tr>
-        <tr><td>Reverse shells</td><td><span class="sev-badge crit">Critical</span></td><td>/dev/tcp connections, netcat with -e flag</td></tr>
-        <tr><td>Shell typosquatting</td><td><span class="sev-badge crit">Critical</span></td><td>/bin/ssh instead of /bin/sh</td></tr>
-        <tr><td>Process spawning</td><td><span class="sev-badge high">High</span></td><td>child_process, execSync, spawn</td></tr>
-        <tr><td>Dynamic code execution</td><td><span class="sev-badge high">High</span></td><td>eval(), exec() in install scripts</td></tr>
-        <tr><td>Obfuscated strings</td><td><span class="sev-badge high">High</span></td><td>Hex-encoded strings, base64 payloads</td></tr>
-        <tr><td>Network APIs</td><td><span class="sev-badge high">High</span></td><td>net.connect, dgram, dns.resolve in install scripts</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- REAL-WORLD ATTACKS -->
-<section class="section" aria-labelledby="attacks-heading">
-  <div class="section-label reveal">Real Threats</div>
-  <h2 id="attacks-heading" class="reveal">These attacks happened</h2>
-  <p class="section-desc reveal">Major npm supply chain incidents and how depguard detects the patterns that made them possible.</p>
-
-  <div class="attacks-table-wrap reveal">
-    <table class="attacks-table" role="table" aria-label="Historical npm supply chain attacks">
-      <thead>
-        <tr>
-          <th scope="col">Package</th>
-          <th scope="col">Year</th>
-          <th scope="col">Severity</th>
-          <th scope="col">What Happened</th>
-          <th scope="col">depguard Detection</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>event-stream</td>
-          <td>2018</td>
-          <td><span class="sev-badge crit">Critical</span></td>
-          <td>Malicious dependency stole cryptocurrency wallet keys. 8M weekly downloads compromised.</td>
-          <td><strong>Code analysis</strong> flags obfuscated code + credential access patterns. Script analysis catches eval of decoded content.</td>
-        </tr>
-        <tr>
-          <td>ua-parser-js</td>
-          <td>2021</td>
-          <td><span class="sev-badge crit">Critical</span></td>
-          <td>Hijacked account published cryptominers and password stealers via postinstall.</td>
-          <td><strong>Code analysis</strong> detects stratum+tcp mining URLs. Install script analysis catches process spawning and credential file access.</td>
-        </tr>
-        <tr>
-          <td>node-ipc</td>
-          <td>2022</td>
-          <td><span class="sev-badge crit">Critical</span></td>
-          <td>Maintainer added code to wipe files based on geolocation. Dependency of vue-cli.</td>
-          <td><strong>Behavioral mismatch</strong>: IPC library making network calls + filesystem writes. Advisory database flags GHSA.</td>
-        </tr>
-        <tr>
-          <td>colors + faker</td>
-          <td>2022</td>
-          <td><span class="sev-badge high">High</span></td>
-          <td>Maintainer sabotaged packages with infinite loops. Broke thousands of projects.</td>
-          <td>Maintenance score drops. Advisory database flags incident. Score falls below threshold.</td>
-        </tr>
-        <tr>
-          <td>eslint-scope</td>
-          <td>2018</td>
-          <td><span class="sev-badge crit">Critical</span></td>
-          <td>Compromised token published version stealing npm tokens from ~/.npmrc.</td>
-          <td><strong>Code analysis</strong> detects credential file reads. Script analysis flags env var exfiltration.</td>
-        </tr>
-        <tr>
-          <td>coa + rc</td>
-          <td>2021</td>
-          <td><span class="sev-badge crit">Critical</span></td>
-          <td>Hijacked accounts. Obfuscated malware in preinstall scripts.</td>
-          <td><strong>Code analysis</strong> detects base64 + eval pattern. Script analysis flags obfuscated code + process spawning.</td>
-        </tr>
-        <tr>
-          <td>crossenv <span class="t-comment">(typosquat)</span></td>
-          <td>Ongoing</td>
-          <td><span class="sev-badge high">High</span></td>
-          <td>Names mimicking popular packages. Steal environment variables on install.</td>
-          <td>Typosquatting detection via Levenshtein distance. <strong>Code analysis</strong> flags JSON.stringify(process.env).</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+    <section id="attacks">
+      <div class="label">Real threats</div>
+      <h2>These attacks happened</h2>
+      <p class="intro">Major npm supply-chain incidents and how depguard detects the patterns that made them possible.</p>
+      <div class="table-wrap wide">
+        <table aria-label="Historical npm supply chain attacks">
+          <thead><tr><th scope="col">Package</th><th scope="col">Year</th><th scope="col">Severity</th><th scope="col">What happened</th><th scope="col">depguard detection</th></tr></thead>
+          <tbody>
+            <tr><td>debug, color and others</td><td>2025</td><td><span class="sev-badge crit">Critical</span></td><td>Maintainer account taken over; hijacked releases such as debug 4.4.2 and color 5.0.1 shipped malware.</td><td><strong>Advisory database</strong> matches the exact hijacked versions. <code>exposure</code> finds them in every project, global install and the npm cache.</td></tr>
+            <tr><td>event-stream</td><td>2018</td><td><span class="sev-badge crit">Critical</span></td><td>Malicious dependency stole cryptocurrency wallet keys. 8M weekly downloads compromised.</td><td><strong>Code analysis</strong> flags obfuscated code and credential access patterns. Script analysis catches eval of decoded content.</td></tr>
+            <tr><td>ua-parser-js</td><td>2021</td><td><span class="sev-badge crit">Critical</span></td><td>Hijacked account published cryptominers and password stealers via postinstall.</td><td><strong>Code analysis</strong> detects stratum+tcp mining URLs. Install script analysis catches process spawning and credential file access.</td></tr>
+            <tr><td>node-ipc</td><td>2022</td><td><span class="sev-badge crit">Critical</span></td><td>Maintainer added code to wipe files based on geolocation. Dependency of vue-cli.</td><td><strong>Behaviour mismatch</strong>: an IPC library making network calls and filesystem writes. The advisory database flags the GHSA.</td></tr>
+            <tr><td>colors + faker</td><td>2022</td><td><span class="sev-badge high">High</span></td><td>Maintainer sabotaged packages with infinite loops. Broke thousands of projects.</td><td>Maintenance score drops. The advisory database flags the incident. Score falls below the threshold.</td></tr>
+            <tr><td>eslint-scope</td><td>2018</td><td><span class="sev-badge crit">Critical</span></td><td>Compromised token published a version stealing npm tokens from ~/.npmrc.</td><td><strong>Code analysis</strong> detects credential file reads. Script analysis flags env var exfiltration.</td></tr>
+            <tr><td>coa + rc</td><td>2021</td><td><span class="sev-badge crit">Critical</span></td><td>Hijacked accounts. Obfuscated malware in preinstall scripts.</td><td><strong>Code analysis</strong> detects the base64 plus eval pattern. Script analysis flags obfuscated code and process spawning.</td></tr>
+            <tr><td>crossenv (typosquat)</td><td>Ongoing</td><td><span class="sev-badge high">High</span></td><td>Names mimicking popular packages. Steal environment variables on install.</td><td>Typosquatting detection via Levenshtein distance. <strong>Code analysis</strong> flags JSON.stringify(process.env).</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
 </div><!-- /security -->
 
@@ -839,165 +687,166 @@
      ================================================================ -->
 <div data-page="changelog" hidden>
 
-<!-- v1.8.3 -->
-<section class="section" aria-labelledby="v183-heading">
-  <div class="section-label reveal" style="color:var(--accent)">v1.8.3 &mdash; Full JS Ecosystem + Live Tester</div>
-  <h2 id="v183-heading" class="reveal">Every lock file. Every package manager. Live on the web.</h2>
-  <p class="section-desc reveal">Transitive scanning now covers the entire JavaScript ecosystem. Plus a live security tester on <a href="https://depguard.dev" style="color:var(--accent)">depguard.dev</a> &mdash; audit any npm package without installing anything.</p>
-
-  <div class="features-grid reveal">
-    <article class="feat" style="border-color: var(--accent); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--accent)">&#x1F512;</div>
-      <h3 style="color:var(--accent)">yarn.lock + bun.lock</h3>
-      <p>Lock file parsing now supports all 4 JS package managers: npm (<code>package-lock.json</code>), pnpm (<code>pnpm-lock.yaml</code>), yarn classic + berry (<code>yarn.lock</code>), and Bun (<code>bun.lock</code>).</p>
-    </article>
-    <article class="feat" style="border-color: var(--orange); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--orange)">&#x1F310;</div>
-      <h3 style="color:var(--orange)">Live Security Tester</h3>
-      <p>Audit any npm package directly on <strong>depguard.dev</strong> &mdash; real-time results powered by the same engine as the CLI. No install required. Built for vibecoders and junior devs.</p>
-    </article>
-    <article class="feat" style="border-color: var(--red); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--red)">&#x1F6E1;</div>
-      <h3 style="color:var(--red)">SSRF Protection</h3>
-      <p>Tarball download URLs from npm registry metadata are now validated &mdash; HTTPS only, <code>.npmjs.org</code> domain only. Prevents potential server-side request forgery.</p>
-    </article>
-  </div>
-</section>
-
-<div class="divider" aria-hidden="true"></div>
-
-<!-- v1.6.0 -->
-<section class="section" aria-labelledby="v16-heading">
-  <div class="section-label reveal" style="color:var(--red)">v1.6.0 &mdash; Static Code Analysis</div>
-  <h2 id="v16-heading" class="reveal">Beyond CVEs: analyzing the actual code</h2>
-  <p class="section-desc reveal">depguard now downloads package tarballs and scans source code for malware patterns, obfuscation, and behavioral mismatches. Every finding includes a rich, human-readable explanation.</p>
-
-  <div class="features-grid reveal">
-    <article class="feat" style="border-color: var(--red); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--red)">&#x1F50D;</div>
-      <h3 style="color:var(--red)">Tarball Analysis</h3>
-      <p>Downloads the npm package tarball, extracts JS files, and scans with 18+ pattern rules across 6 threat categories: malware, data-exfiltration, code-execution, obfuscation, unexpected-behavior, supply-chain.</p>
-      <div style="margin-top:1rem;padding:0.75rem;background:rgba(255,0,0,0.05);border-radius:8px;font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim)">
-        <span style="color:var(--red)">[CRITICAL]</span> Serialization of entire environment<br>
-        &nbsp;&nbsp;JSON.stringify(process.env) detected in src/index.js
-      </div>
-    </article>
-    <article class="feat" style="border-color: var(--orange); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--orange)">&#x2260;</div>
-      <h3 style="color:var(--orange)">Behavioral Mismatch</h3>
-      <p>Compares the package description and keywords against detected code behavior. A "string formatter" making network calls? Flagged as <strong>unexpected-behavior</strong> with explanation.</p>
-      <div style="margin-top:1rem;padding:0.75rem;background:rgba(255,165,0,0.05);border-radius:8px;font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim)">
-        <span style="color:var(--orange)">[HIGH]</span> Network activity inconsistent<br>
-        &nbsp;&nbsp;Package "date formatter" makes HTTP requests
-      </div>
-    </article>
-    <article class="feat" style="border-color: var(--accent); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--accent)">&#x2139;</div>
-      <h3 style="color:var(--accent)">SecurityFinding Format</h3>
-      <p>Every finding returns: severity, category, title, <strong>detailed explanation</strong>, evidence (exact code), file path, and recommendation. AI agents can present these directly to developers.</p>
-      <div style="margin-top:1rem;padding:0.75rem;background:rgba(0,255,200,0.05);border-radius:8px;font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim)">
-        <span style="color:var(--accent)">212 tests</span> &middot; 0 failures<br>
-        &nbsp;&nbsp;28 new tests for code analysis
-      </div>
-    </article>
-  </div>
-
-  <div style="margin-top:3rem;padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:rgba(255,77,106,0.02)" class="reveal">
-    <h3 style="color:var(--red);margin:0 0 1rem 0;font-size:1rem">v1.6.0 Detection Categories</h3>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;font-size:0.85rem;color:var(--text-dim)">
-      <div><strong style="color:var(--red)">malware</strong><br>Eval+decode, reverse shells, crypto mining, TCP backdoors</div>
-      <div><strong style="color:var(--red)">data-exfiltration</strong><br>Env serialization, credential reads, dynamic fetch URLs</div>
-      <div><strong style="color:var(--orange)">code-execution</strong><br>eval(), new Function(), child_process, shell spawn</div>
-      <div><strong style="color:var(--orange)">obfuscation</strong><br>Hex/unicode strings, base64 payloads, minified source</div>
-      <div><strong style="color:var(--yellow)">unexpected-behavior</strong><br>Network/FS access mismatched with package purpose</div>
-      <div><strong style="color:var(--blue)">supply-chain</strong><br>Typosquatting patterns in install scripts</div>
+    <div class="page-head">
+      <div class="label">Changelog</div>
+      <h1 class="rise">What changed, release by release</h1>
+      <p class="lede rise rise-2">The highlights of each release. The complete list lives in <a href="https://github.com/mopanc/depguard/blob/main/CHANGELOG.md" rel="noopener">CHANGELOG.md</a> on GitHub.</p>
     </div>
-  </div>
-</section>
 
-<div class="divider" aria-hidden="true"></div>
-
-<!-- v1.4 -->
-<section class="section" aria-labelledby="v14-heading">
-  <div class="section-label reveal" style="color:var(--green)">The Complete Workflow</div>
-  <h2 id="v14-heading" class="reveal">Guard. Audit. Review. Clean up.</h2>
-  <p class="section-desc reveal">depguard is the only MCP tool that covers the <strong>full AI coding lifecycle</strong>: verify packages before install, audit for vulnerabilities, review the code the AI generated, and clean up unused dependencies.</p>
-
-  <div class="features-grid reveal">
-    <article class="feat" style="border-color: var(--red); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--red)">&#x2716;</div>
-      <h3 style="color:var(--red)">1. Guard</h3>
-      <p><strong>depguard_guard</strong> &mdash; Before every <code>npm install</code>, whether the user asked or the AI decided. Blocks hallucinated packages, detects typosquatting, runs security audit.</p>
-      <div style="margin-top:1rem;padding:0.75rem;background:rgba(255,0,0,0.05);border-radius:8px;font-family:var(--font-mono);font-size:0.8rem;color:var(--text-dim)">
-        <span style="color:var(--red)">[BLOCK]</span> ai-made-up-pkg<br>
-        &nbsp;&nbsp;Package does NOT exist on npm!
-      </div>
-    </article>
-    <article class="feat" style="border-color: var(--orange); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--orange)">&#x25C8;</div>
-      <h3 style="color:var(--orange)">2. Audit</h3>
-      <p><strong>depguard_audit</strong> &mdash; Deep security analysis. Downloads the tarball, scans source code for malware, checks dual advisory databases, analyzes install scripts.</p>
-      <div style="margin-top:1rem;padding:0.75rem;background:rgba(255,165,0,0.05);border-radius:8px;font-family:var(--font-mono);font-size:0.8rem;color:var(--text-dim)">
-        <span style="color:var(--orange)">[WARN]</span> expresss<br>
-        &nbsp;&nbsp;Possible typosquat of: express
-      </div>
-    </article>
-    <article class="feat" style="border-color: var(--accent); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--accent)">&#x2728;</div>
-      <h3 style="color:var(--accent)">3. Review</h3>
-      <p><strong>depguard_review</strong> &mdash; After coding, scans source files for debris the AI left behind. Console.logs, empty catch blocks, broken imports, orphan files, abandoned TODOs. The AI fixes them before reporting done.</p>
-      <div style="margin-top:1rem;padding:0.75rem;background:rgba(0,255,200,0.05);border-radius:8px;font-family:var(--font-mono);font-size:0.8rem;color:var(--text-dim)">
-        <span style="color:var(--accent)">Found:</span> 3 console.logs, 1 empty catch<br>
-        &nbsp;&nbsp;Fixing before commit...
-      </div>
-    </article>
-    <article class="feat" style="border-color: var(--green); border-width: 2px;">
-      <div class="feat-icon" aria-hidden="true" style="color:var(--green)">&#x2702;</div>
-      <h3 style="color:var(--green)">4. Clean Up</h3>
-      <p><strong>depguard_sweep</strong> &mdash; Finds packages that were installed but never imported. Config-aware (eslint, typescript, jest...), workspace-aware, with estimated size savings.</p>
-      <div style="margin-top:1rem;padding:0.75rem;background:rgba(0,200,100,0.05);border-radius:8px;font-family:var(--font-mono);font-size:0.8rem;color:var(--text-dim)">
-        <span style="color:var(--green)">Unused:</span> lodash (~1.4 MB)<br>
-        &nbsp;&nbsp;Savings: ~2.4 MB from 3 packages
-      </div>
-    </article>
-  </div>
-
-  <div style="margin-top:3rem;padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:rgba(0,255,200,0.02)" class="reveal">
-    <h3 style="color:var(--accent);margin:0 0 1rem 0;font-size:1rem">v1.8 Architecture Redesign</h3>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;font-size:0.85rem;color:var(--text-dim)">
-      <div><strong style="color:var(--red)">Advisory Database</strong><br>Curated database of known compromised packages. event-stream, colors, faker auto-blocked with full incident history.</div>
-      <div><strong style="color:var(--text)">Comment Stripping</strong><br>Code analysis strips comments before scanning. URLs in JSDoc and license headers no longer flagged.</div>
-      <div><strong style="color:var(--text)">Informational Findings</strong><br>Code analysis findings are informational. Only CVEs and advisory DB affect the security score.</div>
-      <div><strong style="color:var(--text)">Lock File Parsing</strong><br>Reads package-lock.json and pnpm-lock.yaml. Transitive deps no longer flagged as phantom.</div>
-      <div><strong style="color:var(--text)">CVSS + Security Ceiling</strong><br>Critical vulns cap at 30. High at 50. Compromised packages score 0. Non-negotiable.</div>
-      <div><strong style="color:var(--text)">Intl Alternatives</strong><br>DateTimeFormat, NumberFormat, RelativeTimeFormat, Collator detected as native alternatives.</div>
-    </div>
-  </div>
-
-  <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:rgba(255,0,0,0.02)" class="reveal">
-    <h3 style="color:var(--red);margin:0 0 1rem 0;font-size:1rem">Real Impact: v1.8 Score Accuracy</h3>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:1.5rem;font-size:0.85rem">
-      <div>
-        <div style="color:var(--text-dim);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em;font-size:.7rem">Compromised packages now blocked</div>
-        <div style="font-family:var(--font-mono);line-height:1.8">
-          <span style="color:var(--red)">event-stream</span> allow (75) <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--red)">block (0)</strong><br>
-          <span style="color:var(--red)">colors</span> allow (88) <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--red)">score 0</strong><br>
-          <span style="color:var(--red)">faker</span> allow <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--red)">score 0</strong>
+    <div class="releases">
+      <article class="release" id="v1-15-1">
+        <div class="ver"><b>v1.15.1</b><span>15 October 2026</span></div>
+        <div>
+          <h2>Fewer false alarms, Shai-Hulud covered</h2>
+          <p>A wider review of the database, and a gate so a false positive cannot ship unnoticed again.</p>
+          <ul>
+            <li><b>False positives removed:</b> node-ipc 10.1.0, fsevents 1.x, bignum 0.12.2 to 0.13.0, the legitimate opencv.js port, @ebay/ui-core-react, and the empty placeholder releases npm publishes after removing malware. Each was clean software flagged by a too-broad entry.</li>
+            <li><b>Shai-Hulud and the chalk hijack are detected.</b> Malware advisories from before November 2025 were never imported; the database now holds the full history, about 108,000 packages.</li>
+            <li><b>Precision gate.</b> Every database update is tested against known-clean versions and the most popular npm packages before it is committed.</li>
+          </ul>
         </div>
-      </div>
-      <div>
-        <div style="color:var(--text-dim);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.05em;font-size:.7rem">False positives eliminated</div>
-        <div style="font-family:var(--font-mono);line-height:1.8">
-          <span style="color:var(--text)">eslint</span> 50 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">94</strong><br>
-          <span style="color:var(--text)">vue</span> 50 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">94</strong><br>
-          <span style="color:var(--text)">fastify</span> 30 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">93</strong><br>
-          <span style="color:var(--text)">zod</span> 30 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">96</strong><br>
-          <span style="color:var(--text)">morgan</span> 50 <span style="color:var(--accent)">&#x2192;</span> <strong style="color:var(--green)">92</strong>
+      </article>
+
+      <article class="release" id="v1-15-0">
+        <div class="ver"><b>v1.15.0</b><span>15 October 2026</span></div>
+        <div>
+          <h2>Was this machine hit?</h2>
+          <p>A new command and MCP tool for the moment after an incident, and a much larger database behind it.</p>
+          <ul>
+            <li><b><code>depguard-cli exposure</code> and <code>depguard_exposure</code>.</b> Checks every lock file under your home directory, global installs and the npm download cache against the known-malicious database. Reports every location, whether the version is installed, whether it runs install scripts, when it was downloaded, and remediation steps that scale with the evidence. Exits 2 when exposed, so it can gate CI.</li>
+            <li><b>The known-malicious database grows from 34,952 to 88,849 npm packages,</b> and now includes hijacked legitimate packages such as debug 4.4.2, the color family, eslint-config-prettier and @tanstack/*.</li>
+            <li><b><code>audit-project</code> now audits the installed version</b> of each direct dependency instead of the latest published one, and checks every installed transitive copy.</li>
+            <li><b><code>audit-workspace</code> reads the per-OS <code>tasks.json</code> overrides</b> used by real fake-interview campaigns.</li>
+            <li>15 MCP tools (up from 14), 469 tests (up from 409).</li>
+          </ul>
         </div>
-      </div>
+      </article>
+
+      <article class="release" id="v1-14-0">
+        <div class="ver"><b>v1.14.0</b><span>30 May 2026</span></div>
+        <div>
+          <h2>SARIF for the GitHub Security tab</h2>
+          <ul>
+            <li><b>SARIF v2.1.0 output</b> for <code>audit</code>, <code>audit-project</code> and <code>audit-workspace</code> with <code>--format sarif</code>, ready for <code>github/codeql-action/upload-sarif</code>.</li>
+            <li><b><code>depguard-cli audit-project</code></b> is now a first-class CLI command, with CI-friendly exit codes.</li>
+            <li>14 MCP tools, 409 tests.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="release" id="v1-13-0">
+        <div class="ver"><b>v1.13.0</b><span>30 May 2026</span></div>
+        <div>
+          <h2>Consistent tool names</h2>
+          <ul>
+            <li>The workspace audit is now <code>depguard_audit_workspace</code> (MCP) and <code>audit-workspace</code> (CLI). The old names still work as deprecated aliases. Thanks to Konstantin Komelin for catching the inconsistency.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="release" id="v1-12-0">
+        <div class="ver"><b>v1.12.0</b><span>24 May 2026</span></div>
+        <div>
+          <h2>Check a repo before you open it</h2>
+          <ul>
+            <li><b>Workspace auto-exec surface audit.</b> Scans a freshly cloned repo for files that run when you open it in an IDE, run <code>direnv allow</code> or build: VS Code tasks and settings, devcontainer lifecycle commands, <code>.envrc</code>, JetBrains run configs, the Makefile default target, <code>.gitattributes</code> filter drivers and committed git hooks. A defence against fake-interview malware.</li>
+            <li>14 MCP tools, 385 tests.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="release" id="v1-11-0">
+        <div class="ver"><b>v1.11.0</b><span>9 May 2026</span></div>
+        <div>
+          <h2>A remediation plan, not a list</h2>
+          <ul>
+            <li><b><code>depguard_remediate</code></b> groups every vulnerable transitive under the direct dependency that pulls it in, so the first bump is the one that fixes the most.</li>
+            <li>Per-component licenses in the generated SBOM, and live audit scores that match the daily ranking.</li>
+            <li>13 MCP tools, 325 tests.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="release" id="v1-9-0">
+        <div class="ver"><b>v1.9.0</b><span>25 April 2026</span></div>
+        <div>
+          <h2>CycloneDX 1.6 SBOM</h2>
+          <ul>
+            <li><b><code>depguard_sbom</code> and <code>depguard-cli sbom</code></b> produce CycloneDX 1.6 documents with PURLs and integrity hashes, with optional VEX vulnerability data. Implemented natively, so depguard keeps zero runtime dependencies.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="release" id="v1-8-3">
+        <div class="ver"><b>v1.8.3</b><span>8 April 2026</span></div>
+        <div>
+          <h2>Every lock file. Every package manager. Live on the web.</h2>
+          <p>Transitive scanning now covers the whole JavaScript ecosystem, plus a live security tester on depguard.dev.</p>
+          <div class="mini">
+            <div><h3>yarn.lock and bun.lock</h3><p>Lock file parsing supports all four JS package managers: npm (<code>package-lock.json</code>), pnpm (<code>pnpm-lock.yaml</code>), Yarn classic and Berry (<code>yarn.lock</code>) and Bun (<code>bun.lock</code>).</p></div>
+            <div><h3>Live security tester</h3><p>Audit any npm package on depguard.dev with real-time results from the same engine as the CLI. No install required.</p></div>
+            <div><h3>SSRF protection</h3><p>Tarball download URLs from registry metadata are validated: HTTPS only, <code>.npmjs.org</code> only.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="release" id="v1-8-0">
+        <div class="ver"><b>v1.8.0</b><span>28 March 2026</span></div>
+        <div>
+          <h2>Architecture redesign</h2>
+          <div class="mini">
+            <div><h3>Advisory database</h3><p>Curated database of known compromised packages. event-stream, colors and faker are blocked with their full incident history.</p></div>
+            <div><h3>Comment stripping</h3><p>Code analysis strips comments before scanning, so URLs in JSDoc and license headers are no longer flagged.</p></div>
+            <div><h3>Informational findings</h3><p>Code analysis findings are informational. Only CVEs and the advisory database affect the security score.</p></div>
+            <div><h3>Lock file parsing</h3><p>Reads package-lock.json and pnpm-lock.yaml. Transitive dependencies are no longer flagged as phantom.</p></div>
+            <div><h3>CVSS and security ceiling</h3><p>Critical vulnerabilities cap the score at 30, high at 50. Compromised packages score 0.</p></div>
+            <div><h3>Intl alternatives</h3><p>DateTimeFormat, NumberFormat, RelativeTimeFormat and Collator detected as native alternatives.</p></div>
+            <div><h3>Compromised packages now blocked</h3><pre><b>event-stream</b> allow (75) &rarr; <b>block (0)</b>
+<b>colors</b> allow (88) &rarr; <b>score 0</b>
+<b>faker</b> allow &rarr; <b>score 0</b></pre></div>
+            <div><h3>False positives eliminated</h3><pre>eslint  50 &rarr; <em>94</em>
+vue     50 &rarr; <em>94</em>
+fastify 30 &rarr; <em>93</em>
+zod     30 &rarr; <em>96</em>
+morgan  50 &rarr; <em>92</em></pre></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="release" id="v1-6-0">
+        <div class="ver"><b>v1.6.0</b><span>March 2026</span></div>
+        <div>
+          <h2>Beyond CVEs: analysing the actual code</h2>
+          <p>depguard downloads package tarballs and scans the source for malware patterns, obfuscation and behavioural mismatches. Every finding includes a human-readable explanation.</p>
+          <div class="mini">
+            <div><h3>Tarball analysis</h3><p>Extracts the JS files and scans them with 18+ rules across six threat categories: malware, data-exfiltration, code-execution, obfuscation, unexpected-behavior and supply-chain.</p><pre><b>[CRITICAL]</b> Serialization of entire environment
+  JSON.stringify(process.env) in src/index.js</pre></div>
+            <div><h3>Behavioural mismatch</h3><p>Compares the description and keywords with detected behaviour. A "string formatter" making network calls is flagged as unexpected-behavior.</p><pre><b>[HIGH]</b> Network activity inconsistent
+  Package "date formatter" makes HTTP requests</pre></div>
+            <div><h3>SecurityFinding format</h3><p>Every finding returns severity, category, title, explanation, evidence, file path and recommendation, ready for an AI agent to show to a developer.</p><pre><em>212 tests</em> &middot; 0 failures
+  28 new tests for code analysis</pre></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="release" id="v1-4-0">
+        <div class="ver"><b>v1.4 to v1.7</b><span>March 2026</span></div>
+        <div>
+          <h2>Guard. Audit. Review. Clean up.</h2>
+          <p>The full AI coding lifecycle: verify packages before install, audit for vulnerabilities, review the code the AI wrote, and remove unused dependencies.</p>
+          <div class="mini">
+            <div><h3>1. Guard</h3><p><code>depguard_guard</code> runs before every <code>npm install</code>. Blocks hallucinated packages, detects typosquatting, runs a security audit.</p><pre><b>[BLOCK]</b> ai-made-up-pkg
+  Package does NOT exist on npm!</pre></div>
+            <div><h3>2. Audit</h3><p><code>depguard_audit</code> downloads the tarball, scans the source for malware, checks two advisory databases and analyses install scripts.</p><pre><b>[WARN]</b> expresss
+  Possible typosquat of: express</pre></div>
+            <div><h3>3. Review</h3><p><code>depguard_review</code> finds the debris an AI agent leaves behind: console.logs, empty catch blocks, broken imports, orphan files, abandoned TODOs.</p><pre><em>Found:</em> 3 console.logs, 1 empty catch
+  Fixing before commit...</pre></div>
+            <div><h3>4. Clean up</h3><p><code>depguard_sweep</code> finds packages that were installed but never imported, with estimated size savings.</p><pre><em>Unused:</em> lodash (~1.4 MB)
+  Savings: ~2.4 MB from 3 packages</pre></div>
+          </div>
+        </div>
+      </article>
     </div>
-  </div>
-</section>
 
 </div><!-- /changelog -->
 
@@ -1007,249 +856,277 @@
      ================================================================ -->
 <div data-page="ranking" hidden>
 
-<section class="section" aria-labelledby="ranking-heading">
-  <div class="section-label reveal" style="color:var(--accent)">Daily Security Ranking</div>
-  <h2 id="ranking-heading" class="reveal">Top npm packages &mdash; audited every day</h2>
-  <p class="section-desc reveal"><span id="ranking-desc-count">The most popular npm packages</span>, ranked by security score. Updated daily at 06:00 UTC. Alerts highlight packages that dropped in score or were flagged as dangerous.</p>
+    <div class="page-head">
+      <div class="label">Daily security ranking</div>
+      <h1 class="rise">Top npm packages, audited every day</h1>
+      <p class="lede rise rise-2"><span id="ranking-desc-count">The most popular npm packages</span>, ranked by security score. Updated daily at 06:00 UTC. Alerts highlight packages that dropped in score or were flagged as dangerous.</p>
+    </div>
 
-  <!-- Stats bar -->
-  <div class="ranking-stats reveal" id="ranking-stats">
-    <div class="ranking-stat">
-      <span class="ranking-stat-value" id="ranking-total">—</span>
-      <span class="ranking-stat-label">Packages</span>
+    <div class="rank-head" id="ranking-stats">
+      <div><b id="ranking-total">&middot;</b><span>Packages</span></div>
+      <div class="ok"><b id="ranking-clean">&middot;</b><span>Clean</span></div>
+      <div class="warn"><b id="ranking-warnings">&middot;</b><span>Warnings</span></div>
+      <div class="bad"><b id="ranking-danger">&middot;</b><span>Danger</span></div>
+      <div class="date"><b id="ranking-date">&middot;</b><span>Last scan</span></div>
     </div>
-    <div class="ranking-stat">
-      <span class="ranking-stat-value" id="ranking-clean" style="color:var(--accent)">—</span>
-      <span class="ranking-stat-label">Clean</span>
-    </div>
-    <div class="ranking-stat">
-      <span class="ranking-stat-value" id="ranking-warnings" style="color:var(--orange)">—</span>
-      <span class="ranking-stat-label">Warnings</span>
-    </div>
-    <div class="ranking-stat">
-      <span class="ranking-stat-value" id="ranking-danger" style="color:var(--red)">—</span>
-      <span class="ranking-stat-label">Danger</span>
-    </div>
-    <div class="ranking-stat">
-      <span class="ranking-stat-value" id="ranking-date" style="color:var(--text-muted)">—</span>
-      <span class="ranking-stat-label">Last Scan</span>
-    </div>
-  </div>
 
-  <!-- Critical Threat Packages -->
-  <div id="ranking-threats" class="ranking-threats reveal" hidden>
-    <h3 class="ranking-threats-title">Critical Threats</h3>
-    <p class="ranking-threats-desc">Packages flagged as compromised or with critically low security scores. These should not be installed in any project.</p>
-    <div id="ranking-threats-list" class="ranking-threats-grid"></div>
-  </div>
-
-  <!-- Search/filter -->
-  <div class="ranking-filter reveal">
-    <input type="text" class="demo-input" id="ranking-search" placeholder="Filter packages..." oninput="filterRanking()" autocomplete="off" spellcheck="false" style="max-width:400px">
-  </div>
-
-  <!-- Ranking table -->
-  <div class="ranking-table-wrap reveal">
-    <table class="ranking-table" id="ranking-table">
-      <thead>
-        <tr>
-          <th style="width:50px">#</th>
-          <th>Package</th>
-          <th style="width:90px">Score</th>
-          <th style="width:80px">Vulns</th>
-          <th style="width:100px">Downloads</th>
-          <th style="width:60px">Trend</th>
-        </tr>
-      </thead>
-      <tbody id="ranking-body">
-        <tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-dim)">Loading ranking data...</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="ranking-pagination" id="ranking-pagination"></div>
-
-  <p class="section-desc reveal" style="margin-top:2rem;font-size:.75rem;color:var(--text-dim)">
-    Scans run automatically via GitHub Actions. Data is publicly available at <code>/data/daily-scan.json</code>.
-    Want to add a package? <a href="https://github.com/mopanc/depguard/issues" target="_blank" rel="noopener" style="color:var(--accent)">Open an issue</a>.
-  </p>
-</section>
-
-<!-- Package detail modal -->
-<div class="pkg-modal-overlay" id="pkg-modal-overlay" hidden onclick="closePkgModal(event)">
-  <div class="pkg-modal" onclick="event.stopPropagation()">
-    <div class="pkg-modal-header">
-      <h3 id="pkg-modal-title">Package Details</h3>
-      <button class="pkg-modal-close" onclick="closePkgModal()" aria-label="Close">&times;</button>
+    <div id="ranking-threats" class="ranking-threats" hidden>
+      <h2 class="ranking-threats-title">Critical threats</h2>
+      <p class="ranking-threats-desc">Packages flagged as compromised or with critically low security scores. These should not be installed in any project.</p>
+      <div id="ranking-threats-list" class="ranking-threats-grid"></div>
     </div>
-    <div class="pkg-modal-body" id="pkg-modal-body">
-      <div class="pkg-modal-loading">Loading audit data...</div>
-    </div>
-    <div class="pkg-modal-footer">
-      <button class="btn-ghost" id="pkg-modal-share" onclick="sharePkgModal()">Copy link</button>
-      <span class="pkg-modal-powered">Powered by depguard live audit</span>
-    </div>
-  </div>
-</div>
 
-</div>
+    <div class="ranking-filter">
+      <label for="ranking-search" class="sr">Filter packages</label>
+      <input type="text" class="field" id="ranking-search" placeholder="Filter packages" autocomplete="off" spellcheck="false" autocapitalize="off">
+    </div>
+
+    <div class="rank-table">
+      <table id="ranking-table">
+        <thead>
+          <tr>
+            <th scope="col" style="width:50px">#</th>
+            <th scope="col">Package</th>
+            <th scope="col" style="width:200px">Score</th>
+            <th scope="col" style="width:80px">Vulns</th>
+            <th scope="col" style="width:100px">Downloads</th>
+            <th scope="col" style="width:60px">Trend</th>
+          </tr>
+        </thead>
+        <tbody id="ranking-body">
+          <tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--muted)">Loading ranking data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ranking-pagination" id="ranking-pagination"></div>
+
+    <p class="fine">
+      Scans run automatically via GitHub Actions. Data is publicly available at <code>/data/daily-scan.json</code>.
+      Want to add a package? <a href="https://github.com/mopanc/depguard/issues" rel="noopener">Open an issue</a>.
+    </p>
+
+    <!-- Package detail modal -->
+    <div class="pkg-modal-overlay" id="pkg-modal-overlay" hidden>
+      <div class="pkg-modal" role="dialog" aria-modal="true" aria-labelledby="pkg-modal-title">
+        <div class="pkg-modal-header">
+          <h3 id="pkg-modal-title">Package details</h3>
+          <button class="pkg-modal-close" id="pkg-modal-close" type="button" aria-label="Close">&times;</button>
+        </div>
+        <div class="pkg-modal-body" id="pkg-modal-body">
+          <div class="pkg-modal-loading">Loading audit data...</div>
+        </div>
+        <div class="pkg-modal-footer">
+          <button type="button" id="pkg-modal-share">Copy link</button>
+          <span class="pkg-modal-powered">Powered by depguard live audit</span>
+        </div>
+      </div>
+    </div>
+
+</div><!-- /ranking -->
+
 
 <!-- ================================================================
      PAGE: CONTACT
      ================================================================ -->
 <div data-page="contact" hidden>
 
-<section class="section" aria-labelledby="contact-heading">
-  <div class="section-label reveal">Contact</div>
-  <h2 id="contact-heading" class="reveal">Get in touch</h2>
-  <p class="section-desc reveal">Questions, partnerships, security reports, or feedback &mdash; reach out through any of these channels.</p>
+    <div class="page-head">
+      <div class="label">Contact</div>
+      <h1 class="rise">Get in touch</h1>
+      <p class="lede rise rise-2">Questions, partnerships, security reports or feedback. Reach out through any of these channels.</p>
+    </div>
 
-  <div class="contact-grid reveal">
-    <a href="https://github.com/mopanc/depguard/issues" target="_blank" rel="noopener" class="contact-card">
-      <div class="contact-label">Bug Reports &amp; Features</div>
-      <div class="contact-value">GitHub Issues</div>
-      <div class="contact-desc">Open an issue for bug reports, feature requests, or security pattern contributions.</div>
-    </a>
-    <a href="https://github.com/mopanc/depguard/discussions" target="_blank" rel="noopener" class="contact-card">
-      <div class="contact-label">Community</div>
-      <div class="contact-value">GitHub Discussions</div>
-      <div class="contact-desc">Ask questions, share how you use depguard, or discuss the roadmap with the community.</div>
-    </a>
-    <div class="contact-card" style="cursor:default">
-      <div class="contact-label">Author</div>
-      <div class="contact-value">Jorge Morais</div>
-      <div class="contact-desc">Open source developer. Building security tools for the AI coding era.</div>
-      <div style="display:flex;gap:.75rem;margin-top:1rem">
-        <a href="https://www.jorgemopanc.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .9rem;border:1px solid var(--border);border-radius:6px;font-size:.78rem;color:var(--text);text-decoration:none;transition:border-color .2s,background .2s" onmouseover="this.style.borderColor='var(--accent)';this.style.background='var(--bg-surface)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='transparent'">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          Website
-        </a>
-        <a href="https://www.linkedin.com/in/jorge-mopanc/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .9rem;border:1px solid var(--border);border-radius:6px;font-size:.78rem;color:var(--text);text-decoration:none;transition:border-color .2s,background .2s" onmouseover="this.style.borderColor='#0A66C2';this.style.background='var(--bg-surface)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='transparent'">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
+    <div class="contact">
+      <a href="https://github.com/mopanc/depguard/issues" rel="noopener" class="contact-card">
+        <div class="label">Bug reports and features</div>
+        <h3>GitHub Issues</h3>
+        <p>Open an issue for bug reports, feature requests or security pattern contributions.</p>
+      </a>
+      <a href="https://github.com/mopanc/depguard/discussions" rel="noopener" class="contact-card">
+        <div class="label">Community</div>
+        <h3>GitHub Discussions</h3>
+        <p>Ask questions, share how you use depguard, or discuss the roadmap with the community.</p>
+      </a>
+      <div class="contact-card">
+        <div class="label">Author</div>
+        <h3>Jorge Morais</h3>
+        <p>Open source developer. Building security tools for the AI coding era.</p>
+        <div class="contact-links">
+          <a href="https://www.jorgemopanc.com" rel="noopener">Website</a>
+          <a href="https://www.linkedin.com/in/jorge-mopanc/" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/mopanc" rel="noopener">GitHub</a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
 </div><!-- /contact -->
 
+  </main>
 
-</main>
-
-<!-- ============ FOOTER ============ -->
-<footer role="contentinfo">
-  <div class="footer-inner">
-    <div class="footer-left">
-      <div style="margin-bottom:.4rem">depguard-cli &copy; 2026 <a href="https://www.jorgemopanc.com" target="_blank" rel="noopener" style="color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">Jorge Morais</a>. Apache-2.0.</div>
-      <div class="made-in-pt" aria-label="Made in Portugal">
-        <svg width="16" height="11" viewBox="0 0 16 11" aria-hidden="true" style="vertical-align:middle;margin-right:5px">
-          <rect width="6" height="11" fill="#006600"/>
-          <rect x="6" width="10" height="11" fill="#ff0000"/>
-          <circle cx="6" cy="5.5" r="2.5" fill="#ffcc00" stroke="#006600" stroke-width=".4"/>
-        </svg>
-        <span>Made in Portugal</span>
-      </div>
+  <footer>
+    <div>
+      <span>depguard is free and open source (Apache-2.0), made by <a href="https://www.jorgemopanc.com" rel="noopener">Jorge Morais</a>.</span><br>
+      <span class="made"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="12" height="20" fill="#046a38"/><rect x="12" width="18" height="20" fill="#da291c"/><circle cx="12" cy="10" r="4" fill="#ffd400"/></svg>Made in Portugal</span>
     </div>
-    <nav class="footer-links" aria-label="Footer navigation">
-      <a href="#/" data-nav>Home</a>
-      <a href="#/docs" data-nav>Docs</a>
-      <a href="#/ranking" data-nav>Ranking</a>
-      <a href="#/security" data-nav>Security</a>
-      <a href="#/changelog" data-nav>Changelog</a>
-      <a href="https://github.com/mopanc/depguard" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.npmjs.com/package/depguard-cli" target="_blank" rel="noopener">npm</a>
-      <a href="#/contact" data-nav>Contact</a>
+    <nav aria-label="Footer">
+      <a href="https://github.com/mopanc/depguard" rel="noopener">GitHub</a>
+      <a href="https://www.npmjs.com/package/depguard-cli" rel="noopener">npm</a>
+      <a href="/docs" data-nav>Docs</a>
+      <a href="/ranking" data-nav>Ranking</a>
+      <a href="/security" data-nav>Security</a>
+      <a href="/changelog" data-nav>Changelog</a>
+      <a href="/contact" data-nav>Contact</a>
     </nav>
-  </div>
-</footer>
+  </footer>
+</div>
 
 <script>
-// ============ SPA ROUTER ============
-function route() {
-  const hash = location.hash.replace('#/', '') || 'home';
-  const page = hash.split('/')[0] || 'home';
+// ============ ROUTER (History API, real paths) ============
+const SITE = 'https://depguard.dev';
+const PAGES = { '/': 'home', '/docs': 'docs', '/ranking': 'ranking', '/security': 'security', '/changelog': 'changelog', '/contact': 'contact' };
+const TITLES = {
+  home: 'depguard: was your machine hit by an npm supply-chain attack?',
+  docs: 'Docs: setup, MCP tools and scoring | depguard',
+  ranking: 'Daily npm security ranking | depguard',
+  security: 'What depguard detects in npm packages | depguard',
+  changelog: 'Changelog | depguard',
+  contact: 'Contact | depguard',
+};
 
-  // Show/hide pages
-  document.querySelectorAll('[data-page]').forEach(el => {
-    const isActive = el.dataset.page === page;
-    el.hidden = !isActive;
-    // Re-trigger reveal animations for newly shown page
-    if (isActive) {
-      el.querySelectorAll('.reveal').forEach(r => {
-        r.classList.remove('visible');
-        void r.offsetWidth; // force reflow
-        observer.observe(r);
-      });
-    }
-  });
-
-  // Update nav active state
-  document.querySelectorAll('[data-page-link]').forEach(link => {
-    link.classList.toggle('nav-active', link.dataset.pageLink === page);
-  });
-
-  // Scroll to top on page change
-  window.scrollTo({ top: 0, behavior: 'instant' });
-
-  // Re-observe score bars if on docs page
-  if (page === 'docs') {
-    const scoreBars = document.querySelector('.score-bars');
-    if (scoreBars) scoreObserver.observe(scoreBars);
-  }
-
-  // Close mobile menu
-  document.querySelector('.nav-links')?.classList.remove('open');
-}
-
-window.addEventListener('hashchange', route);
-
-// ============ GRID GLOW FOLLOW MOUSE ============
-const glow = document.getElementById('gridGlow');
-let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-
-document.addEventListener('mousemove', (e) => {
-  targetX = e.clientX;
-  targetY = e.clientY;
-  glow.classList.add('active');
-});
-
-document.addEventListener('mouseleave', () => {
-  glow.classList.remove('active');
-});
-
-(function animateGlow() {
-  currentX += (targetX - currentX) * 0.08;
-  currentY += (targetY - currentY) * 0.08;
-  glow.style.setProperty('--mx', currentX + 'px');
-  glow.style.setProperty('--my', currentY + 'px');
-  requestAnimationFrame(animateGlow);
+// Old links used hash routes (#/ranking?pkg=x). Move them to the real path.
+(function migrateHashRoute() {
+  if (!location.hash.startsWith('#/')) return;
+  const rest = location.hash.slice(1);
+  const q = rest.indexOf('?');
+  const path = (q === -1 ? rest : rest.slice(0, q)).replace(/\/+$/, '') || '/';
+  const search = q === -1 ? '' : rest.slice(q);
+  history.replaceState(null, '', path + search);
 })();
 
-// ============ SCROLL REVEAL ============
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+function normPath(p) { return p.replace(/\/+$/, '') || '/'; }
+function currentPage() { return PAGES[normPath(location.pathname)] || 'home'; }
 
-// ============ SCORE BAR ANIMATION ============
-const scoreObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const fills = entry.target.querySelectorAll('.score-fill');
-      fills.forEach(fill => {
-        const w = fill.dataset.width;
-        fill.style.width = (w / 30 * 100) + '%';
-      });
-    }
+function setMeta(page) {
+  document.title = TITLES[page];
+  const url = SITE + (page === 'home' ? '/' : '/' + page);
+  document.querySelector('link[rel="canonical"]').setAttribute('href', url);
+  document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+}
+
+function route(scrollTop) {
+  const page = currentPage();
+  document.querySelectorAll('[data-page]').forEach(el => { el.hidden = el.dataset.page !== page; });
+  document.querySelectorAll('[data-page-link]').forEach(link => {
+    if (link.dataset.pageLink === page) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
   });
-}, { threshold: 0.3 });
-const scoreBars = document.querySelector('.score-bars');
-if (scoreBars) scoreObserver.observe(scoreBars);
+  setMeta(page);
+  closeMenu();
+
+  if (page === 'home' || page === 'ranking') loadScan();
+  if (page === 'ranking') checkModalParam();
+  else if (currentModalPkg) hideModal();
+
+  const target = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+  if (target) target.scrollIntoView();
+  else if (scrollTop) window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-nav]');
+  if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const url = new URL(a.href);
+  if (url.origin !== location.origin) return;
+  // Same page, only a fragment: let the browser scroll.
+  if (normPath(url.pathname) === normPath(location.pathname) && url.search === location.search && url.hash) { closeMenu(); return; }
+  e.preventDefault();
+  history.pushState(null, '', url.pathname + url.search + url.hash);
+  route(true);
+});
+window.addEventListener('popstate', () => route(false));
+
+// Mobile menu
+const menuBtn = document.querySelector('.menu-btn');
+const mainNav = document.getElementById('main-nav');
+function closeMenu() { mainNav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+menuBtn.addEventListener('click', () => {
+  const open = mainNav.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', String(open));
+});
+
+// ============ COPY BUTTONS ============
+document.querySelectorAll('.copy[data-copy]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const code = btn.parentElement.querySelector('code');
+    const done = () => { btn.textContent = 'Copied'; setTimeout(() => { btn.textContent = 'Copy'; }, 1600); };
+    const fallback = () => {
+      const range = document.createRange();
+      range.selectNodeContents(code);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(btn.dataset.copy).then(done, fallback);
+    else fallback();
+  });
+});
+
+// ============ EXPOSURE EXAMPLE ============
+(function () {
+  const out = document.getElementById('out');
+  const clean = [
+    ['cmd', 'npx depguard-cli exposure'],
+    ['', ''],
+    ['hi', 'depguard exposure scan'],
+    ['', '  Scanned:     143 lock files, 816 global packages,'],
+    ['', '               276 cached tarballs (14532 versions)'],
+    ['', '  Under:       /Users/you'],
+    ['', '  Advisory DB: 2026-10-15 (88852 known-malicious packages)'],
+    ['', ''],
+    ['ok', '  OK  No known-malicious package versions found.'],
+    ['', ''],
+    ['', '  Note: a clean result means no KNOWN malicious version'],
+    ['', '  was found. Run it again after the next incident.'],
+  ];
+  const hit = [
+    ['cmd', 'npx depguard-cli exposure'],
+    ['', ''],
+    ['hi', 'depguard exposure scan'],
+    ['', '  Scanned:     143 lock files, 816 global packages, 276 cached tarballs'],
+    ['', ''],
+    ['bad', '  EXPOSED  1 known-malicious package version found'],
+    ['', ''],
+    ['hi', '  debug@4.4.2'],
+    ['', '    CVE-2025-59144  contains malware after npm account takeover'],
+    ['', '    - lock file   ~/work/api/package-lock.json'],
+    ['', '                  node_modules/express/node_modules/debug'],
+    ['bad', '                  [installed on disk]'],
+    ['', '    - npm cache   tarball downloaded on 2025-09-08'],
+    ['', ''],
+    ['hi', '  What to do now:'],
+    ['', '    1. Treat the machine as compromised...'],
+    ['', '    2. Rotate npm and GitHub tokens, SSH keys, cloud credentials...'],
+  ];
+  function render(lines, animate) {
+    out.textContent = '';
+    out.classList.toggle('typing', !!animate);
+    lines.forEach((l, i) => {
+      const span = document.createElement('span');
+      span.className = 'line' + (l[0] ? ' ' + l[0] : '');
+      span.textContent = l[1] || ' ';
+      if (animate) span.style.animationDelay = (i * 45) + 'ms';
+      out.appendChild(span);
+    });
+  }
+  const cleanBtn = document.getElementById('show-clean');
+  const hitBtn = document.getElementById('show-hit');
+  function select(which) {
+    cleanBtn.setAttribute('aria-pressed', String(which === 'clean'));
+    hitBtn.setAttribute('aria-pressed', String(which === 'hit'));
+    render(which === 'clean' ? clean : hit, true);
+  }
+  cleanBtn.addEventListener('click', () => select('clean'));
+  hitBtn.addEventListener('click', () => select('hit'));
+  render(clean, false);
+})();
 
 // ============ LIVE AUDIT TESTER ============
 const API_URL = '/api/audit';
@@ -1266,7 +1143,7 @@ function setLoading(on) {
 
 function escapeHtml(s) {
   if (s == null) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 function formatNumber(n) {
@@ -1313,7 +1190,7 @@ function renderAuditResult(name, d) {
   // Compromised
   let compromisedLine = '';
   if (d.compromised) {
-    compromisedLine = `\n<span class="t-key">COMPROMISED</span>     <span class="t-err">KNOWN MALICIOUS PACKAGE — ${safe(d.compromised.severity)}</span>`;
+    compromisedLine = `\n<span class="t-key">COMPROMISED</span>     <span class="t-err">KNOWN MALICIOUS PACKAGE: ${safe(d.compromised.severity)}</span>`;
   }
 
   // Maintainer analysis
@@ -1359,6 +1236,7 @@ async function runLiveAudit(pkg) {
   const name = (pkg || input.value || '').trim().toLowerCase();
 
   if (!name) { input.focus(); return; }
+  document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.pkg === name)));
   if (!/^(@[a-z0-9\-_.]+\/)?[a-z0-9\-_.]+$/.test(name)) {
     output.innerHTML = `<pre><span class="t-prompt">$</span> <span class="t-cmd">depguard-cli audit ${escapeHtml(name)}</span>\n\n<span class="t-err">Invalid package name</span></pre>`;
     return;
@@ -1397,53 +1275,81 @@ async function runLiveAudit(pkg) {
   }
 }
 
-// ============ RANKING ============
+document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => runLiveAudit(c.dataset.pkg)));
+document.getElementById('demo-form').addEventListener('submit', e => { e.preventDefault(); runLiveAudit(); });
+
+// ============ DAILY SCAN DATA (home teaser + ranking page) ============
 let rankingData = null;
-let rankingLoaded = false;
+let scanPromise = null;
 let rankingPage = 0;
 let rankingFiltered = null;
 const RANKING_PAGE_SIZE = 25;
 
-async function loadRanking() {
-  if (rankingLoaded) return;
-  rankingLoaded = true;
-  try {
-    const res = await fetch('/data/daily-scan.json');
-    if (!res.ok) throw new Error('No data');
-    rankingData = await res.json();
-    renderRanking(rankingData);
-  } catch {
-    document.getElementById('ranking-body').innerHTML =
-      '<tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-dim)">No scan data yet. First scan runs at 06:00 UTC.</td></tr>';
-  }
+function loadScan() {
+  if (scanPromise) return scanPromise;
+  scanPromise = fetch('/data/daily-scan.json')
+    .then(res => { if (!res.ok) throw new Error('No data'); return res.json(); })
+    .then(data => {
+      rankingData = data;
+      renderRanking(data);
+      renderHomeRanking(data);
+      return data;
+    })
+    .catch(() => {
+      document.getElementById('ranking-body').innerHTML =
+        '<tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--muted)">No scan data yet. First scan runs at 06:00 UTC.</td></tr>';
+      return null;
+    });
+  return scanPromise;
+}
+
+function scanStats(data) {
+  return {
+    clean: data.packages.filter(p => p.score >= 60 && !p.compromised).length,
+    warnings: data.packages.filter(p => p.score >= 40 && p.score < 60 && !p.compromised).length,
+    danger: data.packages.filter(p => p.score < 40 || p.compromised).length,
+  };
+}
+
+function renderHomeRanking(data) {
+  const s = scanStats(data);
+  document.getElementById('home-rank-count').textContent = data.totalPackages;
+  document.getElementById('home-rank-total').textContent = data.totalPackages;
+  document.getElementById('home-rank-clean').textContent = s.clean;
+  document.getElementById('home-rank-warnings').textContent = s.warnings;
+  document.getElementById('home-rank-danger').textContent = s.danger;
+  document.getElementById('home-rank-date').textContent = new Date(data.scannedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  const top = [...data.packages].sort((a, b) => a.rank - b.rank).slice(0, 6);
+  document.getElementById('home-rank-body').innerHTML = top.map(p => {
+    const vulns = p.vulns.critical + p.vulns.high + p.vulns.moderate + p.vulns.low;
+    return `<tr><td class="n">${p.rank}</td><td class="p">${escapeHtml(p.name)}<small>${escapeHtml(p.version)}</small></td>` +
+      `<td><div class="score"><b>${p.score}</b><i style="width:${Math.round(Math.min(p.score, 100) * 1.2)}px"></i></div></td>` +
+      `<td>${vulns}</td><td class="d">${formatNumber(p.downloads)}/w</td></tr>`;
+  }).join('');
 }
 
 function renderRanking(data) {
   // Stats
-  const clean = data.packages.filter(p => p.score >= 60).length;
-  const warnings = data.packages.filter(p => p.score >= 40 && p.score < 60).length;
-  const danger = data.packages.filter(p => p.score < 40 || p.compromised).length;
+  const s = scanStats(data);
   document.getElementById('ranking-total').textContent = data.totalPackages;
   document.getElementById('ranking-desc-count').textContent =
     `${data.totalPackages} of the most popular npm packages`;
-  document.getElementById('ranking-clean').textContent = clean;
-  document.getElementById('ranking-warnings').textContent = warnings;
-  document.getElementById('ranking-danger').textContent = danger;
+  document.getElementById('ranking-clean').textContent = s.clean;
+  document.getElementById('ranking-warnings').textContent = s.warnings;
+  document.getElementById('ranking-danger').textContent = s.danger;
   const scanDate = new Date(data.scannedAt);
   document.getElementById('ranking-date').textContent = scanDate.toLocaleDateString() + ' ' + scanDate.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
 
-  // Critical Packages — compromised or score < 30
+  // Critical packages: compromised or score < 30
   const shamePackages = data.packages.filter(p => p.compromised || p.score < 30);
   if (shamePackages.length > 0) {
     document.getElementById('ranking-threats').hidden = false;
     document.getElementById('ranking-threats-list').innerHTML = shamePackages.map(p => {
       const reason = p.compromised ? 'COMPROMISED' : p.score === 0 ? 'SCORE 0' : `SCORE ${p.score}`;
-      const icon = p.compromised ? '&#x2620;' : '&#x26A0;';
       const borderColor = p.compromised ? 'var(--red)' : 'var(--orange)';
       const vulnTotal = p.vulns.critical + p.vulns.high + p.vulns.moderate + p.vulns.low;
       const vulnLine = vulnTotal > 0 ? `<div class="threat-detail">${p.vulns.critical ? p.vulns.critical + ' critical ' : ''}${p.vulns.high ? p.vulns.high + ' high ' : ''}${p.vulns.moderate ? p.vulns.moderate + ' moderate' : ''}</div>` : '';
-      return `<div class="threat-card" style="border-color:${borderColor}">
-        <div class="threat-icon" style="color:${borderColor}">${icon}</div>
+      return `<div class="threat-card" style="border-left-color:${borderColor}">
         <div class="threat-name">${escapeHtml(p.name)}<span class="ranking-pkg-version">${escapeHtml(p.version)}</span></div>
         <div class="threat-badge" style="background:${borderColor}">${reason}</div>
         <div class="threat-detail">${escapeHtml(p.license || 'Unknown')} &middot; ${formatNumber(p.downloads)}/w</div>
@@ -1471,12 +1377,12 @@ function renderRankingPage() {
   if (totalPages <= 1) { pag.innerHTML = ''; return; }
 
   let html = '';
-  if (rankingPage > 0) html += `<button class="ranking-page-btn" onclick="rankingGoTo(${rankingPage - 1})">&laquo; Prev</button>`;
+  if (rankingPage > 0) html += `<button class="ranking-page-btn" data-goto="${rankingPage - 1}">&laquo; Prev</button>`;
   for (let i = 0; i < totalPages; i++) {
-    html += `<button class="ranking-page-btn${i === rankingPage ? ' active' : ''}" onclick="rankingGoTo(${i})">${i + 1}</button>`;
+    html += `<button class="ranking-page-btn${i === rankingPage ? ' active' : ''}" data-goto="${i}"${i === rankingPage ? ' aria-current="page"' : ''}>${i + 1}</button>`;
   }
-  if (rankingPage < totalPages - 1) html += `<button class="ranking-page-btn" onclick="rankingGoTo(${rankingPage + 1})">Next &raquo;</button>`;
-  html += `<span style="color:var(--text-dim);font-size:.75rem;margin-left:.5rem">${start + 1}&ndash;${Math.min(start + RANKING_PAGE_SIZE, packages.length)} of ${packages.length}</span>`;
+  if (rankingPage < totalPages - 1) html += `<button class="ranking-page-btn" data-goto="${rankingPage + 1}">Next &raquo;</button>`;
+  html += `<span style="color:var(--muted);font-size:.82rem;margin-left:.5rem">${start + 1} to ${Math.min(start + RANKING_PAGE_SIZE, packages.length)} of ${packages.length}</span>`;
   pag.innerHTML = html;
 }
 
@@ -1485,31 +1391,39 @@ function rankingGoTo(page) {
   renderRankingPage();
   document.getElementById('ranking-table').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+document.getElementById('ranking-pagination').addEventListener('click', e => {
+  const b = e.target.closest('[data-goto]');
+  if (b) rankingGoTo(Number(b.dataset.goto));
+});
 
 function renderRankingRows(pageItems) {
   const body = document.getElementById('ranking-body');
+  if (pageItems.length === 0) {
+    body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--muted)">No packages match this filter.</td></tr>';
+    return;
+  }
   body.innerHTML = pageItems.map(p => {
     const scoreColor = p.score >= 60 ? 'var(--accent)' : p.score >= 40 ? 'var(--orange)' : 'var(--red)';
     const barPct = Math.min(p.score, 100);
 
-    // Trend indicator — rank change
+    // Trend indicator: rank change
     let trend = '';
     if (p.prevRank !== null && p.prevRank !== p.rank) {
       const diff = p.prevRank - p.rank;
-      if (diff > 0) trend = `<span class="trend-up">&#9650;${diff}</span>`;
-      else trend = `<span class="trend-down">&#9660;${Math.abs(diff)}</span>`;
+      if (diff > 0) trend = `<span class="trend-up" title="Up ${diff}">&#9650;${diff}</span>`;
+      else trend = `<span class="trend-down" title="Down ${Math.abs(diff)}">&#9660;${Math.abs(diff)}</span>`;
     } else if (p.prevRank === null) {
       trend = '<span class="trend-new">NEW</span>';
     } else {
-      trend = '<span class="trend-same">&mdash;</span>';
+      trend = '<span class="trend-same">&middot;</span>';
     }
 
     // Score change indicator
     let scoreDelta = '';
     if (p.prevScore !== null && p.prevScore !== p.score) {
       const diff = p.score - p.prevScore;
-      if (diff > 0) scoreDelta = `<span class="trend-up" style="font-size:.65rem">+${diff}</span>`;
-      else scoreDelta = `<span class="trend-down" style="font-size:.65rem">${diff}</span>`;
+      if (diff > 0) scoreDelta = `<span class="trend-up" style="font-size:.72rem">+${diff}</span>`;
+      else scoreDelta = `<span class="trend-down" style="font-size:.72rem">${diff}</span>`;
     }
 
     // Vulns
@@ -1527,40 +1441,47 @@ function renderRankingRows(pageItems) {
     const dl = p.downloads >= 1e6 ? (p.downloads / 1e6).toFixed(1).replace(/\.0$/, '') + 'M'
       : p.downloads >= 1e3 ? (p.downloads / 1e3).toFixed(0) + 'K' : String(p.downloads);
 
-    // Row note — the most important thing to know about this package
+    // Row note: the most important thing to know about this package
     let note = '';
-    if (p.compromised) note = '<div class="ranking-note ranking-note-critical">Known supply chain attack — do NOT use</div>';
-    else if (p.vulns.critical) note = `<div class="ranking-note ranking-note-critical">${p.vulns.critical} critical vulnerability${p.vulns.critical > 1 ? 'ies' : 'y'}</div>`;
-    else if (p.vulns.high) note = `<div class="ranking-note ranking-note-high">${p.vulns.high} high severity vulnerability${p.vulns.high > 1 ? 'ies' : 'y'}</div>`;
-    else if (p.deprecated) note = '<div class="ranking-note ranking-note-warn">Deprecated — consider alternatives</div>';
-    else if (p.score < 40) note = '<div class="ranking-note ranking-note-warn">Low security score — review before using</div>';
+    if (p.compromised) note = '<div class="ranking-note ranking-note-critical">Known supply chain attack: do NOT use</div>';
+    else if (p.vulns.critical) note = `<div class="ranking-note ranking-note-critical">${p.vulns.critical} critical vulnerabilit${p.vulns.critical > 1 ? 'ies' : 'y'}</div>`;
+    else if (p.vulns.high) note = `<div class="ranking-note ranking-note-high">${p.vulns.high} high severity vulnerabilit${p.vulns.high > 1 ? 'ies' : 'y'}</div>`;
+    else if (p.deprecated) note = '<div class="ranking-note ranking-note-warn">Deprecated: consider alternatives</div>';
+    else if (p.score < 40) note = '<div class="ranking-note ranking-note-warn">Low security score: review before using</div>';
     else if (p.codeFindings > 0) note = `<div class="ranking-note ranking-note-info">${p.codeFindings} code analysis finding${p.codeFindings > 1 ? 's' : ''}</div>`;
     else if (p.prevScore !== null && p.prevScore - p.score >= 10) note = `<div class="ranking-note ranking-note-high">Score dropped ${p.prevScore - p.score} points since last scan</div>`;
 
     // Row highlight for compromised/dangerous
     const rowClass = p.compromised ? 'ranking-row-danger' : p.score < 40 ? 'ranking-row-warn' : '';
+    const enc = encodeURIComponent(p.name);
 
     return `<tr class="${rowClass}">
-      <td style="color:var(--text-dim)">${p.rank}</td>
+      <td>${p.rank}</td>
       <td>
-        <div class="ranking-pkg-name"><a href="#" onclick="openPkgModal('${escapeHtml(p.name)}');return false">${escapeHtml(p.name)}</a><span class="ranking-pkg-version">${escapeHtml(p.version)}</span></div>
+        <div class="ranking-pkg-name"><a href="/ranking?pkg=${enc}" data-pkg="${escapeHtml(p.name)}">${escapeHtml(p.name)}</a><span class="ranking-pkg-version">${escapeHtml(p.version)}</span></div>
         ${p.compromised ? '<span class="ranking-badge-danger">COMPROMISED</span>' : ''}
         ${p.deprecated ? '<span class="ranking-badge-warn">DEPRECATED</span>' : ''}
         ${note}
       </td>
       <td>
-        <div style="display:flex;align-items:center;gap:.4rem">
+        <div style="display:flex;align-items:center;gap:.5rem">
           <span style="color:${scoreColor};font-weight:600;min-width:24px">${p.score}</span>
           ${scoreDelta}
           <span class="score-bar-inline" style="flex:1"><span class="score-fill-inline" style="width:${barPct}%;background:${scoreColor}"></span></span>
         </div>
       </td>
       <td>${vulnStr}</td>
-      <td style="color:var(--text-muted)">${dl}/w</td>
+      <td style="color:var(--muted);white-space:nowrap">${dl}/w</td>
       <td>${trend}</td>
     </tr>`;
   }).join('');
 }
+document.getElementById('ranking-body').addEventListener('click', e => {
+  const a = e.target.closest('a[data-pkg]');
+  if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  e.preventDefault();
+  openPkgModal(a.dataset.pkg);
+});
 
 function filterRanking() {
   if (!rankingData) return;
@@ -1569,9 +1490,11 @@ function filterRanking() {
   rankingPage = 0;
   renderRankingPage();
 }
+document.getElementById('ranking-search').addEventListener('input', filterRanking);
 
 // ============ PACKAGE DETAIL MODAL ============
 let currentModalPkg = null;
+let modalReturnFocus = null;
 
 function openPkgModal(name) {
   currentModalPkg = name;
@@ -1581,69 +1504,83 @@ function openPkgModal(name) {
 
   title.textContent = name;
   body.innerHTML = '<div class="pkg-modal-loading"><span class="spinner"></span> Fetching live audit data...</div>';
+  if (overlay.hidden) modalReturnFocus = document.activeElement;
   overlay.hidden = false;
   document.body.style.overflow = 'hidden';
+  document.getElementById('pkg-modal-close').focus();
 
   // Update URL for sharing
-  history.replaceState(null, '', `#/ranking?pkg=${encodeURIComponent(name)}`);
+  history.replaceState(null, '', `/ranking?pkg=${encodeURIComponent(name)}`);
 
-  // Get ranking data for this package (trusted source — from daily scan)
-  const rankingPkg = rankingData?.packages?.find(p => p.name === name);
+  // Ranking data for this package (trusted source: the daily scan)
+  loadScan().then(() => {
+    if (currentModalPkg !== name) return;
+    const rankingPkg = rankingData?.packages?.find(p => p.name === name);
 
-  fetch(`/api/audit?package=${encodeURIComponent(name)}`)
-    .then(r => { if (!r.ok) throw new Error('API error'); return r.json(); })
-    .then(d => {
-      // Merge: use ranking data for score and compromised status (advisory-db may not load on Netlify)
-      if (rankingPkg) {
-        if (rankingPkg.compromised) {
-          d.compromised = d.compromised || { compromised: true, severity: 'critical' };
-          d.score = 0;
+    fetch(`${API_URL}?package=${encodeURIComponent(name)}`)
+      .then(r => { if (!r.ok) throw new Error('API error'); return r.json(); })
+      .then(d => {
+        if (currentModalPkg !== name) return;
+        // Merge: use ranking data for score and compromised status (advisory-db may not load on Netlify)
+        if (rankingPkg) {
+          if (rankingPkg.compromised) {
+            d.compromised = d.compromised || { compromised: true, severity: 'critical' };
+            d.score = 0;
+          }
+          if (d.score !== 0 && rankingPkg.score !== undefined) {
+            d.rankingScore = rankingPkg.score;
+          }
         }
-        // Use ranking score as authoritative (computed with advisory-db locally)
-        if (d.score !== 0 && rankingPkg.score !== undefined) {
-          d.rankingScore = rankingPkg.score;
+        renderPkgModal(name, d);
+      })
+      .catch(() => {
+        if (currentModalPkg !== name) return;
+        // Fallback: render from ranking data if the API fails
+        if (rankingPkg) {
+          renderPkgModal(name, {
+            name: rankingPkg.name, version: rankingPkg.version,
+            score: rankingPkg.score, vulns: rankingPkg.vulns,
+            license: rankingPkg.license, licenseCompatible: null,
+            downloads: rankingPkg.downloads, deprecated: rankingPkg.deprecated,
+            lastPublish: rankingPkg.lastPublish,
+            compromised: rankingPkg.compromised ? { compromised: true, severity: 'critical' } : null,
+            maintainers: null, scripts: null, codeAnalysis: null,
+            securityFindings: [], warnings: [],
+            _fallback: true,
+          });
+        } else {
+          body.innerHTML = `<div class="pkg-modal-error">Could not fetch live data for <strong>${escapeHtml(name)}</strong>. Try: <code>npx depguard-cli audit ${escapeHtml(name)}</code></div>`;
         }
-      }
-      renderPkgModal(name, d);
-    })
-    .catch(() => {
-      // Fallback: render from ranking data if API fails
-      if (rankingPkg) {
-        renderPkgModal(name, {
-          name: rankingPkg.name, version: rankingPkg.version,
-          score: rankingPkg.score, vulns: rankingPkg.vulns,
-          license: rankingPkg.license, licenseCompatible: null,
-          downloads: rankingPkg.downloads, deprecated: rankingPkg.deprecated,
-          lastPublish: rankingPkg.lastPublish,
-          compromised: rankingPkg.compromised ? { compromised: true, severity: 'critical' } : null,
-          maintainers: null, scripts: null, codeAnalysis: null,
-          securityFindings: [], warnings: [],
-          _fallback: true,
-        });
-      } else {
-        body.innerHTML = `<div class="pkg-modal-error">Could not fetch live data for <strong>${escapeHtml(name)}</strong>. Try: <code>npx depguard-cli audit ${escapeHtml(name)}</code></div>`;
-      }
-    });
+      });
+  });
 }
 
-function closePkgModal(event) {
-  if (event && event.target !== event.currentTarget) return;
+function hideModal() {
   document.getElementById('pkg-modal-overlay').hidden = true;
   document.body.style.overflow = '';
   currentModalPkg = null;
-  history.replaceState(null, '', '#/ranking');
 }
+
+function closePkgModal() {
+  if (!currentModalPkg) return;
+  hideModal();
+  history.replaceState(null, '', '/ranking');
+  if (modalReturnFocus && document.contains(modalReturnFocus)) modalReturnFocus.focus();
+}
+document.getElementById('pkg-modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closePkgModal(); });
+document.getElementById('pkg-modal-close').addEventListener('click', closePkgModal);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePkgModal(); });
 
 function sharePkgModal() {
   if (!currentModalPkg) return;
-  const url = `${location.origin}/#/ranking?pkg=${encodeURIComponent(currentModalPkg)}`;
+  const url = `${location.origin}/ranking?pkg=${encodeURIComponent(currentModalPkg)}`;
   navigator.clipboard.writeText(url).then(() => {
     const btn = document.getElementById('pkg-modal-share');
     btn.textContent = 'Copied!';
     setTimeout(() => btn.textContent = 'Copy link', 2000);
   });
 }
+document.getElementById('pkg-modal-share').addEventListener('click', sharePkgModal);
 
 function renderFindings(d) {
   const safe = escapeHtml;
@@ -1698,22 +1635,22 @@ function renderPkgModal(name, d) {
   let vulnHtml = '<span style="color:var(--accent)">No known vulnerabilities</span>';
   if (totalVulns > 0) {
     const parts = [];
-    if (v.critical) parts.push(`<span class="modal-vuln-badge" style="background:var(--red)">${v.critical} Critical</span>`);
-    if (v.high) parts.push(`<span class="modal-vuln-badge" style="background:var(--orange)">${v.high} High</span>`);
-    if (v.moderate) parts.push(`<span class="modal-vuln-badge" style="background:var(--yellow);color:var(--bg)">${v.moderate} Moderate</span>`);
-    if (v.low) parts.push(`<span class="modal-vuln-badge" style="background:var(--text-dim)">${v.low} Low</span>`);
+    if (v.critical) parts.push(`<span class="modal-vuln-badge" style="background:var(--red);color:var(--paper)">${v.critical} Critical</span>`);
+    if (v.high) parts.push(`<span class="modal-vuln-badge" style="background:var(--orange);color:var(--paper)">${v.high} High</span>`);
+    if (v.moderate) parts.push(`<span class="modal-vuln-badge" style="background:var(--yellow);color:var(--paper)">${v.moderate} Moderate</span>`);
+    if (v.low) parts.push(`<span class="modal-vuln-badge" style="background:var(--muted);color:var(--paper)">${v.low} Low</span>`);
     vulnHtml = parts.join(' ');
   }
 
   // License
   const licCompat = d.licenseCompatible === true ? '<span style="color:var(--accent)">Compatible with MIT</span>'
     : d.licenseCompatible === false ? '<span style="color:var(--orange)">Incompatible with MIT</span>'
-    : '<span style="color:var(--text-dim)">Unknown compatibility</span>';
+    : '<span style="color:var(--muted)">Unknown compatibility</span>';
 
   // Maintenance
   const maint = d.deprecated ? '<span style="color:var(--orange)">Deprecated</span>'
     : d.lastPublish ? (daysSince(d.lastPublish) < 365 ? '<span style="color:var(--accent)">Active</span>' : '<span style="color:var(--orange)">Stale</span>')
-    : '<span style="color:var(--text-dim)">Unknown</span>';
+    : '<span style="color:var(--muted)">Unknown</span>';
 
   // Scripts
   const scripts = d.scripts?.hasInstallScripts
@@ -1722,10 +1659,10 @@ function renderPkgModal(name, d) {
 
   // Code analysis
   const code = d.codeAnalysis
-    ? (d.codeAnalysis.skipped ? '<span style="color:var(--text-dim)">Skipped (package too large)</span>'
+    ? (d.codeAnalysis.skipped ? '<span style="color:var(--muted)">Skipped (package too large)</span>'
       : d.codeAnalysis.findings > 0 ? `<span style="color:var(--orange)">${d.codeAnalysis.findings} finding(s)</span>`
-      : '<span style="color:var(--accent)">Clean — 0 findings</span>')
-    : '<span style="color:var(--text-dim)">N/A</span>';
+      : '<span style="color:var(--accent)">Clean, 0 findings</span>')
+    : '<span style="color:var(--muted)">N/A</span>';
 
   // Maintainers
   let maintainerHtml = '';
@@ -1749,47 +1686,26 @@ function renderPkgModal(name, d) {
 
   // For compromised packages, override all fields to reflect the danger
   if (d.compromised) {
-    const rankPkg = rankingData?.packages?.find(p => p.name === name);
     body.innerHTML = `
-      <div class="modal-banner-danger">KNOWN COMPROMISED PACKAGE — Do not install</div>
+      <div class="modal-banner-danger">KNOWN COMPROMISED PACKAGE: do not install</div>
       <div class="modal-score-section">
         <div class="modal-score-number" style="color:var(--red)">0</div>
         <div class="modal-score-bar"><div class="modal-score-fill" style="width:0%;background:var(--red)"></div></div>
         <div class="modal-score-label">/100</div>
       </div>
       <div class="modal-grid">
-        <div class="modal-row">
-          <span class="modal-label">Version</span>
-          <span>${safe(d.version || '?')}</span>
-        </div>
-        <div class="modal-row">
-          <span class="modal-label">Status</span>
-          <span style="color:var(--red);font-weight:700">COMPROMISED — Known supply chain attack</span>
-        </div>
-        <div class="modal-row">
-          <span class="modal-label">Severity</span>
-          <span style="color:var(--red);font-weight:700">${safe(d.compromised.severity || 'critical').toUpperCase()}</span>
-        </div>
-        <div class="modal-row">
-          <span class="modal-label">Downloads</span>
-          <span>${formatNumber(d.downloads || 0)}/week <span style="color:var(--red)">&mdash; all users at risk</span></span>
-        </div>
-        <div class="modal-row">
-          <span class="modal-label">License</span>
-          <span>${safe(d.license || 'Unknown')}</span>
-        </div>
-        <div class="modal-row">
-          <span class="modal-label">Recommendation</span>
-          <span style="color:var(--red)">Remove immediately. Check for alternatives.</span>
-        </div>
+        <div class="modal-row"><span class="modal-label">Version</span><span>${safe(d.version || '?')}</span></div>
+        <div class="modal-row"><span class="modal-label">Status</span><span style="color:var(--red);font-weight:600">COMPROMISED: known supply chain attack</span></div>
+        <div class="modal-row"><span class="modal-label">Severity</span><span style="color:var(--red);font-weight:600">${safe(d.compromised.severity || 'critical').toUpperCase()}</span></div>
+        <div class="modal-row"><span class="modal-label">Downloads</span><span>${formatNumber(d.downloads || 0)}/week <span style="color:var(--red)">(all users at risk)</span></span></div>
+        <div class="modal-row"><span class="modal-label">License</span><span>${safe(d.license || 'Unknown')}</span></div>
+        <div class="modal-row"><span class="modal-label">Recommendation</span><span style="color:var(--red)">Remove immediately. Check for alternatives.</span></div>
       </div>
-      <div class="modal-banner-danger" style="margin-top:1rem;font-size:.75rem;background:rgba(255,77,106,0.08)">
-        This package is in the depguard curated advisory database of known compromised packages.
+      <div class="modal-banner-danger" style="margin-top:1rem;font-size:.85rem;font-weight:400">
+        This package is in the depguard advisory database of known compromised packages.
         The score is forced to 0 regardless of other metrics. Any project using this package is at risk.
       </div>
-      <div class="modal-cli-hint">
-        <code>npx depguard-cli audit ${safe(name)}</code>
-      </div>
+      <div class="modal-cli-hint"><code>npx depguard-cli audit ${safe(name)}</code></div>
     `;
     return;
   }
@@ -1801,61 +1717,31 @@ function renderPkgModal(name, d) {
       <div class="modal-score-label">/100</div>
     </div>
     <div class="modal-grid">
-      <div class="modal-row">
-        <span class="modal-label">Version</span>
-        <span>${safe(d.version || '?')}</span>
-      </div>
-      <div class="modal-row">
-        <span class="modal-label">License</span>
-        <span>${safe(d.license || 'Unknown')} &mdash; ${licCompat}</span>
-      </div>
-      <div class="modal-row">
-        <span class="modal-label">Downloads</span>
-        <span>${formatNumber(d.downloads || 0)}/week</span>
-      </div>
-      <div class="modal-row">
-        <span class="modal-label">Maintenance</span>
-        ${maint}
-      </div>
-      <div class="modal-row">
-        <span class="modal-label">Vulnerabilities</span>
-        <span>${vulnHtml}</span>
-      </div>
-      <div class="modal-row">
-        <span class="modal-label">Install Scripts</span>
-        ${scripts}
-      </div>
-      <div class="modal-row">
-        <span class="modal-label">Code Analysis</span>
-        ${code}
-      </div>
+      <div class="modal-row"><span class="modal-label">Version</span><span>${safe(d.version || '?')}</span></div>
+      <div class="modal-row"><span class="modal-label">License</span><span>${safe(d.license || 'Unknown')} &middot; ${licCompat}</span></div>
+      <div class="modal-row"><span class="modal-label">Downloads</span><span>${formatNumber(d.downloads || 0)}/week</span></div>
+      <div class="modal-row"><span class="modal-label">Maintenance</span>${maint}</div>
+      <div class="modal-row"><span class="modal-label">Vulnerabilities</span><span>${vulnHtml}</span></div>
+      <div class="modal-row"><span class="modal-label">Install scripts</span>${scripts}</div>
+      <div class="modal-row"><span class="modal-label">Code analysis</span>${code}</div>
       ${maintainerHtml}
     </div>
     ${renderFindings(d)}
     ${warningsHtml}
-    ${d._fallback ? '<div class="modal-warning">Showing cached data from daily scan. Live API unavailable.</div>' : ''}
-    <div class="modal-cli-hint">
-      <code>npx depguard-cli audit ${safe(name)}</code>
-    </div>
+    ${d._fallback ? '<div class="modal-warning">Showing cached data from the daily scan. Live API unavailable.</div>' : ''}
+    <div class="modal-cli-hint"><code>npx depguard-cli audit ${safe(name)}</code></div>
   `;
 }
 
-// Check for ?pkg= param on ranking page load
+// Open the modal from a ?pkg= deep link on the ranking page
 function checkModalParam() {
-  const hash = location.hash;
-  if (!hash.startsWith('#/ranking')) return;
-  const match = hash.match(/[?&]pkg=([^&]+)/);
-  if (match) openPkgModal(decodeURIComponent(match[1]));
+  const pkg = new URLSearchParams(location.search).get('pkg');
+  if (pkg && pkg !== currentModalPkg) openPkgModal(pkg);
+  else if (!pkg && currentModalPkg) hideModal();
 }
 
 // ============ INIT ============
-route();
-
-// Load ranking data when navigating to that page
-window.addEventListener('hashchange', () => {
-  if (location.hash.startsWith('#/ranking')) { loadRanking(); checkModalParam(); }
-});
-if (location.hash.startsWith('#/ranking')) { loadRanking(); checkModalParam(); }
+route(false);
 </script>
 
 </body>
