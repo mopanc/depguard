@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.1] - 2026-10-16
+
+### Fixed
+
+- **False positives removed from the known-malicious database.** A review of every ranged entry on packages with real download volume, and of every hand-written entry against the official advisories, found four cases where clean software was flagged:
+  - `node-ipc@10.1.0`: the hand-written entry listed it, but it was published in September 2021, six months before the March 2022 sabotage (official range: `>= 10.1.1, < 10.1.3`).
+  - `fsevents` 1.x and `bignum` 0.12.2 to 0.13.0: these versions fetched prebuilt binaries from storage that a third party reclaimed later. The risk depends on when a binary was downloaded, not on the version, so flagging every install was wrong. Both remain reported as vulnerabilities.
+  - `opencv.js`: after npm removed the 2017 typosquat, the name passed to a legitimate OpenCV port. The broad advisory is excepted and only the malicious 1.0.1 is kept.
+- **Shai-Hulud and the chalk hijack are now detected.** Malware advisories published before November 2025 were never imported, so `@ctrl/tinycolor` 4.1.1/4.1.2, `chalk` 5.6.1 and ~200 packages from the September 2025 worm were reported as clean. The importer now backfills the full malware history once (88,852 to about 108,000 packages).
+- `llms.txt` no longer names incidents the database did not cover at the time.
+
+### Added
+
+- **Precision gate.** `tests/advisory-precision.test.ts` runs on every PR and in the daily scan between the database refresh and the commit: known-clean versions around documented hijacks and the most popular npm packages at their current version must never be flagged, and documented incidents must keep being detected. A refresh that introduces a false positive now fails the job instead of reaching a release.
+
 ## [1.15.0] - 2026-10-15
 
 ### Added
