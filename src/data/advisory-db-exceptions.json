@@ -1,5 +1,26 @@
 {
-  "version": "2026-05-13",
-  "description": "Manual quarantine list — package+id pairs whose advisory we explicitly trust, despite being flagged by GHSA/OSV. Each exception suppresses the matching incident from compromise checks. Use sparingly; document the reason.",
-  "exceptions": []
+  "version": "2026-10-15",
+  "description": "Manual quarantine list \u2014 package+id pairs whose advisory we explicitly trust, despite being flagged by GHSA/OSV. Each exception suppresses the matching incident from compromise checks. Use sparingly; document the reason.",
+  "exceptions": [
+    {
+      "package": "@metamask/sdk",
+      "id": "GHSA-qj3p-xc97-xw74",
+      "reason": "Indirect exposure advisory: the SDK only depended on a range that could resolve to the malicious debug@4.4.2, which has its own advisory (GHSA-4x49-vf9v-38px). The SDK versions themselves are not malicious."
+    },
+    {
+      "package": "@metamask/sdk-react",
+      "id": "GHSA-qj3p-xc97-xw74",
+      "reason": "Indirect exposure advisory: the SDK only depended on a range that could resolve to the malicious debug@4.4.2, which has its own advisory (GHSA-4x49-vf9v-38px). The SDK versions themselves are not malicious."
+    },
+    {
+      "package": "@metamask/sdk-communication-layer",
+      "id": "GHSA-qj3p-xc97-xw74",
+      "reason": "Indirect exposure advisory: the SDK only depended on a range that could resolve to the malicious debug@4.4.2, which has its own advisory (GHSA-4x49-vf9v-38px). The SDK versions themselves are not malicious."
+    },
+    {
+      "package": "@usebruno/cli",
+      "id": "CVE-2026-34841",
+      "reason": "Advisory GHSA-658g-p7jg-wx5g covers every @usebruno/cli version below 3.2.0 because of the axios supply-chain incident; bruno itself was not malicious. Flagging every old version would be a false positive."
+    }
+  ]
 }

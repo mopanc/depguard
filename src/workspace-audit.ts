@@ -67,7 +67,7 @@ interface HeuristicRule {
 const HEURISTICS: HeuristicRule[] = [
   // --- HIGH: clear malware / obfuscation patterns ---
   {
-    regex: /(?:curl|wget|fetch)\s[^|;&]*\|[^|;&]*(?:sh|bash|zsh|fish|python\d?|node|perl|ruby|php)\b/i,
+    regex: /(?:curl|wget|fetch)\s[^|;&]*\|[^|;&]*\b(?:sh|bash|zsh|fish|python\d?|node|perl|ruby|php|cmd(?:\.exe)?|powershell(?:\.exe)?|pwsh|iex|invoke-expression)\b/i,
     severity: 'HIGH',
     reason: 'Pipes downloaded content directly into a shell or interpreter (remote code execution pattern)',
   },
@@ -277,37 +277,138 @@ function detectVscodeTasks(repoPath: string, findings: AutoExecFinding[], checke
 
   const obj = parseJsonc(raw)
   if (!isObject(obj)) return
-  const tasks = obj.tasks
+  scanTasks(obj.tasks, rel, findings)
+}
+
+const TASK_PLATFORMS = ['osx', 'linux', 'windows'] as const
+
+/**
+ * Flag every task that runs on folderOpen. A task can carry a different
+ * command per OS (`osx` / `linux` / `windows` override the base command, the
+ * shape used by real fake-interview campaigns) and can pull in other tasks
+ * through `dependsOn`, so every reachable command is classified.
+ */
+function scanTasks(tasks: unknown, rel: string, findings: AutoExecFinding[]): void {
   if (!Array.isArray(tasks)) return
+  const byLabel = new Map<string, Record<string, unknown>>()
+  for (const t of tasks) {
+    if (isObject(t) && typeof t.label === 'string') byLabel.set(t.label, t)
+  }
 
   for (const task of tasks) {
     if (!isObject(task)) continue
     const runOptions = isObject(task.runOptions) ? task.runOptions : null
-    const runOn = runOptions?.runOn
-    if (runOn !== 'folderOpen') continue
+    if (runOptions?.runOn !== 'folderOpen') continue
 
-    const cmd = renderTaskCommand(task)
-    if (!cmd) continue
+    const label = String(task.label ?? '(unnamed)')
+    const trigger = `task "${label}" — runOptions.runOn: folderOpen`
+    const autoRunReason = 'Runs automatically every time this folder is opened in VS Code (no prompt if workspace trust is inherited)'
+    const commands = collectTaskCommands(task, byLabel, new Set())
 
-    const { severity, reasons } = classify(cmd)
-    findings.push({
-      source: 'vscode-tasks',
-      file: rel,
-      trigger: `task "${String(task.label ?? '(unnamed)')}" — runOptions.runOn: folderOpen`,
-      command: truncate(cmd),
-      severity,
-      reasons: ['Runs automatically every time this folder is opened in VS Code (no prompt if workspace trust is inherited)', ...reasons],
-    })
+    if (commands.length === 0) {
+      findings.push({
+        source: 'vscode-tasks',
+        file: rel,
+        trigger,
+        command: '(command could not be determined)',
+        severity: 'INFO',
+        reasons: [autoRunReason, 'Review this task manually before opening the folder'],
+      })
+      continue
+    }
+
+    for (const { cmd, via } of commands) {
+      const { severity, reasons } = classify(cmd)
+      findings.push({
+        source: 'vscode-tasks',
+        file: rel,
+        trigger: via ? `${trigger} (${via})` : trigger,
+        command: truncate(cmd),
+        severity,
+        reasons: [autoRunReason, ...reasons],
+      })
+    }
   }
 }
 
-function renderTaskCommand(task: Record<string, unknown>): string {
-  const command = typeof task.command === 'string' ? task.command : ''
-  const args = Array.isArray(task.args) ? task.args.map(String) : []
-  const script = typeof task.script === 'string' ? task.script : ''
-  if (script) return `npm run ${script}`
-  if (!command && args.length === 0) return ''
-  return [command, ...args].filter(Boolean).join(' ')
+function collectTaskCommands(
+  task: Record<string, unknown>,
+  byLabel: Map<string, Record<string, unknown>>,
+  visited: Set<Record<string, unknown>>,
+  via?: string,
+): Array<{ cmd: string; via?: string }> {
+  if (visited.has(task)) return []
+  visited.add(task)
+
+  const out: Array<{ cmd: string; via?: string }> = []
+  const seen = new Set<string>()
+  const add = (cmd: string, where?: string): void => {
+    if (!cmd || seen.has(cmd)) return
+    seen.add(cmd)
+    const label = [via, where].filter(Boolean).join(', ')
+    out.push(label ? { cmd, via: label } : { cmd })
+  }
+
+  add(renderTaskCommand(task.command, task.args, task.script))
+  for (const platform of TASK_PLATFORMS) {
+    const override = task[platform]
+    if (!isObject(override)) continue
+    add(
+      renderTaskCommand(override.command ?? task.command, override.args ?? task.args, override.script ?? task.script),
+      `${platform} command`,
+    )
+  }
+
+  const deps = Array.isArray(task.dependsOn) ? task.dependsOn : task.dependsOn !== undefined ? [task.dependsOn] : []
+  for (const dep of deps) {
+    if (typeof dep === 'string') {
+      const target = byLabel.get(dep)
+      if (target) out.push(...collectTaskCommands(target, byLabel, visited, `via dependsOn "${dep}"`))
+    } else if (isObject(dep) && typeof dep.script === 'string') {
+      add(`npm run ${dep.script}`, 'dependsOn npm script')
+    }
+  }
+  return out
+}
+
+/** `command` and `args` entries may be plain strings or { value, quoting } objects. */
+function renderShellValue(v: unknown): string {
+  if (typeof v === 'string') return v
+  if (isObject(v)) {
+    if (typeof v.value === 'string') return v.value
+    if (Array.isArray(v.value)) return v.value.map(String).join(' ')
+  }
+  return ''
+}
+
+function renderTaskCommand(command: unknown, args: unknown, script: unknown): string {
+  if (typeof script === 'string' && script) return `npm run ${script}`
+  const cmd = renderShellValue(command)
+  const argList = Array.isArray(args) ? args.map(renderShellValue).filter(Boolean) : []
+  if (!cmd && argList.length === 0) return ''
+  return [cmd, ...argList].filter(Boolean).join(' ')
+}
+
+// --- Detector: *.code-workspace --------------------------------------------
+// A multi-root workspace file carries its own "tasks" and "settings", applied
+// when the developer opens the repo through that file.
+
+function detectCodeWorkspaceFiles(repoPath: string, findings: AutoExecFinding[], checked: string[]): void {
+  let names: string[]
+  try {
+    names = readdirSync(repoPath).filter(n => n.endsWith('.code-workspace'))
+  } catch {
+    return
+  }
+  for (const rel of names.sort()) {
+    const raw = safeRead(join(repoPath, rel))
+    if (raw === null) continue
+    checked.push(rel)
+    const obj = parseJsonc(raw)
+    if (!isObject(obj)) continue
+    if (isObject(obj.tasks)) scanTasks(obj.tasks.tasks, rel, findings)
+    if (isObject(obj.settings)) scanSettings(obj.settings, rel, repoPath, findings)
+  }
 }
 
 // --- Detector: VS Code settings.json ---------------------------------------
@@ -320,7 +421,10 @@ function detectVscodeSettings(repoPath: string, findings: AutoExecFinding[], che
 
   const obj = parseJsonc(raw)
   if (!isObject(obj)) return
+  scanSettings(obj, rel, repoPath, findings)
+}
 
+function scanSettings(obj: Record<string, unknown>, rel: string, repoPath: string, findings: AutoExecFinding[]): void {
   // Flat settings can be either nested objects or dotted keys.
   const flat = flattenSettings(obj)
 
@@ -780,6 +884,7 @@ export function auditWorkspace(repoPath: string): WorkspaceAuditResult {
 
   detectVscodeTasks(repoPath, findings, surfacesChecked)
   detectVscodeSettings(repoPath, findings, surfacesChecked)
+  detectCodeWorkspaceFiles(repoPath, findings, surfacesChecked)
   detectDevcontainer(repoPath, findings, surfacesChecked)
   detectEnvrc(repoPath, findings, surfacesChecked)
   detectJetbrainsRunConfigs(repoPath, findings, surfacesChecked)

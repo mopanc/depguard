@@ -2,7 +2,8 @@ import { readFileSync } from 'node:fs'
 import { dirname } from 'node:path'
 import type { AuditReport, FetchFn, NpmAdvisory } from './types.js'
 import { audit } from './audit.js'
-import { getAllInstalledVersions, getDependencyParents } from './lockfile.js'
+import { getInstalledPackages, getDependencyParents } from './lockfile.js'
+import type { InstalledPackage } from './lockfile.js'
 import { fetchBulkAdvisories } from './registry.js'
 
 /** Options for bulk audit */
@@ -10,6 +11,8 @@ export interface BulkAuditOptions {
   targetLicense?: string
   concurrency?: number
   fetcher?: FetchFn
+  /** Exact version to audit per package name. Packages not listed are audited at their latest version. */
+  versions?: Map<string, string>
 }
 
 /** Vulnerability entry for a transitive dependency */
@@ -66,6 +69,7 @@ export async function auditBulk(
     targetLicense = 'MIT',
     concurrency = 5,
     fetcher = globalThis.fetch,
+    versions,
   } = options
 
   if (packages.length === 0) {
@@ -78,7 +82,7 @@ export async function auditBulk(
   for (let i = 0; i < packages.length; i += concurrency) {
     const batch = packages.slice(i, i + concurrency)
     const batchResults = await Promise.all(
-      batch.map(name => audit(name, targetLicense, fetcher)),
+      batch.map(name => audit(name, targetLicense, fetcher, versions?.get(name))),
     )
     results.push(...batchResults)
   }
@@ -120,9 +124,11 @@ export interface ProjectAuditOptions extends BulkAuditOptions {
 /**
  * Audit all dependencies from a package.json file.
  *
- * When a lock file is present (package-lock.json or pnpm-lock.yaml):
+ * When a lock file is present (npm, pnpm, yarn or bun):
  * - Direct deps get a full audit (vulnerabilities, code analysis, scripts, license)
- * - ALL transitive deps are checked for known vulnerabilities via the npm bulk advisory endpoint
+ *   at the version recorded in the lock file
+ * - EVERY other installed copy (transitive, nested, duplicated at several
+ *   versions) is checked for known vulnerabilities via the npm bulk advisory endpoint
  * - Results include both direct audit reports and a transitive vulnerability summary
  *
  * Without a lock file:
@@ -169,34 +175,68 @@ export async function auditProject(
     }
   }
 
-  // Full audit on direct dependencies (code analysis, scripts, license, etc.)
-  const directReport = await auditBulk(directPackages, bulkOptions)
-
-  // Try to read lock file for transitive dependency vulnerability scan
+  // Read the lock file first: direct deps must be audited at the version that
+  // is actually installed, not at the registry's latest.
   const projectDir = dirname(packageJsonPath)
-  const installedVersions = getAllInstalledVersions(projectDir)
+  const installed = getInstalledPackages(projectDir)
 
-  if (installedVersions.size === 0) {
+  if (installed.length === 0) {
     warnings.push(
-      'No lock file found (package-lock.json or pnpm-lock.yaml). ' +
-      'Only direct dependencies were audited. Transitive dependencies may have vulnerabilities. ' +
-      'Run "npm install" to generate a lock file for full coverage.',
+      'No lock file found (package-lock.json, npm-shrinkwrap.json, pnpm-lock.yaml, yarn.lock or bun.lock). ' +
+      'Direct dependencies were audited at their latest published version, which may differ from what you would install, ' +
+      'and transitive dependencies were not checked. Run your package manager\'s install to generate a lock file for full coverage.',
     )
-    return { ...directReport, packageManagerAudit, warnings }
+    const directOnly = await auditBulk(directPackages, bulkOptions)
+    return { ...directOnly, packageManagerAudit, warnings }
   }
 
-  // Identify transitive deps (in lock file but not in direct deps list)
-  const directSet = new Set(directPackages)
-  const transitiveDeps = new Map<string, string>()
-  for (const [name, version] of installedVersions) {
-    if (!directSet.has(name)) {
-      transitiveDeps.set(name, version)
+  const directVersions = new Map<string, string>()
+  const unresolved: string[] = []
+  for (const name of directPackages) {
+    const version = directInstalledVersion(name, installed)
+    if (version) directVersions.set(name, version)
+    else unresolved.push(name)
+  }
+  if (unresolved.length > 0) {
+    warnings.push(
+      `Could not determine the installed version of ${unresolved.join(', ')} from the lock file; ` +
+      'audited the latest published version instead.',
+    )
+  }
+
+  // Full audit on direct dependencies (code analysis, scripts, license, etc.)
+  const directReport = await auditBulk(directPackages, { ...bulkOptions, versions: directVersions })
+
+  // Every other installed copy is transitive, including nested copies of a
+  // direct dependency's name at a different version.
+  const transitiveVersions = new Map<string, Set<string>>()
+  for (const p of installed) {
+    if (directVersions.get(p.name) === p.version) continue
+    const set = transitiveVersions.get(p.name) ?? new Set<string>()
+    set.add(p.version)
+    transitiveVersions.set(p.name, set)
+  }
+
+  // The bulk endpoint takes one version per name per request, so a package
+  // installed at several versions is checked across several "layers". Each
+  // advisory is then attributed to the exact version it was returned for.
+  const layers: Map<string, string>[] = []
+  for (const [name, versions] of transitiveVersions) {
+    [...versions].forEach((version, i) => {
+      if (!layers[i]) layers[i] = new Map()
+      layers[i].set(name, version)
+    })
+  }
+
+  const fetcher = bulkOptions.fetcher ?? globalThis.fetch
+  const transitiveFindings: Array<{ name: string; version: string; advisories: NpmAdvisory[] }> = []
+  for (const layer of layers) {
+    const advisories = await fetchBulkAdvisories(layer, fetcher)
+    for (const [name, list] of advisories) {
+      transitiveFindings.push({ name, version: layer.get(name) ?? 'unknown', advisories: list })
     }
   }
-
-  // Bulk advisory check for ALL transitive dependencies at once
-  const fetcher = bulkOptions.fetcher ?? globalThis.fetch
-  const transitiveAdvisories = await fetchBulkAdvisories(transitiveDeps, fetcher)
+  const totalTransitive = [...transitiveVersions.values()].reduce((n, set) => n + set.size, 0)
 
   // Resolve which direct dep(s) pull each transitive in. Empty if the
   // lockfile format isn't supported yet or the file is malformed.
@@ -206,8 +246,7 @@ export async function auditProject(
   const transitiveDetails: TransitiveVulnerability[] = []
   let tCritical = 0, tHigh = 0, tModerate = 0, tLow = 0
 
-  for (const [name, advisories] of transitiveAdvisories) {
-    const version = transitiveDeps.get(name) ?? 'unknown'
+  for (const { name, version, advisories } of transitiveFindings) {
     const pulledInBy = [...(parentMap.get(name) ?? [])].sort()
     transitiveDetails.push({ name, version, advisories, pulledInBy })
     for (const adv of advisories) {
@@ -239,7 +278,7 @@ export async function auditProject(
     ...directReport,
     summary: mergedSummary,
     transitiveSummary: {
-      totalDeps: transitiveDeps.size,
+      totalDeps: totalTransitive,
       vulnerable: transitiveDetails.length,
       critical: tCritical,
       high: tHigh,
@@ -250,4 +289,17 @@ export async function auditProject(
     packageManagerAudit,
     warnings: warnings.length > 0 ? warnings : undefined,
   }
+}
+
+/**
+ * The version of a direct dependency installed at the project root.
+ * npm lock files record the hoisted copy at node_modules/<name>; for other
+ * formats it is only certain when the lock file holds a single version.
+ */
+function directInstalledVersion(name: string, installed: InstalledPackage[]): string | undefined {
+  const copies = installed.filter(p => p.name === name)
+  const hoisted = copies.find(p => p.path === `node_modules/${name}`)
+  if (hoisted) return hoisted.version
+  const versions = new Set(copies.map(p => p.version))
+  return versions.size === 1 ? [...versions][0] : undefined
 }

@@ -113,6 +113,14 @@ function matchesCompromisedAndClause(ver: SemVer, clause: string): boolean {
  * Check if a version satisfies a vulnerability range string.
  * Returns true if the version IS vulnerable (falls within the range).
  *
+ * Accepts GitHub advisory syntax (">= 1.0.0, < 2.0.0") and npm advisory
+ * syntax (">=1.0.0 <2.0.0"), OR clauses ("||") and bare exact versions.
+ *
+ * FP-averse (policy `depguard-false-positive-aversion-policy`, rule 6): an
+ * unparseable version, or a clause containing any token we cannot evaluate
+ * (^, ~, x-ranges, hyphen ranges), does not match. A silent miss is
+ * recoverable; a false "vulnerable" teaches users to ignore depguard.
+ *
  * Examples:
  *   satisfiesRange("4.17.21", "< 4.17.20")  → false (not vulnerable)
  *   satisfiesRange("4.17.19", "< 4.17.20")  → true  (vulnerable)
@@ -120,45 +128,31 @@ function matchesCompromisedAndClause(ver: SemVer, clause: string): boolean {
  */
 export function satisfiesRange(version: string, range: string): boolean {
   const ver = parse(version)
-  if (!ver) return true // If we can't parse, assume vulnerable (safe default)
+  if (!ver) return false
 
-  if (!range || range === '*') return true
+  const r = (range ?? '').trim()
+  if (r === '' || r === '*') return true
 
-  // Support OR clauses: "< 2.0.0 || >= 3.0.0, < 3.5.0"
-  // Vulnerable if ANY OR clause matches
-  const orClauses = range.split('||').map(s => s.trim()).filter(Boolean)
-
-  for (const clause of orClauses) {
-    if (satisfiesAndClause(ver, clause)) {
-      return true // Vulnerable — matches at least one OR clause
-    }
-  }
-
-  return false // Not vulnerable — doesn't match any OR clause
+  return r.split('||').map(s => s.trim()).filter(Boolean).some(clause => satisfiesAndClause(ver, clause))
 }
 
 /**
- * Check if a version satisfies ALL conditions in an AND clause.
- * AND clauses are comma-separated: ">= 1.0.0, < 2.0.0"
+ * Check if a version satisfies ALL comparators in an AND clause.
+ * Comparators are separated by commas and/or whitespace: ">= 1.0.0, < 2.0.0"
+ * or ">=1.0.0 <2.0.0". Any token that is not a plain comparator or exact
+ * version makes the whole clause non-matching.
  */
 function satisfiesAndClause(ver: SemVer, clause: string): boolean {
-  const parts = clause.split(',').map(s => s.trim()).filter(Boolean)
-  let hadValidPart = false
+  // Glue "op version" pairs so whitespace can act as a separator
+  const tokens = clause.replace(/(>=|<=|>|<|=)\s+/g, '$1').split(/[\s,]+/).filter(Boolean)
+  if (tokens.length === 0) return false
 
-  for (const part of parts) {
-    const match = part.match(/^(>=|<=|>|<|=)\s*(.+)$/)
-    if (!match) continue
-
-    hadValidPart = true
-    const op = match[1]
-    const target = parse(match[2])
-    if (!target) continue
-
-    if (!matchComparator(ver, op, target)) {
-      return false // One condition not met → not in this clause's range
-    }
+  for (const token of tokens) {
+    const m = token.match(/^(>=|<=|>|<|=)?(v?\d+(?:\.\d+){1,2}(?:[-+][0-9A-Za-z.-]+)?)$/)
+    if (!m) return false
+    const target = parse(m[2])
+    if (!target) return false
+    if (!matchComparator(ver, m[1] ?? '=', target)) return false
   }
-
-  // If no valid parts were parsed, treat as vulnerable (safe default)
-  return hadValidPart || true
+  return true
 }

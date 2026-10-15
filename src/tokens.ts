@@ -173,6 +173,17 @@ function manualProfileFor(tool: string, argCount: number): ManualProfile {
         tokens: MANUAL_COST.webFetchLarge + MANUAL_COST.reasoning * 7,
       }
 
+    case 'depguard_exposure':
+      return {
+        steps: [
+          `Find every lock file on the machine and read each one (~${MANUAL_COST.webFetchLarge} tokens)`,
+          `Look up the incident's malicious versions in advisories (~${MANUAL_COST.webSearch + MANUAL_COST.webFetchLarge} tokens)`,
+          `Check global packages and the npm cache (~${MANUAL_COST.reasoning * 2} tokens)`,
+          `Reasoning: match versions and plan remediation (~${MANUAL_COST.reasoning * 3} tokens)`,
+        ],
+        tokens: MANUAL_COST.webFetchLarge * 2 + MANUAL_COST.webSearch + MANUAL_COST.reasoning * 5,
+      }
+
     default:
       return { steps: ['Unknown tool'], tokens: MANUAL_COST.webSearch }
   }

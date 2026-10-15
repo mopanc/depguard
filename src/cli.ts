@@ -13,6 +13,8 @@ import { review } from './review.js'
 import { generateSBOM } from './sbom.js'
 import { remediate } from './remediate.js'
 import { auditWorkspace } from './workspace-audit.js'
+import { scanExposure } from './exposure.js'
+import type { ExposureReport, ExposureLocation } from './exposure.js'
 import type { AutoExecFinding, AutoExecSeverity, WorkspaceAuditResult } from './workspace-audit.js'
 import { auditProject } from './bulk.js'
 import { auditToSarif, auditProjectToSarif, workspaceToSarif } from './sarif.js'
@@ -33,6 +35,9 @@ const { values, positionals } = parseArgs({
     'include-dev': { type: 'boolean', default: false },
     'full': { type: 'boolean', default: false },
     'include-vex': { type: 'boolean', default: false },
+    'skip-global': { type: 'boolean', default: false },
+    'skip-cache': { type: 'boolean', default: false },
+    'max-depth': { type: 'string' },
     'output': { type: 'string', short: 'o' },
     'help': { type: 'boolean', short: 'h', default: false },
     'version': { type: 'boolean', short: 'v', default: false },
@@ -59,6 +64,8 @@ Usage:
   depguard-cli <command> <args> [options]
 
 Commands:
+  exposure [paths...]      Was this machine hit? Check every lock file, global package and the
+                           npm cache for known-malicious versions (default path: your home dir)
   audit <package[@version]> Full audit report for a package (or specific version)
   search <keywords...>     Search npm for packages by keywords
   score <package>          Score a package 0-100
@@ -83,6 +90,9 @@ Options:
   --block                  Guard: escalate warnings to blocks
   --include-dev            Sweep/sbom/audit-project: include devDependencies
   --include-vex            Sbom: include VEX vulnerability data (runs audit)
+  --skip-global            Exposure: do not scan globally installed packages
+  --skip-cache             Exposure: do not scan the npm download cache
+  --max-depth <n>          Exposure: directory depth to search for lock files (default: 8)
   -o, --output <file>      Sbom/SARIF: write to file instead of stdout
   -h, --help               Show this help
   -v, --version            Show version
@@ -160,6 +170,50 @@ function printWorkspaceAudit(result: WorkspaceAuditResult): void {
   console.log(`  Summary: ${high} HIGH, ${warn} WARN, ${info} INFO  (${result.findings.length} findings across ${result.surfacesChecked.length} surfaces)`)
   console.log('')
   console.log(`  Note: ${result.note}`)
+  console.log('')
+}
+
+function describeLocation(l: ExposureLocation): string {
+  if (l.kind === 'npm-cache') {
+    return `npm cache    tarball downloaded${l.downloadedAt ? ` on ${l.downloadedAt.slice(0, 10)}` : ''}`
+  }
+  if (l.kind === 'global') return `global       ${l.path}`
+  const notes: string[] = []
+  if (l.onDisk === true) notes.push('installed on disk')
+  if (l.onDisk === false) notes.push('in lock file, not on disk')
+  if (l.hasInstallScript) notes.push('runs install scripts')
+  return `lock file    ${l.path}${l.installPath ? ` (${l.installPath})` : ''}${notes.length ? `  [${notes.join(', ')}]` : ''}`
+}
+
+function printExposure(r: ExposureReport): void {
+  const { stats } = r
+  console.log('')
+  console.log('depguard exposure scan')
+  console.log(`  Scanned:     ${stats.lockfiles} lock files, ${stats.globalPackages} global packages, ${stats.cacheEntries} cached tarballs (${stats.packagesChecked} distinct versions)`)
+  console.log(`  Under:       ${r.roots.join(', ')}`)
+  console.log(`  Advisory DB: ${r.dbVersion} (${r.dbSize} known-malicious packages)`)
+  console.log('')
+
+  if (!r.exposed) {
+    console.log('  OK  No known-malicious package versions found.')
+    console.log('')
+    console.log(`  Note: ${r.note}`)
+    console.log('')
+    return
+  }
+
+  console.log(`  EXPOSED  ${r.findings.length} known-malicious package version${r.findings.length === 1 ? '' : 's'} found`)
+  console.log('')
+  for (const f of r.findings) {
+    console.log(`  ${f.name}@${f.version}`)
+    for (const i of f.incidents) {
+      console.log(`    ${i.cve ?? 'no id'}  ${i.description}${i.date ? ` (${i.date})` : ''}`)
+    }
+    for (const l of f.locations) console.log(`    - ${describeLocation(l)}`)
+    console.log('')
+  }
+  console.log('  What to do now:')
+  r.nextSteps.forEach((step, i) => console.log(`    ${i + 1}. ${step}`))
   console.log('')
 }
 
@@ -477,6 +531,27 @@ async function main() {
       break
     }
 
+    case 'exposure': {
+      const roots = positionals.slice(1)
+      const maxDepth = values['max-depth'] !== undefined ? parseInt(values['max-depth'], 10) : undefined
+      if (maxDepth !== undefined && (isNaN(maxDepth) || maxDepth < 0)) {
+        console.error('--max-depth must be a non-negative number')
+        process.exit(1)
+      }
+      if (!json) process.stderr.write('Scanning lock files, global packages and the npm cache...\n')
+      const report = scanExposure({
+        roots,
+        maxDepth,
+        includeGlobal: !values['skip-global'],
+        includeCache: !values['skip-cache'],
+      })
+      recordCall('depguard_exposure', { threatsBlocked: report.findings.length })
+      if (json) output(report, true)
+      else printExposure(report)
+      if (report.exposed) process.exit(2)
+      break
+    }
+
     case 'stats': {
       const stats = loadStats()
       if (json) {
@@ -505,7 +580,7 @@ async function main() {
     }
 
     default:
-      console.error(`Unknown command: ${command}. Use: audit, search, score, should-use, guard, sweep, audit-deep, review, sbom, remediate, stats`)
+      console.error(`Unknown command: ${command}. Use: exposure, audit, search, score, should-use, guard, sweep, audit-deep, review, sbom, remediate, stats`)
       process.exit(1)
   }
 }

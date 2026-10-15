@@ -379,10 +379,15 @@ function parseYarnLockVersions(lockPath: string): Map<string, string> {
 
       if (!line.startsWith(' ') && line.includes('@') && line.endsWith(':')) {
         currentName = extractYarnPackageName(line)
+        // berry protocol entries (patch:, workspace:, portal:) duplicate or are not registry installs
+        if (currentName?.includes(':')) currentName = null
       } else if (currentName) {
-        const versionMatch = line.match(/^\s+version\s+"([^"]+)"/)
+        // classic: `  version "1.2.3"`   berry: `  version: 1.2.3`
+        const versionMatch = line.match(/^\s+version:?\s+"?([^"\s]+)"?\s*$/)
         if (versionMatch) {
-          deps.set(currentName, versionMatch[1])
+          if (/^\d/.test(versionMatch[1]) && !versionMatch[1].includes('use.local')) {
+            deps.set(currentName, versionMatch[1])
+          }
           currentName = null
         }
       }
@@ -540,4 +545,177 @@ function stripJsoncComments(text: string): string {
   }
 
   return result
+}
+
+/** One installed (name, version) pair as recorded in a lock file. */
+export interface InstalledPackage {
+  name: string
+  version: string
+  /** npm only: install path relative to the project, e.g. node_modules/a/node_modules/b */
+  path?: string
+  /** npm only: the lock file records that this version declares install scripts */
+  hasInstallScript?: boolean
+}
+
+/** Lock file basenames understood by parseLockfilePackages, in precedence order. */
+export const LOCKFILE_NAMES = ['package-lock.json', 'npm-shrinkwrap.json', 'pnpm-lock.yaml', 'yarn.lock', 'bun.lock'] as const
+
+/**
+ * Every installed (name, version) pair for a project, read from its lock file.
+ * Picks the lock file the package manager itself would use: npm-shrinkwrap.json
+ * over package-lock.json, then pnpm, yarn and bun. [] when there is none.
+ */
+export function getInstalledPackages(projectPath: string): InstalledPackage[] {
+  for (const name of ['npm-shrinkwrap.json', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock', 'bun.lock']) {
+    const lockPath = join(projectPath, name)
+    if (existsSync(lockPath)) return parseLockfilePackages(lockPath)
+  }
+  return []
+}
+
+/**
+ * Every (name, version) pair in a lock file, including nested and duplicate
+ * copies of the same package. Unlike getAllInstalledVersions (one version per
+ * name, nested npm copies skipped), this is what an exposure check needs: a
+ * malicious version hidden at node_modules/a/node_modules/b must not be missed.
+ *
+ * Dispatches on the file's basename. Returns [] on unknown formats or parse errors.
+ */
+export function parseLockfilePackages(lockPath: string): InstalledPackage[] {
+  const base = lockPath.split(/[\\/]/).pop() ?? ''
+  try {
+    const raw = readFileSync(lockPath, 'utf-8')
+    let result: InstalledPackage[]
+    if (base === 'package-lock.json' || base === 'npm-shrinkwrap.json') result = parseNpmLockPackages(raw)
+    else if (base === 'pnpm-lock.yaml') result = parsePnpmLockPackages(raw)
+    else if (base === 'yarn.lock') result = parseYarnLockPackages(raw)
+    else if (base === 'bun.lock') result = parseBunLockPackages(raw)
+    else return []
+    return dedupePackages(result)
+  } catch {
+    return []
+  }
+}
+
+function dedupePackages(list: InstalledPackage[]): InstalledPackage[] {
+  const seen = new Set<string>()
+  return list.filter(p => {
+    const key = `${p.name}@${p.version}@${p.path ?? ''}`
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
+
+/** Resolve an npm alias version ("npm:real-name@1.2.3") to its real name and version. */
+function resolveNpmAlias(name: string, version: string): { name: string; version: string } {
+  if (!version.startsWith('npm:')) return { name, version }
+  const spec = version.slice(4)
+  const at = spec.lastIndexOf('@')
+  if (at <= 0) return { name, version }
+  return { name: spec.slice(0, at), version: spec.slice(at + 1) }
+}
+
+function parseNpmLockPackages(raw: string): InstalledPackage[] {
+  const lock = JSON.parse(raw)
+  const out: InstalledPackage[] = []
+
+  // v2/v3: "packages" keyed by install path
+  if (lock.packages && typeof lock.packages === 'object') {
+    for (const [key, value] of Object.entries(lock.packages)) {
+      const entry = value as { name?: string; version?: string; link?: boolean; hasInstallScript?: boolean }
+      if (!key || entry.link || !entry.version) continue
+      const idx = key.lastIndexOf('node_modules/')
+      if (idx < 0) continue // workspace source folder, not an install
+      const name = entry.name ?? key.slice(idx + 'node_modules/'.length)
+      out.push({ name, version: entry.version, path: key, ...(entry.hasInstallScript ? { hasInstallScript: true } : {}) })
+    }
+    if (out.length > 0) return out
+  }
+
+  // v1: nested "dependencies" tree
+  const walk = (deps: Record<string, { version?: string; dependencies?: Record<string, unknown> }>, prefix: string): void => {
+    for (const [depName, spec] of Object.entries(deps)) {
+      const path = `${prefix}node_modules/${depName}`
+      if (spec.version) {
+        const real = resolveNpmAlias(depName, spec.version)
+        out.push({ name: real.name, version: real.version, path })
+      }
+      if (spec.dependencies) walk(spec.dependencies as typeof deps, `${path}/`)
+    }
+  }
+  if (lock.dependencies) walk(lock.dependencies, '')
+  return out
+}
+
+function parsePnpmLockPackages(raw: string): InstalledPackage[] {
+  const out: InstalledPackage[] = []
+  let inSection = false
+  for (const line of raw.split('\n')) {
+    if (line === 'packages:' || line === 'snapshots:') {
+      inSection = true
+      continue
+    }
+    if (line.trim() === '') continue
+    if (!line.startsWith(' ')) {
+      inSection = false
+      continue
+    }
+    if (!inSection) continue
+    // Entry keys sit at two-space indent; deeper lines are entry fields
+    if (line.startsWith('   ')) continue
+
+    const key = line.trim().replace(/:$/, '').replace(/^'|'$/g, '').replace(/^\//, '')
+    // v5: name/1.2.3   v6+: name@1.2.3(peer@x)
+    const v5 = key.match(/^((?:@[^/]+\/)?[^/@]+)\/(\d[^/(]*)$/)
+    if (v5) {
+      out.push({ name: v5[1], version: v5[2] })
+      continue
+    }
+    const at = key.startsWith('@') ? key.indexOf('@', 1) : key.indexOf('@')
+    if (at <= 0) continue
+    const name = key.slice(0, at)
+    const version = key.slice(at + 1).replace(/\(.*$/, '')
+    // Skip link:, file:, git and tarball specifiers — only registry semver versions
+    if (!/^\d/.test(version)) continue
+    out.push({ name, version })
+  }
+  return out
+}
+
+function parseYarnLockPackages(raw: string): InstalledPackage[] {
+  const out: InstalledPackage[] = []
+  let currentName: string | null = null
+  for (const line of raw.split('\n')) {
+    if (line.startsWith('#') || line.trim() === '') continue
+    if (!line.startsWith(' ') && line.includes('@') && line.endsWith(':')) {
+      currentName = extractYarnPackageName(line)
+      // berry protocol entries (patch:, workspace:, portal:) duplicate or are not registry installs
+      if (currentName?.includes(':')) currentName = null
+      continue
+    }
+    if (!currentName) continue
+    // classic: `  version "1.2.3"`   berry: `  version: 1.2.3`
+    const m = line.match(/^\s+version:?\s+"?([^"\s]+)"?\s*$/)
+    if (m) {
+      if (/^\d/.test(m[1]) && !m[1].includes('use.local')) out.push({ name: currentName, version: m[1] })
+      currentName = null
+    }
+  }
+  return out
+}
+
+function parseBunLockPackages(raw: string): InstalledPackage[] {
+  const out: InstalledPackage[] = []
+  const lock = JSON.parse(stripJsoncComments(raw))
+  if (!lock.packages || typeof lock.packages !== 'object') return out
+  for (const value of Object.values(lock.packages)) {
+    if (!Array.isArray(value) || typeof value[0] !== 'string') continue
+    const spec = value[0]
+    const version = extractBunVersion(spec)
+    if (!version) continue
+    const name = spec.slice(0, spec.length - version.length - 1)
+    if (name) out.push({ name, version })
+  }
+  return out
 }

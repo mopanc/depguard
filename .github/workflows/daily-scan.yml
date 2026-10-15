@@ -15,14 +15,14 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # PAT for an admin user — main is protected and the default GITHUB_TOKEN
           # cannot bypass the "require pull request" rule. Admins can (enforce_admins
           # is false), so we push as the admin via this fine-grained token.
           token: ${{ secrets.DAILY_SCAN_PAT }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
@@ -32,7 +32,10 @@ jobs:
 
       - name: Refresh advisory-db from GHSA
         run: npx tsx scripts/refresh-advisory-db.ts
-        timeout-minutes: 10
+        # Incremental runs take seconds; a rebuild after an importer change
+        # (importerVersion bump) re-reads ~11 months of malware advisories
+        # once (600+ pages, measured at ~25 min locally).
+        timeout-minutes: 60
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

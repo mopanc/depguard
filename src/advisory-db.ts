@@ -47,6 +47,27 @@ interface AdvisoryDBData {
   packages: Record<string, CompromisedPackage>
 }
 
+/**
+ * The npm package ships a compacted copy of the database (scripts/pack-advisory-db.mjs)
+ * that omits fields with a default value. Restore them so every consumer sees
+ * the full shape. A missing `origin` is left missing on purpose: it means curated.
+ */
+export function expandCompromisedPackage(name: string, raw: Partial<CompromisedPackage> & { incidents?: Array<Partial<Incident>> }): CompromisedPackage {
+  return {
+    compromised: raw.compromised ?? true,
+    severity: raw.severity ?? 'critical',
+    incidents: (raw.incidents ?? []).map(i => ({
+      // A missing range must never mean "all versions" (FP policy): match nothing
+      version: i.version ?? '<0.0.0',
+      type: i.type ?? 'supply-chain',
+      date: i.date ?? '',
+      cve: i.cve ?? null,
+      description: i.description ?? `Malware in ${name}`,
+      ...(i.origin !== undefined ? { origin: i.origin } : {}),
+    })),
+  }
+}
+
 /** In-memory index — loaded once, O(1) lookups */
 let db: Map<string, CompromisedPackage> | null = null
 let dbVersion = ''
@@ -76,7 +97,7 @@ function ensureLoaded(): void {
         const raw = readFileSync(join(dataDir, 'advisory-db.json'), 'utf-8')
         const data: AdvisoryDBData = JSON.parse(raw)
         dbVersion = data.version ?? 'unknown'
-        for (const [name, pkg] of Object.entries(data.packages)) db.set(name, pkg)
+        for (const [name, pkg] of Object.entries(data.packages)) db.set(name, expandCompromisedPackage(name, pkg))
 
         try {
           const excRaw = readFileSync(join(dataDir, 'advisory-db-exceptions.json'), 'utf-8')
@@ -91,7 +112,7 @@ function ensureLoaded(): void {
       const esmRequire = createRequire(import.meta.url)
       const data: AdvisoryDBData = esmRequire('../src/data/advisory-db.json')
       dbVersion = data.version ?? 'unknown'
-      for (const [name, pkg] of Object.entries(data.packages)) db.set(name, pkg)
+      for (const [name, pkg] of Object.entries(data.packages)) db.set(name, expandCompromisedPackage(name, pkg))
       try {
         const exc = esmRequire('../src/data/advisory-db-exceptions.json')
         loadExceptions(exc)

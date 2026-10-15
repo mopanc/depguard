@@ -1,7 +1,7 @@
 {
   "name": "depguard-cli",
   "version": "1.14.0",
-  "description": "MCP security server for AI coding agents. Workspace auto-exec audit (pre-open repo scan, defends against fake-interview / take-home-test malware), static code analysis, behavioral detection, pre-install guardian, AI hallucination guard, dead dependency detection, vulnerability audit, remediation planner, CycloneDX SBOM generation. 14 tools. Zero dependencies.",
+  "description": "Was my machine hit by an npm supply-chain attack? Scans every lock file, global install and the npm cache against ~35k known-malicious packages. Plus pre-install guardian, pre-open repo audit against fake-interview malware, vulnerability audit, SBOM and SARIF. MCP server for AI coding agents, 15 tools, zero dependencies.",
   "author": "Jorge Morais",
   "funding": {
     "type": "github",
@@ -22,12 +22,11 @@
   },
   "files": [
     "dist",
-    "src/data",
     "README.md"
   ],
   "scripts": {
     "check-version": "node --import tsx scripts/check-version.ts",
-    "build": "tsc && rm -rf dist/data && mkdir -p dist/data && cp src/data/*.json dist/data/ && chmod 755 dist/cli.js",
+    "build": "tsc && rm -rf dist/data && mkdir -p dist/data && cp src/data/*.json dist/data/ && node scripts/pack-advisory-db.mjs && chmod 755 dist/cli.js",
     "test": "node --import tsx --test tests/*.test.ts",
     "lint": "eslint src/ tests/",
     "audit:security": "npm audit --audit-level=high --omit=dev",
@@ -44,17 +43,28 @@
   },
   "keywords": [
     "npm",
-    "audit",
     "security",
-    "license",
-    "dependency",
-    "package",
+    "supply-chain",
+    "supply-chain-security",
+    "malware",
+    "malware-detection",
+    "compromised-packages",
+    "incident-response",
+    "shai-hulud",
+    "lockfile",
+    "audit",
     "vulnerability",
-    "maintenance",
-    "advisor",
     "sbom",
     "cyclonedx",
-    "supply-chain"
+    "mcp",
+    "mcp-server",
+    "ai-agents",
+    "claude",
+    "cursor",
+    "vscode",
+    "fake-interview",
+    "dependency",
+    "license"
   ],
   "repository": {
     "type": "git",

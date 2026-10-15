@@ -22,6 +22,7 @@ import { auditTransitive } from './transitive.js'
 import { review } from './review.js'
 import { generateSBOM } from './sbom.js'
 import { auditWorkspace } from './workspace-audit.js'
+import { scanExposure } from './exposure.js'
 import { scoreFromReport } from './scorer.js'
 import { calculateSavings } from './tokens.js'
 import { printStatsBanner, recordCall, setVersion } from './stats.js'
@@ -219,6 +220,19 @@ const TOOLS = [
       required: ['path'],
     },
   },
+  {
+    name: 'depguard_exposure',
+    description: 'Answer "was this machine hit?" after an npm supply-chain incident (worm, hijacked maintainer, malicious release). Scans every lock file under the given paths (npm, pnpm, yarn classic/berry, bun; nested copies included), globally installed packages, and the npm download cache, and matches each exact installed version against ~35k known-malicious npm packages. Reports where each malicious version was found, whether it is installed on disk, whether it runs install scripts, when its tarball was downloaded, and the remediation steps (credential rotation, cleanup). Use this when the user asks whether they are affected by an attack, or as a periodic check. Only exact version matches are reported; clean versions of previously compromised packages are never flagged.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        paths: { type: 'array', items: { type: 'string' }, description: 'Directories to search for lock files (absolute paths). Default: the user\'s home directory.' },
+        includeGlobal: { type: 'boolean', description: 'Scan globally installed npm packages (default: true)' },
+        includeCache: { type: 'boolean', description: 'Scan the npm download cache (default: true)' },
+        maxDepth: { type: 'number', description: 'Directory depth to search below each path (default: 8)' },
+      },
+    },
+  },
 ]
 
 /**
@@ -328,6 +342,22 @@ function condenseResult(data: Record<string, unknown>, toolName: string): Record
         _condensed: true,
         _note: 'Response was condensed to fit MCP limits. Use depguard_audit on individual packages for full details.',
       }
+    }
+  }
+
+  // For exposure: keep every finding, cap the locations listed per finding
+  if (toolName === 'depguard_exposure') {
+    const findings = data.findings as Array<Record<string, unknown>> | undefined
+    return {
+      ...data,
+      findings: findings?.map(f => {
+        const locations = f.locations as unknown[] | undefined
+        return locations && locations.length > 10
+          ? { ...f, locations: locations.slice(0, 10), totalLocations: locations.length }
+          : f
+      }),
+      _condensed: true,
+      _note: 'Response condensed: at most 10 locations listed per finding. Run `depguard-cli exposure --json` for every location.',
     }
   }
 
@@ -571,6 +601,17 @@ async function handleRequest(req: JsonRpcRequest): Promise<JsonRpcResponse> {
             if (!repoPath) return error(req.id, -32602, 'path is required')
             const result = auditWorkspace(repoPath)
             return success(req.id, toolResult('depguard_audit_workspace', result))
+          }
+
+          case 'depguard_exposure': {
+            const paths = Array.isArray(args.paths) ? (args.paths as unknown[]).filter((p): p is string => typeof p === 'string') : []
+            const result = scanExposure({
+              roots: paths,
+              includeGlobal: args.includeGlobal !== false,
+              includeCache: args.includeCache !== false,
+              ...(typeof args.maxDepth === 'number' ? { maxDepth: args.maxDepth } : {}),
+            })
+            return success(req.id, toolResult('depguard_exposure', result))
           }
 
           default:

@@ -38,8 +38,26 @@ describe('satisfiesRange', () => {
     assert.strictEqual(satisfiesRange('1.0.0', ''), true)
   })
 
-  it('returns true for unparseable version (safe default)', () => {
-    assert.strictEqual(satisfiesRange('unknown', '< 4.0.0'), true)
+  it('returns false for unparseable version (FP-averse, policy rule 6)', () => {
+    assert.strictEqual(satisfiesRange('unknown', '< 4.0.0'), false)
+  })
+
+  it('handles npm advisory syntax (whitespace-separated comparators)', () => {
+    assert.strictEqual(satisfiesRange('1.1.0', '>=1.0.0 <1.2.0'), true)
+    assert.strictEqual(satisfiesRange('5.0.0', '>=1.0.0 <1.2.0'), false)
+    assert.strictEqual(satisfiesRange('1.1.0', '>= 1.0.0 < 1.2.0'), true)
+  })
+
+  it('treats a bare version as an exact match, not a wildcard', () => {
+    assert.strictEqual(satisfiesRange('1.2.3', '1.2.3'), true)
+    assert.strictEqual(satisfiesRange('2.0.0', '1.2.3'), false)
+  })
+
+  it('does not flag ranges it cannot evaluate (^, ~, hyphen, x-ranges)', () => {
+    assert.strictEqual(satisfiesRange('5.0.0', '^1.2.0'), false)
+    assert.strictEqual(satisfiesRange('1.3.0', '~1.2.0'), false)
+    assert.strictEqual(satisfiesRange('9.9.9', '1.2.3 - 1.4.0'), false)
+    assert.strictEqual(satisfiesRange('1.0.0', '1.x'), false)
   })
 
   it('handles real GitHub advisory ranges', () => {

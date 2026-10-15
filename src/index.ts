@@ -20,7 +20,10 @@ export {
   getDBVersion,
   getDBSize,
 } from './advisory-db.js'
-export { getAllInstalledDeps, getAllInstalledVersions, getDependencyParents } from './lockfile.js'
+export { getAllInstalledDeps, getAllInstalledVersions, getDependencyParents, parseLockfilePackages, LOCKFILE_NAMES } from './lockfile.js'
+export type { InstalledPackage } from './lockfile.js'
+export { scanExposure } from './exposure.js'
+export type { ExposureReport, ExposureFinding, ExposureLocation, ExposureLocationKind, ExposureOptions } from './exposure.js'
 export { loadStats, recordCall } from './stats.js'
 export type { DepguardStats } from './stats.js'
 export { analyzeMaintainers } from './maintainer-analysis.js'
