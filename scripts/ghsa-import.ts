@@ -40,7 +40,19 @@ export interface PackageIncident {
  * are not themselves malicious. The malicious dependency has its own advisory,
  * so importing these would only flag legitimate versions.
  */
-export const INDIRECT_EXPOSURE = /\bindirect(?:ly)?\b|\bexposed via\b|\bimpacting\b/i
+export const INDIRECT_EXPOSURE = /\bindirectly\b|\bexposed (?:via|through)\b|\bimpacting\b/i
+
+/**
+ * The summary with the advisory's own package names removed, so a malicious
+ * package that happens to be called "indirect-..." is not mistaken for an
+ * indirect-exposure advisory.
+ */
+function summaryWithoutPackageNames(adv: GhsaAdvisory): string {
+  let text = adv.summary ?? ''
+  const names = (adv.vulnerabilities ?? []).map(v => v.package?.name).filter((n): n is string => !!n)
+  for (const name of names.sort((a, b) => b.length - a.length)) text = text.split(name).join(' ')
+  return text
+}
 
 /** Ranges that mean "every version" are stored as the 'all' sentinel. */
 export function normalizeVersionRange(range: string | null): string {
@@ -66,7 +78,7 @@ export function incidentId(adv: Pick<GhsaAdvisory, 'cve_id' | 'ghsa_id'>): strin
  */
 export function advisoryToIncidents(adv: GhsaAdvisory): { incidents: PackageIncident[]; skipped?: string } {
   if (adv.withdrawn_at) return { incidents: [], skipped: 'withdrawn' }
-  if (INDIRECT_EXPOSURE.test(adv.summary ?? '')) return { incidents: [], skipped: 'indirect exposure' }
+  if (INDIRECT_EXPOSURE.test(summaryWithoutPackageNames(adv))) return { incidents: [], skipped: 'indirect exposure' }
 
   const ranges = new Map<string, string[]>()
   for (const v of adv.vulnerabilities ?? []) {

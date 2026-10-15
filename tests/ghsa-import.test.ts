@@ -55,6 +55,16 @@ describe('advisoryToIncidents', () => {
     }
   })
 
+  it('does not mistake a malicious package named "indirect-..." for an indirect-exposure advisory', () => {
+    const r = advisoryToIncidents(adv({
+      summary: 'Malicious code in indirect-aqua-planarian (npm)',
+      vulnerabilities: [npm('indirect-aqua-planarian', '>= 0')],
+    }))
+    assert.equal(r.skipped, undefined)
+    assert.equal(r.incidents.length, 1)
+    assert.equal(r.incidents[0].incident.version, 'all')
+  })
+
   it('keeps hijack advisories that name the package itself', () => {
     const r = advisoryToIncidents(adv({ summary: 'debug@4.4.2 contains malware after npm account takeover', vulnerabilities: [npm('debug', '= 4.4.2')] }))
     assert.equal(r.incidents.length, 1)
