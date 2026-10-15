@@ -379,10 +379,15 @@ function parseYarnLockVersions(lockPath: string): Map<string, string> {
 
       if (!line.startsWith(' ') && line.includes('@') && line.endsWith(':')) {
         currentName = extractYarnPackageName(line)
+        // berry protocol entries (patch:, workspace:, portal:) duplicate or are not registry installs
+        if (currentName?.includes(':')) currentName = null
       } else if (currentName) {
-        const versionMatch = line.match(/^\s+version\s+"([^"]+)"/)
+        // classic: `  version "1.2.3"`   berry: `  version: 1.2.3`
+        const versionMatch = line.match(/^\s+version:?\s+"?([^"\s]+)"?\s*$/)
         if (versionMatch) {
-          deps.set(currentName, versionMatch[1])
+          if (/^\d/.test(versionMatch[1]) && !versionMatch[1].includes('use.local')) {
+            deps.set(currentName, versionMatch[1])
+          }
           currentName = null
         }
       }
