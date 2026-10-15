@@ -34,6 +34,14 @@ const KNOWN_CLEAN: Array<[string, string]> = [
   ['eslint-scope', '3.7.1'], ['eslint-scope', '3.7.3'],
   ['rc', '1.2.8'], ['coa', '2.0.2'],
   ['axios', '1.14.0'], ['axios', '1.12.2'], ['axios', '0.30.3'],
+  // Shai-Hulud / chalk wave, September 2025 (malicious: chalk 5.6.1, @ctrl/tinycolor 4.1.1 and 4.1.2)
+  ['chalk', '5.6.0'], ['chalk', '5.6.2'], ['@ctrl/tinycolor', '4.1.0'],
+  // Advisories whose risk depends on the install date, not the version
+  // (prebuilt binaries fetched from storage that was later reclaimed)
+  ['fsevents', '1.2.9'], ['fsevents', '1.2.4'], ['fsevents', '2.3.3'],
+  ['bignum', '0.12.5'], ['bignum', '0.13.0'],
+  // Name taken over by a legitimate OpenCV port after the 2017 typosquat
+  ['opencv.js', '1.1.0'], ['opencv.js', '1.2.1'],
 ]
 
 /** Documented incidents that must keep being detected. */
@@ -41,6 +49,7 @@ const KNOWN_BAD: Array<[string, string]> = [
   ['node-ipc', '10.1.1'], ['node-ipc', '10.1.2'],
   ['debug', '4.4.2'], ['color', '5.0.1'], ['colors', '1.4.1'],
   ['ua-parser-js', '0.7.29'], ['event-stream', '3.3.6'], ['eslint-config-prettier', '10.1.7'],
+  ['opencv.js', '1.0.1'],
 ]
 
 describe('advisory database precision', () => {

@@ -21,6 +21,21 @@
       "package": "@usebruno/cli",
       "id": "CVE-2026-34841",
       "reason": "Advisory GHSA-658g-p7jg-wx5g covers every @usebruno/cli version below 3.2.0 because of the axios supply-chain incident; bruno itself was not malicious. Flagging every old version would be a false positive."
+    },
+    {
+      "package": "fsevents",
+      "id": "GHSA-xv2f-5jw4-v95m",
+      "reason": "fsevents 1.0.0 to 1.2.10 fetched a prebuilt binary from cloud storage that a third party reclaimed and abused only in April 2023 (suspended on 2023-04-27). The risk depends on when the package was installed, not on the version: flagging every 1.x install (present in countless old lock files via chokidar 2) would be a false positive for almost everyone. The underlying weakness remains reported as a vulnerability (CVE-2023-45311)."
+    },
+    {
+      "package": "bignum",
+      "id": "GHSA-7cgc-fjv4-52x6",
+      "reason": "bignum 0.12.2 to 0.13.0 optionally downloaded prebuilt binaries from an S3 bucket that later expired and was claimed by a malicious third party. Same class as fsevents: the risk depends on when, and whether, a prebuilt binary was downloaded, not on the version itself."
+    },
+    {
+      "package": "opencv.js",
+      "id": "CVE-2017-16066",
+      "reason": "The advisory covers <= 1.2.1, but after npm removed the 2017 typosquat (1.0.1, published 2017-07-19) the name passed to a legitimate OpenCV port that published 1.0.0 to 1.2.1 between August and November 2017. The malicious 1.0.1 is kept as a curated incident instead."
     }
   ]
 }

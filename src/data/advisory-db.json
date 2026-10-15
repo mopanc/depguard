@@ -1202202,6 +1202202,14 @@
           "cve": "CVE-2017-16066",
           "description": "opencv.js is malware",
           "origin": "ghsa"
+        },
+        {
+          "version": "1.0.1",
+          "type": "typosquat",
+          "date": "2017-07-19",
+          "cve": null,
+          "description": "Typosquat that exfiltrated environment variables (CVE-2017-16066). Later versions belong to a legitimate OpenCV port that took over the name.",
+          "origin": "curated"
         }
       ]
     },
