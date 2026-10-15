@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.15.0] - 2026-10-15
 
 ### Added
 
@@ -28,6 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The npm package shipped the 13 MB advisory database twice (`dist/data` and `src/data`). Tarball 1.9 MB to 1.0 MB, unpacked 27.1 MB to 14.0 MB.
 - CI actions moved to v5 (the v4 actions ran on the deprecated Node 20 runtime). The publish job installs npm 11.19.1 and is ready for trusted publishing (OIDC).
 - Daily scan: the npm downloads API rate-limited the runner and every failure was scored as 0 downloads, corrupting the public ranking since April. Downloads are now fetched in bulk with retries and timeouts, and a scan with more than 5% incomplete data is not published.
+
+### Changed
+
+- 15 MCP tools (up from 14), 469 tests (up from 409).
 
 ## [1.14.0] - 2026-05-30
 
