@@ -36,6 +36,11 @@
       "package": "opencv.js",
       "id": "CVE-2017-16066",
       "reason": "The advisory covers <= 1.2.1, but after npm removed the 2017 typosquat (1.0.1, published 2017-07-19) the name passed to a legitimate OpenCV port that published 1.0.0 to 1.2.1 between August and November 2017. The malicious 1.0.1 is kept as a curated incident instead."
+    },
+    {
+      "package": "@ebay/ui-core-react",
+      "id": "GHSA-536f-jp4m-fgrw",
+      "reason": "Legitimate eBay UI library published by eBay maintainers since 2022. The advisory marks every version (>= 0), while the matching OSV report (MAL-2024-1006) lists seven versions and its attached analysis of 9.8.1 found no exfiltration, install-time execution, dropper or backdoor behaviour. Ambiguous, so not flagged."
     }
   ]
 }
