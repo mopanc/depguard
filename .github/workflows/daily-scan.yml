@@ -13,14 +13,14 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # PAT for an admin user — main is protected and the default GITHUB_TOKEN
           # cannot bypass the "require pull request" rule. Admins can (enforce_admins
           # is false), so we push as the admin via this fine-grained token.
           token: ${{ secrets.DAILY_SCAN_PAT }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
