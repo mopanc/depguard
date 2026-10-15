@@ -13,7 +13,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { randomUUID } from 'node:crypto'
-import { getAllInstalledVersions } from './lockfile.js'
+import { getInstalledPackages } from './lockfile.js'
 import { auditProject } from './bulk.js'
 import type { BulkAuditReport, ProjectAuditOptions } from './bulk.js'
 import type { NpmAdvisory } from './types.js'
@@ -65,7 +65,7 @@ export async function generateSBOM(
   const projectDir = dirname(packageJsonPath)
   const projectPkg = readJsonOrThrow(packageJsonPath, 'package.json')
 
-  const installed = getAllInstalledVersions(projectDir)
+  const installed = getInstalledPackages(projectDir)
   const integrityMap = readNpmIntegrity(projectDir)
 
   // Root component: the project this SBOM describes
@@ -96,10 +96,17 @@ export async function generateSBOM(
   const refByName = new Map<string, string>()
   refByName.set(rootName, rootRef)
 
+  // One component per distinct name@version: nested and duplicated copies are
+  // part of the inventory too.
   const components: Component[] = []
-  for (const [name, version] of installed) {
+  const seenRefs = new Set<string>()
+  for (const { name, version, path } of installed) {
     if (name === rootName) continue // don't duplicate the root
     const purl = makePurl(name, version)
+    // name -> ref prefers the hoisted copy, which is what a direct dep resolves to
+    if (!refByName.has(name) || path === `node_modules/${name}`) refByName.set(name, purl)
+    if (seenRefs.has(purl)) continue
+    seenRefs.add(purl)
     const comp: Component = {
       'bom-ref': purl,
       type: 'library',
@@ -110,15 +117,14 @@ export async function generateSBOM(
     }
     const hash = integrityMap.get(`${name}@${version}`)
     if (hash) comp.hashes = [hash]
-    // Closes #63: populate per-component licenses by reading
-    // node_modules/<name>/package.json. Falls back to an explicit UNKNOWN
+    // Closes #63: populate per-component licenses from the installed
+    // package.json of this exact copy. Falls back to an explicit UNKNOWN
     // entry so downstream license-compliance scanners (FOSSA, ScanCode,
     // Syft) can detect missing license data instead of treating absence
     // as compatibility.
-    const licenses = extractLicensesFromInstalledPkg(name, projectDir, spdxIds)
+    const licenses = extractLicensesFromInstalledPkg(name, version, projectDir, spdxIds, path)
     comp.licenses = licenses ?? [{ license: { name: 'UNKNOWN' } }]
     components.push(comp)
-    refByName.set(name, purl)
   }
 
   // Dependency graph: for the MVP we record root → direct deps only.
@@ -297,7 +303,11 @@ function advisoryToVuln(
   pkgVersion: string,
   refByName: Map<string, string>,
 ): Vulnerability {
-  const ref = refByName.get(pkgName) ?? makePurl(pkgName, pkgVersion)
+  // Point at the exact affected copy; fall back to the name's component only
+  // when the version is unknown.
+  const ref = pkgVersion && pkgVersion !== 'unknown'
+    ? makePurl(pkgName, pkgVersion)
+    : refByName.get(pkgName) ?? makePurl(pkgName, pkgVersion)
   const id = extractAdvisoryId(adv) ?? `npm-${adv.id}`
 
   const sourceName = adv.source === 'github' ? 'GitHub Advisory Database' : 'npm Advisory Database'
@@ -397,10 +407,14 @@ function licenseStringToCycloneDX(raw: string, spdxIds: Set<string>): License {
  */
 function extractLicensesFromInstalledPkg(
   name: string,
+  version: string,
   projectDir: string,
   spdxIds: Set<string>,
+  installPath?: string,
 ): License[] | undefined {
-  const pkgPath = join(projectDir, 'node_modules', ...name.split('/'), 'package.json')
+  const pkgPath = installPath
+    ? join(projectDir, installPath, 'package.json')
+    : join(projectDir, 'node_modules', ...name.split('/'), 'package.json')
   if (!existsSync(pkgPath)) return undefined
 
   let pkg: Record<string, unknown>
@@ -409,6 +423,8 @@ function extractLicensesFromInstalledPkg(
   } catch {
     return undefined
   }
+  // A different version at this path says nothing about this component's license
+  if (typeof pkg.version === 'string' && pkg.version !== version) return undefined
 
   return extractLegacyLicenseFields(pkg, spdxIds)
 }

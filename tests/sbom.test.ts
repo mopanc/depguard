@@ -410,3 +410,43 @@ describe('generateSBOM', () => {
     assert.deepStrictEqual(pkg?.licenses, [{ license: { name: 'UNKNOWN' } }])
   })
 })
+
+describe('generateSBOM — nested and duplicated copies', () => {
+  const lock = JSON.stringify({
+    lockfileVersion: 3,
+    packages: {
+      '': { name: 'app', version: '1.0.0' },
+      'node_modules/shared': { version: '2.0.0' },
+      'node_modules/a': { version: '1.0.0' },
+      'node_modules/a/node_modules/shared': { version: '1.4.0' },
+    },
+  })
+
+  it('lists every distinct name@version as its own component', async () => {
+    const dir = makeProject({
+      'package.json': JSON.stringify({ name: 'app', version: '1.0.0', dependencies: { shared: '^2.0.0', a: '^1.0.0' } }),
+      'package-lock.json': lock,
+    })
+    const bom = await generateSBOM(join(dir, 'package.json'), { timestamp: 't', serialNumber: 'urn:uuid:x' })
+    const refs = bom.components.map(c => c['bom-ref']).sort()
+    assert.deepStrictEqual(refs, ['pkg:npm/a@1.0.0', 'pkg:npm/shared@1.4.0', 'pkg:npm/shared@2.0.0'])
+    // root depends on the hoisted copy of a direct dep
+    assert.ok(bom.dependencies[0].dependsOn?.includes('pkg:npm/shared@2.0.0'))
+  })
+
+  it('reads each copy\'s license from its own install path and never from another version', async () => {
+    const dir = makeProject({
+      'package.json': JSON.stringify({ name: 'app', version: '1.0.0', dependencies: { shared: '^2.0.0', a: '^1.0.0' } }),
+      'package-lock.json': lock,
+      'node_modules/shared/package.json': JSON.stringify({ name: 'shared', version: '2.0.0', license: 'MIT' }),
+      'node_modules/a/node_modules/shared/package.json': JSON.stringify({ name: 'shared', version: '1.4.0', license: 'ISC' }),
+      'node_modules/a/package.json': JSON.stringify({ name: 'a', version: '0.9.0', license: 'GPL-3.0' }),
+    })
+    const bom = await generateSBOM(join(dir, 'package.json'), { timestamp: 't', serialNumber: 'urn:uuid:x' })
+    const lic = (ref: string) => JSON.stringify(bom.components.find(c => c['bom-ref'] === ref)?.licenses)
+    assert.ok(lic('pkg:npm/shared@2.0.0').includes('MIT'))
+    assert.ok(lic('pkg:npm/shared@1.4.0').includes('ISC'))
+    // node_modules/a holds 0.9.0, not the locked 1.0.0: its license is unknown, not GPL
+    assert.ok(lic('pkg:npm/a@1.0.0').includes('UNKNOWN'))
+  })
+})
