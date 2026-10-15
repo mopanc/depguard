@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **`depguard-cli exposure` and the `depguard_exposure` MCP tool: "was this machine hit?"** After a supply-chain incident (worm, hijacked maintainer account, malicious release), checks every lock file under the given paths (default: home directory), globally installed packages and the npm download cache against the known-malicious package database. Reports every location of each malicious version, whether it is installed on disk, whether it declares install scripts, when its tarball was downloaded, and remediation steps that scale with the evidence (lock file only vs installed on this machine). Only exact version matches are reported. Exits 2 when exposed, so it can gate CI.
+- **Hijacked legitimate packages in the advisory database.** The daily refresh now also imports GitHub `reviewed` advisories tagged CWE-506 (Embedded Malicious Code), which is how GitHub files hijacks of legitimate packages such as `debug@4.4.2`, the `color` family, `eslint-config-prettier`, `@tanstack/*` and DuckDB. These were never imported before because GitHub does not type them as `malware`. Advisories about packages only exposed *through* a malicious dependency are excluded, and four such advisories are pinned in the exception list.
+- `parseLockfilePackages` / `getInstalledPackages`: every installed (name, version) pair, nested and duplicated copies included, for npm v1-v3, pnpm v5-v9, yarn classic and berry, and bun.
+
+### Fixed
+
+- **`audit-project` audited the latest published version of each direct dependency instead of the installed one**, so an installed vulnerable version could be reported clean (and vice versa). Direct dependencies are now audited at the lock file version, and every installed copy of every transitive dependency is checked, with advisories attributed to the exact version. Likely the cause of results differing from `npm audit` ([#39](https://github.com/mopanc/depguard/issues/39)).
+- **`audit-workspace` missed the `tasks.json` shape used by real fake-interview campaigns**: commands under the per-OS `osx` / `linux` / `windows` overrides were not read. Also added: tasks reached through `dependsOn`, `{ value }` command objects, `*.code-workspace` files, and `curl | cmd` / `| powershell` / `| iex` rated HIGH ([#66](https://github.com/mopanc/depguard/issues/66)).
+- **Advisory import kept only the first package of each GHSA advisory**, dropping the rest of multi-package incidents and extra version ranges of the same package. The importer now keeps every package and range; a one-time bounded rebuild (`importerVersion` 2) repairs existing entries.
+- **Advisories published later on the day of a refresh were skipped for good** (the incremental query used `published > day`).
+- `satisfiesRange` flagged versions it could not evaluate as vulnerable (unparseable versions, bare versions, `^`/`~` ranges, npm whitespace syntax), against the false-positive policy.
+- Yarn Berry lock files returned no versions, so `audit-project` and `sbom` saw nothing in Berry projects.
+- The SBOM omitted nested and duplicated copies, could attach another version's license to a component, and pointed VEX entries at the package name instead of the affected version.
+- The npm package shipped the 13 MB advisory database twice (`dist/data` and `src/data`). Tarball 1.9 MB to 1.0 MB, unpacked 27.1 MB to 14.0 MB.
+- Daily scan: the npm downloads API rate-limited the runner and every failure was scored as 0 downloads, corrupting the public ranking since April. Downloads are now fetched in bulk with retries and timeouts, and a scan with more than 5% incomplete data is not published.
+
 ## [1.14.0] - 2026-05-30
 
 ### Added

@@ -1,8 +1,50 @@
 # depguard-cli
 
-**MCP security server for AI coding agents.** 14 tools — workspace auto-exec audit (defends against fake-interview / take-home-test malware), static code analysis, pre-install guardian, AI hallucination guard, dead-dependency detection, vulnerability audit, remediation planner, CycloneDX 1.6 SBOM, and SARIF v2.1.0 output for GitHub Code Scanning. Zero runtime dependencies. Works with Claude, Cursor, Windsurf, and any MCP client.
+**Find out in seconds whether an npm supply-chain attack reached your machine.** When a worm or a hijacked maintainer account ships malicious versions, `npx depguard-cli exposure` checks every project, global install and the npm download cache on your machine against ~35,000 known-malicious npm packages. It tells you exactly where a bad version is, whether it was installed, and what to rotate. depguard also audits packages before you install them and repositories before you open them. Zero runtime dependencies. Runs in the terminal or as an MCP server for Claude, Cursor, Windsurf and any MCP client.
 
 [![npm](https://img.shields.io/npm/v/depguard-cli)](https://www.npmjs.com/package/depguard-cli) [![license](https://img.shields.io/npm/l/depguard-cli)](LICENSE)
+
+## Was I hit?
+
+```bash
+npx depguard-cli exposure
+```
+
+```
+depguard exposure scan
+  Scanned:     143 lock files, 816 global packages, 167 cached tarballs (14530 distinct versions)
+  Under:       /Users/you
+  Advisory DB: 2026-10-15 (34952 known-malicious packages)
+
+  OK  No known-malicious package versions found.
+```
+
+When something is found, every location is listed with the evidence and the steps to take:
+
+```
+  EXPOSED  1 known-malicious package version found
+
+  ua-parser-js@0.7.29
+    CVE-2021-4229  Maintainer account hijacked. Compromised versions contained XMRig cryptominer and credential stealer. (2021-10-22)
+    - lock file    /Users/you/work/api/package-lock.json (node_modules/ua-parser-js)  [installed on disk, runs install scripts]
+    - npm cache    tarball downloaded on 2021-10-22
+
+  What to do now:
+    1. A malicious version was installed or downloaded on this machine. Treat the machine as compromised...
+    2. Rotate every credential reachable from this machine: npm tokens, GitHub tokens and SSH keys, cloud credentials...
+```
+
+What it looks at:
+
+- **Every lock file** under the given paths (default: your home directory): npm, pnpm, yarn classic and berry, bun. Nested and duplicated copies count, so a malicious version hidden at `node_modules/a/node_modules/b` is found.
+- **Globally installed packages** (`npm root -g`).
+- **The npm download cache.** It proves a malicious tarball was downloaded on this machine, and when, even if the project that pulled it is gone.
+
+Only exact matches are reported: a version is flagged only when it falls inside a known-malicious range, and clean versions of packages that were once compromised are never flagged. The data comes from the GitHub Advisory Database, both malware advisories and advisories for legitimate packages that were hijacked to ship malware, refreshed daily. The exit code is 2 when something is found, so it can gate CI:
+
+```bash
+npx depguard-cli exposure . --skip-global --skip-cache
+```
 
 ## Why depguard
 
@@ -19,9 +61,9 @@ npx depguard-cli audit express
 
 ## MCP server (primary use case)
 
-depguard exposes 14 [MCP](https://modelcontextprotocol.io/) tools over stdio. Add it to any MCP-compatible client and your AI agent calls them automatically when it's about to install something, audit a project, or review code.
+depguard exposes 15 [MCP](https://modelcontextprotocol.io/) tools over stdio. Add it to any MCP-compatible client and your AI agent calls them automatically when it's about to install something, audit a project, or review code.
 
-**Setup — Claude Code one-liner:**
+**Setup, Claude Code one-liner:**
 
 ```bash
 claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
@@ -40,10 +82,11 @@ claude mcp add --transport stdio depguard -- npx -y depguard-cli --mcp
 }
 ```
 
-### The 14 tools
+### The 15 tools
 
 | Tool | Use it when |
 |------|-------------|
+| `depguard_exposure` | **"Was I hit by this attack?"** Scans every lock file, global install and the npm cache for known-malicious versions, with locations, evidence and remediation steps |
 | `depguard_guard` | About to install package Y → pre-install verify + audit + allow/warn/block |
 | `depguard_should_use` | Need functionality X → recommend install / use-native / write-from-scratch |
 | `depguard_audit_workspace` | **Just cloned a repo, before opening it in any IDE.** Lists files that auto-execute on workspace open (VS Code tasks `runOn:folderOpen`, devcontainer lifecycle, `.envrc`, JetBrains run configs, Makefile, `.gitattributes`, committed git hooks). Defends against fake-interview / take-home-test malware. |
@@ -83,6 +126,7 @@ Automatic, no configuration. Lets teams quantify the LLM cost reduction of routi
 ## CLI
 
 ```bash
+depguard-cli exposure [paths...] [--skip-global] [--skip-cache] [--max-depth 8] [--json]
 depguard-cli audit <package[@version]> [--target-license MIT] [--json|--format sarif]
 depguard-cli audit-project <path/package.json> [--include-dev] [--json|--format sarif]
 depguard-cli audit-workspace [path] [--json|--format sarif]
@@ -243,6 +287,8 @@ Suitable for **EU Cyber Resilience Act**, **US Executive Order 14028 / OMB M-22-
 
 ## Data, privacy & performance
 
+- **Known-malicious packages, bundled.** `exposure` and `guard` match against a local copy of the GitHub Advisory Database's npm malware advisories plus hijacked-package advisories (CWE-506), refreshed daily, so the check itself makes no network calls. Advisories about packages that were only exposed through a malicious dependency are excluded, and a reviewed exception list overrides the data.
+
 - **Two advisory databases, deduplicated.** Each advisory is filtered to the installed version range (no noise from advisories that don't actually affect you) and tagged with its `source` field.
 
   | Source | What it catches |
@@ -261,7 +307,7 @@ Suitable for **EU Cyber Resilience Act**, **US Executive Order 14028 / OMB M-22-
 **Development.**
 
 ```bash
-npm test          # 409 offline tests
+npm test          # 456 offline tests
 npm run check     # version + build + lint + test + audit:security (gates publish)
 ```
 
