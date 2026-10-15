@@ -30,7 +30,9 @@ jobs:
 
       - name: Refresh advisory-db from GHSA
         run: npx tsx scripts/refresh-advisory-db.ts
-        timeout-minutes: 10
+        # Incremental runs take seconds; a rebuild after an importer change
+        # (importerVersion bump) re-reads months of advisories once.
+        timeout-minutes: 30
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
