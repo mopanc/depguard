@@ -6,6 +6,7 @@ import { analyzeCode } from './code-analysis.js'
 import { satisfiesRange } from './semver.js'
 import { analyzeMaintainers } from './maintainer-analysis.js'
 import { analyzePublicationTimeline } from './publication-analysis.js'
+import { disputedAdvisoryReason } from './advisory-db.js'
 
 const INSTALL_SCRIPT_NAMES = ['preinstall', 'install', 'postinstall']
 
@@ -45,6 +46,7 @@ export function mergeAdvisories(
   // Add npm advisories first (npm bulk endpoint already filters by version)
   for (const adv of npmAdvisories) {
     seenUrls.add(adv.url)
+    if (disputedAdvisoryReason(name, currentVersion, adv.url)) continue
     merged.push({ ...adv, source: 'npm' as const })
   }
 
@@ -55,6 +57,7 @@ export function mergeAdvisories(
   for (const gh of ghAdvisories) {
     // Dedup by URL
     if (seenUrls.has(gh.html_url)) continue
+    if (disputedAdvisoryReason(name, currentVersion, gh.html_url)) continue
 
     // Dedup by GHSA ID in npm URLs
     const ghsaInNpm = npmAdvisories.some(a => a.url.includes(gh.ghsa_id))
@@ -160,6 +163,13 @@ export async function audit(
   ])
 
   const advisories = mergeAdvisories(npmAdvisories, ghAdvisories, auditVersion, name)
+  const disputedUrls = new Set([
+    ...npmAdvisories.map(a => a.url),
+    ...(Array.isArray(ghAdvisories) ? ghAdvisories.map(g => g.html_url) : []),
+  ].filter(url => disputedAdvisoryReason(name, auditVersion, url)))
+  for (const url of disputedUrls) {
+    warnings.push(`Advisory ${url} is not counted: it calls this package malicious, which depguard does not consider established (${disputedAdvisoryReason(name, auditVersion, url)})`)
+  }
 
   const license = versionData?.license ?? pkg.license ?? null
   const deps = versionData?.dependencies ?? {}

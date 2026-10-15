@@ -5,6 +5,7 @@ import { audit } from './audit.js'
 import { getInstalledPackages, getDependencyParents } from './lockfile.js'
 import type { InstalledPackage } from './lockfile.js'
 import { fetchBulkAdvisories } from './registry.js'
+import { disputedAdvisoryReason } from './advisory-db.js'
 
 /** Options for bulk audit */
 export interface BulkAuditOptions {
@@ -232,8 +233,11 @@ export async function auditProject(
   const transitiveFindings: Array<{ name: string; version: string; advisories: NpmAdvisory[] }> = []
   for (const layer of layers) {
     const advisories = await fetchBulkAdvisories(layer, fetcher)
-    for (const [name, list] of advisories) {
-      transitiveFindings.push({ name, version: layer.get(name) ?? 'unknown', advisories: list })
+    for (const [name, all] of advisories) {
+      const version = layer.get(name) ?? 'unknown'
+      const list = all.filter(a => !disputedAdvisoryReason(name, version, a.url))
+      if (list.length === 0) continue
+      transitiveFindings.push({ name, version, advisories: list })
     }
   }
   const totalTransitive = [...transitiveVersions.values()].reduce((n, set) => n + set.size, 0)

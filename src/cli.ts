@@ -70,7 +70,7 @@ Commands:
   search <keywords...>     Search npm for packages by keywords
   score <package>          Score a package 0-100
   should-use <intent...>   Recommend install vs write-from-scratch
-  guard <package>          Pre-install check: verify, audit, allow/warn/block
+  guard <package[@version]> Pre-install check: verify, audit, allow/warn/block
   sweep [path]             Detect unused dependencies in a project
   audit-deep <package>     Deep transitive dependency tree audit
   review [path]            AI code review (detect debris left by AI agents)
@@ -305,7 +305,7 @@ async function main() {
     case 'guard': {
       const name = positionals[1]
       if (!name) {
-        console.error('Usage: depguard-cli guard <package>')
+        console.error('Usage: depguard-cli guard <package[@version]>')
         process.exit(1)
       }
       const result = await guard(name, {

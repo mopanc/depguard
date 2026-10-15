@@ -131,7 +131,7 @@ depguard-cli audit <package[@version]> [--target-license MIT] [--json|--format s
 depguard-cli audit-project <path/package.json> [--include-dev] [--json|--format sarif]
 depguard-cli audit-workspace [path] [--json|--format sarif]
 depguard-cli audit-deep <package> [--json]
-depguard-cli guard <package> [--threshold 60] [--block] [--json]
+depguard-cli guard <package[@version]> [--threshold 60] [--block] [--json]
 depguard-cli should-use <intent...> [--threshold 60] [--json]
 depguard-cli sweep [path] [--include-dev] [--json]
 depguard-cli review [path] [--full] [--json]
@@ -307,7 +307,7 @@ Suitable for **EU Cyber Resilience Act**, **US Executive Order 14028 / OMB M-22-
 **Development.**
 
 ```bash
-npm test          # 524 offline tests
+npm test          # 543 offline tests
 npm run check     # version + build + lint + test + audit:security (gates publish)
 ```
 

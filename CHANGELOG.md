@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.2] - 2026-10-15
+
+### Fixed
+
+- **`audit`, `audit-project` and the dependency tree still reported two clean packages as malware.** The exception list only applied to the known-malicious database, so the official advisories for `@ebay/ui-core-react` (GHSA-536f-jp4m-fgrw) and the legitimate `opencv.js` port (GHSA-5hxw-r847-qfwp) still showed as critical malware and capped their score. Exceptions can now name the official advisories they dispute (`disputedAdvisories`); audits leave those out and add a warning that says why. A version the database lists as malicious, such as `opencv.js@1.0.1`, keeps the advisory.
+- **`guard express@4.18.2` blocked the package as a possible AI hallucination.** `guard`, `verify` and the `depguard_guard` MCP tool took the whole spec as the package name. They now accept `name@version`, ranges and dist-tags, check the requested version against the known-malicious database and audit that version. An exact version that was never published is blocked as a hallucination, one npm removed is reported as removed, and a removed malicious version such as `chalk@5.6.1` is reported as compromised.
+
 ## [1.15.1] - 2026-10-15
 
 ### Fixed
