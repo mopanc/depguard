@@ -39,6 +39,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # A refreshed database must never flag known-clean versions or the most
+      # popular packages at their current version. Failing here stops the job
+      # before the commit step, so a database with a false positive never
+      # reaches main or a release.
+      - name: Precision gate (no false positives)
+        run: node --import tsx --test tests/advisory-precision.test.ts
+
       - name: Run daily scan
         run: npx tsx scripts/daily-scan.ts
         timeout-minutes: 30
