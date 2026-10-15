@@ -42,6 +42,10 @@ const KNOWN_CLEAN: Array<[string, string]> = [
   ['bignum', '0.12.5'], ['bignum', '0.13.0'],
   // Name taken over by a legitimate OpenCV port after the 2017 typosquat
   ['opencv.js', '1.1.0'], ['opencv.js', '1.2.1'],
+  // Legitimate eBay package covered by an over-broad automated malware report
+  ['@ebay/ui-core-react', '9.8.1'], ['@ebay/ui-core-react', '6.3.0'],
+  // npm security holding releases replace removed malware and are empty
+  ['0xhash-utils', '0.0.1-security'], ['msal-node', '0.0.1-security'], ['legacy-swc-helpers', '0.0.1-security.1'],
 ]
 
 /** Documented incidents that must keep being detected. */
@@ -50,6 +54,8 @@ const KNOWN_BAD: Array<[string, string]> = [
   ['debug', '4.4.2'], ['color', '5.0.1'], ['colors', '1.4.1'],
   ['ua-parser-js', '0.7.29'], ['event-stream', '3.3.6'], ['eslint-config-prettier', '10.1.7'],
   ['opencv.js', '1.0.1'],
+  // a real version of a whole-package malware entry is still flagged
+  ['0xhash-utils', '1.0.0'],
 ]
 
 describe('advisory database precision', () => {

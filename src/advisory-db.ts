@@ -168,10 +168,18 @@ export function lookupCompromised(name: string): CompromisedPackage | null {
  * This is the FP-averse path. Use it from scorer, guard, daily-scan — anywhere
  * a decision (block / score=0 / alert) is made about a specific installed version.
  */
+/**
+ * npm replaces a removed malicious package with an empty "security holding"
+ * release (0.0.1-security, 0.0.1-security.1, ...). Installing it means the
+ * malware was already gone, so it must never be reported as compromised.
+ */
+const SECURITY_PLACEHOLDER = /^\d+\.\d+\.\d+-security(?:\.\d+)?$/
+
 export function getCompromisedIncidents(name: string, version: string): Incident[] {
   ensureLoaded()
   const pkg = db?.get(name)
   if (!pkg || !version) return []
+  if (SECURITY_PLACEHOLDER.test(version)) return []
   return pkg.incidents.filter(i => {
     if (isExcepted(name, i)) return false
     return matchesCompromisedRange(version, i.version)
