@@ -307,7 +307,7 @@ Suitable for **EU Cyber Resilience Act**, **US Executive Order 14028 / OMB M-22-
 **Development.**
 
 ```bash
-npm test          # 456 offline tests
+npm test          # 460 offline tests
 npm run check     # version + build + lint + test + audit:security (gates publish)
 ```
 
