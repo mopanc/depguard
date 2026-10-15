@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>depguard: was your machine hit by an npm supply-chain attack?</title>
-  <meta name="description" content="Check every project, global install and the npm cache on your machine for known-malicious npm package versions in seconds: npx depguard-cli exposure. 88,000+ malicious packages including hijacked releases like debug@4.4.2. Also a pre-install guard, a pre-open repo audit against fake-interview malware, and an MCP server for Claude, Cursor and Windsurf. Free, open source, zero dependencies.">
+  <meta name="description" content="Check every project, global install and the npm cache on your machine for known-malicious npm package versions in seconds: npx depguard-cli exposure. 100,000+ malicious packages including hijacked releases like debug@4.4.2. Also a pre-install guard, a pre-open repo audit against fake-interview malware, and an MCP server for Claude, Cursor and Windsurf. Free, open source, zero dependencies.">
   <meta name="keywords" content="npm malware scanner, npm supply chain attack, was I affected, compromised npm package, Shai-Hulud, npm worm, hijacked npm package, check installed packages for malware, lockfile scanner, npm cache, incident response, fake interview malware, VS Code tasks.json malware, MCP server, npm security, AI coding agent, Claude MCP, Cursor MCP, SBOM, CycloneDX, depguard">
   <meta name="author" content="Jorge Morais">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="depguard: was your machine hit by an npm supply-chain attack?">
-  <meta property="og:description" content="Run npx depguard-cli exposure to check every lock file, global install and the npm cache on your machine against 88,000+ known-malicious npm packages. Exact version matches, every location, what to rotate.">
+  <meta property="og:description" content="Run npx depguard-cli exposure to check every lock file, global install and the npm cache on your machine against 100,000+ known-malicious npm packages. Exact version matches, every location, what to rotate.">
   <meta property="og:url" content="https://depguard.dev/">
   <meta property="og:site_name" content="depguard">
   <meta property="og:image" content="https://depguard.dev/og-image.png">
@@ -28,7 +28,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="depguard: was your machine hit by an npm supply-chain attack?">
-  <meta name="twitter:description" content="Run npx depguard-cli exposure to check every lock file, global install and the npm cache on your machine against 88,000+ known-malicious npm packages. Exact version matches, every location, what to rotate.">
+  <meta name="twitter:description" content="Run npx depguard-cli exposure to check every lock file, global install and the npm cache on your machine against 100,000+ known-malicious npm packages. Exact version matches, every location, what to rotate.">
   <meta name="twitter:image" content="https://depguard.dev/og-image.png">
   <meta name="twitter:image:alt" content="depguard: was your machine hit by an npm supply-chain attack? npx depguard-cli exposure">
 
@@ -52,7 +52,7 @@
     "description": "Answers whether a machine was hit by an npm supply-chain attack: scans every lock file, global install and the npm cache for known-malicious package versions. Also a pre-install guard, a pre-open repository audit against fake-interview malware, vulnerability audit and CycloneDX 1.6 SBOM generation. CLI and MCP server with 15 tools. Zero dependencies.",
     "url": "https://depguard.dev",
     "downloadUrl": "https://www.npmjs.com/package/depguard-cli",
-    "softwareVersion": "1.15.0",
+    "softwareVersion": "1.15.1",
     "license": "https://www.apache.org/licenses/LICENSE-2.0",
     "programmingLanguage": "TypeScript",
     "runtimePlatform": "Node.js",
@@ -74,7 +74,7 @@
     "featureList": [
       "Exposure scan: checks every lock file, global install and the npm download cache for known-malicious npm package versions, with locations, install evidence and remediation steps",
       "Workspace auto-exec surface audit: pre-open repo scan that detects files which execute automatically on IDE open (VS Code tasks runOn:folderOpen, devcontainer lifecycle commands, .envrc, JetBrains run configs, Makefile default target, .gitattributes filter drivers, committed git hooks). Defense against fake-interview / take-home-test malware campaigns.",
-      "Known-malicious packages database: 88,000+ npm packages from GitHub malware advisories plus hijacked releases of legitimate packages such as debug, color, eslint-config-prettier, ua-parser-js and event-stream",
+      "Known-malicious packages database: 100,000+ npm packages from GitHub malware advisories plus hijacked releases of legitimate packages such as debug, color, eslint-config-prettier, ua-parser-js and event-stream",
       "AI Code Review: detects console.logs, empty catch blocks, broken imports, orphan files, abandoned TODOs left by AI agents",
       "Local usage statistics: tracks calls, tokens saved, threats blocked (data never leaves the machine)",
       "Comment-aware code analysis: strips comments before scanning, eliminates false positives from documentation URLs",
@@ -698,6 +698,19 @@
     </div>
 
     <div class="releases">
+      <article class="release" id="v1-15-1">
+        <div class="ver"><b>v1.15.1</b><span>16 October 2026</span></div>
+        <div>
+          <h2>Fewer false alarms, Shai-Hulud covered</h2>
+          <p>A wider review of the database, and a gate so a false positive cannot ship unnoticed again.</p>
+          <ul>
+            <li><b>Four false positives removed:</b> node-ipc 10.1.0, fsevents 1.x, bignum 0.12.2 to 0.13.0, and the legitimate opencv.js port. Each was clean software flagged by a too-broad entry.</li>
+            <li><b>Shai-Hulud and the chalk hijack are detected.</b> Malware advisories from before November 2025 were never imported; the database now holds the full history, about 108,000 packages.</li>
+            <li><b>Precision gate.</b> Every database update is tested against known-clean versions and the most popular npm packages before it is committed.</li>
+          </ul>
+        </div>
+      </article>
+
       <article class="release" id="v1-15-0">
         <div class="ver"><b>v1.15.0</b><span>15 October 2026</span></div>
         <div>
