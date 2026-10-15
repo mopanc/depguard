@@ -33,11 +33,13 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
-      # Trusted publishing (OIDC) needs npm >= 11.5.1; Node 22 ships npm 10.
-      # Pinned to an exact, month-old release rather than latest.
-      - run: npm install -g npm@11.19.1
       - run: npm ci
       - run: npm run build
+      # Trusted publishing (OIDC) needs npm >= 11.5.1; Node 22 ships npm 10.
+      # Installed only after ci/build: npm 11's `npm ci` rejects this lock
+      # file (it lacks esbuild's optional platform packages, which npm 10
+      # tolerates). Pinned to an exact, month-old release rather than latest.
+      - run: npm install -g npm@11.19.1
       # With a trusted publisher configured on npmjs.com, npm authenticates via
       # OIDC (id-token: write above) and ignores NODE_AUTH_TOKEN. The token is
       # only a fallback until that is set up: bypass-2FA tokens lose publish

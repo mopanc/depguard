@@ -12,7 +12,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "depguard-cli": "./dist/cli.js"
+    "depguard-cli": "dist/cli.js"
   },
   "exports": {
     ".": {
@@ -68,7 +68,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mopanc/depguard"
+    "url": "git+https://github.com/mopanc/depguard.git"
   },
   "engines": {
     "node": ">=18"
