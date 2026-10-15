@@ -10,7 +10,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { audit } from '../src/audit.js'
+import { audit, DOWNLOADS_UNAVAILABLE_WARNING, PACKAGE_UNAVAILABLE_WARNING } from '../src/audit.js'
+import { fetchBulkDownloads } from '../src/registry.js'
 import { scoreFromReport } from '../src/scorer.js'
 import { isVersionCompromised } from '../src/advisory-db.js'
 
@@ -89,6 +90,8 @@ interface PackageResult {
   vulns: { critical: number; high: number; moderate: number; low: number }
   license: string | null
   downloads: number
+  /** true when today's download count was unavailable and the previous scan's was reused */
+  downloadsStale?: boolean
   deprecated: boolean
   compromised: boolean
   codeFindings: number
@@ -117,6 +120,9 @@ const DATA_DIR = join(__dirname, '..', 'docs', 'data')
 const SCAN_FILE = join(DATA_DIR, 'daily-scan.json')
 const CONCURRENCY = 5 // parallel audits
 const SCORE_DROP_THRESHOLD = 10 // alert if score drops by this much
+// Refuse to publish a scan where more than this share of packages has missing
+// data. A stale ranking is better than a wrong one, and a failed run is visible.
+const MAX_INCOMPLETE_RATIO = 0.05
 
 function loadPreviousScan(): DailyScan | null {
   if (!existsSync(SCAN_FILE)) return null
@@ -125,30 +131,52 @@ function loadPreviousScan(): DailyScan | null {
   } catch { return null }
 }
 
-async function auditPackage(name: string): Promise<PackageResult | null> {
+type AuditOutcome =
+  | { status: 'ok'; result: PackageResult }
+  | { status: 'incomplete'; name: string; reason: string }
+
+async function auditPackage(name: string, prev: PackageResult | undefined): Promise<AuditOutcome> {
   try {
     const report = await audit(name, 'MIT')
+    if (report.warnings.includes(PACKAGE_UNAVAILABLE_WARNING)) {
+      return { status: 'incomplete', name, reason: 'registry metadata unavailable' }
+    }
+
+    // Unknown downloads would score as 0 and tank the package's rank. Reuse the
+    // previous scan's count (a day old, far closer to the truth than 0).
+    let downloadsStale = false
+    if (report.warnings.includes(DOWNLOADS_UNAVAILABLE_WARNING)) {
+      if (!prev || prev.downloads <= 0) {
+        return { status: 'incomplete', name, reason: 'download count unavailable' }
+      }
+      report.weeklyDownloads = prev.downloads
+      downloadsStale = true
+    }
+
     const compromised = isVersionCompromised(name, report.version)
     const totalScore = compromised ? 0 : scoreFromReport(report)
 
     return {
-      name,
-      version: report.version,
-      score: totalScore,
-      prevScore: null, // filled later
-      rank: 0, // filled later
-      prevRank: null, // filled later
-      vulns: report.vulnerabilities,
-      license: report.license,
-      downloads: report.weeklyDownloads,
-      deprecated: report.deprecated,
-      compromised,
-      codeFindings: report.codeAnalysis?.findings.length ?? 0,
-      lastPublish: report.lastPublish,
+      status: 'ok',
+      result: {
+        name,
+        version: report.version,
+        score: totalScore,
+        prevScore: null, // filled later
+        rank: 0, // filled later
+        prevRank: null, // filled later
+        vulns: report.vulnerabilities,
+        license: report.license,
+        downloads: report.weeklyDownloads,
+        ...(downloadsStale ? { downloadsStale } : {}),
+        deprecated: report.deprecated,
+        compromised,
+        codeFindings: report.codeAnalysis?.findings.length ?? 0,
+        lastPublish: report.lastPublish,
+      },
     }
-  } catch {
-    console.error(`  [SKIP] ${name} — audit failed`)
-    return null
+  } catch (e) {
+    return { status: 'incomplete', name, reason: `audit failed: ${(e as Error).message}` }
   }
 }
 
@@ -238,24 +266,47 @@ async function runScan() {
   console.log(`\n[depguard daily scan] Auditing ${dedupedPackages.length} packages...`)
   if (previous) console.log(`  Previous scan: ${previous.date} (${previous.totalPackages} packages)`)
 
+  // Prefetch download counts in bulk: one request per 128 unscoped packages
+  // instead of one per package, which api.npmjs.org rate-limits on shared CI IPs.
+  const downloads = await fetchBulkDownloads(dedupedPackages)
+  console.log(`  Download counts: ${downloads.size}/${dedupedPackages.length} prefetched`)
+
+  const prevMap = previous ? new Map(previous.packages.map(p => [p.name, p])) : new Map<string, PackageResult>()
+
   // Audit in batches for concurrency control
   const results: PackageResult[] = []
+  const incomplete: { name: string; reason: string }[] = []
   for (let i = 0; i < dedupedPackages.length; i += CONCURRENCY) {
     const batch = dedupedPackages.slice(i, i + CONCURRENCY)
-    const batchResults = await Promise.all(batch.map(name => auditPackage(name)))
+    const batchResults = await Promise.all(batch.map(name => auditPackage(name, prevMap.get(name))))
     for (const r of batchResults) {
-      if (r) results.push(r)
+      if (r.status === 'ok') results.push(r.result)
+      else incomplete.push({ name: r.name, reason: r.reason })
     }
     const pct = Math.round(((i + batch.length) / dedupedPackages.length) * 100)
     process.stdout.write(`\r  Progress: ${pct}% (${results.length} audited)`)
   }
   console.log('')
 
+  const stale = results.filter(r => r.downloadsStale)
+  if (stale.length > 0) {
+    console.log(`  Reused previous download count for ${stale.length}: ${stale.map(r => r.name).join(', ')}`)
+  }
+  if (incomplete.length > 0) {
+    console.error(`  Incomplete data for ${incomplete.length} package(s):`)
+    for (const { name, reason } of incomplete) console.error(`    - ${name}: ${reason}`)
+  }
+  if (incomplete.length / dedupedPackages.length > MAX_INCOMPLETE_RATIO) {
+    throw new Error(
+      `${incomplete.length}/${dedupedPackages.length} packages have incomplete data ` +
+      `(limit ${MAX_INCOMPLETE_RATIO * 100}%). Not publishing this scan.`,
+    )
+  }
+
   // Sort by score (descending), then by downloads (descending) for ties
   results.sort((a, b) => b.score - a.score || b.downloads - a.downloads)
 
   // Assign ranks and previous data
-  const prevMap = previous ? new Map(previous.packages.map(p => [p.name, p])) : new Map()
   results.forEach((pkg, i) => {
     pkg.rank = i + 1
     const prev = prevMap.get(pkg.name)

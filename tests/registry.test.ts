@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import {
   fetchPackage,
   fetchDownloads,
+  fetchBulkDownloads,
   searchPackages,
   fetchAdvisories,
   fetchBulkAdvisories,
@@ -80,9 +81,103 @@ describe('fetchDownloads', () => {
     assert.strictEqual(result, 50000)
   })
 
-  it('returns 0 on failure', async () => {
-    const result = await fetchDownloads('nope', failingFetch())
+  it('returns 0 when npm has no stats for the package (404)', async () => {
+    const result = await fetchDownloads('nope', mockFetch({}))
     assert.strictEqual(result, 0)
+  })
+
+  it('throws on network error instead of reporting 0 downloads', async () => {
+    await assert.rejects(() => fetchDownloads('nope', failingFetch()))
+  })
+
+  it('retries a rate-limited response and returns the real count', async () => {
+    let calls = 0
+    const fetcher = (async () => {
+      calls++
+      if (calls < 3) {
+        return { ok: false, status: 429, headers: new Headers({ 'retry-after': '0' }) } as Response
+      }
+      return { ok: true, status: 200, json: async () => ({ downloads: 720000000, package: 'debug' }) } as Response
+    }) as unknown as FetchFn
+    const result = await fetchDownloads('debug', fetcher)
+    assert.strictEqual(result, 720000000)
+    assert.strictEqual(calls, 3)
+  })
+
+  it('throws when still rate-limited after retries', async () => {
+    let calls = 0
+    const fetcher = (async () => {
+      calls++
+      return { ok: false, status: 429, headers: new Headers({ 'retry-after': '0' }) } as Response
+    }) as unknown as FetchFn
+    await assert.rejects(() => fetchDownloads('debug', fetcher), /429/)
+    assert.strictEqual(calls, 4) // 1 attempt + 3 retries
+  })
+
+  it('passes an abort signal so a hung request cannot stall the audit', async () => {
+    let signal: AbortSignal | undefined
+    const fetcher = (async (_url: string, init?: RequestInit) => {
+      signal = init?.signal ?? undefined
+      return { ok: true, status: 200, json: async () => ({ downloads: 1, package: 'x' }) } as Response
+    }) as unknown as FetchFn
+    await fetchDownloads('x', fetcher)
+    assert.ok(signal instanceof AbortSignal)
+  })
+})
+
+describe('fetchBulkDownloads', () => {
+  it('resolves unscoped names in one request and scoped names individually', async () => {
+    const urls: string[] = []
+    const fetcher = (async (input: string) => {
+      urls.push(input)
+      if (input.endsWith('/lodash,react')) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            lodash: { downloads: 100, package: 'lodash' },
+            react: { downloads: 200, package: 'react' },
+          }),
+        } as Response
+      }
+      if (input.endsWith('/%40babel%2Fcore')) {
+        return { ok: true, status: 200, json: async () => ({ downloads: 300, package: '@babel/core' }) } as Response
+      }
+      return { ok: false, status: 404 } as Response
+    }) as unknown as FetchFn
+
+    const result = await fetchBulkDownloads(['lodash', 'react', '@babel/core'], fetcher)
+    assert.deepStrictEqual(Object.fromEntries(result), { lodash: 100, react: 200, '@babel/core': 300 })
+    assert.strictEqual(urls.length, 2)
+  })
+
+  it('treats a null bulk entry as 0 (no stats), like a 404', async () => {
+    const fetcher = mockFetch({
+      'api.npmjs.org/downloads': { lodash: { downloads: 100, package: 'lodash' }, 'gone-pkg': null },
+    })
+    const result = await fetchBulkDownloads(['lodash', 'gone-pkg'], fetcher)
+    assert.strictEqual(result.get('gone-pkg'), 0)
+  })
+
+  it('leaves names absent (unknown) when the bulk request fails, never 0', async () => {
+    const fetcher = (async () => ({ ok: false, status: 503, headers: new Headers({ 'retry-after': '0' }) } as Response)) as unknown as FetchFn
+    const result = await fetchBulkDownloads(['lodash', 'react', '@babel/core'], fetcher)
+    assert.strictEqual(result.size, 0)
+  })
+
+  it('populates the cache so fetchDownloads does not refetch', async () => {
+    let calls = 0
+    const fetcher = (async () => {
+      calls++
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ a: { downloads: 1, package: 'a' }, b: { downloads: 2, package: 'b' } }),
+      } as Response
+    }) as unknown as FetchFn
+    await fetchBulkDownloads(['a', 'b'], fetcher)
+    assert.strictEqual(await fetchDownloads('b', fetcher), 2)
+    assert.strictEqual(calls, 1)
   })
 })
 
