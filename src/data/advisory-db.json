@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-16",
+  "version": "2026-10-17",
   "packages": {
     "430155697": {
       "compromised": true,
@@ -23981,6 +23981,104 @@
           "date": "2026-10-08",
           "cve": "GHSA-mff5-fqw5-7vhj",
           "description": "Malware in @bellaxchuu/yarnbails",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@beloved-lenora/opencode-btw": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-xv54-6gmc-3xph",
+          "description": "Malware in @beloved-lenora/opencode-btw",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@beloved-lenora/opencode-goal": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-c78h-wwhq-g6j8",
+          "description": "Malware in @beloved-lenora/opencode-goal",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@beloved-lenora/opencode-orchestrator": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-7wq2-8pc2-wm26",
+          "description": "Malware in @beloved-lenora/opencode-orchestrator",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@beloved-lenora/opencode-shared-rpc": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-8c9g-fwgq-rqq5",
+          "description": "Malware in @beloved-lenora/opencode-shared-rpc",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@beloved-lenora/opencode-shell-guard": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-pm76-w63j-7j29",
+          "description": "Malware in @beloved-lenora/opencode-shell-guard",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@beloved-lenora/opencode-stats": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-f4h2-68pg-ffhj",
+          "description": "Malware in @beloved-lenora/opencode-stats",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@beloved-lenora/opencode-todo": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-9rjq-6mhc-46c5",
+          "description": "Malware in @beloved-lenora/opencode-todo",
           "origin": "ghsa"
         }
       ]
@@ -93777,6 +93875,20 @@
           "date": "2025-04-17",
           "cve": "GHSA-88ww-p98w-jmv8",
           "description": "Malware in @x-mlbtv/client-utils",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@xatancchii/natabaileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-cgq9-cff6-pf33",
+          "description": "Malware in @xatancchii/natabaileys",
           "origin": "ghsa"
         }
       ]
@@ -1123955,6 +1124067,34 @@
         }
       ]
     },
+    "itsa-react-focuscontainer": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 16.0.10",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-8c34-p746-v5rq",
+          "description": "Malware in itsa-react-focuscontainer",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "itsa-react-maskedinput": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 16.1.2",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-hhr5-rjw6-9hr5",
+          "description": "Malware in itsa-react-maskedinput",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "itself-country-orange": {
       "compromised": true,
       "severity": "critical",
@@ -1385673,6 +1385813,20 @@
         }
       ]
     },
+    "parxleys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-16",
+          "cve": "GHSA-rg3c-8x72-6pmc",
+          "description": "Malware in parxleys",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "pascoresend": {
       "compromised": true,
       "severity": "critical",
@@ -1524376,10 +1524530,10 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-16T09:49:40.394Z",
+  "lastRefresh": "2026-10-17T09:21:23.100Z",
   "lastRefreshBySource": {
-    "malware": "2026-10-16T09:49:40.394Z",
-    "reviewed-cwe506": "2026-10-16T09:49:40.394Z"
+    "malware": "2026-10-17T09:21:23.100Z",
+    "reviewed-cwe506": "2026-10-17T09:21:23.100Z"
   },
   "importerVersion": 3
 }
