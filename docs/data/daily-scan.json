@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-22",
-  "scannedAt": "2026-10-22T10:11:23.821Z",
+  "date": "2026-10-23",
+  "scannedAt": "2026-10-23T10:04:31.321Z",
   "totalPackages": 173,
   "totalAlerts": 0,
   "packages": [
@@ -530,11 +530,11 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-21T16:27:22.154Z"
+      "lastPublish": "2026-10-22T17:13:15.386Z"
     },
     {
       "name": "dotenv",
-      "version": "18.0.8",
+      "version": "18.0.9",
       "score": 96,
       "prevScore": 96,
       "rank": 25,
@@ -552,7 +552,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-14T15:51:09.752Z"
+      "lastPublish": "2026-10-22T18:28:31.107Z"
     },
     {
       "name": "react-dom",
@@ -574,7 +574,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-21T16:31:52.772Z"
+      "lastPublish": "2026-10-22T17:13:57.561Z"
     },
     {
       "name": "lodash",
@@ -750,7 +750,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 6,
-      "lastPublish": "2026-10-22T05:31:12.031Z"
+      "lastPublish": "2026-10-23T05:24:40.146Z"
     },
     {
       "name": "axios",
@@ -798,7 +798,7 @@
     },
     {
       "name": "body-parser",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "score": 95,
       "prevScore": 95,
       "rank": 37,
@@ -816,7 +816,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-08T10:32:14.519Z"
+      "lastPublish": "2026-10-22T11:39:38.614Z"
     },
     {
       "name": "vitest",
@@ -1168,7 +1168,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-22T08:12:07.173Z"
+      "lastPublish": "2026-10-23T08:15:26.958Z"
     },
     {
       "name": "@babel/core",
@@ -1278,7 +1278,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-20T23:59:47.325Z"
+      "lastPublish": "2026-10-23T08:56:24.882Z"
     },
     {
       "name": "pg",
@@ -1348,7 +1348,7 @@
     },
     {
       "name": "@aws-sdk/client-s3",
-      "version": "3.1155.0",
+      "version": "3.1156.0",
       "score": 94,
       "prevScore": 94,
       "rank": 62,
@@ -1366,7 +1366,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-21T19:02:38.698Z"
+      "lastPublish": "2026-10-22T18:47:41.148Z"
     },
     {
       "name": "inquirer",
@@ -1502,7 +1502,7 @@
     },
     {
       "name": "multer",
-      "version": "2.4.0",
+      "version": "2.5.0",
       "score": 94,
       "prevScore": 94,
       "rank": 69,
@@ -1520,7 +1520,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-09-14T08:18:42.977Z"
+      "lastPublish": "2026-10-22T11:58:46.216Z"
     },
     {
       "name": "swr",
@@ -1586,7 +1586,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-16T07:58:58.064Z"
+      "lastPublish": "2026-10-23T08:00:56.956Z"
     },
     {
       "name": "helmet",
@@ -1762,7 +1762,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-20T16:47:53.229Z"
+      "lastPublish": "2026-10-22T16:05:13.229Z"
     },
     {
       "name": "sinon",
@@ -1898,7 +1898,7 @@
     },
     {
       "name": "webpack",
-      "version": "5.112.0",
+      "version": "5.112.1",
       "score": 93,
       "prevScore": 93,
       "rank": 87,
@@ -1916,7 +1916,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-15T22:26:48.350Z"
+      "lastPublish": "2026-10-22T23:47:19.935Z"
     },
     {
       "name": "ioredis",
@@ -2074,7 +2074,7 @@
     },
     {
       "name": "prisma",
-      "version": "8.0.0-rc.25",
+      "version": "8.0.0-rc.27",
       "score": 93,
       "prevScore": 93,
       "rank": 95,
@@ -2092,7 +2092,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-22T08:22:09.807Z"
+      "lastPublish": "2026-10-23T08:07:46.151Z"
     },
     {
       "name": "@google-cloud/storage",
@@ -2422,7 +2422,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-21T02:20:25.416Z"
+      "lastPublish": "2026-10-23T02:21:33.156Z"
     },
     {
       "name": "express-session",
@@ -2796,7 +2796,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-01T10:17:13.977Z"
+      "lastPublish": "2026-10-22T12:19:09.207Z"
     },
     {
       "name": "@babel/preset-env",
@@ -3046,7 +3046,7 @@
       "score": 82,
       "prevScore": 82,
       "rank": 139,
-      "prevRank": 140,
+      "prevRank": 139,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3068,7 +3068,7 @@
       "score": 81,
       "prevScore": 81,
       "rank": 140,
-      "prevRank": 141,
+      "prevRank": 140,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3088,9 +3088,9 @@
       "name": "@emotion/react",
       "version": "11.14.0",
       "score": 81,
-      "prevScore": 82,
+      "prevScore": 81,
       "rank": 141,
-      "prevRank": 139,
+      "prevRank": 141,
       "vulns": {
         "total": 0,
         "critical": 0,
@@ -3196,7 +3196,7 @@
     },
     {
       "name": "nodemailer",
-      "version": "10.2.0",
+      "version": "10.2.1",
       "score": 79,
       "prevScore": 79,
       "rank": 146,
@@ -3214,7 +3214,7 @@
       "deprecated": false,
       "compromised": false,
       "codeFindings": 0,
-      "lastPublish": "2026-10-21T19:08:49.159Z"
+      "lastPublish": "2026-10-22T13:46:48.749Z"
     },
     {
       "name": "source-map-support",
