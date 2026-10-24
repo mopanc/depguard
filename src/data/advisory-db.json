@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-23",
+  "version": "2026-10-24",
   "packages": {
     "430155697": {
       "compromised": true,
@@ -55911,6 +55911,48 @@
         }
       ]
     },
+    "@k18k/entrypoint-sdk-darwin-arm64": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.2.0 || = 0.2.1",
+          "type": "supply-chain",
+          "date": "2026-10-23",
+          "cve": "GHSA-8wf7-8825-99q7",
+          "description": "Malware in @k18k/entrypoint-sdk-darwin-arm64",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@k18k/entrypoint-sdk-darwin-x64": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.2.0 || = 0.2.1",
+          "type": "supply-chain",
+          "date": "2026-10-23",
+          "cve": "GHSA-j58m-rwhr-923h",
+          "description": "Malware in @k18k/entrypoint-sdk-darwin-x64",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@k18k/entrypoint-sdk-linux-x64": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.2.0 || = 0.2.1",
+          "type": "supply-chain",
+          "date": "2026-10-23",
+          "cve": "GHSA-9fhg-r3w6-g7r4",
+          "description": "Malware in @k18k/entrypoint-sdk-linux-x64",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@k18n/creatormarketplace-admin-language": {
       "compromised": true,
       "severity": "critical",
@@ -58223,6 +58265,20 @@
           "date": "2026-10-22",
           "cve": "GHSA-pmg6-2w6r-4q4h",
           "description": "Malware in @liauto/darwin-x64",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@liauto/win32-x64": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.2-b2",
+          "type": "supply-chain",
+          "date": "2026-10-24",
+          "cve": "GHSA-32x9-4g9x-5cxj",
+          "description": "Malware in @liauto/win32-x64",
           "origin": "ghsa"
         }
       ]
@@ -1384911,6 +1384967,20 @@
         }
       ]
     },
+    "orqiva-runtime-win32-x64": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.0",
+          "type": "supply-chain",
+          "date": "2026-10-23",
+          "cve": "GHSA-8j59-g9mq-7hf9",
+          "description": "Malware in orqiva-runtime-win32-x64",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "orvlla": {
       "compromised": true,
       "severity": "critical",
@@ -1385831,6 +1385901,20 @@
           "date": "2025-09-16",
           "cve": "GHSA-j4g6-7vh6-xcw9",
           "description": "Malware in ove-auto-annotate",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "overarch-windows-x64-yr": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.5.0 || = 1.4.0 || = 2.0.0",
+          "type": "supply-chain",
+          "date": "2026-10-24",
+          "cve": "GHSA-v5v8-j5gm-pq8v",
+          "description": "Malware in overarch-windows-x64-yr",
           "origin": "ghsa"
         }
       ]
@@ -1442837,6 +1442921,20 @@
           "date": "2025-04-03",
           "cve": "GHSA-2r32-63wp-x2qv",
           "description": "Malware in skills-validator",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "skillward": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.1 || = 0.1.2",
+          "type": "supply-chain",
+          "date": "2026-10-23",
+          "cve": "GHSA-9wgc-5pgr-25p3",
+          "description": "Malware in skillward",
           "origin": "ghsa"
         }
       ]
@@ -1527846,10 +1527944,10 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-23T10:04:01.709Z",
+  "lastRefresh": "2026-10-24T09:32:38.729Z",
   "lastRefreshBySource": {
-    "malware": "2026-10-23T10:04:01.709Z",
-    "reviewed-cwe506": "2026-10-23T10:04:01.709Z"
+    "malware": "2026-10-24T09:32:38.729Z",
+    "reviewed-cwe506": "2026-10-24T09:32:38.729Z"
   },
   "importerVersion": 3
 }
