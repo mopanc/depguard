@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-24",
+  "version": "2026-10-25",
   "packages": {
     "430155697": {
       "compromised": true,
@@ -42581,6 +42581,20 @@
           "date": "2022-06-20",
           "cve": "GHSA-472v-j237-7w59",
           "description": "Malware in @edwardjones/fetlife-assets",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@eforms/forms-api": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.0.0-SNAPSHOT",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-2cfq-pcr7-8572",
+          "description": "Malicious code in @eforms/forms-api (npm)",
           "origin": "ghsa"
         }
       ]
@@ -287693,6 +287707,34 @@
         }
       ]
     },
+    "appit-cordova-admob": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-9w8h-674f-4x2j",
+          "description": "Malware in appit-cordova-admob",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "appit-cordova-plugin-ionic": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-fr38-45mf-vcqf",
+          "description": "Malware in appit-cordova-plugin-ionic",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "appium-rn-id": {
       "compromised": true,
       "severity": "critical",
@@ -433079,6 +433121,20 @@
         }
       ]
     },
+    "cert-infos": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-8mjx-r4j6-3h6g",
+          "description": "Malware in cert-infos",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "certain-apricot-chipmunk": {
       "compromised": true,
       "severity": "critical",
@@ -547329,6 +547385,20 @@
           "date": "2026-09-04",
           "cve": "GHSA-6w4q-7ggc-rhq4",
           "description": "Malicious code in cordova-plugin-firebase-lovespace (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "cordova-plugin-geofence-appit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-5pw8-3xv5-6cmg",
+          "description": "Malware in cordova-plugin-geofence-appit",
           "origin": "ghsa"
         }
       ]
@@ -1083255,6 +1083325,34 @@
         }
       ]
     },
+    "insta-api-wrapper": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-j8vh-32vh-rj39",
+          "description": "Malware in insta-api-wrapper",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "insta-reel-search": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-v2r2-x76j-6fcx",
+          "description": "Malware in insta-reel-search",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "instacarro-sellers-appointments-api": {
       "compromised": true,
       "severity": "critical",
@@ -1101865,6 +1101963,84 @@
           "date": "2026-07-27",
           "cve": "GHSA-3g2h-fp99-98jh",
           "description": "Malicious code in ionic-insta-api-wrapper (npm)",
+          "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-65qr-q8w8-4q7r",
+          "description": "Malware in ionic-insta-api-wrapper",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ionic-insta-search": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-4fw4-xm5r-mh69",
+          "description": "Malware in ionic-insta-search",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ionic-sound-cloud-loader-api": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-g89m-8c48-9x73",
+          "description": "Malware in ionic-sound-cloud-loader-api",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ionic-tiktok-scraper": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-wwj3-4v8w-w98j",
+          "description": "Malware in ionic-tiktok-scraper",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ionic-youtube-search": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-7p9r-26fp-m47g",
+          "description": "Malware in ionic-youtube-search",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ionic-youtube-streams": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-3cc7-77mx-rmj6",
+          "description": "Malware in ionic-youtube-streams",
           "origin": "ghsa"
         }
       ]
@@ -1374493,6 +1374669,20 @@
         }
       ]
     },
+    "noelc-css-blender": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-24",
+          "cve": "GHSA-cj2x-975v-jmwf",
+          "description": "Malware in noelc-css-blender",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "nofyxtwcmpqrikae": {
       "compromised": true,
       "severity": "critical",
@@ -1379719,6 +1379909,20 @@
           "date": "2025-10-07",
           "cve": "GHSA-xqvx-9vjc-857p",
           "description": "Malware in ocp-package",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ocsp-hashes": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-9v69-fx5h-r6p6",
+          "description": "Malware in ocsp-hashes",
           "origin": "ghsa"
         }
       ]
@@ -1386699,6 +1386903,20 @@
           "date": "2024-11-14",
           "cve": "GHSA-455h-rpfq-v888",
           "description": "Malware in p-oauth2",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "p12-pem": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-74xg-w33f-jpv3",
+          "description": "Malware in p12-pem",
           "origin": "ghsa"
         }
       ]
@@ -1418809,6 +1419027,20 @@
         }
       ]
     },
+    "redis-dumper": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-8gg8-xq45-8fx5",
+          "description": "Malware in redis-dumper",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "redis-examples": {
       "compromised": true,
       "severity": "critical",
@@ -1447891,6 +1448123,20 @@
         }
       ]
     },
+    "sound-cloud-loader-api": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-5f99-52fc-5rc9",
+          "description": "Malware in sound-cloud-loader-api",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "soundcast": {
       "compromised": true,
       "severity": "critical",
@@ -1461437,6 +1461683,20 @@
         }
       ]
     },
+    "tailwind-base-buttons": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-5j43-343m-gggg",
+          "description": "Malware in tailwind-base-buttons",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tailwind-base-theme": {
       "compromised": true,
       "severity": "critical",
@@ -1463733,6 +1463993,20 @@
           "date": "2026-05-21",
           "cve": "GHSA-79mj-3g96-g96c",
           "description": "Malware in tailwindcss-theme-custom",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "tailwindcss-theme-kit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-24",
+          "cve": "GHSA-v5xr-xjx7-ggwf",
+          "description": "Malware in tailwindcss-theme-kit",
           "origin": "ghsa"
         }
       ]
@@ -1472455,6 +1472729,20 @@
           "date": "2024-12-19",
           "cve": "GHSA-9qj9-px3w-6q8h",
           "description": "Malware in tiktok-ui",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "tiktok-video-scraper": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-5xjv-xr86-9hrv",
+          "description": "Malware in tiktok-video-scraper",
           "origin": "ghsa"
         }
       ]
@@ -1524385,6 +1524673,34 @@
         }
       ]
     },
+    "youtube-info-streams": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-7mfw-r26v-9r9f",
+          "description": "Malware in youtube-info-streams",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "youtube-search-without-api-key": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-25",
+          "cve": "GHSA-f6m2-r9qr-44fx",
+          "description": "Malware in youtube-search-without-api-key",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "yplijosmvagwfcku": {
       "compromised": true,
       "severity": "critical",
@@ -1527944,10 +1528260,10 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-24T09:32:38.729Z",
+  "lastRefresh": "2026-10-25T09:49:08.998Z",
   "lastRefreshBySource": {
-    "malware": "2026-10-24T09:32:38.729Z",
-    "reviewed-cwe506": "2026-10-24T09:32:38.729Z"
+    "malware": "2026-10-25T09:49:08.998Z",
+    "reviewed-cwe506": "2026-10-25T09:49:08.998Z"
   },
   "importerVersion": 3
 }
