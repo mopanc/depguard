@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-27",
+  "version": "2026-10-28",
   "packages": {
     "430155697": {
       "compromised": true,
@@ -9149,6 +9149,14 @@
           "date": "2026-07-26",
           "cve": "GHSA-qgqm-jgj4-h5x2",
           "description": "Malicious code in 6161test1234 (npm)",
+          "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-r9qx-xcg2-7wcc",
+          "description": "Malware in 6161test1234",
           "origin": "ghsa"
         }
       ]
@@ -22553,6 +22561,20 @@
         }
       ]
     },
+    "@atlisp/mcp": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.12.14",
+          "type": "supply-chain",
+          "date": "2026-10-28",
+          "cve": "GHSA-65cr-mcfq-59hh",
+          "description": "Malware in @atlisp/mcp",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@atom8n/inspector": {
       "compromised": true,
       "severity": "critical",
@@ -22857,6 +22879,20 @@
           "date": "2022-06-20",
           "cve": "GHSA-w25h-vrxw-g3x6",
           "description": "Malware in @aznb/extension-gather",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@azure-growth/signup-ux-components": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.2.2 || = 1.2.3 || = 2.9.9",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-m8mp-r4jx-43fw",
+          "description": "Malicious code in @azure-growth/signup-ux-components (npm)",
           "origin": "ghsa"
         }
       ]
@@ -46132,6 +46168,14 @@
           "cve": "GHSA-w9wx-pxhr-p9g4",
           "description": "Malicious code in @flexmr/survey-client (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-rh7q-f888-q36c",
+          "description": "Malware in @flexmr/survey-client",
+          "origin": "ghsa"
         }
       ]
     },
@@ -46145,6 +46189,14 @@
           "date": "2026-10-16",
           "cve": "GHSA-3h5x-5663-jx9x",
           "description": "Malicious code in @flexmr/survey-conversation (npm)",
+          "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-hc8w-gq4q-fr74",
+          "description": "Malware in @flexmr/survey-conversation",
           "origin": "ghsa"
         }
       ]
@@ -46173,6 +46225,14 @@
           "date": "2026-10-15",
           "cve": "GHSA-f8pr-fqvq-vvxv",
           "description": "Malicious code in @flexmr/utils (npm)",
+          "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-hpc9-fxqh-hhf8",
+          "description": "Malware in @flexmr/utils",
           "origin": "ghsa"
         }
       ]
@@ -85047,6 +85107,20 @@
         }
       ]
     },
+    "@tableau__catalog-messages/database_lower": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-wmfr-2pvv-wmf3",
+          "description": "Malware in @tableau__catalog-messages/database_lower",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@tabrex/bs58": {
       "compromised": true,
       "severity": "critical",
@@ -87193,6 +87267,20 @@
           "date": "2026-08-29",
           "cve": "GHSA-73rf-vqvh-pc36",
           "description": "Malicious code in @testrelic/playwright-analytics (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@testsecuiitytestme/cache-helper": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.1 || = 1.0.2 || = 1.0.3",
+          "type": "supply-chain",
+          "date": "2026-10-28",
+          "cve": "GHSA-4g45-28rv-vq9q",
+          "description": "Malicious code in @testsecuiitytestme/cache-helper (npm)",
           "origin": "ghsa"
         }
       ]
@@ -94221,6 +94309,20 @@
           "date": "2026-07-27",
           "cve": "GHSA-9frp-9f8j-wj97",
           "description": "Malicious code in @webapp-next/store (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@webapp-shared/login-vmok": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0 || = 1.0.1 || = 1.1.0 || = 2.0.1 || = 3.0.0 || = 99.0.1",
+          "type": "supply-chain",
+          "date": "2026-10-28",
+          "cve": "GHSA-cmqx-q58q-9m8p",
+          "description": "Malicious code in @webapp-shared/login-vmok (npm)",
           "origin": "ghsa"
         }
       ]
@@ -207569,6 +207671,20 @@
         }
       ]
     },
+    "adyen-web-v6": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-r77r-rw3m-rjh5",
+          "description": "Malware in adyen-web-v6",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "adyenaddon": {
       "compromised": true,
       "severity": "critical",
@@ -210927,6 +211043,20 @@
           "date": "2025-03-28",
           "cve": "GHSA-9jcc-v8h4-2vhg",
           "description": "Malware in agentbse",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "agentenact": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.2.0",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-7p7m-8jmq-qp93",
+          "description": "Malware in agentenact",
           "origin": "ghsa"
         }
       ]
@@ -412025,6 +412155,20 @@
         }
       ]
     },
+    "buttoncontent": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-6crh-vwr2-4qfp",
+          "description": "Malware in buttoncontent",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "buttonfactoryserv-paypal": {
       "compromised": true,
       "severity": "critical",
@@ -429656,6 +429800,14 @@
           "cve": "GHSA-2xv5-9mfv-2368",
           "description": "Malicious code in ccl-global-shopping (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-hh3m-f424-g8v5",
+          "description": "Malware in ccl-global-shopping",
+          "origin": "ghsa"
         }
       ]
     },
@@ -429935,6 +430087,62 @@
           "date": "2025-11-05",
           "cve": "GHSA-4w4g-jxg8-g7j7",
           "description": "Malware in ccs-react-lib",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ccsec-crypto-toolkit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-2732-c6cp-rx5v",
+          "description": "Malware in ccsec-crypto-toolkit",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ccsec-form-validator": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-r889-j2qv-2jv6",
+          "description": "Malware in ccsec-form-validator",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ccsseecc-crypto-toolkit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-v9xw-mxj4-fm5q",
+          "description": "Malware in ccsseecc-crypto-toolkit",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "ccsseecc-form-validator": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-h5wr-j55v-8m79",
+          "description": "Malware in ccsseecc-form-validator",
           "origin": "ghsa"
         }
       ]
@@ -566275,6 +566483,20 @@
         }
       ]
     },
+    "csec-crypto-toolkit": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-v383-2358-576w",
+          "description": "Malware in csec-crypto-toolkit",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "csec-crypto-utils": {
       "compromised": true,
       "severity": "critical",
@@ -566299,6 +566521,34 @@
           "date": "2026-07-27",
           "cve": "GHSA-9rv5-p6m5-2pr4",
           "description": "Malicious code in csec-form-helpers (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "csec-form-validator": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-wh86-6qm8-xgw2",
+          "description": "Malware in csec-form-validator",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "csec-form-validatorr": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-ph3g-jrf5-8792",
+          "description": "Malware in csec-form-validatorr",
           "origin": "ghsa"
         }
       ]
@@ -569353,6 +569603,20 @@
           "date": "2026-09-04",
           "cve": "GHSA-8v87-x99w-6pg6",
           "description": "Malicious code in csv-ultra-wezen-astro (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "csvflow-schema": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-10-28",
+          "cve": "GHSA-mhx4-6f72-5vf7",
+          "description": "Malicious code in csvflow-schema (npm)",
           "origin": "ghsa"
         }
       ]
@@ -702463,6 +702727,20 @@
           "date": "2026-10-26",
           "cve": "GHSA-c7hg-7rf4-q54h",
           "description": "Malicious code in dsh-plugin-blender-3d (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "dsh-vm-tester": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.1.4 || = 0.1.2 || = 0.1.3",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-84fw-gj66-p5v3",
+          "description": "Malware in dsh-vm-tester",
           "origin": "ghsa"
         }
       ]
@@ -859993,6 +860271,20 @@
         }
       ]
     },
+    "fetch-hash-cache-atomic": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-w9mp-cvjp-jfqp",
+          "description": "Malware in fetch-hash-cache-atomic",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "fetch-page-assets": {
       "compromised": true,
       "severity": "critical",
@@ -893053,6 +893345,20 @@
           "date": "2024-06-04",
           "cve": "GHSA-ww28-j6wf-pgvv",
           "description": "Malware in glup-debugger-log",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "glyphmatrix-fixture": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0 || = 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-10-28",
+          "cve": "GHSA-vc33-3x34-x6jm",
+          "description": "Malware in glyphmatrix-fixture",
           "origin": "ghsa"
         }
       ]
@@ -1347597,6 +1347903,20 @@
         }
       ]
     },
+    "macro-kernel-record-reader": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-32g3-f74c-pcxq",
+          "description": "Malware in macro-kernel-record-reader",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "mad-1.0.0.2.2.8.": {
       "compromised": true,
       "severity": "critical",
@@ -1390488,6 +1390808,14 @@
           "cve": "GHSA-qg7g-2jr4-vjw8",
           "description": "Malicious code in paychex-pdftron (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-9mgv-25w8-jwhf",
+          "description": "Malware in paychex-pdftron",
+          "origin": "ghsa"
         }
       ]
     },
@@ -1430412,6 +1430740,14 @@
           "cve": "GHSA-r7h6-xjpc-v4w4",
           "description": "Malicious code in sc-announcer (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-fxw2-4j5q-6hwg",
+          "description": "Malware in sc-announcer",
+          "origin": "ghsa"
         }
       ]
     },
@@ -1430537,6 +1430873,14 @@
           "date": "2026-10-25",
           "cve": "GHSA-p6gr-jpmq-4hjq",
           "description": "Malicious code in sc-hydrate-carousel-price (npm)",
+          "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-9gcx-88qx-rxch",
+          "description": "Malware in sc-hydrate-carousel-price",
           "origin": "ghsa"
         }
       ]
@@ -1456495,6 +1456839,20 @@
           "date": "2025-09-15",
           "cve": "GHSA-wxx7-r3f9-m7v2",
           "description": "Malware in string-setup-helper",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "string-target-mapper-hash": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-10-27",
+          "cve": "GHSA-wfcx-722r-fg5h",
+          "description": "Malware in string-target-mapper-hash",
           "origin": "ghsa"
         }
       ]
@@ -1529260,10 +1529618,10 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-27T10:34:06.682Z",
+  "lastRefresh": "2026-10-28T11:20:52.920Z",
   "lastRefreshBySource": {
-    "malware": "2026-10-27T10:34:06.682Z",
-    "reviewed-cwe506": "2026-10-27T10:34:06.682Z"
+    "malware": "2026-10-28T11:20:52.920Z",
+    "reviewed-cwe506": "2026-10-28T11:20:52.920Z"
   },
   "importerVersion": 3
 }
