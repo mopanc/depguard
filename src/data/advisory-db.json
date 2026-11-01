@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-31",
+  "version": "2026-11-01",
   "packages": {
     "430155697": {
       "compromised": true,
@@ -22935,6 +22935,20 @@
           "date": "2025-11-25",
           "cve": "GHSA-726p-qgrh-hh53",
           "description": "Malware in @axinom/mosaic-cli",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@axon-web/icons": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 99.0.0",
+          "type": "supply-chain",
+          "date": "2026-11-01",
+          "cve": "GHSA-jh68-cxw4-pfj2",
+          "description": "Malicious code in @axon-web/icons (npm)",
           "origin": "ghsa"
         }
       ]
@@ -60345,6 +60359,20 @@
           "date": "2026-06-12",
           "cve": "GHSA-636m-vpq6-g454",
           "description": "Malware in @malwguy/ecto-corsair-whisper-3d2a7c",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@mamans2973/maman": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.2 || = 1.0.3 || = 1.0.0 || = 1.0.1",
+          "type": "supply-chain",
+          "date": "2026-10-31",
+          "cve": "GHSA-fg5w-8hhw-8j6h",
+          "description": "Malware in @mamans2973/maman",
           "origin": "ghsa"
         }
       ]
@@ -1008109,6 +1008137,20 @@
         }
       ]
     },
+    "hs-framework": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 999.9.1 || = 999.9.2",
+          "type": "supply-chain",
+          "date": "2026-11-01",
+          "cve": "GHSA-mmpx-xm69-xmv9",
+          "description": "Malicious code in hs-framework (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "hs-inflamable-too": {
       "compromised": true,
       "severity": "critical",
@@ -1530646,10 +1530688,10 @@
       ]
     }
   },
-  "lastRefresh": "2026-10-31T10:56:13.292Z",
+  "lastRefresh": "2026-11-01T11:51:16.968Z",
   "lastRefreshBySource": {
-    "malware": "2026-10-31T10:56:13.292Z",
-    "reviewed-cwe506": "2026-10-31T10:56:13.292Z"
+    "malware": "2026-11-01T11:51:16.968Z",
+    "reviewed-cwe506": "2026-11-01T11:51:16.968Z"
   },
   "importerVersion": 3
 }
