@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-07",
+  "version": "2026-11-08",
   "packages": {
     "430155697": {
       "compromised": true,
@@ -53143,6 +53143,20 @@
           "date": "2022-06-20",
           "cve": "GHSA-2pq5-8p83-c8q3",
           "description": "Malware in @hrsites/fb-with-city-suggests",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@htooayelwinict/travis234": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 3.3.2",
+          "type": "supply-chain",
+          "date": "2026-11-08",
+          "cve": "GHSA-r6cf-96rv-f56v",
+          "description": "Malware in @htooayelwinict/travis234",
           "origin": "ghsa"
         }
       ]
@@ -1535012,10 +1535026,10 @@
       ]
     }
   },
-  "lastRefresh": "2026-11-07T11:44:12.089Z",
+  "lastRefresh": "2026-11-08T11:56:42.787Z",
   "lastRefreshBySource": {
-    "malware": "2026-11-07T11:44:12.089Z",
-    "reviewed-cwe506": "2026-11-07T11:44:12.089Z"
+    "malware": "2026-11-08T11:56:42.787Z",
+    "reviewed-cwe506": "2026-11-08T11:56:42.787Z"
   },
   "importerVersion": 3
 }
