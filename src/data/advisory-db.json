@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-08",
+  "version": "2026-11-09",
   "packages": {
     "430155697": {
       "compromised": true,
@@ -32822,6 +32822,14 @@
           "cve": "GHSA-qw2c-ff44-52xq",
           "description": "Malicious code in @devmikets/hyperliquid-sdk (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-11-09",
+          "cve": "GHSA-c2g6-qg53-pvqq",
+          "description": "Malware in @devmikets/hyperliquid-sdk",
+          "origin": "ghsa"
         }
       ]
     },
@@ -45329,6 +45337,20 @@
         }
       ]
     },
+    "@ethersphere/bee-js": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 13.3.0",
+          "type": "supply-chain",
+          "date": "2026-11-09",
+          "cve": "GHSA-hh7j-5m3j-23pf",
+          "description": "Malware in @ethersphere/bee-js",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@ethlete/cdk": {
       "compromised": true,
       "severity": "critical",
@@ -51665,6 +51687,20 @@
           "date": "2026-07-27",
           "cve": "GHSA-76cg-jp79-588m",
           "description": "Malicious code in @heartlandone-private/fontawesome-pro (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@hello.nrfcloud.com/proto-map": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 18.1.0 || = 18.0.0",
+          "type": "supply-chain",
+          "date": "2026-11-09",
+          "cve": "GHSA-mc5j-m8rr-4m27",
+          "description": "Malware in @hello.nrfcloud.com/proto-map",
           "origin": "ghsa"
         }
       ]
@@ -73793,6 +73829,14 @@
           "date": "2026-08-14",
           "cve": "GHSA-xq4g-rv84-pcvv",
           "description": "Malicious code in @polymarkets/clob-client-v2 (npm)",
+          "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-11-09",
+          "cve": "GHSA-j4hq-4959-hgrr",
+          "description": "Malware in @polymarkets/clob-client-v2",
           "origin": "ghsa"
         }
       ]
@@ -977376,6 +977420,14 @@
           "cve": "GHSA-7mhg-447r-w46p",
           "description": "Malicious code in hello-world-pkg-value-value-p (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-11-09",
+          "cve": "GHSA-chvv-hm7h-5fvc",
+          "description": "Malware in hello-world-pkg-value-value-p",
+          "origin": "ghsa"
         }
       ]
     },
@@ -1096690,6 +1096742,14 @@
           "cve": "GHSA-7jh3-5frg-mhj3",
           "description": "Malicious code in internal-company-module-test-1337 (npm)",
           "origin": "ghsa"
+        },
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-11-09",
+          "cve": "GHSA-c9wj-j3q9-23f2",
+          "description": "Malware in internal-company-module-test-1337",
+          "origin": "ghsa"
         }
       ]
     },
@@ -1207151,6 +1207211,20 @@
           "date": "2026-09-17",
           "cve": "GHSA-vrmm-4r2v-4jwg",
           "description": "Malicious code in kaerwzyhlkngvxic (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "kafbail": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 2.0.12 || = 2.0.13 || = 2.0.14",
+          "type": "supply-chain",
+          "date": "2026-11-09",
+          "cve": "GHSA-r9ff-73cq-qq8f",
+          "description": "Malware in kafbail",
           "origin": "ghsa"
         }
       ]
@@ -1442627,6 +1442701,20 @@
         }
       ]
     },
+    "seolibs-package": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-11-09",
+          "cve": "GHSA-87pq-f724-32pv",
+          "description": "Malware in seolibs-package",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "separadordeinfocc": {
       "compromised": true,
       "severity": "critical",
@@ -1490187,6 +1490275,20 @@
         }
       ]
     },
+    "u-chan-secrets": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 5.2.1 || = 5.2.2",
+          "type": "supply-chain",
+          "date": "2026-11-09",
+          "cve": "GHSA-44c7-vxrp-h5fq",
+          "description": "Malware in u-chan-secrets",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "u-workflow.auth": {
       "compromised": true,
       "severity": "critical",
@@ -1535026,10 +1535128,10 @@
       ]
     }
   },
-  "lastRefresh": "2026-11-08T11:56:42.787Z",
+  "lastRefresh": "2026-11-09T13:54:43.944Z",
   "lastRefreshBySource": {
-    "malware": "2026-11-08T11:56:42.787Z",
-    "reviewed-cwe506": "2026-11-08T11:56:42.787Z"
+    "malware": "2026-11-09T13:54:43.944Z",
+    "reviewed-cwe506": "2026-11-09T13:54:43.944Z"
   },
   "importerVersion": 3
 }
