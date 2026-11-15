@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-14",
+  "version": "2026-11-15",
   "packages": {
     "430155697": {
       "compromised": true,
@@ -31635,6 +31635,20 @@
           "date": "2025-09-16",
           "cve": "GHSA-f679-rpph-9qxf",
           "description": "Malware in @crowdstrike/tailwind-toucan-base",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@crvouga/mockingbird-service-microsoft": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 0.14.0",
+          "type": "supply-chain",
+          "date": "2026-11-15",
+          "cve": "GHSA-w3gq-mm9x-7w7c",
+          "description": "Malware in @crvouga/mockingbird-service-microsoft",
           "origin": "ghsa"
         }
       ]
@@ -91287,6 +91301,20 @@
           "date": "2026-11-12",
           "cve": "GHSA-6pvq-qv2f-m682",
           "description": "Malware in @theguyswithaball/scrambler",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@theholocron/holocron-plugin-discord": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 5.0.0-alpha.436",
+          "type": "supply-chain",
+          "date": "2026-11-15",
+          "cve": "GHSA-95pv-hv63-58m8",
+          "description": "Malware in @theholocron/holocron-plugin-discord",
           "origin": "ghsa"
         }
       ]
@@ -1392731,6 +1392759,20 @@
         }
       ]
     },
+    "node-zserial": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.42",
+          "type": "supply-chain",
+          "date": "2026-11-15",
+          "cve": "GHSA-2p2h-g9qq-v2wx",
+          "description": "Malware in node-zserial",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "node_cryptography": {
       "compromised": true,
       "severity": "critical",
@@ -1491765,6 +1491807,20 @@
         }
       ]
     },
+    "testpackage83": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0",
+          "type": "supply-chain",
+          "date": "2026-11-14",
+          "cve": "GHSA-ccgw-9w4v-vqh2",
+          "description": "Malicious code in testpackage83 (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "testpackagehere": {
       "compromised": true,
       "severity": "critical",
@@ -1551262,10 +1551318,10 @@
       ]
     }
   },
-  "lastRefresh": "2026-11-14T12:12:10.451Z",
+  "lastRefresh": "2026-11-15T12:45:15.035Z",
   "lastRefreshBySource": {
-    "malware": "2026-11-14T12:12:10.451Z",
-    "reviewed-cwe506": "2026-11-14T12:12:10.451Z"
+    "malware": "2026-11-15T12:45:15.035Z",
+    "reviewed-cwe506": "2026-11-15T12:45:15.035Z"
   },
   "importerVersion": 3
 }
