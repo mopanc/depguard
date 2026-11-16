@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-15",
+  "version": "2026-11-16",
   "packages": {
     "430155697": {
       "compromised": true,
@@ -95151,6 +95151,20 @@
         }
       ]
     },
+    "@univerjs-pro/sheets-pivot-chart": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.5.0 || = 1.5.1",
+          "type": "supply-chain",
+          "date": "2026-11-16",
+          "cve": "GHSA-h6jf-g8cj-x4v3",
+          "description": "Malware in @univerjs-pro/sheets-pivot-chart",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "@universeorg/dotenv": {
       "compromised": true,
       "severity": "critical",
@@ -100865,6 +100879,20 @@
           "date": "2025-12-19",
           "cve": "GHSA-jg82-rrfm-828g",
           "description": "Malware in @xyuxu/i18never",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "@xzvbailss/baileys": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.0.0 || = 5.0.0 || = 6.0.0",
+          "type": "supply-chain",
+          "date": "2026-11-16",
+          "cve": "GHSA-grg7-4c3w-pv5j",
+          "description": "Malicious code in @xzvbailss/baileys (npm)",
           "origin": "ghsa"
         }
       ]
@@ -367067,6 +367095,20 @@
           "date": "2026-11-10",
           "cve": "GHSA-h7rw-9g85-8gfg",
           "description": "Malicious code in baileys-akiko (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "baileys-clean": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 7.3.2",
+          "type": "supply-chain",
+          "date": "2026-11-16",
+          "cve": "GHSA-72cg-f236-g9g4",
+          "description": "Malicious code in baileys-clean (npm)",
           "origin": "ghsa"
         }
       ]
@@ -1024471,6 +1024513,34 @@
         }
       ]
     },
+    "hstdemotest": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.3.0",
+          "type": "supply-chain",
+          "date": "2026-11-16",
+          "cve": "GHSA-g3w3-wrvj-rr9w",
+          "description": "Malicious code in hstdemotest (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
+    "hstdemotests": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 1.3.0",
+          "type": "supply-chain",
+          "date": "2026-11-16",
+          "cve": "GHSA-v63h-mgc2-6vj4",
+          "description": "Malicious code in hstdemotests (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "hstester": {
       "compromised": true,
       "severity": "critical",
@@ -1416359,6 +1416429,20 @@
         }
       ]
     },
+    "pmhq-dist-win-x64": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "= 9.0.2",
+          "type": "supply-chain",
+          "date": "2026-11-16",
+          "cve": "GHSA-xxrh-88wg-7qf4",
+          "description": "Malware in pmhq-dist-win-x64",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "pmmmwh": {
       "compromised": true,
       "severity": "critical",
@@ -1492717,6 +1492801,20 @@
         }
       ]
     },
+    "tg-msg-effect": {
+      "compromised": true,
+      "severity": "critical",
+      "incidents": [
+        {
+          "version": "all",
+          "type": "supply-chain",
+          "date": "2026-11-16",
+          "cve": "GHSA-79jw-734h-5fvr",
+          "description": "Malicious code in tg-msg-effect (npm)",
+          "origin": "ghsa"
+        }
+      ]
+    },
     "tg-redbird": {
       "compromised": true,
       "severity": "critical",
@@ -1551318,10 +1551416,10 @@
       ]
     }
   },
-  "lastRefresh": "2026-11-15T12:45:15.035Z",
+  "lastRefresh": "2026-11-16T13:39:22.963Z",
   "lastRefreshBySource": {
-    "malware": "2026-11-15T12:45:15.035Z",
-    "reviewed-cwe506": "2026-11-15T12:45:15.035Z"
+    "malware": "2026-11-16T13:39:22.963Z",
+    "reviewed-cwe506": "2026-11-16T13:39:22.963Z"
   },
   "importerVersion": 3
 }
